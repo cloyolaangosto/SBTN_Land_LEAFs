@@ -1,0 +1,95 @@
+country,impact_category,flow_name,Unit,cf,cf_median,cf_std
+Mozambique,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,7.067562186892483,5.155267245724367,3.4388319627298807
+Rwanda,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,24.97004554857445,24.97004554857445,0.0
+Somalia,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,3.2480337902374443,3.2480337902374443,0.0
+Kenya,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,42.410236736374564,12.001218988478167,66.34918050237405
+South Sudan,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,3.657418831201552,3.175088696804849,1.6520528564476404
+United Republic of Tanzania,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,25.704952471867337,8.989237411300254,48.18061702333205
+Ethiopia,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,35.049569822390346,9.74606428780517,56.49436293215788
+Eritrea,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,2.052387613071096,1.4846178454944146,1.784183520423524
+Burundi,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,194.1199155654474,194.11991556544743,2.842170943040401e-14
+Sudan,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,3.4822561118272946,2.67945690715015,0.8027992046771442
+South Africa,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,13.868011669198578,4.630665280681607,27.878789814182248
+Botswana,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,2.0486450840902446,1.7462412420031108,1.0471194771016923
+Mauritania,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,2.443070186207502,1.4699991989420065,5.879382111145569
+Mali,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,1.8580327998650203,1.8580327998650203,0.0
+Mexico,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,36.306080403867156,10.45552293333523,60.89413131939426
+Honduras,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,58.81269834939627,58.81269834939627,0.0
+Guatemala,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,87.33129126512391,39.293366131567645,115.16228580286516
+United States of America,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,11.155543736914483,5.065613806398174,20.0371870403428
+Colombia,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,13.52899592823941,13.52899592823941,0.0
+Ecuador,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,135.71425800871376,58.58352449762753,196.70423983005966
+Paraguay,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,12.641320012018372,2.7945242730403237,15.689899855216424
+Uruguay,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,4.993423867425176,4.993423867425176,0.0
+Peru,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,68.0996990756658,30.82832828552984,96.90998851518106
+Chile,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,21.028307139374494,10.38925769850792,28.356862432929308
+Brazil,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,26.363084872751863,16.29788900935177,26.70284387183505
+Bolivia,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,65.78212166797759,18.705104919582418,102.88570189906326
+Argentina,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,6.718226199341468,3.2232029045560107,18.258508974091203
+Turkmenistan,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,3.6504594388779736,0.14221944491900074,4.049626244523265
+Uzbekistan,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,4.092391674048677,0.5596899604461775,9.8022465002151
+Tajikistan,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,24.30895496230858,15.48191102869403,25.058274076603528
+Kyrgyzstan,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,18.515567691756754,10.79668914654026,21.741217615188397
+Kazakhstan,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,1.1143800596487392,0.3402434061201442,4.969171832735368
+Mongolia,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,10.48636849394096,1.2754598755647741,14.5124817169241
+Republic of Korea,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,133.90637077570506,112.31111193549509,117.3536455219505
+Dem People's Rep of Korea,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,80.04024596324822,47.81560389014238,82.86277681057506
+China,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,45.84944957315934,10.428427263623966,85.97893545189204
+Myanmar,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,122.67734031622297,127.12961334821284,69.51566061424347
+Viet Nam,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,326.3367012203225,163.5742916459091,256.46022451109167
+Lao People's Democratic Republic,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,142.86510984510213,115.60599390738302,27.259115937719105
+Thailand,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,105.27890692422494,87.7156163332736,86.3689117467098
+Nepal,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,143.4507152993103,97.36067606772974,148.29734306704208
+Pakistan,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,23.83370930239812,4.452922630631406,51.2026121593978
+India,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,30.9497987317242,7.17729132012645,75.53371384909902
+Iran  (Islamic Republic of),se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,4.977977249420437,1.1117520108707848,10.304352747626238
+Jammu and Kashmir,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,86.31522417295945,58.452470215619535,82.98959037147414
+Bhutan,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,312.347588409301,286.19563474821354,242.04898664186157
+Bangladesh,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,67.90692150849367,20.779540058477995,74.3220813594982
+Arunachal Pradesh,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,285.6013674655479,195.3677584562649,253.3240264512037
+Afghanistan,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,22.430903449255325,6.181167087160626,34.73942403449559
+West Bank,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,0.9769214097684007,0.3894516580390411,0.5874697517293597
+Lebanon,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,9.50660000699319,9.50660000699319,0.0
+Saudi Arabia,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,4.681314335236013,1.0343255197786456,5.686461755261885
+Turkey,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,9.223399859820189,4.158084266048169,13.196750396927003
+Yemen,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,13.752152984686496,5.157381187847429,19.449952493866014
+Iraq,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,9.323485507956242,2.2442546035120348,15.78904599427292
+Jordan,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,1.8122760873617492,1.4568826105045918,2.019256142236384
+Syrian Arab Republic,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,5.195880456691753,0.5971381837558494,17.739471411255085
+Israel,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,6.85419990831549,2.196549388723812,9.326572257559299
+Georgia,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,30.148730133534485,11.643492807791109,43.515368316504386
+Azerbaijan,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,11.603777060433345,2.1877463049866104,18.024361945170348
+Armenia,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,13.737838345942983,10.742834471439329,12.572914536005067
+"Moldova, Republic of",se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,3.369626227811587,2.6750507421419623,2.795030910424085
+Hungary,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,2.028006336078358,0.9393858893489058,3.159124389496033
+Poland,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,1.2897283608179273,0.5955038396524087,2.592960333543693
+Romania,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,5.790197250138149,2.6894837903695685,6.79166359946412
+Ukraine,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,1.5837907585489837,0.7660680566355237,3.1245257624419525
+Belarus,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,0.6557671589464088,0.5328670723161975,0.4297672880215337
+Czech Republic,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,6.184511208311088,1.3870439995406785,7.072200322205908
+Russian Federation,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,3.4475058849386886,0.7225303140568246,8.249026901409987
+Slovakia,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,8.749461837181384,4.75870888446847,10.296374546337809
+Bulgaria,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,7.657763889040965,4.438070468443302,8.10645845298432
+Lithuania,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,1.0153629000175095,1.0581084646010244,0.47856227235106985
+Finland,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,1.4706291736425887,1.4706291736425887,0.0
+The former Yugoslav Republic of Macedonia,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,17.488882222237187,10.345464897789268,20.571321450485136
+Montenegro,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,79.41729296197674,79.41729296197674,0.0
+Croatia,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,13.879491244965493,6.065074847833787,18.772477804987634
+Slovenia,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,18.401477225677073,18.401477225677073,0.0
+Greece,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,22.59884537441253,13.103064018604323,25.535620856223662
+Italy,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,28.964168923177198,14.794879256139064,35.046599967209154
+Portugal,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,9.607109866367798,4.051973497818277,19.013024815234544
+Serbia,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,7.458595601952231,1.2424622259573872,16.686139752845314
+Spain,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,11.738800440033303,3.8551331755160185,19.248128444200102
+Bosnia and Herzegovina,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,6.398935799685787,3.1404205079021454,3.2585152917836413
+Albania,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,46.39953483135287,32.730984928506565,40.27301967108787
+Netherlands,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,0.5409604757296798,0.45568042396359293,0.2676279173834626
+Luxembourg,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,1.5423854431383293,1.5423854431383293,0.0
+France,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,8.604079166230619,1.730341833157508,18.757171875517155
+Germany,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,3.3000004660081497,1.0793530337331807,7.619590843947174
+Switzerland,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,15.505660783465913,8.961367359395986,15.8664715237107
+Belgium,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,1.564121305778768,0.6809068729813933,2.4350554348793643
+Austria,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,8.149584040454974,4.028616852040506,9.980221763385124
+New Zealand,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,39.03188578824005,12.876530715071967,58.314411849171705
+Australia,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,6.8863053773384975,1.4909794553914593,20.314597830747577
+Canada,se_rate,Irrigated_Barley_residues_removed_from_the_field.tif,t soil/ha/yr,3.9157315599174263,1.4290015243189822,8.364514864240308

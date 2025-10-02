@@ -1,0 +1,60 @@
+country,impact_category,flow_name,Unit,cf,cf_median,cf_std
+Morocco,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.14192148103107985,0.03956986135069503,0.22976309329549915
+Libya,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.02285363158852065,0.0078124714436216105,0.030344844719448275
+Tunisia,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.06742873460635318,0.01757555737334554,0.13666000990160806
+Algeria,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.09549450415191812,0.019631591205756166,0.18932047187344736
+Namibia,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.5709073824882812,0.014620588708855764,0.5562867937794255
+Swaziland,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.0981458941233692,0.05564197082317141,0.044309632240391916
+Lesotho,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.6782814148137819,0.5732947779961801,0.5006639984784144
+South Africa,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.17422118133127631,0.05637654058055308,0.34199282560437744
+Botswana,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.014917033300513,0.01338447108350551,0.004959086710363584
+Mexico,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.1740262299381281,0.05656093573194837,0.31097941225360554
+United States of America,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.17646414100099764,0.09335312408064837,0.27970487691875356
+Paraguay,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.27883845604327406,0.14334993261271423,0.4093406754690793
+Uruguay,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.11615870647780001,0.0912158626867049,0.09649389913479503
+Chile,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.4156096436246751,0.20285209501411638,0.5983288862287496
+Brazil,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.7732181572205971,0.33468477306705374,1.0704257320032398
+Argentina,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.08793402962966278,0.04600602986615242,0.235876689997024
+Turkmenistan,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.06050622924533988,0.026882796753486968,0.09462104860903148
+Uzbekistan,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.15187975743314241,0.04892627834788701,0.2243466385810207
+Tajikistan,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.3923011543454831,0.28290922854482886,0.371711458453411
+Taiwan,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,4.163080195434046,3.6153583025233895,3.784336653841871
+Republic of Korea,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.2533686111087125,0.12386539104706479,0.12950322006164772
+Japan,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,4.60736944391725,3.3486528957034003,4.561306107839488
+China,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,1.145270735895853,0.49045347241669207,1.6364774483733853
+China/India,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.32544533689348837,0.13071392817804342,0.1947314087154449
+Myanmar,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,3.230300729043608,2.4005932929518092,2.8111010238460237
+Viet Nam,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,3.6998467280360763,2.6640112242667104,3.892353883013483
+Nepal,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,2.070516845926494,1.3314353540784658,2.186075312679874
+Pakistan,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.35020349006380547,0.07176822149071889,0.7280016307776676
+India,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.5124875817651043,0.09972053672377922,1.3487621572853727
+Iran  (Islamic Republic of),se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.07848827390896612,0.015744661268820664,0.1759959516874621
+Jammu and Kashmir,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,1.1431220682508947,0.841905906839832,1.1140371860816545
+Bhutan,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,3.6752223033382165,2.0449630707830084,3.66654082673299
+Bangladesh,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.23709809643568303,0.2089577015360736,0.08648563726178082
+Arunachal Pradesh,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,4.360142302044315,2.9305163586489336,3.9868042074094276
+Afghanistan,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.34533747135473,0.09433217248353644,0.5423611207750136
+West Bank,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.2099121407540133,0.07572306949579123,0.2572886161507171
+Lebanon,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.6719347091354848,0.2610031887381544,0.908543964261909
+Turkey,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.16088532386542517,0.0763620576846652,0.22178722157912517
+Iraq,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.13525504516950837,0.029297991496704003,0.2352621578569548
+Jordan,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.059974329635340676,0.035091820704633306,0.0626545494678872
+Syrian Arab Republic,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.0777532281344109,0.00898915391479558,0.2652850281613887
+Israel,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.09773123419068964,0.03294824062628758,0.1375620411203113
+Georgia,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.7574567896406432,0.3292317242643374,0.8800993866887051
+Cyprus,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.10422437451002779,0.05185351279681815,0.11124594849823256
+Azerbaijan,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.30955046321983243,0.2430627453807057,0.1502190227833755
+Russian Federation,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.83423454899282,0.6297063973529284,0.20452815163989158
+The former Yugoslav Republic of Macedonia,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.8342258511440543,1.0651873600797106,0.5620791686898178
+Montenegro,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.3440785722349242,0.2646883083524428,0.32056924648114865
+Croatia,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.36892152896026537,0.18038853494707313,0.41251832422421647
+Greece,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.39197678525003593,0.26818457728904976,0.4027102241574938
+Italy,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.45338455370415837,0.26227252162907516,0.5119779698421305
+Portugal,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.14394067681660205,0.061241654970107785,0.2845087974361794
+Spain,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.17608200550723857,0.05782699727370303,0.2887219248703799
+Bosnia and Herzegovina,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.7017321341278336,0.5091267343607798,0.7688216652459919
+Albania,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.6569799621286923,0.4301072881165741,0.5891376932067539
+France,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.39214712035893917,0.1712176749201175,0.4632487109716931
+Switzerland,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,1.1621027507849628,0.9429895657486186,0.873351822630818
+New Zealand,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.6962983357593273,0.3214112924438188,0.9426079062758589
+Australia,se_rate,Broadleaf_Deciduous_Subtropical.tif,t soil/ha/yr,0.07458994828506053,0.015907406626058707,0.2535228074837235

@@ -1,0 +1,118 @@
+country,impact_category,flow_name,Unit,cf,cf_median,cf_std
+Mozambique,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,13.42162079714973,5.58484756262781,31.54062841767515
+Malawi,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,8.015539794398784,6.260878271246208,2.6821514930065473
+Rwanda,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,51.73576030036873,36.16010079554238,51.77640061931651
+Somalia,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,1.676995512573982,1.4086639542130115,0.5443384527134593
+Zambia,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,8.577622604174204,5.014247865435891,14.108018091646754
+Kenya,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,8.645523837032608,2.818202958826367,19.224787528534062
+Madagascar,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,49.65199024855748,19.90116233564877,77.27812990350365
+South Sudan,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,4.855626057597559,2.9237864530808433,11.885410839481748
+United Republic of Tanzania,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,19.74151992771191,6.654906775997962,36.85262799096927
+Zimbabwe,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,12.364842602631697,5.088363620923929,26.522368967601572
+Ilemi triangle,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,3.263063235684016,3.263063235684016,0.0
+Ethiopia,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,24.696138000515855,6.628542481475591,40.842246902594674
+Burundi,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,145.58994028985072,145.58994028985072,0.0
+Gabon,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,17.307278964460902,20.07243516558353,6.85952828198048
+Chad,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,3.6051431113720165,2.8976593016816206,0.7074838096903961
+Congo,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,18.488249777009813,10.481814292154414,21.847637724530315
+Democratic Republic of the Congo,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,21.473323714628968,11.284447461933585,31.108743722177127
+Cameroon,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,13.617391237963531,12.497650744745822,1.6601205537725359
+Central African Republic,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,8.825249188686369,6.3082124665089285,9.402432551308724
+Angola,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,44.53723590540372,43.49168190167088,36.90682475007399
+Morocco,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,7.096074271845121,1.9784931289552599,11.488155021414215
+Libya,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,1.1426816148995371,0.3906235843076321,1.5172422830738115
+Sudan,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,2.4375595568440622,1.538400891069446,6.330902259217976
+Tunisia,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,3.3966062385710956,0.8787778959481324,6.856397698909629
+Algeria,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,4.794837795520581,0.9829418657507997,9.483282602381095
+Abyei,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,2.0028202839512446,1.7659535557533461,0.5437554402924506
+Namibia,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,1.9205985596383244,1.6955266395648234,0.9241138082522052
+Swaziland,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,36.02942447565737,25.55977318516885,33.71903990586805
+South Africa,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,11.323244330599504,3.963959069203767,21.951633623734597
+Botswana,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,1.561294224586628,1.3294346776568904,0.904272699943038
+Togo,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,15.198844255730638,6.816880506001987,35.65976908503798
+Senegal,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,3.1962525146314795,2.5290872067940042,2.818598622420615
+Nigeria,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,8.113513506848522,8.113513506848522,0.0
+Mali,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,5.8020955949466675,3.3919021868794497,9.762730088997227
+Liberia,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,29.528210845551087,18.40588684314608,34.17853258041871
+Guinea-Bissau,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,5.7964910937345975,5.400983052613386,2.9287655601344507
+Guinea,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,13.07513283726261,10.972577973082318,6.188700524986128
+Ghana,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,14.649536925747112,8.854904677315869,20.501862215580644
+Côte d'Ivoire,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,14.783317078563861,9.556833673596246,22.920448029202127
+Burkina Faso,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,4.455427980242671,3.539569922376865,2.675543238248757
+Benin,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,6.802531595715314,5.830564376896196,5.470972187871046
+Dominican Republic,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,53.11008155345013,20.082666284840766,64.84946028407846
+Martinique,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,90.60819651254495,90.60819651254495,0.0
+Cuba,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,33.766486446214785,9.34550721875459,70.59730653653529
+Jamaica,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,103.22289124743392,85.63486114525901,104.99064837677876
+Trinidad and Tobago,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,62.212137867145,13.780009895904362,100.97887310578213
+Bahamas,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,6.796036842511525,6.083786313497574,3.2120579594873737
+Haiti,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,124.7141107734076,74.76993219086765,139.08016356612657
+Puerto Rico,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,64.71170294498587,28.55445054209733,72.56086460024248
+Panama,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,141.7221747089148,84.30833380997876,174.2118909974511
+El Salvador,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,81.1192449555554,43.322582591004604,100.32202578311166
+Nicaragua,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,46.79272634825373,19.605329921396986,58.19145909905817
+Mexico,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,28.188664933877916,8.463165232053262,46.54839231757049
+Honduras,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,84.76030374568124,65.24963673542703,84.34191734665801
+Guatemala,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,65.436406248182,33.24552787897277,82.22487682395001
+Costa Rica,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,125.02383105668689,56.300151490440065,156.29565091333015
+Belize,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,46.37699174851121,18.246426698217924,62.679571069089334
+United States of America,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,9.145858056546501,4.947910018713765,15.09181031341274
+Colombia,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,65.47313897963963,15.191709246828914,115.09659777054415
+Guyana,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,24.138326389415507,11.225547203270745,36.541266922593486
+Ecuador,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,90.70807643204589,34.086636534780354,138.92925251381848
+French Guiana,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,42.907748071890396,28.59667603685162,38.565664632476974
+Paraguay,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,7.070499740603215,3.7002075383738253,11.741241580238876
+Suriname,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,25.487416969844627,14.27639938295196,31.040494842051316
+Uruguay,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,5.8079355041920415,4.560793275920897,4.824695106517995
+Venezuela,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,46.702775931539705,13.469140383527087,75.88348058067322
+Peru,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,53.749316649125724,23.262853170826986,76.21929362156985
+Chile,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,14.795889327061943,6.857670009022024,18.456284166101646
+Brazil,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,23.49162065919233,11.622619350618923,35.52353282159031
+Bolivia,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,32.366955097531005,8.035933949484752,62.080468505610014
+Argentina,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,5.758382574831727,2.4907172840683858,15.405463551519054
+Turkmenistan,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,5.39992999989897,3.332309208000063,2.0676207918989076
+Taiwan,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,223.22182563616767,198.571094902404,179.13226794311677
+Japan,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,234.89982987759737,173.71202297536547,228.8853168579429
+China,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,72.9197319821852,41.48593614905694,87.05809174941345
+Myanmar,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,105.372118058536,99.97631681808672,50.7013600101142
+Cambodia,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,32.40944440930168,11.982278015869904,71.71048969558478
+Viet Nam,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,130.20470271171465,74.26286514273973,148.40477170714837
+Lao People's Democratic Republic,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,107.19296580681328,86.15402018145653,98.5391453528671
+Malaysia,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,100.08439160110869,71.93391545620858,97.03809201516239
+Thailand,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,49.40633124963756,13.744647836961892,69.71585694247392
+Brunei Darussalam,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,56.40869323481428,8.619937703748818,84.43176053262933
+Philippines,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,98.47629821286745,50.68862588029237,120.04855734790844
+Indonesia,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,96.28337720409985,30.514066036959417,137.72477108347908
+Timor-Leste,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,142.1172074276058,90.89428960922564,153.2053848503093
+Nepal,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,107.61539130677997,73.0205088642812,111.19842338637697
+Pakistan,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,32.193375752461456,8.939230214865724,50.5607309813429
+India,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,25.05668011749672,5.733471455813748,59.03791158319435
+Iran  (Islamic Republic of),se_rate,Irrigated_Oranges.tif,t soil/ha/yr,3.522105613584816,0.5754652378412305,8.6609071638214
+Jammu and Kashmir,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,66.74680953154383,46.85507268889804,61.57496778627119
+Sri Lanka,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,62.03205938946998,10.101654940097026,96.00684665015996
+Bhutan,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,238.35323786741355,214.64673139196918,189.28731912696676
+Bangladesh,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,19.867692334607824,10.84007402130776,40.449335177352125
+Arunachal Pradesh,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,224.51115030476677,159.61203775968147,196.02256505445845
+Afghanistan,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,12.868778240292187,4.086359579096816,20.792763699212994
+West Bank,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,10.495607363527188,3.786153592327234,12.864431206900347
+Lebanon,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,36.71857454365833,15.211052831064663,47.01628233545436
+Turkey,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,7.985330149185484,3.8181030027627725,10.898476326677878
+Jordan,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,3.507244039318208,3.6294920810524234,3.3484855136457017
+Syrian Arab Republic,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,3.9087597234139992,0.44785364893945223,13.302400957140199
+Israel,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,4.886561861233322,1.647412082456779,6.878102269539952
+Georgia,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,33.268952755543275,15.66609677276874,41.10209315856425
+Cyprus,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,5.21121888727891,2.592675720328152,5.562297597588065
+Croatia,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,19.167631623822572,9.019427027353512,21.166165841410674
+Greece,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,19.464925324384378,13.409229280729736,19.922402531554713
+Italy,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,22.297605787746686,12.79311932930391,25.31347737353174
+Portugal,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,7.2053325787222136,3.0389801988375944,14.259768965571086
+Spain,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,8.662409939596756,2.875413222080757,14.222898897693725
+Bosnia and Herzegovina,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,4.558367515978254,1.873646533470396,2.684720982507858
+Albania,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,29.519954784768462,18.98066760210881,28.05127100829138
+France,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,7.616713216643687,1.403794293903309,15.702774264911872
+Switzerland,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,8.493979672449587,6.721025686465461,6.1426984815630865
+Belgium,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,7.179889839732631,7.179889839732631,0.0
+New Zealand,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,32.130464145277536,14.598988463547752,41.00731534506554
+Australia,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,5.406468130372963,1.4139956527841282,15.38617463103034
+New Caledonia,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,195.15976011529887,79.31448721340863,201.6277539537165
+Fiji,se_rate,Irrigated_Oranges.tif,t soil/ha/yr,192.40457772941946,161.4396360479819,132.43166079513642

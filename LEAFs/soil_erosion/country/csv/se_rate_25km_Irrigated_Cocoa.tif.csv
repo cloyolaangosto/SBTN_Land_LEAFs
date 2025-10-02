@@ -1,0 +1,15 @@
+country,impact_category,flow_name,Unit,cf,cf_median,cf_std
+El Salvador,se_rate,Irrigated_Cocoa.tif,t soil/ha/yr,79.5284478758077,27.433222552017835,104.48280150601668
+Nicaragua,se_rate,Irrigated_Cocoa.tif,t soil/ha/yr,68.52996598290264,26.90800997924236,41.621956003660266
+Honduras,se_rate,Irrigated_Cocoa.tif,t soil/ha/yr,74.77727824857422,51.72267510218792,72.3854447712192
+Costa Rica,se_rate,Irrigated_Cocoa.tif,t soil/ha/yr,121.13781307766446,49.04371143482209,157.98404711211865
+Colombia,se_rate,Irrigated_Cocoa.tif,t soil/ha/yr,7.121311098003641,6.010879071831213,3.457249202777161
+Ecuador,se_rate,Irrigated_Cocoa.tif,t soil/ha/yr,102.28248063127751,43.44607703643002,149.0586112880575
+Venezuela,se_rate,Irrigated_Cocoa.tif,t soil/ha/yr,36.47817671248713,8.842425026855649,67.42858955154318
+Peru,se_rate,Irrigated_Cocoa.tif,t soil/ha/yr,57.26418268545015,40.75116550119804,31.473151200763883
+Brazil,se_rate,Irrigated_Cocoa.tif,t soil/ha/yr,214.4670059865486,144.58594992581766,69.88105606073094
+Nepal,se_rate,Irrigated_Cocoa.tif,t soil/ha/yr,7.711230167105441,7.711230167105442,8.881784197001252e-16
+Pakistan,se_rate,Irrigated_Cocoa.tif,t soil/ha/yr,2.676586540843738,1.8619501971982566,1.217126529807961
+India,se_rate,Irrigated_Cocoa.tif,t soil/ha/yr,17.44005648804333,4.973018068813401,49.5978091850991
+Jammu and Kashmir,se_rate,Irrigated_Cocoa.tif,t soil/ha/yr,6.3385342282113495,6.506757213260519,0.7995806452239529
+Bangladesh,se_rate,Irrigated_Cocoa.tif,t soil/ha/yr,129.62510793494525,129.62510793494525,0.0

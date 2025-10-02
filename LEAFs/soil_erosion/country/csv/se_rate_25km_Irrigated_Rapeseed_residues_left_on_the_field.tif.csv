@@ -1,0 +1,64 @@
+country,impact_category,flow_name,Unit,cf,cf_median,cf_std
+Somalia,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,1.9029714127372417,1.739902452587524,0.16306896014971783
+South Sudan,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,4.023160632572027,3.4925974955165726,1.8172581051661458
+Ethiopia,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,40.30758486879705,12.38317293428562,63.34174080078552
+Sudan,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,4.713560752376434,4.713560752376434,0.0
+Mexico,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,3.3564023844628563,3.3564023844628563,0.0
+United States of America,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,14.633267445326128,6.028032675800921,27.723645353398755
+Uzbekistan,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,9.512221575240595,2.043553097103026,11.998248701913646
+Kyrgyzstan,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,18.665004882641096,8.364054943047515,13.994092784254837
+Kazakhstan,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,1.3287006362957958,0.3890976856226776,5.706728361440602
+Mongolia,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,11.53500510894646,1.4030058346125023,15.963729564237271
+Dem People's Rep of Korea,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,8.314548391656212,5.960563922347704,5.479486464114985
+China,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,48.5155651560762,12.590746863047912,91.15686561967364
+Myanmar,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,173.5256828764046,146.63192471202427,42.92389885672702
+Viet Nam,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,358.9703640481611,179.93171715432973,282.10624122986815
+Lao People's Democratic Republic,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,187.13664455853063,187.13664455853063,0.0
+Nepal,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,47.54969587196661,11.75768642184539,50.7390830036833
+Pakistan,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,25.849410687163356,5.263002835053425,53.63750319099299
+India,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,34.08850251513211,7.920488818430365,82.70905089409054
+Jammu and Kashmir,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,94.34202464021628,64.73427076810945,90.11203316118895
+Bhutan,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,143.57890306631302,28.9904304497098,190.7038968421227
+Bangladesh,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,29.13928077497292,15.898774513341674,59.32568891459628
+Arunachal Pradesh,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,288.7403221930479,186.2602326244717,264.23146378821696
+Afghanistan,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,11.785958777697225,11.785958777697223,1.7763568394002505e-15
+Turkey,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,6.668929708036321,6.668929708036321,0.0
+Azerbaijan,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,35.99886825241603,35.99886825241603,0.0
+"Moldova, Republic of",se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,2.954541269423535,1.936005721791881,2.7711784075165498
+Hungary,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,2.2081537822003083,0.9995812410250595,3.4511676269106015
+Poland,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,1.4273597684164268,0.6552205648408259,2.8559977213241394
+Romania,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,7.2890345053540955,3.4183883214779,8.99585862724579
+Ukraine,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,1.780331161181422,0.8444454994591011,3.50959698687518
+Belarus,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,0.7202458727553713,0.5861537676373102,0.47199098350964075
+Czech Republic,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,3.7919911191000275,1.9993226884048236,5.5051240298407205
+Russian Federation,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,4.219417440363844,0.8455107043932484,9.663873791391618
+Slovakia,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,10.161618950178804,5.563249908198879,11.630609878252747
+Bulgaria,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,8.103097547145294,4.589075129899906,8.359749133495539
+Norway,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,31.774378512071493,8.54930217637718,53.22905052315613
+Sweden,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,1.3580584242555704,0.9036997001492204,1.3957654136615643
+Lithuania,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,0.8668666723361556,0.736842515736285,0.46251000659836916
+Latvia,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,1.0862662870689905,0.8576285888909175,0.7783719192495628
+Ireland,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,4.707199051845568,1.700075089251968,9.606539641725629
+U.K. of Great Britain and Northern Ireland,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,8.176966883518777,1.9414536351293477,19.57140747215293
+Finland,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,0.7203996243066996,0.5112581821852098,0.6168654088849693
+Estonia,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,0.8836143781545689,0.7155167906143259,0.560401969885956
+Denmark,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,1.1142697760477296,0.8956477714299989,0.7237506960717834
+The former Yugoslav Republic of Macedonia,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,6.364143836810447,6.364143836810447,0.0
+Montenegro,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,19.898107570387634,19.898107570387634,0.0
+Croatia,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,18.633107729661564,6.728694585867337,28.238166417768674
+Slovenia,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,20.24162453693972,20.24162453693972,0.0
+Italy,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,95.14096861904558,33.29098881247988,61.84997980656569
+Portugal,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,4.184818352469757,4.184818352469757,0.0
+Serbia,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,4.227001407670556,1.5266177557030167,6.976178710061382
+Spain,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,12.903683115204645,4.240646406898681,21.226562035842814
+Bosnia and Herzegovina,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,34.68961655254276,26.44441231912624,34.84280266511306
+Netherlands,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,0.7348484791526102,0.5596791488100391,0.4418238247574334
+Luxembourg,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,11.2229630246714,7.617393023837395,14.972057240854795
+France,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,9.918838036983999,1.9291432671079833,21.460482506213324
+Germany,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,3.5861565394733357,1.1800425347626193,8.294966361670456
+Switzerland,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,35.897845248065856,11.576828976916433,52.666306024968165
+Belgium,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,3.5460281147885873,1.2803586411445307,5.721789838059969
+Austria,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,31.162930581497523,17.031476053793497,34.20046958346483
+New Zealand,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,43.20034434095694,15.800143460736942,65.21917845027406
+Australia,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,6.7498968309840235,1.4498546227803666,20.62078799449859
+Canada,se_rate,Irrigated_Rapeseed_residues_left_on_the_field.tif,t soil/ha/yr,6.9601300854977195,1.3066160879021542,22.204233026269517

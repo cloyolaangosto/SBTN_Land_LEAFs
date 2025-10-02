@@ -1,0 +1,59 @@
+country,impact_category,flow_name,Unit,cf,cf_median,cf_std
+United States of America,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.006487517889923966,0.002435127667362275,0.013032383530146949
+Chile,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.03032397023358906,0.01936257693876332,0.03558021274932766
+Argentina,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0011158542998940153,0.00023924266303746534,0.0038175955737480122
+Turkmenistan,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0003948808200196108,0.00024139812705656284,0.0006255120580257296
+Uzbekistan,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0012819810088102821,0.0001991631277450147,0.003891548577660273
+Tajikistan,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.012160518225811646,0.007414530405075382,0.013872250544957818
+Kyrgyzstan,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.009407405156905786,0.005450268056279841,0.011118180371179736
+Kazakhstan,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0005930759740702363,0.00017043398067455098,0.0025334863901731973
+Mongolia,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0025225447187388773,0.0007000724988668086,0.00479010334477944
+Republic of Korea,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.06722966631491399,0.05710950416037341,0.05869817811475206
+Dem People's Rep of Korea,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.039843996583468225,0.023907800984855315,0.04126766416875307
+Japan,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.08701818042977051,0.04728553164508561,0.10744222561841792
+China,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0066883644530483,0.0019278638213462592,0.014711381557287864
+Iran  (Islamic Republic of),se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0022136770123958385,0.0009261288581884211,0.0029746489949339845
+Afghanistan,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0018664118778297996,0.0005564658419686438,0.002545210930170381
+Turkey,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0033352468786705374,0.0016337160193502726,0.004469278585531728
+Iraq,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.008103860546489974,0.005065383748152278,0.005408467053036029
+Georgia,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.02025642571774942,0.012322804021804124,0.022802363125277954
+Azerbaijan,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.006163329723082393,0.0011502037787152705,0.009570559086371246
+Armenia,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.00688666812395697,0.005990342534165283,0.006239528115213019
+"Moldova, Republic of",se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.001699640408316983,0.0013650684882375187,0.0013962476877502153
+Hungary,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0009850943751781485,0.0004543551005408402,0.0015353917018830845
+Poland,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0007117116092107437,0.0003003946010814006,0.0014447784154315644
+Romania,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0033088953454029147,0.0015555718657025072,0.004064849284999776
+Ukraine,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0008296490308789824,0.0003920271083409925,0.0016298151804622464
+Belarus,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.00033425373137073027,0.00027665958987393,0.00021856621456489844
+Czech Republic,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0017236322926607152,0.0009087830221505555,0.0025023290548180353
+Russian Federation,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0021501486874913028,0.00038796472490909074,0.0048198019663401575
+Slovakia,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.004618917612971139,0.002528749908092915,0.0052866407488456795
+Bulgaria,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0039310778981417995,0.0022190351450979053,0.004204673414124072
+Norway,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.019918990380502984,0.008281505755537183,0.028304934716090118
+Sweden,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0006085443312508712,0.00040429077717735174,0.0006088311693066356
+Lithuania,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.00038913566687811944,0.00033213067514797066,0.00021377641065320596
+Latvia,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0004989201996888359,0.00039341649137016266,0.0003662291463855946
+Ireland,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0010692268164216375,0.0004888227033899727,0.0019390385447788994
+U.K. of Great Britain and Northern Ireland,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0032595622169530863,0.0007289974625268807,0.008793653543302742
+Finland,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.00033787362030871963,0.0002508184766635877,0.0002686913837302906
+Estonia,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.00040178399492807906,0.0003233180213042576,0.00025106692965405966
+Denmark,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.000513956676089259,0.00042822778777466575,0.00035328431311400775
+The former Yugoslav Republic of Macedonia,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.007853967007025646,0.005172732241140704,0.0069908946644030865
+Montenegro,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.018339191876079637,0.015456467486515517,0.011984296971012347
+Croatia,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.008698982041101234,0.003058497478339248,0.01290965278744916
+Slovenia,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.024810438116710718,0.019265542282681916,0.02485681797290567
+Greece,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.005101019006614974,0.0018355585060134745,0.0067230260981489915
+Italy,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.014836876814696203,0.0036213474943827323,0.020091213798550483
+Serbia,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.006390739150803596,0.002953109499279834,0.008004621991720398
+Bosnia and Herzegovina,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.015444294684375894,0.012020187179261814,0.015069572424998682
+Albania,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.039406717182795224,0.036113082817069896,0.026265656741289115
+Netherlands,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.00027564900127524504,0.00023428991742758054,0.0001369337765431618
+Luxembourg,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.005823039067762722,0.003462451305764317,0.007098434969500265
+France,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.002756140822282022,0.0006816734551272515,0.007074313095604677
+Germany,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.001775384543778373,0.0005915343296469988,0.003956287004923442
+Switzerland,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.019474640398911832,0.011255576977003355,0.023799901660582396
+Belgium,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0013456539291914666,0.0004992814717099346,0.0024046136986615937
+Austria,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.014856832804410042,0.008830611560926046,0.01556132597628519
+New Zealand,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.013862595655597085,0.0026045116818766405,0.03106369887641784
+Australia,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.006797215451418173,0.003745227529929088,0.007710696636553428
+Canada,se_rate,Needleleaf_Evergreen_Cold_temperate_dry.tif,t soil/ha/yr,0.0036429119407593445,0.0006399831597814276,0.011138069474165036

@@ -1,0 +1,163 @@
+country,impact_category,flow_name,Unit,cf,cf_median,cf_std
+Mozambique,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,22.411369494117036,9.320536925714949,52.485857829898045
+Malawi,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,50.0697624023215,15.202396058342933,88.63124221385935
+Rwanda,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,84.3463941922771,59.064648159090126,87.32758355237841
+Somalia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,3.4734507793314124,2.2218238493001183,5.3943345057540935
+Zambia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,14.29029806583721,8.357079443645985,23.497825479033633
+Kenya,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,13.414244297347755,4.227286038423087,31.038113090409404
+Madagascar,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,81.63437232648909,32.43017679676474,128.03412636413142
+South Sudan,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,8.076933914249173,4.743923949652533,20.817004938006175
+United Republic of Tanzania,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,32.90253190542404,11.091510852592894,61.421044210962435
+Uganda,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,21.227292474574554,10.778041536232081,39.41782520873344
+Zimbabwe,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,20.25898118681226,8.399503173483055,43.49256964706629
+Ilemi triangle,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,3.6687663604674206,2.6570080082032677,1.610338914475776
+Ethiopia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,40.49271648568426,10.783524734919355,67.6225727291694
+Eritrea,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,74.10009030059392,74.10009030059392,0.0
+Comoros,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,470.4767412426905,470.4767412426905,0.0
+Burundi,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,242.64989084104414,242.64989084104414,0.0
+Gabon,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,45.21279096521171,29.291870092882867,46.32421109398555
+Equatorial Guinea,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,8.404206628077917,8.404206628077917,0.0
+Chad,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,4.804733733924068,3.9429399956412317,2.0320629366470704
+Congo,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,30.033859427708116,17.128175000948875,35.52248575196386
+Democratic Republic of the Congo,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,35.72914301453865,18.803400260939288,51.73661426850015
+Cameroon,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,47.32411171644814,23.02755284848104,81.38275941185553
+Central African Republic,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,9.191932660653121,6.907701323111379,6.3671319845979015
+Angola,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,17.494897398718813,8.723827073113396,29.751228366048704
+Morocco,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,11.826789983120793,3.297488417228349,19.146924274859945
+Libya,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,2.026482336026504,0.7264275721857927,2.5837059287406112
+Sudan,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,3.4426701498254983,2.1749553803835315,8.685201244857028
+Tunisia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,5.661010172670157,1.4646297683810625,11.427329044101457
+Algeria,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,7.991396008318089,1.6382363778203346,15.805470375915528
+Abyei,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,3.3380336739438663,2.9432558093010988,0.9062590311425861
+Namibia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,5.736346111998372,2.7719479097060296,12.281960233966146
+Swaziland,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,58.40933448635941,42.5996202825246,55.067439722789125
+South Africa,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,17.44492607780309,5.764126613487801,35.27520226396537
+Botswana,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,2.657451680867131,2.182801519977611,1.21424167215736
+Togo,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,24.175826795965925,11.251707742530206,56.33038541336233
+Sierra Leone,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,61.77959453564749,23.644753112080203,98.10707376293404
+Senegal,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,4.30245939774458,3.2525467681665785,4.946096693067043
+Nigeria,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,20.460613752485763,9.286383315268209,47.62731529452817
+Niger,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,2.3560470065933306,2.0119168805885153,1.2763476403915943
+Mauritania,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,3.2856578801526717,3.195479980279662,0.09017789987300917
+Mali,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,6.4389227879943585,3.7675418199710777,11.894921293848602
+Liberia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,49.246297803040704,31.086957027850566,55.70095324151899
+Guinea-Bissau,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,9.313221673008597,9.313221673008597,0.0
+Guinea,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,18.515002471800432,17.971516584044664,10.15470730390456
+Ghana,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,21.27102602206022,12.776303334864705,30.63938972819425
+Côte d'Ivoire,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,24.53210645735961,15.90485420106444,37.891360250054326
+Burkina Faso,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,5.728399545122403,4.275339543135096,5.9712252787265605
+Benin,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,11.695072561534387,8.944298021309814,19.63148508167946
+Dominican Republic,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,88.51679907174199,33.47110914471223,108.08242951198754
+Martinique,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,151.01365485349808,151.01365485349808,0.0
+Cuba,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,56.277475174092025,15.57584474566252,117.66217288541746
+Jamaica,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,172.03814524287483,142.72476290405916,174.98440700804233
+Trinidad and Tobago,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,93.5946106518227,22.966682247226647,161.22018872534565
+Bahamas,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,11.326727620768821,10.139643452916058,5.353429719752771
+Haiti,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,207.85684302952384,124.61654869962933,231.80026339929603
+Puerto Rico,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,107.85283395595656,47.59074901240909,120.93476952822148
+Panama,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,225.28595993565685,125.25012625982518,296.2817787532431
+El Salvador,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,131.66358296686838,49.61053547518344,166.18601088111268
+Nicaragua,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,76.82396602883556,30.194881645481026,96.84177679692918
+Mexico,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,45.81652999922477,13.400006696958005,76.73220527733994
+Honduras,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,139.35174246685492,108.58506233457125,140.4387822652417
+Guatemala,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,107.60216821981787,54.326210107761746,136.1036199291837
+Costa Rica,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,180.43479302107156,67.1998306650288,248.2973924387534
+Belize,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,77.29498317609202,30.410709955283497,104.46594763071175
+United States of America,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,15.733387743777085,6.615889464578915,30.001870955516186
+Colombia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,100.08168389614893,22.17495927459136,185.5044891958841
+Guyana,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,36.78587181392817,16.872364645399088,57.808400163209704
+Ecuador,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,159.2103298529155,58.23477269498282,239.0470129828844
+French Guiana,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,77.00202479575584,53.44607065718009,67.30094154361363
+Paraguay,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,11.784165766078015,6.167012318901323,19.568735189473117
+Suriname,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,42.08202300520678,23.060972494384725,50.422027623470385
+Uruguay,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,9.679892122342382,7.601321824485437,8.041158191336407
+Venezuela,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,64.4926772132809,15.311799298322345,116.61038792324176
+Peru,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,89.07650137438549,38.79918705778405,126.33555896551216
+Chile,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,51.256457123550256,22.981192426339394,71.28911156037705
+Brazil,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,38.61975031558402,19.19623791370252,58.571015029538174
+Bolivia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,53.4680922763473,13.343889730378459,102.9268141091873
+Argentina,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,8.477092843882328,3.7363612541010327,23.931123126370505
+Turkmenistan,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,1.9780684143046847,0.808923258225486,4.4777145954433895
+Uzbekistan,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,5.243378504602431,0.7388674568965073,12.249645245632099
+Tajikistan,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,32.03545203127648,22.71215342329545,32.615918081655444
+Kyrgyzstan,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,23.144459269816625,13.49586123207132,27.176521614023766
+Kazakhstan,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,1.4697777015334421,0.4281924963344516,6.267284121609072
+Mongolia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,13.107960422102371,1.5943248206986766,18.140601875839092
+Taiwan,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,372.0363612768827,330.95181168649657,298.5537680417337
+Republic of Korea,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,166.5897243837916,140.38888782741142,146.74411917234545
+Dem People's Rep of Korea,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,100.05030596319453,59.76950397204296,103.57846946977934
+Japan,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,218.898090462307,102.54555511212594,294.9680363713897
+China,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,54.91270339852313,14.139433063706289,103.41155508953119
+Myanmar,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,164.27689774017048,166.6271880756416,86.19771461016605
+Viet Nam,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,407.92087044690845,204.46786151057782,320.57527586192066
+Lao People's Democratic Republic,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,96.22046706097832,14.687476433673408,85.81479253099607
+Malaysia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,144.259119772747,83.70340456562553,155.07504043783288
+Thailand,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,79.51059438232856,21.60414619912257,115.28977338519047
+Brunei Darussalam,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,428.4521950270752,428.4521950270752,0.0
+Philippines,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,184.0828699071854,98.78063050491099,206.2074903814285
+Indonesia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,155.90255608174596,47.13154548776264,227.44972721158706
+Timor-Leste,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,236.86200296729257,151.49047666235202,255.3422979374575
+Nepal,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,54.033745601840444,13.361007369949588,57.658049180248064
+Pakistan,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,28.86158059913506,5.933555940641125,60.29560119041947
+India,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,38.537059544563554,8.971901205733442,94.05990177671097
+Iran  (Islamic Republic of),se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,6.424152588938666,1.4638623133344872,14.022241064049215
+Jammu and Kashmir,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,95.26017152620703,70.15882496014136,92.83643136650498
+Sri Lanka,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,72.45524898879759,13.325953644885304,134.70020416808524
+Bhutan,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,384.4971353479797,334.6967384784311,316.5817578602224
+Bangladesh,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,33.112819241894485,18.066789317603227,67.41555595006669
+Arunachal Pradesh,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,374.18523563915926,266.0200523621153,326.7042621087031
+Afghanistan,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,13.39313504722803,13.39313504722803,0.0
+Oman,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,10.189445822527675,6.01223640725328,10.010301770904158
+West Bank,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,17.492678244115396,6.310255736465022,21.440717826189662
+Lebanon,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,57.96162111807335,21.750265539118747,77.31268004808607
+Saudi Arabia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,7.214878679092572,2.225836923288496,11.835078859836138
+Turkey,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,11.621368513072856,5.255501271116989,16.462080972793483
+Iraq,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,11.402791200960008,2.7407412205884976,19.559619040887235
+Jordan,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,4.997860759501932,2.924318366633594,5.221212410272693
+Syrian Arab Republic,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,6.479435621546091,0.7490961530548969,22.10708548795333
+Israel,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,8.144269445098011,2.745686694990845,11.463503327047892
+Georgia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,51.33316111017009,28.50199058663243,59.96594698903053
+Cyprus,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,8.68536446700614,4.321126028840799,9.27049562760371
+Azerbaijan,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,15.265615851609386,3.3446215462976667,23.22481152189346
+Armenia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,17.172297676541554,13.428542889198278,15.716142935817553
+"Moldova, Republic of",se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,4.249101128133781,3.4126713068051253,3.4906193075559995
+Hungary,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,2.5092656751879767,1.1358877800470393,3.921781415467173
+Poland,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,1.6228697644761585,0.7442027779297352,3.2507391589291816
+Romania,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,7.941606454075688,3.7381601818462626,9.804081461985657
+Ukraine,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,2.0240929475216927,0.9595971636759283,3.9871335836149036
+Belarus,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,0.8184612234751121,0.6660838304698243,0.5363533932581511
+Czech Republic,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,4.303898132607193,2.2679937091700912,6.283726449010937
+Russian Federation,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,4.827053680598738,0.9668261589761622,11.007100609838618
+Slovakia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,10.936827133505306,5.948386016947729,12.870467991137346
+Bulgaria,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,9.564515021095255,5.547588002888624,10.114719775700568
+Sweden,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,1.3569576742108302,0.9166043546043118,1.5268705221090828
+Lithuania,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,0.9793216944943736,0.8335437586311443,0.5238963992932139
+Latvia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,1.2183434254277108,0.9745779472023492,0.9051576209407307
+Ireland,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,3.151242025709484,3.151242025709484,0.0
+U.K. of Great Britain and Northern Ireland,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,5.788792344034858,1.45639583414102,15.64478823607817
+Finland,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,1.8382864396606333,1.8382864396606333,0.0
+Estonia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,0.5131734788837504,0.5131734788837504,0.0
+Denmark,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,1.1944437570216717,1.005410846178948,0.6387887866501282
+The former Yugoslav Republic of Macedonia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,23.11429374339578,14.530911285088868,25.23578878968903
+Montenegro,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,41.62229802533476,30.508025822662464,28.58950395314724
+Croatia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,22.785456209138022,8.808322857148358,32.65039720716636
+Slovenia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,59.52548022278518,48.16385692342616,60.03734426191214
+Greece,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,28.29773031326324,16.567993808630497,31.800837687194417
+Italy,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,36.93720421508011,18.64519301128613,45.11895206653871
+Portugal,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,11.99505629711835,5.103471203147855,23.70906624692759
+Serbia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,15.976848280618125,7.382773934704141,20.011555484835405
+Spain,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,14.673500331389436,4.818916397587573,24.060160196725803
+Bosnia and Herzegovina,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,39.549333260314,30.050468707293227,39.54696674089213
+Albania,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,58.487746498639005,48.688710463640994,49.6734053902781
+Netherlands,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,0.6832226318127266,0.5857248083656046,0.3384417746050042
+Luxembourg,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,12.753367142595675,8.656128483082991,17.013701502252776
+France,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,10.740904875927274,2.162927259216757,23.419923636568974
+Germany,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,4.075177907846929,1.3409574331327303,9.426098189338175
+Switzerland,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,42.41095945330842,11.20170903232651,63.649280652588885
+Belgium,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,3.3823854390584787,1.194818892954738,5.948178931093766
+Austria,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,33.867650981887216,13.504167020370575,38.13324360759472
+New Zealand,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,52.504093350508604,18.389203911268048,80.33729888291647
+Australia,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,7.966134904360037,2.316100546124756,23.18346611192577
+Papua New Guinea,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,185.1520362552715,68.60674989023019,250.6885180194584
+Fiji,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,320.67428347324795,269.06604938824563,220.71942588795872
+Canada,se_rate,Irrigated_Tomatoes.tif,t soil/ha/yr,8.622045823272499,1.6239858408434704,27.055544703086586

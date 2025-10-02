@@ -1,0 +1,80 @@
+country,impact_category,flow_name,Unit,cf,cf_median,cf_std
+Mozambique,se_rate,Irrigated_cotton.tif,t soil/ha/yr,51.53785018655343,22.306628077277942,58.763425975648296
+Malawi,se_rate,Irrigated_cotton.tif,t soil/ha/yr,23.714320893648676,15.948056878798631,7.766264014850041
+Somalia,se_rate,Irrigated_cotton.tif,t soil/ha/yr,5.81781535441586,3.5918564893704295,9.085734078836506
+Zambia,se_rate,Irrigated_cotton.tif,t soil/ha/yr,26.296512851621266,14.140213057305676,43.56273043574745
+Kenya,se_rate,Irrigated_cotton.tif,t soil/ha/yr,8.674133974706642,8.674133974706642,0.0
+South Sudan,se_rate,Irrigated_cotton.tif,t soil/ha/yr,9.22275311329271,6.703346368288992,22.42307881243953
+Zimbabwe,se_rate,Irrigated_cotton.tif,t soil/ha/yr,30.807412050705814,13.2342064548329,56.93559496649061
+Ilemi triangle,se_rate,Irrigated_cotton.tif,t soil/ha/yr,5.30621699224478,4.251212876473236,2.4574991152718595
+Ethiopia,se_rate,Irrigated_cotton.tif,t soil/ha/yr,65.95028110459118,17.69823897971124,107.7935730054877
+Eritrea,se_rate,Irrigated_cotton.tif,t soil/ha/yr,81.74306798742072,44.925989727207345,36.81707826021337
+Democratic Republic of the Congo,se_rate,Irrigated_cotton.tif,t soil/ha/yr,17.750317803844904,15.732478454610366,2.820646156596605
+Central African Republic,se_rate,Irrigated_cotton.tif,t soil/ha/yr,8.905718388191628,6.759114494712617,2.146603893479011
+Sudan,se_rate,Irrigated_cotton.tif,t soil/ha/yr,5.468685238670781,3.460146467896827,13.538593936078968
+Tunisia,se_rate,Irrigated_cotton.tif,t soil/ha/yr,8.967455182900638,2.295543840702028,18.296654306095625
+Algeria,se_rate,Irrigated_cotton.tif,t soil/ha/yr,83.19957092585541,83.19957092585541,0.0
+Abyei,se_rate,Irrigated_cotton.tif,t soil/ha/yr,5.340853957895111,4.709209365054445,1.4500144714350367
+Namibia,se_rate,Irrigated_cotton.tif,t soil/ha/yr,4.731854890494638,4.731854890494638,0.0
+Swaziland,se_rate,Irrigated_cotton.tif,t soil/ha/yr,91.90685269174787,49.97906689340433,104.4796054552793
+South Africa,se_rate,Irrigated_cotton.tif,t soil/ha/yr,27.829015546922033,9.126959552636809,56.614309194730126
+Botswana,se_rate,Irrigated_cotton.tif,t soil/ha/yr,4.36556652032129,3.6778572850718794,2.7038671590321544
+Niger,se_rate,Irrigated_cotton.tif,t soil/ha/yr,3.5121542388213585,3.0265495129153464,2.084614587314304
+Panama,se_rate,Irrigated_cotton.tif,t soil/ha/yr,682.5742145444981,682.5742145444981,0.0
+Nicaragua,se_rate,Irrigated_cotton.tif,t soil/ha/yr,195.4863895149087,220.96602571303234,92.3980746687874
+Mexico,se_rate,Irrigated_cotton.tif,t soil/ha/yr,61.161355928063685,16.50485968953392,99.62251210432893
+Honduras,se_rate,Irrigated_cotton.tif,t soil/ha/yr,226.7563081675431,175.69123529300796,225.12351982207616
+United States of America,se_rate,Irrigated_cotton.tif,t soil/ha/yr,23.78858415561973,11.263757021453918,42.95352836175227
+Colombia,se_rate,Irrigated_cotton.tif,t soil/ha/yr,178.73115155155594,35.25460635874565,301.5535108745733
+Guyana,se_rate,Irrigated_cotton.tif,t soil/ha/yr,7.5162046699321925,7.5162046699321925,0.0
+Ecuador,se_rate,Irrigated_cotton.tif,t soil/ha/yr,179.26990940463568,50.70426667494971,281.69085835799945
+French Guiana,se_rate,Irrigated_cotton.tif,t soil/ha/yr,100.66923823556175,100.66923823556174,1.4210854715202004e-14
+Paraguay,se_rate,Irrigated_cotton.tif,t soil/ha/yr,23.26045870771736,10.897487087938671,26.067399272072944
+Suriname,se_rate,Irrigated_cotton.tif,t soil/ha/yr,107.5855113883365,107.5855113883365,0.0
+Uruguay,se_rate,Irrigated_cotton.tif,t soil/ha/yr,9.986847734850352,9.986847734850352,0.0
+Venezuela,se_rate,Irrigated_cotton.tif,t soil/ha/yr,102.78979246193832,22.839995681781982,184.87862534703933
+Peru,se_rate,Irrigated_cotton.tif,t soil/ha/yr,140.9407216078638,61.235422420972746,202.83192323710477
+Chile,se_rate,Irrigated_cotton.tif,t soil/ha/yr,136.1998028511607,136.1998028511607,0.0
+Brazil,se_rate,Irrigated_cotton.tif,t soil/ha/yr,61.520119685868984,29.841615820445952,93.10321020051249
+Bolivia,se_rate,Irrigated_cotton.tif,t soil/ha/yr,91.15602830787627,20.927758836010472,162.88202424942236
+Argentina,se_rate,Irrigated_cotton.tif,t soil/ha/yr,13.296011632369183,7.228813923221616,35.37892163812699
+Turkmenistan,se_rate,Irrigated_cotton.tif,t soil/ha/yr,3.1380611417634015,1.3530903054277883,5.897127887869689
+Uzbekistan,se_rate,Irrigated_cotton.tif,t soil/ha/yr,8.872792160238614,1.2347812080833187,21.329007248328125
+Tajikistan,se_rate,Irrigated_cotton.tif,t soil/ha/yr,49.46410924863271,35.082470317415016,49.68267448337549
+Kyrgyzstan,se_rate,Irrigated_cotton.tif,t soil/ha/yr,41.819123339799354,26.192839517998387,45.35290571871849
+Kazakhstan,se_rate,Irrigated_cotton.tif,t soil/ha/yr,2.6223990031469855,0.6887330669902186,11.468588699541847
+Mongolia,se_rate,Irrigated_cotton.tif,t soil/ha/yr,11.709286750999757,1.5448096796480044,21.991121434857064
+Dem People's Rep of Korea,se_rate,Irrigated_cotton.tif,t soil/ha/yr,101.20887183981002,48.32762506879222,127.15829801241703
+China,se_rate,Irrigated_cotton.tif,t soil/ha/yr,95.73870754183463,21.805071389335186,176.3816321536837
+Myanmar,se_rate,Irrigated_cotton.tif,t soil/ha/yr,334.09791427929747,266.6035048937283,74.87051175174344
+Cambodia,se_rate,Irrigated_cotton.tif,t soil/ha/yr,91.46176504029114,20.20577111906114,71.25599392122999
+Viet Nam,se_rate,Irrigated_cotton.tif,t soil/ha/yr,332.5261864812645,173.42817023498952,388.73219658020764
+Lao People's Democratic Republic,se_rate,Irrigated_cotton.tif,t soil/ha/yr,290.1830731961023,236.970247008386,265.6418282199522
+Thailand,se_rate,Irrigated_cotton.tif,t soil/ha/yr,78.60321760278335,22.76544447041149,131.89808632304994
+Nepal,se_rate,Irrigated_cotton.tif,t soil/ha/yr,328.05421765170547,235.8938946205923,320.92716499878674
+Pakistan,se_rate,Irrigated_cotton.tif,t soil/ha/yr,43.08978212432132,8.770306490130658,94.70990927753819
+India,se_rate,Irrigated_cotton.tif,t soil/ha/yr,63.70938092696209,14.943100006851617,152.87898862311255
+Iran  (Islamic Republic of),se_rate,Irrigated_cotton.tif,t soil/ha/yr,9.958357234485659,2.2109484011529736,20.619167578463575
+Jammu and Kashmir,se_rate,Irrigated_cotton.tif,t soil/ha/yr,171.49348200432252,112.28106401463776,170.13224706562033
+Bhutan,se_rate,Irrigated_cotton.tif,t soil/ha/yr,321.42007872241743,52.709874615979174,381.7363951781262
+Bangladesh,se_rate,Irrigated_cotton.tif,t soil/ha/yr,51.969788055684575,28.855525268888947,107.01949996336795
+Arunachal Pradesh,se_rate,Irrigated_cotton.tif,t soil/ha/yr,549.261066976874,415.5902445780212,469.6439122492548
+Afghanistan,se_rate,Irrigated_cotton.tif,t soil/ha/yr,45.48710844428551,12.700862905760763,69.87753540991515
+West Bank,se_rate,Irrigated_cotton.tif,t soil/ha/yr,3.128782322995521,3.1287823229955207,4.440892098500626e-16
+Lebanon,se_rate,Irrigated_cotton.tif,t soil/ha/yr,19.01320001398638,19.01320001398638,0.0
+Saudi Arabia,se_rate,Irrigated_cotton.tif,t soil/ha/yr,28.28993841610222,26.953795162056917,1.3361432540453038
+Turkey,se_rate,Irrigated_cotton.tif,t soil/ha/yr,17.08207775152307,7.609871079766173,24.27299961956158
+Yemen,se_rate,Irrigated_cotton.tif,t soil/ha/yr,25.593804482352095,9.629723599216387,36.25805854998291
+Iraq,se_rate,Irrigated_cotton.tif,t soil/ha/yr,14.829116454224913,3.6223709454760455,28.666795219078256
+Syrian Arab Republic,se_rate,Irrigated_cotton.tif,t soil/ha/yr,10.367097148955528,1.198553862747679,35.371337307799315
+Israel,se_rate,Irrigated_cotton.tif,t soil/ha/yr,13.70839981663098,4.393098777447624,18.653144515118598
+Azerbaijan,se_rate,Irrigated_cotton.tif,t soil/ha/yr,15.192715593559443,3.6659066605631927,24.490926083324702
+Armenia,se_rate,Irrigated_cotton.tif,t soil/ha/yr,22.25326618646862,10.47459166518324,17.358393873717194
+Russian Federation,se_rate,Irrigated_cotton.tif,t soil/ha/yr,20.86391650276413,16.257578396670706,22.422800717985485
+Bulgaria,se_rate,Irrigated_cotton.tif,t soil/ha/yr,9.995466767853372,5.520404882080687,13.412450768402556
+Greece,se_rate,Irrigated_cotton.tif,t soil/ha/yr,45.051994588859095,24.73150050286222,51.2734600496781
+Portugal,se_rate,Irrigated_cotton.tif,t soil/ha/yr,7.608760795462335,7.608760795462335,0.0
+Spain,se_rate,Irrigated_cotton.tif,t soil/ha/yr,22.790467005154238,7.4805140773596674,37.858426226372025
+Albania,se_rate,Irrigated_cotton.tif,t soil/ha/yr,76.3277577928673,48.88091970385482,72.63324833833185
+France,se_rate,Irrigated_cotton.tif,t soil/ha/yr,61.10059925328105,61.10059925328105,0.0
+Australia,se_rate,Irrigated_cotton.tif,t soil/ha/yr,14.207680673677423,3.665134840247278,40.516963322046564

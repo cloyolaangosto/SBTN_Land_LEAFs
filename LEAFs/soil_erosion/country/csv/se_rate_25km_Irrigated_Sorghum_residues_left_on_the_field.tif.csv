@@ -1,0 +1,100 @@
+country,impact_category,flow_name,Unit,cf,cf_median,cf_std
+Mozambique,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,7.892412081950862,3.2835941186830517,18.48069477011374
+Malawi,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,17.205721881449467,5.224231922559448,31.29430961854547
+Rwanda,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,30.351644672353437,21.213924842136027,30.375486991726202
+Somalia,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,1.2712270932539136,0.8248789220028803,1.9540037024784096
+Zambia,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,5.2257530331396085,2.992071500336477,8.631296432252288
+Kenya,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,4.631720010651893,1.499518472599097,10.55171997469288
+South Sudan,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,2.7624120058650634,1.6701663912258156,6.785376357230023
+United Republic of Tanzania,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,11.416921494465878,3.890861387038163,21.346301211607965
+Uganda,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,7.655695761638686,3.8007435771452043,14.160436846958246
+Zimbabwe,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,7.246160758389357,2.911525360901726,15.709859791510738
+Ilemi triangle,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,1.3834371223051922,0.9352668138197097,0.599403551032504
+Ethiopia,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,14.287675897777985,3.795800686123672,23.830064800628076
+Eritrea,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,11.295267540792855,3.866840129275395,16.567810014148755
+Burundi,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,23.894023937731777,14.225115862619312,25.159390916831416
+Chad,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,1.516891160613695,1.0571005649394736,3.3972621883758403
+Congo,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,26.72618366916493,7.068414943856291,19.657768725308642
+Democratic Republic of the Congo,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,12.600500729303258,6.620208878731945,18.256489219623294
+Cameroon,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,16.73008099667774,8.030800032743612,28.887708873587112
+Central African Republic,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,4.987500698784032,3.5773047349683766,5.089696146121176
+Angola,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,11.16235867628228,5.127448190717422,18.056680683157722
+Sudan,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,1.20619775939535,0.7507904727817717,3.0338365240369902
+Abyei,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,1.1749878468614472,1.036026039260172,0.3190031772336383
+Namibia,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,2.0727275796419207,0.9831543985362692,4.307543763136151
+Lesotho,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,19.896254553782587,16.816646583922452,14.686143748131409
+South Africa,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,6.132783955363551,2.0258521046599385,12.579751177932335
+Botswana,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,0.8585410056438733,0.7095716761236371,0.5681054696276128
+Togo,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,8.563101146660134,3.986459314045183,19.91400065991573
+Sierra Leone,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,23.125262050582354,8.734622354796189,37.693003294773945
+Senegal,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,1.5035015656407955,1.1302635775908536,1.7180183277831071
+Nigeria,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,7.2119614866726165,3.268806909262039,16.78879319398837
+Niger,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,0.8703109984710535,0.6787754872470926,0.9854483491982972
+Mauritania,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,1.070144966177654,0.6475262916874706,2.587237368428008
+Mali,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,2.1165875571543085,1.2492430859327301,4.01351562531624
+Liberia,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,8.03934358587797,7.122607326348489,1.4194354802975953
+Guinea-Bissau,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,4.153451967886307,3.1685765811226694,3.6613178120054606
+Gambia,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,2.1132207145804096,2.00097547777403,1.2942821544451608
+Guinea,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,11.121948892898127,5.2126797419135915,16.084716196812284
+Ghana,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,7.489273139835955,4.475435116159354,10.798015367488373
+Côte d'Ivoire,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,8.634631118702831,5.598508648438581,13.369219575777503
+Burkina Faso,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,2.01444247652131,1.5025634116426072,2.100287186989074
+Benin,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,4.116665519353523,3.14839288644116,6.910282711307085
+Dominican Republic,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,31.087338342252245,11.78183035509763,38.25731175498852
+Haiti,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,73.21375840514158,32.200649879518075,83.38566197539319
+Panama,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,150.1663241484451,150.1663241484451,0.0
+El Salvador,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,46.3455809532093,17.462908392639985,58.497475513177015
+Nicaragua,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,27.214917353327863,11.187135718363276,34.276685076889244
+Mexico,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,16.208211002027458,4.792442876190151,27.06755232968902
+Honduras,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,49.272668050056424,38.22194173465951,49.45231106268453
+Guatemala,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,38.49440109236328,19.561289343239828,48.46093686636809
+Belize,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,21.811247984359106,7.136789198409639,38.5917787509315
+United States of America,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,5.041920778274173,2.332851372570334,9.09172250262689
+Colombia,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,35.16846041396266,7.844480038604628,64.63466088796206
+Guyana,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,1.6535649937850294,1.6535649937850296,2.220446049250313e-16
+Ecuador,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,11.011129673124426,10.500217388839957,0.5109122842844682
+French Guiana,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,22.147231961797026,22.147231961797026,0.0
+Paraguay,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,4.127676474107647,2.1664407568107618,6.886421210807776
+Suriname,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,23.668812024489323,23.66881202448932,3.552713678800501e-15
+Uruguay,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,3.4325361819881866,2.6794301489276475,2.852633777352132
+Venezuela,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,22.36842522648663,5.323879216317479,40.14493012406802
+Peru,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,9.160967667126473,9.776941375645597,2.7415678694234353
+Chile,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,29.963956018394793,29.963956018394796,3.552713678800501e-15
+Brazil,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,13.695360060368419,6.69031098012931,20.8714087271471
+Bolivia,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,18.89621537535106,4.738065127505151,36.50382283154694
+Argentina,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,2.9235184753763632,1.4378568823357378,8.232259979347873
+Uzbekistan,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,10.576518895263012,10.576518895263012,0.0
+Kyrgyzstan,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,9.766119811996521,12.894300535126288,4.540472040312989
+Kazakhstan,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,1.0958282806076356,0.178999573729446,3.898301218777554
+Mongolia,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,2.8104358762421753,0.39958793073562865,4.609280986777141
+Taiwan,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,131.2882202054747,118.77786537086078,105.90237686871251
+Dem People's Rep of Korea,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,46.24793139359679,32.16714486282231,42.50435355013449
+China,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,18.831833794732788,4.763095250369305,36.10937089854541
+Myanmar,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,46.24066223185158,37.202421762036714,35.74934419338564
+Viet Nam,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,105.91782628981044,105.91782628981042,1.4210854715202004e-14
+Lao People's Democratic Republic,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,20.207919688113765,5.169991676638902,21.680292266916883
+Malaysia,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,164.94776243671598,164.94776243671598,0.0
+Thailand,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,28.146046968582468,7.688081524661389,40.662256465919604
+Nepal,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,19.019878348786648,4.703074568738156,20.29563320147332
+Pakistan,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,9.812421746576039,1.977278622701642,20.894243440240935
+India,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,13.543282139916087,3.157392561490738,33.05247093840107
+Jammu and Kashmir,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,37.73680985608651,25.89370830724378,36.04481326447558
+Bhutan,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,57.431561226525226,11.59617217988392,76.28155873684909
+Bangladesh,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,7.208659895957009,5.498032043577788,9.302035361623206
+Arunachal Pradesh,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,115.49612887721915,74.5040930497887,105.69258551528678
+Afghanistan,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,4.714383511078889,4.714383511078889,0.0
+Oman,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,3.402788119359214,2.1163072038857234,3.2113385758385906
+Saudi Arabia,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,2.2922403147066936,0.6935586107860295,3.7175660328508604
+Turkey,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,1.713636536772579,0.699161622705797,3.0325663248920596
+Yemen,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,5.470006876774891,2.0757437170358544,7.872023268254412
+Armenia,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,2.3044101195152398,2.3044101195152398,0.0
+Russian Federation,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,3.0869418988121855,1.792640074577305,3.5370316728649045
+Bulgaria,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,2.026376279445394,2.026376279445394,0.0
+Greece,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,11.38898533235939,7.774334985494765,11.896467054904234
+Spain,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,16.908255801067064,16.908255801067064,0.0
+France,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,3.710948240485814,0.752365400284874,8.192088105695147
+Switzerland,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,4.983134516156816,3.9430015580133673,3.6037162797910782
+Belgium,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,4.212201849107692,4.212201849107692,0.0
+Australia,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,2.5861819367974057,0.785031215244653,7.5083526710702335
+New Caledonia,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,108.80940582850097,46.5311637307501,116.64314292019328
+Canada,se_rate,Irrigated_Sorghum_residues_left_on_the_field.tif,t soil/ha/yr,4.323691125511131,1.730826466600405,3.908036867695621

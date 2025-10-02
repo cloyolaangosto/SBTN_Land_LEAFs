@@ -3,7 +3,6 @@
 data/*
 outputs/
 archives/
-LEAFs/example/
 
 # Geospatial rasters
 *.tif

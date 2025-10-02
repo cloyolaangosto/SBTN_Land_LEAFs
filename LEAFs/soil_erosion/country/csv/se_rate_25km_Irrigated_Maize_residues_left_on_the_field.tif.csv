@@ -1,0 +1,105 @@
+country,impact_category,flow_name,Unit,cf,cf_median,cf_std
+Mozambique,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,11.816963736366302,8.619606659702757,5.749726924851258
+Rwanda,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,41.749915308868,41.749915308868,0.0
+Somalia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,4.676595060845215,2.925927296938669,7.337278001124187
+Kenya,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,70.90991438234545,20.066037740998315,110.93582754577943
+South Sudan,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,6.115204161509482,5.30874819318519,2.762232319852542
+United Republic of Tanzania,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,42.97867965964549,15.030004646287857,80.55799002609173
+Ethiopia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,52.894106676746034,13.374120457925208,90.25218115628074
+Eritrea,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,3.4315920193257283,2.482280987227294,2.9831547855311267
+Burundi,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,324.56849223027245,324.56849223027245,0.0
+Angola,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,3.3623405878118846,3.3623405878118846,0.0
+Sudan,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,5.822332100666814,4.480051857721448,1.3422802429453657
+Namibia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,7.328416954508104,3.6974406711999337,15.315754567463205
+Lesotho,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,51.22620160282183,20.77265487234618,51.30566833446171
+South Africa,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,23.120936345858606,7.710095716423327,46.52525610872691
+Botswana,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,3.5544153139751167,3.0749248670670157,1.5923081771018575
+Senegal,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,1.788525560233382,1.6972153535735786,0.0913102066598035
+Mauritania,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,4.084813268336496,2.457838610688331,9.83032669008546
+Mali,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,3.106630778248306,3.106630778248306,0.0
+Puerto Rico,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,158.98800656016158,63.65738553406423,175.82351573175487
+Nicaragua,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,101.81164031906646,40.388673470145186,128.03351840568382
+Mexico,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,60.70376520177961,17.481633989313803,101.8149854971706
+Honduras,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,183.72045855797097,145.20209720272223,186.30059400933467
+Guatemala,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,143.6737744047212,65.69850683700285,190.78730346557836
+United States of America,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,18.652068749115355,8.469706112195306,33.502176050696804
+Colombia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,42.12167495165275,21.221025224857296,78.82329968343225
+Ecuador,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,225.16881892575677,96.85578336635513,328.1227933501492
+Paraguay,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,21.136286630610332,4.672444489580446,26.233512024863053
+Uruguay,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,8.349004536685081,8.349004536685081,0.0
+Venezuela,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,86.90116254112071,21.421226709622058,153.4892410465101
+Peru,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,118.56285679852003,52.09740023694706,168.8109039647783
+Chile,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,35.15932882260484,17.37083851893388,47.41267302444341
+Brazil,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,53.63874730630067,28.001337059957613,78.39083443606943
+Bolivia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,110.76726156596638,31.482034157435297,171.88927974580548
+Argentina,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,11.232873977049572,5.389195146910469,30.528226384354095
+Turkmenistan,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,6.009867629551233,2.9684511516322227,8.174375344591796
+Uzbekistan,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,6.842478739971826,0.9358015948507399,16.389355815331783
+Tajikistan,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,40.64457187109178,25.885754713983957,41.89743340473507
+Kyrgyzstan,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,30.958028551557412,18.052063886201612,36.3513151139448
+Kazakhstan,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,1.8632434218720229,0.5688869634732314,8.308455135507677
+Mongolia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,17.533207765598622,2.1325688686110036,24.264868937640657
+Republic of Korea,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,223.89144738755718,187.78417534041742,196.21529132565257
+Dem People's Rep of Korea,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,133.82728853121188,79.94768807979979,138.54656001204788
+China,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,76.66530911946748,17.445993913983745,143.7528534243904
+Myanmar,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,229.282464819014,222.8805255622769,114.64526991557507
+Cambodia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,16.89202431229314,16.89202431229314,0.0
+Viet Nam,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,285.96257186834987,154.64376523576496,330.7262244696669
+Lao People's Democratic Republic,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,280.0648879412827,231.69824816288343,222.58465925055162
+Malaysia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,351.7497596451722,377.96796772930895,117.68604278514715
+Thailand,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,176.52931279504307,148.9207101468751,143.28120383030222
+Indonesia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,207.03835867500626,61.99293317173424,301.57538009185765
+Nepal,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,239.01628578918502,159.37456887093896,247.83246064526446
+Pakistan,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,36.324376133169594,7.445286487129236,78.92811377050391
+India,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,51.52417954476677,11.998091733664804,125.91044655003535
+Iran  (Islamic Republic of),se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,8.303216025985297,1.85884932440457,17.205697621908804
+Jammu and Kashmir,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,144.31905188465893,97.73252821461382,138.75859228156273
+Bhutan,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,522.2451572084522,478.5190915756174,404.7058974416637
+Bangladesh,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,113.54037045508771,34.74339027179767,124.2665175080145
+Arunachal Pradesh,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,477.5254766991905,326.6548855013243,423.5577636198183
+Afghanistan,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,37.50446980507289,10.334911159729597,58.08431580541696
+West Bank,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,1.6334125639422057,0.6511631590097942,0.9822494049324118
+Lebanon,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,15.895034888709235,15.895034888709237,1.7763568394002505e-15
+Saudi Arabia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,7.827157409468611,1.729392233929051,9.507763861602339
+Turkey,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,15.421524252257601,6.952316751563092,22.06496621530701
+Yemen,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,22.993599323171278,8.623141170860695,32.5203199089387
+Iraq,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,15.58886745254071,3.7523936208243645,26.399284365997058
+Jordan,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,3.0301255564974046,2.435907675266605,3.3761962012157203
+Syrian Arab Republic,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,8.66689304041759,1.0019910088968373,29.570437388455883
+Israel,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,11.460222013834477,3.6726305033192235,15.594028497772145
+Georgia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,50.408675758977196,19.467919579043176,72.75769434677605
+Azerbaijan,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,19.40151485081032,3.657911747609704,30.136732559953487
+Armenia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,22.96966524767846,17.962018871262547,21.021912677040138
+"Moldova, Republic of",se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,5.634014938419113,4.472684749977456,4.673291587268882
+Hungary,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,3.3908265250222143,1.5706531750760664,5.2820558719072315
+Poland,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,2.156425775469509,0.9956823996667946,4.335429589590143
+Romania,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,9.681209605511079,4.496816806123657,11.355661307559636
+Ukraine,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,2.648098094485169,1.2808657646677037,5.224206968648285
+Belarus,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,1.0964426674789378,0.8909537268087115,0.7185708909708124
+Czech Republic,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,10.340502530179553,2.319137520107684,11.824718698452768
+Russian Federation,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,5.7642297224896915,1.2080706605552984,13.792372698899724
+Slovakia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,14.629099894507393,7.956561093155828,17.21553789166113
+Bulgaria,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,12.803780962306666,7.420453672455323,13.553998257975719
+Lithuania,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,1.69768673433268,1.769157316864051,0.8001561031120044
+Finland,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,2.458891928366301,2.458891928366301,0.0
+The former Yugoslav Republic of Macedonia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,29.241410481401974,17.29761695762014,34.395248766307766
+Montenegro,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,132.78571113425062,132.78571113425062,0.0
+Croatia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,23.20650889003149,10.140804939519315,31.387582252151024
+Slovenia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,30.767269296148378,30.767269296148374,3.552713678800501e-15
+Greece,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,37.785268698229956,21.908322593934454,42.69555720404226
+Italy,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,48.42808945550485,24.737037613613715,58.597913954477846
+Portugal,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,16.063087370168795,6.774899550687789,31.789776845111355
+Serbia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,12.470771593060975,2.0773967995885356,27.899225099851655
+Spain,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,19.627273936914083,6.445782538485994,32.1828701047542
+Bosnia and Herzegovina,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,10.699020439673049,5.250782982517709,5.44823745715534
+Albania,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,77.58002066161417,54.72620568843932,67.3364875217973
+Netherlands,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,0.9044858970410832,0.7618976533855458,0.44747386877258544
+Luxembourg,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,2.5788684085252855,2.5788684085252855,0.0
+France,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,14.38602007361704,2.8931314862516,31.36199073859639
+Germany,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,5.517600667049275,1.8046782357312399,12.739955632206764
+Switzerland,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,25.925464303155653,14.983405920450796,26.528739848586522
+Belgium,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,2.6152107701216307,1.138476268491319,4.071412604388148
+Austria,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,13.626104238761474,6.735847239740891,16.686930449305414
+New Zealand,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,65.26131171184282,21.529558918124742,97.50169463060354
+Australia,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,11.42062800004759,2.553495945949747,33.3519039331882
+Canada,se_rate,Irrigated_Maize_residues_left_on_the_field.tif,t soil/ha/yr,6.54710303514634,2.3892905001115157,13.985468568828354

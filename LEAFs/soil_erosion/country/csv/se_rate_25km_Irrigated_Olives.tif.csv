@@ -1,0 +1,15 @@
+country,impact_category,flow_name,Unit,cf,cf_median,cf_std
+Libya,se_rate,Irrigated_Olives.tif,t soil/ha/yr,1.3667425712019947,0.3840504837752446,1.6726697491656695
+West Bank,se_rate,Irrigated_Olives.tif,t soil/ha/yr,0.29208875078338314,0.29208875078338314,0.0
+Turkey,se_rate,Irrigated_Olives.tif,t soil/ha/yr,2.9209715013952766,1.1917528197894272,5.169147378115389
+Jordan,se_rate,Irrigated_Olives.tif,t soil/ha/yr,2.9987165748594453,1.7545910897013395,3.13272757064702
+Cyprus,se_rate,Irrigated_Olives.tif,t soil/ha/yr,5.21121888727891,2.592675720328152,5.562297597588065
+Armenia,se_rate,Irrigated_Olives.tif,t soil/ha/yr,3.9279719719959503,3.9279719719959503,0.0
+Bulgaria,se_rate,Irrigated_Olives.tif,t soil/ha/yr,21.440882961281645,3.454050632295143,17.9868323289865
+The former Yugoslav Republic of Macedonia,se_rate,Irrigated_Olives.tif,t soil/ha/yr,4.87201452457044,3.52941967428078,1.3425948502896594
+Greece,se_rate,Irrigated_Olives.tif,t soil/ha/yr,16.890120361799205,9.470996773979925,19.190826060572363
+Italy,se_rate,Irrigated_Olives.tif,t soil/ha/yr,20.593642829782222,9.936646311312726,25.358504562952337
+Portugal,se_rate,Irrigated_Olives.tif,t soil/ha/yr,12.41577725898817,6.487008763635859,20.890442134657526
+Spain,se_rate,Irrigated_Olives.tif,t soil/ha/yr,8.597650073284978,2.836119759695683,14.206848719695826
+Albania,se_rate,Irrigated_Olives.tif,t soil/ha/yr,24.54823930604202,24.54823930604202,0.0
+France,se_rate,Irrigated_Olives.tif,t soil/ha/yr,22.912725289024056,22.912725289024056,0.0

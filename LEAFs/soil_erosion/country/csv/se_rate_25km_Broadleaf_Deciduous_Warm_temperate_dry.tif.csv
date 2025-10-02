@@ -1,0 +1,59 @@
+country,impact_category,flow_name,Unit,cf,cf_median,cf_std
+United States of America,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.22908633450872598,0.09040230036784379,0.42058518603860023
+Chile,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.8468691184508418,0.4760276459349012,1.0256227698797642
+Argentina,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.31779571394371514,0.24722176303735788,0.3194843000756797
+Turkmenistan,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.011846425002827388,0.007241944057593247,0.018765362377939795
+Uzbekistan,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.04136327855489373,0.006427697947071737,0.12066446282639168
+Tajikistan,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.2928124461207502,0.1719321678212446,0.3701477003620974
+Kyrgyzstan,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.278145801353125,0.16195033619258387,0.32642512225240344
+Kazakhstan,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.021023030550385156,0.005195052035950297,0.08471655526510571
+Mongolia,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.06091437043743986,0.017904398542551953,0.12163654353589551
+Republic of Korea,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,2.0168900579298494,1.71328518298489,1.7609454032345273
+Dem People's Rep of Korea,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,1.1987526796976182,0.7172340538989607,1.2389989588887589
+Japan,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,2.2439172323367833,1.0548972367552092,3.166990738927164
+China,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.2059772452299056,0.057787223663057156,0.4589088544711477
+Iran  (Islamic Republic of),se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.059343415608070695,0.019462146096011067,0.09555593274234318
+Afghanistan,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.05599235823608476,0.01669397582589439,0.07635633049775005
+Turkey,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.09990489519120346,0.048992023242052915,0.13410989020683978
+Iraq,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.4710599662158498,0.4710599662158498,0.0
+Georgia,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.5936493694630348,0.3139843483978762,0.699525117995818
+Azerbaijan,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.1587294891948163,0.02956402051746498,0.2587629951315495
+Armenia,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.20272395144610783,0.1611425160710855,0.18757991860223452
+"Moldova, Republic of",se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.050989213980821166,0.04095205603763086,0.04188743205477195
+Hungary,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.030534688049044544,0.0136306534790468,0.04756971879413262
+Poland,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.019798239651018883,0.008934826010271946,0.040194637874927906
+Romania,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.10401843988277307,0.050218933491095526,0.1268645649098769
+Ukraine,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.024370010540441262,0.011544238742659755,0.047951181240713084
+Belarus,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.00982442664968774,0.00799300603511585,0.006442854678870659
+Czech Republic,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.05170897053557206,0.027263491590234033,0.07506987419349874
+Russian Federation,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.05131752755515666,0.010771024604793107,0.12484017041433677
+Slovakia,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.13856753309412112,0.07586249981865832,0.15859922785052288
+Bulgaria,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.11793234094858396,0.06657105661332201,0.1261402067067458
+Norway,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.29231477053104205,0.07636232181276646,0.659491846628509
+Sweden,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.019037906123406095,0.012326977884028551,0.023289775248892215
+Lithuania,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.011802440632245568,0.010047852629097704,0.0063179392330721925
+Latvia,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.014963111262274197,0.01180249514185233,0.010653023857282503
+Ireland,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.0629439731246439,0.022985543858888853,0.13120718038622511
+U.K. of Great Britain and Northern Ireland,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.08974036803221092,0.023395769719666646,0.2108822992218776
+Finland,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.01003234851582618,0.00739315650151474,0.008570028143456017
+Estonia,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.012014080079298278,0.009699540968470486,0.007671838749787439
+Denmark,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.015194588069606363,0.01221337887366052,0.00986932781297171
+The former Yugoslav Republic of Macedonia,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.23561901821108788,0.15518197250334254,0.20972684705325628
+Montenegro,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.5501757749633153,0.4636940403399502,0.35952892133798386
+Croatia,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.2609694700941166,0.09175492746566724,0.38728959677368724
+Slovenia,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.7443131687740796,0.5779662881049957,0.7457045645071724
+Greece,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.15054398555160745,0.05290133474519344,0.20073074739837587
+Italy,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.4373106701604283,0.09918381975612611,0.6097395494221075
+Serbia,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.1917221810339326,0.08859328798653303,0.2401386679053928
+Bosnia and Herzegovina,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.46332885626336184,0.36060562762202686,0.45208718810034065
+Albania,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,1.182201555624882,1.0833925212981141,0.7879697289937668
+Netherlands,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.008303139771327052,0.007318535824433068,0.004060225864635286
+Luxembourg,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.15304040704142796,0.10387354269990046,0.20416441980170072
+France,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.08103751420432308,0.02082684947662679,0.20304362322696448
+Germany,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.04989896541575243,0.016460010220005566,0.11419005031195165
+Switzerland,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.5330409861547502,0.22191908023619508,0.7116231731321015
+Belgium,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.040588625621512026,0.01433782684008618,0.07137814779356862
+Austria,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.4209551924783241,0.24933622086409007,0.4513088397907795
+New Zealand,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.5726474911590305,0.1207075428024641,1.1110474876400527
+Australia,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.20391647046642056,0.11235682971288909,0.2313209069509813
+Canada,se_rate,Broadleaf_Deciduous_Warm_temperate_dry.tif,t soil/ha/yr,0.09058155208746656,0.027566718116083785,0.24981340817687692

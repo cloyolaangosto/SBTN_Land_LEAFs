@@ -7,5 +7,6 @@
 !*.csv
 !*.json
 !*.txt
+!*.ipynb
 !*/
 !*/README.md

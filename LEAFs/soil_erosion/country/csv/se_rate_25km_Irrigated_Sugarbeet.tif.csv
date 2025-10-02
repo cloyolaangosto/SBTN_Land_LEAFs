@@ -1,0 +1,61 @@
+country,impact_category,flow_name,Unit,cf,cf_median,cf_std
+United States of America,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,32.13929184599006,13.428242892105532,59.74549430126432
+Turkmenistan,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,17.999765951083464,11.10769691861999,6.892069032463475
+Uzbekistan,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,4.644438882218707,4.644438882218707,0.0
+Kyrgyzstan,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,19.009215882656857,19.009215882656857,0.0
+Kazakhstan,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,8.4174411333227,2.8369501516037343,13.100060358416638
+Mongolia,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,27.278951315362146,4.771395400907947,36.69382085648438
+Dem People's Rep of Korea,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,18.896700992521495,13.546736260558271,12.453378395013985
+Japan,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,438.8226009439393,206.16724496871402,590.3822491389456
+China,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,107.62323236374446,22.455109909172343,214.5645649503275
+Viet Nam,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,1257.779951246248,601.8058344530522,655.9741167931959
+Nepal,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,216.87769201204088,103.21821703623775,113.65947497580315
+Pakistan,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,59.6076811719516,12.151194936588425,122.73397172860945
+India,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,24.001014963933653,24.001014963933653,0.0
+Iran  (Islamic Republic of),se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,12.313338080697584,6.216053746407478,13.81951799793464
+Jammu and Kashmir,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,176.27258112661252,136.53316185812142,194.71593739518522
+Arunachal Pradesh,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,63.35963937913907,52.64024277650968,36.361334873973966
+Afghanistan,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,57.70621513429968,13.158212158267997,94.6233942472579
+Turkey,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,23.172922600665217,10.482879235079013,32.91856205383155
+Iraq,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,78.50999368687242,78.50999368687242,0.0
+Syrian Arab Republic,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,42.54740596534143,2.8912976435112236,85.75523267887793
+Azerbaijan,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,81.81561010790828,81.81561010790828,0.0
+Armenia,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,13.093239386374579,13.093239386374579,0.0
+"Moldova, Republic of",se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,8.498202256267563,6.825342613610251,6.981238615111999
+Hungary,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,5.018531350375953,2.2717755600940785,7.843562830934346
+Poland,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,3.243999491251646,1.4891376554345608,6.4909039472719545
+Romania,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,17.118508405525503,8.138906129306362,21.037003563747678
+Ukraine,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,3.9795518467406232,1.9150912265966367,7.865394882700563
+Belarus,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,1.6369224469502242,1.3321676609396487,1.0727067865163022
+Czech Republic,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,8.622356670488838,4.543915225541731,12.540288170109044
+Russian Federation,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,9.882825418474027,1.9655614469125986,22.255791357472223
+Slovakia,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,23.23685992161399,12.732202692158582,26.480106320004005
+Bulgaria,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,6.9601688801919295,6.695870320055474,3.6147156409966
+Norway,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,7.096778608222651,5.409681932588995,1.687096675633656
+Sweden,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,3.0835604458741783,2.053862966013662,3.174778887293697
+Lithuania,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,1.9701515387121882,1.674642090293052,1.0511591116011996
+Latvia,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,2.463807784301866,1.9256940061053474,1.7717047105501342
+Ireland,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,10.414318494105206,3.8638070419636406,21.367344971427308
+U.K. of Great Britain and Northern Ireland,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,16.021787005116654,3.948253358272165,42.73852657145051
+Finland,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,1.6360858657583928,1.1697420888576318,1.3979223615517788
+Estonia,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,1.0263469577675008,1.0263469577675008,0.0
+Denmark,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,2.5324313229216284,2.0355631279162716,1.6448879545306865
+The former Yugoslav Republic of Macedonia,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,48.298196299432796,33.593164845188646,51.57563812080177
+Montenegro,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,126.07423206434657,126.07423206434657,0.0
+Croatia,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,46.497186009396586,18.35278150914932,66.08767177998453
+Slovenia,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,119.05096044557035,96.32771384685232,120.07468852382428
+Greece,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,5.957058422318279,2.9870286830416504,6.088679731982685
+Italy,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,73.1328589974615,36.62950631433718,89.64896533343777
+Portugal,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,16.104397769199647,11.175210992311946,11.756097713051718
+Serbia,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,32.31576012525526,15.24824751085091,40.282999524580234
+Spain,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,28.833016746262793,9.491952887304457,47.422163764420205
+Bosnia and Herzegovina,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,82.44223504878613,61.07393150900725,71.57175834294037
+Albania,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,87.4925862818405,63.268889492949576,83.66911888384058
+Netherlands,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,1.3637142055957348,1.1397674471588495,0.6732479589031336
+Luxembourg,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,3.8559635503874894,3.855963550387489,4.440892098500626e-16
+France,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,19.8257113518569,4.0040447506000465,44.316481775734346
+Germany,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,8.150355815693858,2.6819148662654606,18.85219637867635
+Switzerland,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,75.65944199420669,18.063325301122983,118.64634562839619
+Belgium,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,6.559383496251933,2.3133683466522093,11.915566420187014
+Austria,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,68.06301453011659,27.00833404074115,76.33092698393149
+Canada,se_rate,Irrigated_Sugarbeet.tif,t soil/ha/yr,16.0515668158949,3.0985876233602347,50.80033884188962

@@ -1,0 +1,113 @@
+country,impact_category,flow_name,Unit,cf,cf_median,cf_std
+Mozambique,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,6.552116043427801,5.155267245724367,2.4427463642992624
+Rwanda,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,79.17500050436266,58.030781803996376,71.71800918244578
+Somalia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,4.208075671059033,1.8747088129945957,6.976573434977879
+Kenya,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,18.521797506930664,7.313422681226762,31.745814732066567
+Madagascar,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,69.14849462968448,29.94489252197909,103.46457575667552
+South Sudan,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,3.657418831201552,3.175088696804849,1.6520528564476404
+United Republic of Tanzania,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,25.417132477794627,8.719940511554817,47.10639586803416
+Ethiopia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,35.468402470108856,10.31481705155597,56.33565052612059
+Eritrea,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,31.87672076335774,18.2387361569783,38.07560669196422
+Burundi,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,57.522937584320026,32.987452373397545,57.96551127885445
+Chad,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,7.037749009021663,7.037749009021662,8.881784197001252e-16
+Cameroon,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,2.2214790827725825,2.031760481901597,0.6904444472745161
+Morocco,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,9.461432127482958,2.6379907730918046,15.317539648137078
+Libya,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,1.5676386579237334,0.5208314328085212,2.064029169185962
+Sudan,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,3.4822561118272946,2.67945690715015,0.8027992046771442
+Tunisia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,4.528808205620625,1.1717038321645974,9.141863371505544
+Algeria,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,6.366300316321735,1.3087727551763417,12.621364869926904
+Lesotho,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,45.75843139082108,38.219652103710835,33.346387276117056
+South Africa,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,13.860031500273347,4.615811689311127,27.061644851173565
+Botswana,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,2.0486450840902446,1.7462412420031108,1.0471194771016923
+Nigeria,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,13.196892807459237,5.409434116131363,33.78796639928167
+Niger,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,1.7376214046185399,1.515262682776671,0.9896336652630268
+Mexico,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,38.92853319736921,11.390797327151814,63.18120365258237
+Guatemala,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,138.49518575297472,73.64742157664372,122.05507945460313
+United States of America,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,12.797358827505803,5.285540504653029,24.57820748451804
+Colombia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,243.02643097810287,188.97348801375546,228.37314824061482
+Guyana,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,3.7581023349660962,3.7581023349660962,0.0
+Ecuador,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,158.58338307798044,75.80792200099867,213.6473194852684
+French Guiana,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,50.334619117780875,50.33461911778087,7.105427357601002e-15
+Paraguay,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,8.817246211093385,4.652034916330764,14.883536515242076
+Suriname,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,53.79275569416825,53.79275569416825,0.0
+Uruguay,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,7.891241461798964,6.110832453368979,6.571517392257459
+Venezuela,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,72.94360091281708,39.388882636315984,64.37841177658989
+Peru,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,70.64380075992403,34.45545610799158,96.95191638453255
+Chile,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,74.85988531378199,52.55346485452493,78.88947948679446
+Brazil,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,33.45561125259731,15.519180126054644,50.603745537658135
+Bolivia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,43.81627275375479,10.861913174898143,83.65389585207866
+Argentina,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,6.604383556573548,2.91461832595171,17.87733164650707
+Turkmenistan,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,2.9716095957622852,1.5778016090586837,4.472276149356398
+Uzbekistan,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,12.704460138544995,8.577141154935282,13.531148185253524
+Tajikistan,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,27.165917368873256,19.914306614940827,26.215049497534388
+Kyrgyzstan,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,18.515567691756754,10.79668914654026,21.741217615188397
+Kazakhstan,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,1.1907114152756273,0.3430498930661925,5.077595035470369
+Mongolia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,4.93813748675129,1.3877043109103873,9.360690642638165
+Dem People's Rep of Korea,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,79.81039970630304,47.81560389014238,82.80971534951597
+Japan,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,175.29017506984337,82.03644531213902,236.23112637353483
+China,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,43.823623395838716,11.240392072980578,82.63928701436156
+Myanmar,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,171.63016784408703,133.30175244686416,41.4722388696825
+Viet Nam,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,326.3367012203225,163.5742916459091,256.46022451109167
+Lao People's Democratic Republic,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,170.12422578282124,170.12422578282124,0.0
+Malaysia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,374.8812858827632,374.8812858827632,0.0
+Thailand,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,145.51753832316982,118.9386209460582,117.23168803185254
+Nepal,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,162.0433217253164,116.19103680686511,159.16316856300224
+Pakistan,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,24.357888668312697,4.5615420650304594,51.31650153919074
+India,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,31.8858191940241,7.376904684140617,76.691709914268
+Iran  (Islamic Republic of),se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,5.1439946994743675,1.1407207688379033,11.22259779894905
+Jammu and Kashmir,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,85.754272518767,58.84933825772241,81.07376715505461
+Bhutan,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,267.54466208902573,187.380693420315,245.8394319779006
+Bangladesh,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,26.490255788251147,14.453431669455494,53.93244556370941
+Arunachal Pradesh,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,285.6013674655479,195.3677584562649,253.3240264512037
+Afghanistan,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,22.70793489591852,6.0724105753934445,35.942549166854754
+West Bank,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,13.994142803821292,5.048204664396128,17.152574516545005
+Lebanon,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,44.79564755382697,17.400212690578368,60.56959799352616
+Turkey,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,9.297094948995792,4.2044010795440485,13.169664974478085
+Iraq,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,9.12223309669987,2.1925930091429793,15.647695465878616
+Jordan,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,3.9982886671806876,2.3394547281674667,4.176969990459856
+Syrian Arab Republic,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,5.183548574477764,0.5992769313738395,17.685668653899658
+Israel,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,7.145303065789971,3.220488233508807,9.538391459477564
+Georgia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,36.50443550738367,18.151743792846894,46.96710868100348
+Cyprus,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,6.9482916771425245,3.456900874584475,7.416396612595888
+Azerbaijan,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,13.115955389667873,4.7828311122474725,15.682841833397934
+Armenia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,13.737838345942983,10.742834471439329,12.572914536005067
+"Moldova, Republic of",se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,3.399280953160257,2.7301370861263123,2.7924954876562236
+Hungary,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,2.0074125700631593,0.9087102375784689,3.1374251791250165
+Poland,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,1.2975998158364022,0.5956550710497764,2.5963616175975845
+Romania,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,6.844825489630039,3.341009452028179,8.36612351277253
+Ukraine,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,1.6192743821464224,0.7676777423800323,3.189706914422259
+Belarus,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,0.6547689885369078,0.5328670723161975,0.4290827210003516
+Czech Republic,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,3.4472647237749063,1.8175661173005377,5.0046583106395905
+Russian Federation,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,3.8563101787792853,0.6613009324510221,11.320482032960703
+Slovakia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,9.237835596964107,5.057500019311647,10.5732819223491
+Bulgaria,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,7.862156112053619,4.438070468443302,8.409347165995152
+Norway,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,24.994124637573037,5.918141551073854,45.562471809473394
+Sweden,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,1.2761651649166212,0.8222655046234274,1.5256489050101207
+Lithuania,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,0.7880606272278935,0.6698568460988655,0.42046365090587634
+Latvia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,0.9875148264924243,0.7796623693797539,0.7076108500599069
+Ireland,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,3.050997708974657,1.2946191148407529,5.099639364430641
+U.K. of Great Britain and Northern Ireland,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,6.514600951037097,1.5986722215936522,17.044281760596775
+Finland,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,0.5322237086766732,0.3103693708982357,0.6375192538845391
+Estonia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,0.8053733678045762,0.6532916126401217,0.5082298848174176
+Denmark,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,1.0129725442631183,0.8142252632994104,0.6579551916165708
+The former Yugoslav Republic of Macedonia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,18.260669546026637,10.870836713637347,20.28898007588122
+Montenegro,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,34.19997796752961,24.40642102181398,22.70061131662372
+Croatia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,17.731236183116803,6.789590609586564,26.02311151146536
+Slovenia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,47.62038488782715,38.53108611289884,48.02987612523063
+Greece,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,22.584347652083174,13.254395244410276,25.475445462293756
+Italy,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,30.246326828817583,15.406628793625716,36.58275223660218
+Portugal,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,9.596045180686891,4.082777023356401,18.967253280176166
+Serbia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,12.612351706933936,5.906219235772836,15.821387057064321
+Spain,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,11.738800440033303,3.8551331755160185,19.248128444200102
+Bosnia and Herzegovina,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,31.63946707971599,24.040375324064083,31.637573864150287
+Albania,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,49.20562678722692,39.14391788476589,44.43716266283653
+Netherlands,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,0.5454856903666642,0.45590698565708315,0.26929918757412397
+Luxembourg,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,10.202693866108524,6.924902889655486,13.610961404621353
+France,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,9.048291170719866,1.7592225500839254,19.567389820620264
+Germany,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,3.2601423748574496,1.0727659624916426,7.540878663838386
+Switzerland,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,32.86694672796625,10.614806150357756,47.51138490156486
+Belgium,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,2.7059083915679585,0.9558551286071416,4.758543215782832
+Austria,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,28.450468662501727,15.483160363517358,31.121470286924616
+New Zealand,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,38.575454965201565,13.16340085485094,58.789575385432265
+Australia,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,5.887455242623746,1.0592326195865358,18.85875410769817
+Canada,se_rate,Irrigated_Wheat_residues_removed_from_the_field.tif,t soil/ha/yr,5.259067293829521,0.9394489325139279,18.1205058549733

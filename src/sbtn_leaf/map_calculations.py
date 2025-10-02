@@ -339,7 +339,6 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
     # Use the preconfigured global logger.
     global raster_logger
 
-
     # Check if a valid area type is provided
     valid_area_type = {"Ecoregion", "Country", "Subcountry"}
     if area_type is None or area_type not in valid_area_type:
@@ -939,6 +938,8 @@ def multiply_rasters(raster_paths, output_path=None, band=1):
         meta.update(dtype=product.dtype, nodata=output_nodata)
         with rasterio.open(output_path, "w", **meta) as dst:
             dst.write(product, band)
+
+        print(f"Raster saved into {output_path}")
     
     return product
 
@@ -995,7 +996,7 @@ def create_binary_mask(input_path, output_path, binary_value = 1, band=1, src_no
         binary = np.where(valid, binary_value, dst_nodata).astype(np.float32)
 
     else:
-        print(f"No Input nodata value exists. Value {binary_value} if cell has value and {dst_nodata} if not, disregarding which value it is.")
+        print(f"Input doens't have a nodata value. Value {binary_value} if cell has value and {dst_nodata} if not, disregarding which value it is.")
         # If no nodata value is defined, assume a cell has a value if it is non-zero.
         binary = np.where(data != 0, binary_value, dst_nodata).astype(np.float32)
     

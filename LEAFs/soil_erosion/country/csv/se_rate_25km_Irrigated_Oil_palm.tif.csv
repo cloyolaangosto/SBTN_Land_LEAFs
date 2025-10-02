@@ -1,0 +1,7 @@
+country,impact_category,flow_name,Unit,cf,cf_median,cf_std
+Zambia,se_rate,Irrigated_Oil_palm.tif,t soil/ha/yr,2.817629654753773,2.817629654753773,0.0
+Angola,se_rate,Irrigated_Oil_palm.tif,t soil/ha/yr,12.627348556121442,5.776808130577501,21.575025795513007
+Namibia,se_rate,Irrigated_Oil_palm.tif,t soil/ha/yr,3.669780450821961,3.669780450821961,0.0
+Senegal,se_rate,Irrigated_Oil_palm.tif,t soil/ha/yr,4.568971636954068,4.568971636954068,0.0
+Guinea-Bissau,se_rate,Irrigated_Oil_palm.tif,t soil/ha/yr,7.772705719136628,4.951235404741127,7.340656134961656
+Ecuador,se_rate,Irrigated_Oil_palm.tif,t soil/ha/yr,89.36797946650422,31.48484429350596,145.99133455217705
