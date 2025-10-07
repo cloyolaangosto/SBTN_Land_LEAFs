@@ -1139,18 +1139,95 @@ def plot_raster_histogram(raster_path, band=1, bins=50, title="Raster Value Hist
     plt.grid(True, linestyle="--", alpha=0.6)
     plt.show()
 
-def plot_overlapping_histograms(raster1_path, raster2_path, title, x_label, label1, label2, bins=50):
+def plot_overlapping_histograms(raster1_path, raster2_path, title, x_label, label1, label2, bins=50, std_dev_filter=0, filter_quantiles=0.0, quantiles_tails = 'both'):
+    """
+    Plot overlapping histograms of two rasters, filtering values beyond a specified number of standard deviations from the mean.
+    
+    Parameters:
+    -----------
+    raster1_path : str
+        Path to first raster file
+    raster2_path : str  
+        Path to second raster file
+    title : str
+        Plot title
+    x_label : str
+        X-axis label
+    label1 : str
+        Legend label for first raster
+    label2 : str
+        Legend label for second raster
+    bins : int
+        Number of histogram bins
+    std_dev_filter : float
+        Number of standard deviations from mean to filter data
+    """
+    # Check if both standard deviation and filter quantiles are applied
+    if (std_dev_filter > 0)  and filter_quantiles > 0:
+        raise ValueError("Cannot apply both standard deviation and quantile filters at the same time. Choose 1")
+    if quantiles_tails not in ['both', 'left', 'right']:
+        raise ValueError("Quantile tails filtering must be either both, left, or right")
+
     with rasterio.open(raster1_path) as src1, rasterio.open(raster2_path) as src2:
         arr1 = src1.read(1, masked=True)
         arr2 = src2.read(1, masked=True)
 
-    # Flatten and remove masked/nan values
-    data1 = arr1.compressed()
-    data2 = arr2.compressed()
+    # Also mask any NaN/Inf explicitly
+    a1 = np.ma.masked_invalid(arr1)
+    a2 = np.ma.masked_invalid(arr2)
 
+    # Flatten and remove masked/nan values
+    data1 = a1.compressed()
+    data2 = a2.compressed()
+
+    if std_dev_filter >0:
+        # Filter outliers based on standard deviations
+        mean1, std1 = np.mean(data1), np.std(data1)
+        mean2, std2 = np.mean(data2), np.std(data2)
+
+        print(f"Raster 1 mean: {mean1} and std_dev: {std1}")
+        print(f"Raster 2 mean: {mean2} and std_dev: {std2}")
+
+        mask1 = (data1 >= (mean1 - std_dev_filter*std1)) & (data1 <=( mean1 + std_dev_filter*std1))
+        mask2 = (data2 >= (mean2 - std_dev_filter*std2)) & (data2 <=( mean2 + std_dev_filter*std2))
+
+        data1_f = data1[mask1]
+        data2_f = data2[mask2]
+    elif filter_quantiles > 0:
+        # Compute thresholds
+        if quantiles_tails == 'both':
+            qlow1, qhigh1 = np.quantile(data1, [filter_quantiles, 1 - filter_quantiles])
+            qlow2, qhigh2 = np.quantile(data2, [filter_quantiles, 1 - filter_quantiles])
+            mask1 = (data1 >= qlow1) & (data1 <= qhigh1)
+            mask2 = (data2 >= qlow2) & (data2 <= qhigh2)
+        elif quantiles_tails == 'left':   # drop lower tail only
+            qlow1 = np.quantile(data1, filter_quantiles)
+            qlow2 = np.quantile(data2, filter_quantiles)
+            mask1 = data1 >= qlow1
+            mask2 = data2 >= qlow2
+        else:  # 'right' -> drop upper tail only
+            qhigh1 = np.quantile(data1, 1 - filter_quantiles)
+            qhigh2 = np.quantile(data2, 1 - filter_quantiles)
+            mask1 = data1 <= qhigh1
+            mask2 = data2 <= qhigh2
+
+        data1_f = data1[mask1]
+        data2_f = data2[mask2]
+    else:
+        data1_f = data1
+        data2_f = data2
+
+    # Defining bins
+    all_vals = np.concatenate([data1_f, data2_f])
+    if all_vals.min() == all_vals.max():
+        bins = bins  # or keep the user-provided bins
+    else:
+        bins = np.linspace(all_vals.min(), all_vals.max(), bins+1)
+
+    # Plotting
     plt.figure(figsize=(10,6))
-    plt.hist(data1, bins=bins, alpha=0.5, label=label1, color='blue')
-    plt.hist(data2, bins=bins, alpha=0.5, label=label2, color='orange')
+    plt.hist(data1_f, bins=bins, alpha=0.5, label=label1, color='blue')
+    plt.hist(data2_f, bins=bins, alpha=0.5, label=label2, color='orange')
     plt.xlabel(x_label)
     plt.ylabel("Frequency")
     plt.title(title)
