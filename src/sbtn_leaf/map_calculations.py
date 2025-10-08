@@ -778,6 +778,9 @@ def build_cfs_gpkg_from_rasters(
         # 2) Reindex to *full* master so all master features are present; CFs become NaN where absent
         gdf_full = master_aligned.merge(gdf_flow.drop(columns = ['geometry'], errors='ignore'), how='left', on=master_key, validate='1:m')
 
+        # Assigns the flow_name for all missing regions
+        gdf_full.loc[gdf_full[master_key].isin(missing_regions), "flow_name"] = flow_name
+
         # Ensure numeric CF columns present & float dtype (NaN preserved)
         for col in ("cf", "cf_median", "cf_std"):
             if col in gdf_full.columns:
