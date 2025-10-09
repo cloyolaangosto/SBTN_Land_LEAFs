@@ -14,13 +14,12 @@ from rasterio.mask import mask
 import rioxarray
 import tempfile
 from typing import Optional, Callable, Iterable, Tuple, Dict, List
-from joblib import Parallel, delayed
 from shapely.geometry import box
 from shapely.prepared import prep as prep_geom
 
 import os
 from pyogrio import write_dataframe as write_df
-import fiona
+
 
 # Data Analysis
 import numpy as np
