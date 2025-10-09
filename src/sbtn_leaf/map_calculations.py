@@ -662,7 +662,7 @@ def build_cfs_gpkg_from_rasters(
     input_folder: str,
     output_folder: str,
     *,
-    layer_name: str = "leaf_long",
+    layer_name: str,
     master_gdf: gpd.GeoDataFrame,
     master_key: str,                 # e.g., 'ADM0_NAME', 'ISO_A3', 'ADM1_NAME', 'ECO_NAME'
     result_key: str,                 # column in calculator's gdf that matches master_key
