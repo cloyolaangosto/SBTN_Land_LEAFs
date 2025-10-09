@@ -13,7 +13,7 @@ from rasterio.enums import Resampling
 from rasterio.mask import mask
 import rioxarray
 import tempfile
-from typing import Optional, Callable, Iterable, Tuple
+from typing import Optional, Callable, Iterable, Tuple, Dict, List
 from joblib import Parallel, delayed
 from shapely.geometry import box
 from shapely.prepared import prep as prep_geom
@@ -681,9 +681,10 @@ def build_cfs_gpkg_from_rasters(
     sig_figures: int = 4
 ) -> Tuple[str, pd.DataFrame]:
     """
-    Process all rasters in a folder into ONE GeoPackage layer (tidy/long),
-    enforcing a single master geometry set (countries / subcountries / ecoregions),
-    and keeping CF columns as NaN where no raster match exists.
+    Process all rasters in a folder into a GeoPackage comprised of a single master
+    geometry layer plus one attribute table per statistic (mean / median / std).
+    Geometry is stored once, and each attribute table keeps all master regions with
+    NaN values where no raster match exists.
 
     Returns
     -------
@@ -712,12 +713,27 @@ def build_cfs_gpkg_from_rasters(
     if run_test:
         file_list = file_list[:3]
 
-    first_write = True
-    schema_cols: Optional[list] = None
-    total_rows = 0
+    # Prepare GeoPackage layer bookkeeping
+    stat_layer_state = {
+        "cf_mean": {
+            "layer": f"{layer_name}_mean",
+            "first_write": True,
+            "rows": 0,
+        },
+        "cf_median": {
+            "layer": f"{layer_name}_median",
+            "first_write": True,
+            "rows": 0,
+        },
+        "cf_std": {
+            "layer": f"{layer_name}_std",
+            "first_write": True,
+            "rows": 0,
+        },
+    }
 
-    # Create list of master regions
-    master_regions = master_gdf[master_key].unique()
+    # Prepare metadata container (impact category/unit stored once per flow)
+    metadata_records: List[Dict[str, str]] = []
 
     # Dropping unnecessary columns
     if area_type == "ecoregion":
@@ -733,12 +749,22 @@ def build_cfs_gpkg_from_rasters(
     if (master_gdf.crs.is_geographic == False) or (str(master_gdf.crs) != equal_area_crs):
         master_gdf = master_gdf.to_crs(equal_area_crs)
 
-    # Set up a master_df
-    results_df = pd.DataFrame(master_gdf[master_key])
-    results_df = results_df.assign(
-        imp_cat = cf_name,
-        unit = cf_unit
+    # Persist master geometry once (recommendation #1)
+    geometry_layer = f"{layer_name}_geometry"
+    write_df(
+        master_gdf,
+        gpckg_path,
+        layer=geometry_layer,
+        driver="GPKG",
+        append=False,
+        promote_to_multi=promote_to_multi,
     )
+
+    # Base frame with master identifiers for later joins
+    master_id_df = pd.DataFrame(master_gdf[master_key])
+
+    # Store long-format results for CSV export (without constant metadata columns)
+    long_result_frames: List[pd.DataFrame] = []
 
     # Iterates through files
     for file in file_list:
@@ -768,125 +794,98 @@ def build_cfs_gpkg_from_rasters(
                 logger.info("Result gdf aligned with master_gdf")
             gdf_flow = gdf_flow.set_crs(master_gdf.crs, allow_override=True)
 
-        # 1) Attach master geometry to result rows (m:1 expected now that master is unique)
+        # Ensure flow results include the expected join key
         if master_key not in gdf_flow.columns:
             raise KeyError(f"master_key '{master_key}' not found in result gdf. Available: {list(gdf_flow.columns)}")
 
-        # 2) Detect geometries with missing values
-        flow_regions = gdf_flow[result_key].dropna().unique()
-        
-        # Regions present in the flow that are missing from the master list
-        missing_regions = [region for region in master_regions if region not in flow_regions]
+        # Record metadata once per flow (recommendation #2)
+        metadata_entry = {
+            "flow_name": flow_name,
+            "impact_category": cf_name,
+            "unit": cf_unit,
+        }
+        if add_provenance:
+            metadata_entry["source_file"] = file
+        metadata_records.append(metadata_entry)
 
-        # Count how many missing regions were detected
-        missing_reg_amount = len(missing_regions)
-        
-        if missing_reg_amount >0:
-            if logger:
-                logger.info(
-                    f"{missing_reg_amount} rows in '{file}' had no matching master geometry; "
-                    f"their CF values will be NaN."
-                )
+        # Long-format table for CSV output (no constant columns)
+        mean_df = master_id_df.merge(
+            df_flow[[result_key, "cf"]],
+            how="left",
+            left_on=master_key,
+            right_on=result_key,
+        ).rename(columns={"cf": "value"})
 
-        # 2) Reindex to *full* master so all master features are present; CFs become NaN where absent
-        gdf_full = master_gdf.merge(gdf_flow.drop(columns = ['geometry'], errors='ignore'), how='left', on=master_key, validate='1:m')
+        median_df = master_id_df.merge(
+            df_flow[[result_key, "cf_median"]],
+            how="left",
+            left_on=master_key,
+            right_on=result_key,
+        ).rename(columns={"cf_median": "value"})
 
-        # Assigns the flow_name for all missing regions
-        gdf_full.loc[gdf_full[master_key].isin(missing_regions), "flow_name"] = flow_name
-        gdf_full.loc[gdf_full[master_key].isin(missing_regions), "imp_cat"] = cf_name
-        gdf_full.loc[gdf_full[master_key].isin(missing_regions), "unit"] = cf_unit
+        std_df = master_id_df.merge(
+            df_flow[[result_key, "cf_std"]],
+            how="left",
+            left_on=master_key,
+            right_on=result_key,
+        ).rename(columns={"cf_std": "value"})
 
-        # Ensure numeric CF columns present & float dtype (NaN preserved)
-        for col in ("cf", "cf_median", "cf_std"):
-            if col in gdf_full.columns:
-                gdf_full[col] = gdf_full[col].astype("float32").round(sig_figures)
-
-        # Final GeoDataFrame with consistent geometry from master
-        gdf_out = gpd.GeoDataFrame(
-            gdf_full,
-            geometry="geometry",
-            crs=master_gdf.crs
+        stat_frames = (
+            ("cf_mean", mean_df),
+            ("cf_median", median_df),
+            ("cf_std", std_df),
         )
 
-        if add_provenance:
-            gdf_out["_source_file"] = file
+        for metric_name, frame in stat_frames:
+            if result_key in frame.columns:
+                frame = frame.drop(columns=result_key)
+            frame = frame.assign(flow_name=flow_name)
+            if "value" in frame.columns:
+                frame["value"] = frame["value"].astype("float32").round(sig_figures)
 
-        # 3) Creating the gpkcg
-        # First write: establish stable schema
-        if first_write:
-            # Drop result_key if it exists
-            if result_key in gdf_out.columns:
-                gdf_out = gdf_out.drop(columns=result_key, errors="ignore")
-
-            # Freeze columns for the geopackage
-            base_cols = [master_key, "imp_cat", "flow_name", "unit", "cf", "cf_median", "cf_std"]
-            extras = [c for c in gdf_out.columns if c not in base_cols + ["geometry"]]
-            schema_cols = [c for c in base_cols + extras if c in gdf_out.columns] + ["geometry"]
-            gdf_out = gdf_out[schema_cols]
-
+            # Write per-metric attribute table (geometry stored separately)
+            layer_state = stat_layer_state[metric_name]
             write_df(
-                gdf_out,
+                frame[[master_key, "flow_name", "value"]],
                 gpckg_path,
-                layer=layer_name,
+                layer=layer_state["layer"],
                 driver="GPKG",
-                append=False,
-                promote_to_multi=promote_to_multi
+                append=not layer_state["first_write"],
             )
-            first_write = False
-        else:
-            # Align to frozen schema: add missing columns as NA, order consistently
-            for c in schema_cols:
-                if c not in gdf_out.columns:
-                    gdf_out[c] = pd.NA
-            gdf_out = gdf_out[schema_cols]
+            layer_state["first_write"] = False
+            layer_state["rows"] += len(frame)
 
-            # Checks result_key has not been added back
-            if result_key in gdf_out.columns:
-                gdf_out = gdf_out.drop(columns=result_key, errors="ignore")
+            frame_with_metric = frame.copy()
+            frame_with_metric["metric"] = metric_name
+            long_result_frames.append(frame_with_metric)
 
-            write_df(
-                gdf_out,
-                gpckg_path,
-                layer=layer_name,
-                driver="GPKG",
-                append=True,
-                promote_to_multi=promote_to_multi
-            )
+    # Combine long-format data and persist to CSV
+    if long_result_frames:
+        results_df = pd.concat(long_result_frames, ignore_index=True)
+    else:
+        results_df = pd.DataFrame(columns=[master_key, "flow_name", "metric", "value"])
+    results_df.to_csv(csv_path, index=False)
 
-        # 4) Expand df
-        results_df_mean = results_df.merge(
-            df_flow[[result_key, "cf"]],
-            how = "left",
-            left_on = master_key,
-            right_on = result_key
-        ).rename(columns={"cf": "value"})
-        results_df_mean["metric"] = "cf_mean"
-
-        results_df_median = results_df.merge(
-            df_flow[[result_key, "cf_median"]],
-            how = "left",
-            left_on = master_key,
-            right_on = result_key
-        ).rename(columns={"cf_median": "value"})
-        results_df_median["metric"] = "cf_median"
-
-        results_df_std = results_df.merge(
-            df_flow[[result_key, "cf_std"]],
-            how = "left",
-            left_on = master_key,
-            right_on = result_key
-        ).rename(columns={"cf_std": "value"})
-        results_df_std["metric"] = "cf_std"
-        
-        total_rows += len(gdf_out)
-
-    # Creating the large single dataframe
-    results_df = pd.concat([results_df_mean,results_df_median,results_df_std], ignore_index=True).drop(columns=result_key)
-    results_df.to_csv(csv_path)
+    # Persist metadata table once (recommendation #2)
+    if metadata_records:
+        metadata_df = pd.DataFrame(metadata_records).drop_duplicates(subset=["flow_name"], keep="last")
+        metadata_layer = f"{layer_name}_metadata"
+        write_df(
+            metadata_df,
+            gpckg_path,
+            layer=metadata_layer,
+            driver="GPKG",
+            append=False,
+        )
 
     if logger:
-        logger.info(f"Wrote {total_rows} rows into {gpckg_path} (layer='{layer_name}').")
-    
+        stat_counts = ", ".join(
+            f"{state['layer']}={state['rows']}" for state in stat_layer_state.values()
+        )
+        logger.info(
+            f"Wrote GeoPackage '{gpckg_path}' with geometry layer '{geometry_layer}' and statistic tables ({stat_counts})."
+        )
+
     return gpckg_path, results_df
 
 
