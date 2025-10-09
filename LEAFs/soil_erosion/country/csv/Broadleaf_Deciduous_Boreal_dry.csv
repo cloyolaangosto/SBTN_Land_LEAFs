@@ -1,9 +1,0 @@
-country,imp_cat,flow_name,Unit,cf,cf_median,cf_std
-United States of America,se_rate,Broadleaf_Deciduous_Boreal_dry,t soil/ha/yr,0.05888081970290906,0.014205562239297403,0.09217116354869552
-Chile,se_rate,Broadleaf_Deciduous_Boreal_dry,t soil/ha/yr,0.12208800340464789,0.11227825579050366,0.027971937571543877
-Russian Federation,se_rate,Broadleaf_Deciduous_Boreal_dry,t soil/ha/yr,0.05901521212259806,0.012217287823946687,0.1114575467525006
-Norway,se_rate,Broadleaf_Deciduous_Boreal_dry,t soil/ha/yr,0.22711124991992665,0.08757268284933586,0.31932084640184166
-Sweden,se_rate,Broadleaf_Deciduous_Boreal_dry,t soil/ha/yr,0.028956272663435645,0.013882236629438688,0.040700001927809315
-Iceland,se_rate,Broadleaf_Deciduous_Boreal_dry,t soil/ha/yr,0.19106931438055075,0.0883855157044528,0.25020127529133174
-Finland,se_rate,Broadleaf_Deciduous_Boreal_dry,t soil/ha/yr,0.007543084571343564,0.005624657169124463,0.005497797651304272
-Canada,se_rate,Broadleaf_Deciduous_Boreal_dry,t soil/ha/yr,0.024293478045843708,0.010686508940845673,0.03407878187405472

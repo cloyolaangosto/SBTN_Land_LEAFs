@@ -1,0 +1,829 @@
+,ADM0_NAME,imp_cat,unit,value,metric
+0,Abyei,soil_erosion,t soil/ha/yr,,cf_mean
+1,Afghanistan,soil_erosion,t soil/ha/yr,0.07317715518084313,cf_mean
+2,Aksai Chin,soil_erosion,t soil/ha/yr,,cf_mean
+3,Albania,soil_erosion,t soil/ha/yr,1.1230120259348058,cf_mean
+4,Algeria,soil_erosion,t soil/ha/yr,,cf_mean
+5,American Samoa,soil_erosion,t soil/ha/yr,,cf_mean
+6,Andorra,soil_erosion,t soil/ha/yr,,cf_mean
+7,Angola,soil_erosion,t soil/ha/yr,,cf_mean
+8,Anguilla,soil_erosion,t soil/ha/yr,,cf_mean
+9,Antarctica,soil_erosion,t soil/ha/yr,,cf_mean
+10,Antigua and Barbuda,soil_erosion,t soil/ha/yr,,cf_mean
+11,Argentina,soil_erosion,t soil/ha/yr,0.04280888375304363,cf_mean
+12,Armenia,soil_erosion,t soil/ha/yr,0.18991652137483106,cf_mean
+13,Aruba,soil_erosion,t soil/ha/yr,,cf_mean
+14,Arunachal Pradesh,soil_erosion,t soil/ha/yr,,cf_mean
+15,Ashmore and Cartier Islands,soil_erosion,t soil/ha/yr,,cf_mean
+16,Australia,soil_erosion,t soil/ha/yr,0.20205610132610238,cf_mean
+17,Austria,soil_erosion,t soil/ha/yr,0.4747628609434955,cf_mean
+18,Azerbaijan,soil_erosion,t soil/ha/yr,0.17552855634670664,cf_mean
+19,Azores Islands,soil_erosion,t soil/ha/yr,,cf_mean
+20,Bahamas,soil_erosion,t soil/ha/yr,,cf_mean
+21,Bahrain,soil_erosion,t soil/ha/yr,,cf_mean
+22,Baker Island,soil_erosion,t soil/ha/yr,,cf_mean
+23,Bangladesh,soil_erosion,t soil/ha/yr,,cf_mean
+24,Barbados,soil_erosion,t soil/ha/yr,,cf_mean
+25,Bassas da India,soil_erosion,t soil/ha/yr,,cf_mean
+26,Belarus,soil_erosion,t soil/ha/yr,0.009645033584584465,cf_mean
+27,Belgium,soil_erosion,t soil/ha/yr,0.037273496605618975,cf_mean
+28,Belize,soil_erosion,t soil/ha/yr,,cf_mean
+29,Benin,soil_erosion,t soil/ha/yr,,cf_mean
+30,Bermuda,soil_erosion,t soil/ha/yr,,cf_mean
+31,Bhutan,soil_erosion,t soil/ha/yr,,cf_mean
+32,Bird Island,soil_erosion,t soil/ha/yr,,cf_mean
+33,Bolivia,soil_erosion,t soil/ha/yr,,cf_mean
+34,Bosnia and Herzegovina,soil_erosion,t soil/ha/yr,0.4345714501376752,cf_mean
+35,Botswana,soil_erosion,t soil/ha/yr,,cf_mean
+36,Bouvet Island,soil_erosion,t soil/ha/yr,,cf_mean
+37,Brazil,soil_erosion,t soil/ha/yr,,cf_mean
+38,British Indian Ocean Territory,soil_erosion,t soil/ha/yr,,cf_mean
+39,British Virgin Islands,soil_erosion,t soil/ha/yr,,cf_mean
+40,Brunei Darussalam,soil_erosion,t soil/ha/yr,,cf_mean
+41,Bulgaria,soil_erosion,t soil/ha/yr,0.11158841738355085,cf_mean
+42,Burkina Faso,soil_erosion,t soil/ha/yr,,cf_mean
+43,Burundi,soil_erosion,t soil/ha/yr,,cf_mean
+44,Cambodia,soil_erosion,t soil/ha/yr,,cf_mean
+45,Cameroon,soil_erosion,t soil/ha/yr,,cf_mean
+46,Canada,soil_erosion,t soil/ha/yr,0.08275161109519834,cf_mean
+47,Cape Verde,soil_erosion,t soil/ha/yr,,cf_mean
+48,Cayman Islands,soil_erosion,t soil/ha/yr,,cf_mean
+49,Central African Republic,soil_erosion,t soil/ha/yr,,cf_mean
+50,Chad,soil_erosion,t soil/ha/yr,,cf_mean
+51,Chile,soil_erosion,t soil/ha/yr,0.8059044591746546,cf_mean
+52,China,soil_erosion,t soil/ha/yr,0.19130584091657804,cf_mean
+53,China/India,soil_erosion,t soil/ha/yr,,cf_mean
+54,Christmas Island,soil_erosion,t soil/ha/yr,,cf_mean
+55,Clipperton Island,soil_erosion,t soil/ha/yr,,cf_mean
+56,Cocos (Keeling) Islands,soil_erosion,t soil/ha/yr,,cf_mean
+57,Colombia,soil_erosion,t soil/ha/yr,,cf_mean
+58,Comoros,soil_erosion,t soil/ha/yr,,cf_mean
+59,Congo,soil_erosion,t soil/ha/yr,,cf_mean
+60,Cook Islands,soil_erosion,t soil/ha/yr,,cf_mean
+61,Costa Rica,soil_erosion,t soil/ha/yr,,cf_mean
+62,Croatia,soil_erosion,t soil/ha/yr,0.28343207586772945,cf_mean
+63,Cuba,soil_erosion,t soil/ha/yr,,cf_mean
+64,Cyprus,soil_erosion,t soil/ha/yr,,cf_mean
+65,Czech Republic,soil_erosion,t soil/ha/yr,0.04885636645133789,cf_mean
+66,Côte d'Ivoire,soil_erosion,t soil/ha/yr,,cf_mean
+67,Dem People's Rep of Korea,soil_erosion,t soil/ha/yr,1.1892375857934625,cf_mean
+68,Democratic Republic of the Congo,soil_erosion,t soil/ha/yr,,cf_mean
+69,Denmark,soil_erosion,t soil/ha/yr,0.015048120658745116,cf_mean
+70,Djibouti,soil_erosion,t soil/ha/yr,,cf_mean
+71,Dominica,soil_erosion,t soil/ha/yr,,cf_mean
+72,Dominican Republic,soil_erosion,t soil/ha/yr,,cf_mean
+73,Ecuador,soil_erosion,t soil/ha/yr,,cf_mean
+74,Egypt,soil_erosion,t soil/ha/yr,,cf_mean
+75,El Salvador,soil_erosion,t soil/ha/yr,,cf_mean
+76,Equatorial Guinea,soil_erosion,t soil/ha/yr,,cf_mean
+77,Eritrea,soil_erosion,t soil/ha/yr,,cf_mean
+78,Estonia,soil_erosion,t soil/ha/yr,0.011745293173291066,cf_mean
+79,Ethiopia,soil_erosion,t soil/ha/yr,,cf_mean
+80,Europa Island,soil_erosion,t soil/ha/yr,,cf_mean
+81,Falkland Islands (Malvinas),soil_erosion,t soil/ha/yr,,cf_mean
+82,Faroe Islands,soil_erosion,t soil/ha/yr,,cf_mean
+83,Fiji,soil_erosion,t soil/ha/yr,,cf_mean
+84,Finland,soil_erosion,t soil/ha/yr,0.009467904522218192,cf_mean
+85,France,soil_erosion,t soil/ha/yr,0.08308325574695727,cf_mean
+86,French Guiana,soil_erosion,t soil/ha/yr,,cf_mean
+87,French Polynesia,soil_erosion,t soil/ha/yr,,cf_mean
+88,French Southern and Antarctic Territories,soil_erosion,t soil/ha/yr,,cf_mean
+89,Gabon,soil_erosion,t soil/ha/yr,,cf_mean
+90,Gambia,soil_erosion,t soil/ha/yr,,cf_mean
+91,Gaza Strip,soil_erosion,t soil/ha/yr,,cf_mean
+92,Georgia,soil_erosion,t soil/ha/yr,0.6301535826770289,cf_mean
+93,Germany,soil_erosion,t soil/ha/yr,0.044816527724351594,cf_mean
+94,Ghana,soil_erosion,t soil/ha/yr,,cf_mean
+95,Gibraltar,soil_erosion,t soil/ha/yr,,cf_mean
+96,Glorioso Island,soil_erosion,t soil/ha/yr,,cf_mean
+97,Greece,soil_erosion,t soil/ha/yr,0.15736113365303872,cf_mean
+98,Greenland,soil_erosion,t soil/ha/yr,,cf_mean
+99,Grenada,soil_erosion,t soil/ha/yr,,cf_mean
+100,Guadeloupe,soil_erosion,t soil/ha/yr,,cf_mean
+101,Guam,soil_erosion,t soil/ha/yr,,cf_mean
+102,Guatemala,soil_erosion,t soil/ha/yr,,cf_mean
+103,Guernsey,soil_erosion,t soil/ha/yr,,cf_mean
+104,Guinea,soil_erosion,t soil/ha/yr,,cf_mean
+105,Guinea-Bissau,soil_erosion,t soil/ha/yr,,cf_mean
+106,Guyana,soil_erosion,t soil/ha/yr,,cf_mean
+107,Haiti,soil_erosion,t soil/ha/yr,,cf_mean
+108,Hala'ib triangle,soil_erosion,t soil/ha/yr,,cf_mean
+109,Heard Island and McDonald Islands,soil_erosion,t soil/ha/yr,,cf_mean
+110,Holy See,soil_erosion,t soil/ha/yr,,cf_mean
+111,Honduras,soil_erosion,t soil/ha/yr,,cf_mean
+112,Hong Kong,soil_erosion,t soil/ha/yr,,cf_mean
+113,Howland Island,soil_erosion,t soil/ha/yr,,cf_mean
+114,Hungary,soil_erosion,t soil/ha/yr,0.028914227681223956,cf_mean
+115,Iceland,soil_erosion,t soil/ha/yr,,cf_mean
+116,Ilemi triangle,soil_erosion,t soil/ha/yr,,cf_mean
+117,India,soil_erosion,t soil/ha/yr,,cf_mean
+118,Indonesia,soil_erosion,t soil/ha/yr,,cf_mean
+119,Iran  (Islamic Republic of),soil_erosion,t soil/ha/yr,0.06268565464866842,cf_mean
+120,Iraq,soil_erosion,t soil/ha/yr,0.23925632840668115,cf_mean
+121,Ireland,soil_erosion,t soil/ha/yr,0.05400617620183165,cf_mean
+122,Isle of Man,soil_erosion,t soil/ha/yr,,cf_mean
+123,Israel,soil_erosion,t soil/ha/yr,,cf_mean
+124,Italy,soil_erosion,t soil/ha/yr,0.46136277152226507,cf_mean
+125,Jamaica,soil_erosion,t soil/ha/yr,,cf_mean
+126,Jammu and Kashmir,soil_erosion,t soil/ha/yr,,cf_mean
+127,Japan,soil_erosion,t soil/ha/yr,2.4765724481151867,cf_mean
+128,Jarvis Island,soil_erosion,t soil/ha/yr,,cf_mean
+129,Jersey,soil_erosion,t soil/ha/yr,,cf_mean
+130,Johnston Atoll,soil_erosion,t soil/ha/yr,,cf_mean
+131,Jordan,soil_erosion,t soil/ha/yr,,cf_mean
+132,Juan de Nova Island,soil_erosion,t soil/ha/yr,,cf_mean
+133,Kazakhstan,soil_erosion,t soil/ha/yr,0.013332364240760241,cf_mean
+134,Kenya,soil_erosion,t soil/ha/yr,,cf_mean
+135,Kingman Reef,soil_erosion,t soil/ha/yr,,cf_mean
+136,Kiribati,soil_erosion,t soil/ha/yr,,cf_mean
+137,Kuril islands,soil_erosion,t soil/ha/yr,,cf_mean
+138,Kuwait,soil_erosion,t soil/ha/yr,,cf_mean
+139,Kyrgyzstan,soil_erosion,t soil/ha/yr,0.27894479649552517,cf_mean
+140,Lao People's Democratic Republic,soil_erosion,t soil/ha/yr,,cf_mean
+141,Latvia,soil_erosion,t soil/ha/yr,0.014901125594877324,cf_mean
+142,Lebanon,soil_erosion,t soil/ha/yr,,cf_mean
+143,Lesotho,soil_erosion,t soil/ha/yr,,cf_mean
+144,Liberia,soil_erosion,t soil/ha/yr,,cf_mean
+145,Libya,soil_erosion,t soil/ha/yr,,cf_mean
+146,Liechtenstein,soil_erosion,t soil/ha/yr,,cf_mean
+147,Lithuania,soil_erosion,t soil/ha/yr,0.01175274147863552,cf_mean
+148,Luxembourg,soil_erosion,t soil/ha/yr,0.13711400941733243,cf_mean
+149,Ma'tan al-Sarra,soil_erosion,t soil/ha/yr,,cf_mean
+150,Macau,soil_erosion,t soil/ha/yr,,cf_mean
+151,Madagascar,soil_erosion,t soil/ha/yr,,cf_mean
+152,Madeira Islands,soil_erosion,t soil/ha/yr,,cf_mean
+153,Malawi,soil_erosion,t soil/ha/yr,,cf_mean
+154,Malaysia,soil_erosion,t soil/ha/yr,,cf_mean
+155,Maldives,soil_erosion,t soil/ha/yr,,cf_mean
+156,Mali,soil_erosion,t soil/ha/yr,,cf_mean
+157,Malta,soil_erosion,t soil/ha/yr,,cf_mean
+158,Marshall Islands,soil_erosion,t soil/ha/yr,,cf_mean
+159,Martinique,soil_erosion,t soil/ha/yr,,cf_mean
+160,Mauritania,soil_erosion,t soil/ha/yr,,cf_mean
+161,Mauritius,soil_erosion,t soil/ha/yr,,cf_mean
+162,Mayotte,soil_erosion,t soil/ha/yr,,cf_mean
+163,Mexico,soil_erosion,t soil/ha/yr,,cf_mean
+164,Micronesia (Federated States of),soil_erosion,t soil/ha/yr,,cf_mean
+165,Midway Island,soil_erosion,t soil/ha/yr,,cf_mean
+166,"Moldova, Republic of",soil_erosion,t soil/ha/yr,0.04955526586627782,cf_mean
+167,Monaco,soil_erosion,t soil/ha/yr,,cf_mean
+168,Mongolia,soil_erosion,t soil/ha/yr,0.0732546168662064,cf_mean
+169,Montenegro,soil_erosion,t soil/ha/yr,0.5589342568973525,cf_mean
+170,Montserrat,soil_erosion,t soil/ha/yr,,cf_mean
+171,Morocco,soil_erosion,t soil/ha/yr,,cf_mean
+172,Mozambique,soil_erosion,t soil/ha/yr,,cf_mean
+173,Myanmar,soil_erosion,t soil/ha/yr,,cf_mean
+174,Namibia,soil_erosion,t soil/ha/yr,,cf_mean
+175,Nauru,soil_erosion,t soil/ha/yr,,cf_mean
+176,Navassa Island,soil_erosion,t soil/ha/yr,,cf_mean
+177,Nepal,soil_erosion,t soil/ha/yr,,cf_mean
+178,Netherlands,soil_erosion,t soil/ha/yr,0.008423752962919171,cf_mean
+179,Netherlands Antilles,soil_erosion,t soil/ha/yr,,cf_mean
+180,New Caledonia,soil_erosion,t soil/ha/yr,,cf_mean
+181,New Zealand,soil_erosion,t soil/ha/yr,0.4203978544529243,cf_mean
+182,Nicaragua,soil_erosion,t soil/ha/yr,,cf_mean
+183,Niger,soil_erosion,t soil/ha/yr,,cf_mean
+184,Nigeria,soil_erosion,t soil/ha/yr,,cf_mean
+185,Niue,soil_erosion,t soil/ha/yr,,cf_mean
+186,Norfolk Island,soil_erosion,t soil/ha/yr,,cf_mean
+187,Northern Mariana Islands,soil_erosion,t soil/ha/yr,,cf_mean
+188,Norway,soil_erosion,t soil/ha/yr,0.45232912865265645,cf_mean
+189,Oman,soil_erosion,t soil/ha/yr,,cf_mean
+190,Pakistan,soil_erosion,t soil/ha/yr,,cf_mean
+191,Palau,soil_erosion,t soil/ha/yr,,cf_mean
+192,Palmyra Atoll,soil_erosion,t soil/ha/yr,,cf_mean
+193,Panama,soil_erosion,t soil/ha/yr,,cf_mean
+194,Papua New Guinea,soil_erosion,t soil/ha/yr,,cf_mean
+195,Paracel Islands,soil_erosion,t soil/ha/yr,,cf_mean
+196,Paraguay,soil_erosion,t soil/ha/yr,,cf_mean
+197,Peru,soil_erosion,t soil/ha/yr,,cf_mean
+198,Philippines,soil_erosion,t soil/ha/yr,,cf_mean
+199,Pitcairn,soil_erosion,t soil/ha/yr,,cf_mean
+200,Poland,soil_erosion,t soil/ha/yr,0.01777734641300758,cf_mean
+201,Portugal,soil_erosion,t soil/ha/yr,,cf_mean
+202,Puerto Rico,soil_erosion,t soil/ha/yr,,cf_mean
+203,Qatar,soil_erosion,t soil/ha/yr,,cf_mean
+204,Republic of Korea,soil_erosion,t soil/ha/yr,1.9507388272587742,cf_mean
+205,Romania,soil_erosion,t soil/ha/yr,0.10282090245896487,cf_mean
+206,Russian Federation,soil_erosion,t soil/ha/yr,0.06202197769475834,cf_mean
+207,Rwanda,soil_erosion,t soil/ha/yr,,cf_mean
+208,Réunion,soil_erosion,t soil/ha/yr,,cf_mean
+209,Saint Helena,soil_erosion,t soil/ha/yr,,cf_mean
+210,Saint Kitts and Nevis,soil_erosion,t soil/ha/yr,,cf_mean
+211,Saint Lucia,soil_erosion,t soil/ha/yr,,cf_mean
+212,Saint Pierre et Miquelon,soil_erosion,t soil/ha/yr,,cf_mean
+213,Saint Vincent and the Grenadines,soil_erosion,t soil/ha/yr,,cf_mean
+214,Samoa,soil_erosion,t soil/ha/yr,,cf_mean
+215,San Marino,soil_erosion,t soil/ha/yr,,cf_mean
+216,Sao Tome and Principe,soil_erosion,t soil/ha/yr,,cf_mean
+217,Saudi Arabia,soil_erosion,t soil/ha/yr,,cf_mean
+218,Scarborough Reef,soil_erosion,t soil/ha/yr,,cf_mean
+219,Senegal,soil_erosion,t soil/ha/yr,,cf_mean
+220,Senkaku Islands,soil_erosion,t soil/ha/yr,,cf_mean
+221,Serbia,soil_erosion,t soil/ha/yr,0.20112242526998766,cf_mean
+222,Seychelles,soil_erosion,t soil/ha/yr,,cf_mean
+223,Sierra Leone,soil_erosion,t soil/ha/yr,,cf_mean
+224,Singapore,soil_erosion,t soil/ha/yr,,cf_mean
+225,Slovakia,soil_erosion,t soil/ha/yr,0.13754448527229027,cf_mean
+226,Slovenia,soil_erosion,t soil/ha/yr,0.7505948667751255,cf_mean
+227,Solomon Islands,soil_erosion,t soil/ha/yr,,cf_mean
+228,Somalia,soil_erosion,t soil/ha/yr,,cf_mean
+229,South Africa,soil_erosion,t soil/ha/yr,,cf_mean
+230,South Georgia and the South Sandwich Islands,soil_erosion,t soil/ha/yr,,cf_mean
+231,South Sudan,soil_erosion,t soil/ha/yr,,cf_mean
+232,Spain,soil_erosion,t soil/ha/yr,,cf_mean
+233,Spratly Islands,soil_erosion,t soil/ha/yr,,cf_mean
+234,Sri Lanka,soil_erosion,t soil/ha/yr,,cf_mean
+235,Sudan,soil_erosion,t soil/ha/yr,,cf_mean
+236,Suriname,soil_erosion,t soil/ha/yr,,cf_mean
+237,Svalbard and Jan Mayen Islands,soil_erosion,t soil/ha/yr,,cf_mean
+238,Swaziland,soil_erosion,t soil/ha/yr,,cf_mean
+239,Sweden,soil_erosion,t soil/ha/yr,0.018244950900523676,cf_mean
+240,Switzerland,soil_erosion,t soil/ha/yr,0.7626670677407489,cf_mean
+241,Syrian Arab Republic,soil_erosion,t soil/ha/yr,,cf_mean
+242,Taiwan,soil_erosion,t soil/ha/yr,,cf_mean
+243,Tajikistan,soil_erosion,t soil/ha/yr,0.4795780242090451,cf_mean
+244,Thailand,soil_erosion,t soil/ha/yr,,cf_mean
+245,The former Yugoslav Republic of Macedonia,soil_erosion,t soil/ha/yr,0.24034479725278318,cf_mean
+246,Timor-Leste,soil_erosion,t soil/ha/yr,,cf_mean
+247,Togo,soil_erosion,t soil/ha/yr,,cf_mean
+248,Tokelau,soil_erosion,t soil/ha/yr,,cf_mean
+249,Tonga,soil_erosion,t soil/ha/yr,,cf_mean
+250,Trinidad and Tobago,soil_erosion,t soil/ha/yr,,cf_mean
+251,Tromelin Island,soil_erosion,t soil/ha/yr,,cf_mean
+252,Tunisia,soil_erosion,t soil/ha/yr,,cf_mean
+253,Turkey,soil_erosion,t soil/ha/yr,0.09949621600710623,cf_mean
+254,Turkmenistan,soil_erosion,t soil/ha/yr,0.00980960596952527,cf_mean
+255,Turks and Caicos islands,soil_erosion,t soil/ha/yr,,cf_mean
+256,Tuvalu,soil_erosion,t soil/ha/yr,,cf_mean
+257,U.K. of Great Britain and Northern Ireland,soil_erosion,t soil/ha/yr,0.115904729073599,cf_mean
+258,Uganda,soil_erosion,t soil/ha/yr,,cf_mean
+259,Ukraine,soil_erosion,t soil/ha/yr,0.021372567784913397,cf_mean
+260,United Arab Emirates,soil_erosion,t soil/ha/yr,,cf_mean
+261,United Republic of Tanzania,soil_erosion,t soil/ha/yr,,cf_mean
+262,United States Virgin Islands,soil_erosion,t soil/ha/yr,,cf_mean
+263,United States of America,soil_erosion,t soil/ha/yr,0.18035276146733642,cf_mean
+264,Uruguay,soil_erosion,t soil/ha/yr,,cf_mean
+265,Uzbekistan,soil_erosion,t soil/ha/yr,0.021569008930999292,cf_mean
+266,Vanuatu,soil_erosion,t soil/ha/yr,,cf_mean
+267,Venezuela,soil_erosion,t soil/ha/yr,,cf_mean
+268,Viet Nam,soil_erosion,t soil/ha/yr,,cf_mean
+269,Wake Island,soil_erosion,t soil/ha/yr,,cf_mean
+270,Wallis and Futuna,soil_erosion,t soil/ha/yr,,cf_mean
+271,West Bank,soil_erosion,t soil/ha/yr,,cf_mean
+272,Western Sahara,soil_erosion,t soil/ha/yr,,cf_mean
+273,Yemen,soil_erosion,t soil/ha/yr,,cf_mean
+274,Zambia,soil_erosion,t soil/ha/yr,,cf_mean
+275,Zimbabwe,soil_erosion,t soil/ha/yr,,cf_mean
+276,Abyei,soil_erosion,t soil/ha/yr,,cf_median
+277,Afghanistan,soil_erosion,t soil/ha/yr,0.016890496000662687,cf_median
+278,Aksai Chin,soil_erosion,t soil/ha/yr,,cf_median
+279,Albania,soil_erosion,t soil/ha/yr,1.2037908371954313,cf_median
+280,Algeria,soil_erosion,t soil/ha/yr,,cf_median
+281,American Samoa,soil_erosion,t soil/ha/yr,,cf_median
+282,Andorra,soil_erosion,t soil/ha/yr,,cf_median
+283,Angola,soil_erosion,t soil/ha/yr,,cf_median
+284,Anguilla,soil_erosion,t soil/ha/yr,,cf_median
+285,Antarctica,soil_erosion,t soil/ha/yr,,cf_median
+286,Antigua and Barbuda,soil_erosion,t soil/ha/yr,,cf_median
+287,Argentina,soil_erosion,t soil/ha/yr,0.010921213555789455,cf_median
+288,Armenia,soil_erosion,t soil/ha/yr,0.17109737369762143,cf_median
+289,Aruba,soil_erosion,t soil/ha/yr,,cf_median
+290,Arunachal Pradesh,soil_erosion,t soil/ha/yr,,cf_median
+291,Ashmore and Cartier Islands,soil_erosion,t soil/ha/yr,,cf_median
+292,Australia,soil_erosion,t soil/ha/yr,0.15441385773719213,cf_median
+293,Austria,soil_erosion,t soil/ha/yr,0.4302060433203758,cf_median
+294,Azerbaijan,soil_erosion,t soil/ha/yr,0.07067499514037204,cf_median
+295,Azores Islands,soil_erosion,t soil/ha/yr,,cf_median
+296,Bahamas,soil_erosion,t soil/ha/yr,,cf_median
+297,Bahrain,soil_erosion,t soil/ha/yr,,cf_median
+298,Baker Island,soil_erosion,t soil/ha/yr,,cf_median
+299,Bangladesh,soil_erosion,t soil/ha/yr,,cf_median
+300,Barbados,soil_erosion,t soil/ha/yr,,cf_median
+301,Bassas da India,soil_erosion,t soil/ha/yr,,cf_median
+302,Belarus,soil_erosion,t soil/ha/yr,0.008783023434618387,cf_median
+303,Belgium,soil_erosion,t soil/ha/yr,0.016517049601394027,cf_median
+304,Belize,soil_erosion,t soil/ha/yr,,cf_median
+305,Benin,soil_erosion,t soil/ha/yr,,cf_median
+306,Bermuda,soil_erosion,t soil/ha/yr,,cf_median
+307,Bhutan,soil_erosion,t soil/ha/yr,,cf_median
+308,Bird Island,soil_erosion,t soil/ha/yr,,cf_median
+309,Bolivia,soil_erosion,t soil/ha/yr,,cf_median
+310,Bosnia and Herzegovina,soil_erosion,t soil/ha/yr,0.38309425481863446,cf_median
+311,Botswana,soil_erosion,t soil/ha/yr,,cf_median
+312,Bouvet Island,soil_erosion,t soil/ha/yr,,cf_median
+313,Brazil,soil_erosion,t soil/ha/yr,,cf_median
+314,British Indian Ocean Territory,soil_erosion,t soil/ha/yr,,cf_median
+315,British Virgin Islands,soil_erosion,t soil/ha/yr,,cf_median
+316,Brunei Darussalam,soil_erosion,t soil/ha/yr,,cf_median
+317,Bulgaria,soil_erosion,t soil/ha/yr,0.08855909923595008,cf_median
+318,Burkina Faso,soil_erosion,t soil/ha/yr,,cf_median
+319,Burundi,soil_erosion,t soil/ha/yr,,cf_median
+320,Cambodia,soil_erosion,t soil/ha/yr,,cf_median
+321,Cameroon,soil_erosion,t soil/ha/yr,,cf_median
+322,Canada,soil_erosion,t soil/ha/yr,0.02266574008495719,cf_median
+323,Cape Verde,soil_erosion,t soil/ha/yr,,cf_median
+324,Cayman Islands,soil_erosion,t soil/ha/yr,,cf_median
+325,Central African Republic,soil_erosion,t soil/ha/yr,,cf_median
+326,Chad,soil_erosion,t soil/ha/yr,,cf_median
+327,Chile,soil_erosion,t soil/ha/yr,0.45300657633356306,cf_median
+328,China,soil_erosion,t soil/ha/yr,0.0767067799916873,cf_median
+329,China/India,soil_erosion,t soil/ha/yr,,cf_median
+330,Christmas Island,soil_erosion,t soil/ha/yr,,cf_median
+331,Clipperton Island,soil_erosion,t soil/ha/yr,,cf_median
+332,Cocos (Keeling) Islands,soil_erosion,t soil/ha/yr,,cf_median
+333,Colombia,soil_erosion,t soil/ha/yr,,cf_median
+334,Comoros,soil_erosion,t soil/ha/yr,,cf_median
+335,Congo,soil_erosion,t soil/ha/yr,,cf_median
+336,Cook Islands,soil_erosion,t soil/ha/yr,,cf_median
+337,Costa Rica,soil_erosion,t soil/ha/yr,,cf_median
+338,Croatia,soil_erosion,t soil/ha/yr,0.14302059150551524,cf_median
+339,Cuba,soil_erosion,t soil/ha/yr,,cf_median
+340,Cyprus,soil_erosion,t soil/ha/yr,,cf_median
+341,Czech Republic,soil_erosion,t soil/ha/yr,0.03287068627602013,cf_median
+342,Côte d'Ivoire,soil_erosion,t soil/ha/yr,,cf_median
+343,Dem People's Rep of Korea,soil_erosion,t soil/ha/yr,0.8636197845317383,cf_median
+344,Democratic Republic of the Congo,soil_erosion,t soil/ha/yr,,cf_median
+345,Denmark,soil_erosion,t soil/ha/yr,0.014106654927143211,cf_median
+346,Djibouti,soil_erosion,t soil/ha/yr,,cf_median
+347,Dominica,soil_erosion,t soil/ha/yr,,cf_median
+348,Dominican Republic,soil_erosion,t soil/ha/yr,,cf_median
+349,Ecuador,soil_erosion,t soil/ha/yr,,cf_median
+350,Egypt,soil_erosion,t soil/ha/yr,,cf_median
+351,El Salvador,soil_erosion,t soil/ha/yr,,cf_median
+352,Equatorial Guinea,soil_erosion,t soil/ha/yr,,cf_median
+353,Eritrea,soil_erosion,t soil/ha/yr,,cf_median
+354,Estonia,soil_erosion,t soil/ha/yr,0.010636566261946973,cf_median
+355,Ethiopia,soil_erosion,t soil/ha/yr,,cf_median
+356,Europa Island,soil_erosion,t soil/ha/yr,,cf_median
+357,Falkland Islands (Malvinas),soil_erosion,t soil/ha/yr,,cf_median
+358,Faroe Islands,soil_erosion,t soil/ha/yr,,cf_median
+359,Fiji,soil_erosion,t soil/ha/yr,,cf_median
+360,Finland,soil_erosion,t soil/ha/yr,0.0085627341828677,cf_median
+361,France,soil_erosion,t soil/ha/yr,0.025553194353595987,cf_median
+362,French Guiana,soil_erosion,t soil/ha/yr,,cf_median
+363,French Polynesia,soil_erosion,t soil/ha/yr,,cf_median
+364,French Southern and Antarctic Territories,soil_erosion,t soil/ha/yr,,cf_median
+365,Gabon,soil_erosion,t soil/ha/yr,,cf_median
+366,Gambia,soil_erosion,t soil/ha/yr,,cf_median
+367,Gaza Strip,soil_erosion,t soil/ha/yr,,cf_median
+368,Georgia,soil_erosion,t soil/ha/yr,0.5226963521437992,cf_median
+369,Germany,soil_erosion,t soil/ha/yr,0.022180757441334083,cf_median
+370,Ghana,soil_erosion,t soil/ha/yr,,cf_median
+371,Gibraltar,soil_erosion,t soil/ha/yr,,cf_median
+372,Glorioso Island,soil_erosion,t soil/ha/yr,,cf_median
+373,Greece,soil_erosion,t soil/ha/yr,0.11442313435008784,cf_median
+374,Greenland,soil_erosion,t soil/ha/yr,,cf_median
+375,Grenada,soil_erosion,t soil/ha/yr,,cf_median
+376,Guadeloupe,soil_erosion,t soil/ha/yr,,cf_median
+377,Guam,soil_erosion,t soil/ha/yr,,cf_median
+378,Guatemala,soil_erosion,t soil/ha/yr,,cf_median
+379,Guernsey,soil_erosion,t soil/ha/yr,,cf_median
+380,Guinea,soil_erosion,t soil/ha/yr,,cf_median
+381,Guinea-Bissau,soil_erosion,t soil/ha/yr,,cf_median
+382,Guyana,soil_erosion,t soil/ha/yr,,cf_median
+383,Haiti,soil_erosion,t soil/ha/yr,,cf_median
+384,Hala'ib triangle,soil_erosion,t soil/ha/yr,,cf_median
+385,Heard Island and McDonald Islands,soil_erosion,t soil/ha/yr,,cf_median
+386,Holy See,soil_erosion,t soil/ha/yr,,cf_median
+387,Honduras,soil_erosion,t soil/ha/yr,,cf_median
+388,Hong Kong,soil_erosion,t soil/ha/yr,,cf_median
+389,Howland Island,soil_erosion,t soil/ha/yr,,cf_median
+390,Hungary,soil_erosion,t soil/ha/yr,0.016455439493477504,cf_median
+391,Iceland,soil_erosion,t soil/ha/yr,,cf_median
+392,Ilemi triangle,soil_erosion,t soil/ha/yr,,cf_median
+393,India,soil_erosion,t soil/ha/yr,,cf_median
+394,Indonesia,soil_erosion,t soil/ha/yr,,cf_median
+395,Iran  (Islamic Republic of),soil_erosion,t soil/ha/yr,0.03107240744091396,cf_median
+396,Iraq,soil_erosion,t soil/ha/yr,0.1167730525224148,cf_median
+397,Ireland,soil_erosion,t soil/ha/yr,0.02633201411949156,cf_median
+398,Isle of Man,soil_erosion,t soil/ha/yr,,cf_median
+399,Israel,soil_erosion,t soil/ha/yr,,cf_median
+400,Italy,soil_erosion,t soil/ha/yr,0.32564590495777845,cf_median
+401,Jamaica,soil_erosion,t soil/ha/yr,,cf_median
+402,Jammu and Kashmir,soil_erosion,t soil/ha/yr,,cf_median
+403,Japan,soil_erosion,t soil/ha/yr,1.4479082239668286,cf_median
+404,Jarvis Island,soil_erosion,t soil/ha/yr,,cf_median
+405,Jersey,soil_erosion,t soil/ha/yr,,cf_median
+406,Johnston Atoll,soil_erosion,t soil/ha/yr,,cf_median
+407,Jordan,soil_erosion,t soil/ha/yr,,cf_median
+408,Juan de Nova Island,soil_erosion,t soil/ha/yr,,cf_median
+409,Kazakhstan,soil_erosion,t soil/ha/yr,0.005200245378107151,cf_median
+410,Kenya,soil_erosion,t soil/ha/yr,,cf_median
+411,Kingman Reef,soil_erosion,t soil/ha/yr,,cf_median
+412,Kiribati,soil_erosion,t soil/ha/yr,,cf_median
+413,Kuril islands,soil_erosion,t soil/ha/yr,,cf_median
+414,Kuwait,soil_erosion,t soil/ha/yr,,cf_median
+415,Kyrgyzstan,soil_erosion,t soil/ha/yr,0.20059115292513033,cf_median
+416,Lao People's Democratic Republic,soil_erosion,t soil/ha/yr,,cf_median
+417,Latvia,soil_erosion,t soil/ha/yr,0.013351193626889782,cf_median
+418,Lebanon,soil_erosion,t soil/ha/yr,,cf_median
+419,Lesotho,soil_erosion,t soil/ha/yr,,cf_median
+420,Liberia,soil_erosion,t soil/ha/yr,,cf_median
+421,Libya,soil_erosion,t soil/ha/yr,,cf_median
+422,Liechtenstein,soil_erosion,t soil/ha/yr,,cf_median
+423,Lithuania,soil_erosion,t soil/ha/yr,0.010841281597271435,cf_median
+424,Luxembourg,soil_erosion,t soil/ha/yr,0.06920399175012967,cf_median
+425,Ma'tan al-Sarra,soil_erosion,t soil/ha/yr,,cf_median
+426,Macau,soil_erosion,t soil/ha/yr,,cf_median
+427,Madagascar,soil_erosion,t soil/ha/yr,,cf_median
+428,Madeira Islands,soil_erosion,t soil/ha/yr,,cf_median
+429,Malawi,soil_erosion,t soil/ha/yr,,cf_median
+430,Malaysia,soil_erosion,t soil/ha/yr,,cf_median
+431,Maldives,soil_erosion,t soil/ha/yr,,cf_median
+432,Mali,soil_erosion,t soil/ha/yr,,cf_median
+433,Malta,soil_erosion,t soil/ha/yr,,cf_median
+434,Marshall Islands,soil_erosion,t soil/ha/yr,,cf_median
+435,Martinique,soil_erosion,t soil/ha/yr,,cf_median
+436,Mauritania,soil_erosion,t soil/ha/yr,,cf_median
+437,Mauritius,soil_erosion,t soil/ha/yr,,cf_median
+438,Mayotte,soil_erosion,t soil/ha/yr,,cf_median
+439,Mexico,soil_erosion,t soil/ha/yr,,cf_median
+440,Micronesia (Federated States of),soil_erosion,t soil/ha/yr,,cf_median
+441,Midway Island,soil_erosion,t soil/ha/yr,,cf_median
+442,"Moldova, Republic of",soil_erosion,t soil/ha/yr,0.049652444441931114,cf_median
+443,Monaco,soil_erosion,t soil/ha/yr,,cf_median
+444,Mongolia,soil_erosion,t soil/ha/yr,0.032822041024071304,cf_median
+445,Montenegro,soil_erosion,t soil/ha/yr,0.5030030871407355,cf_median
+446,Montserrat,soil_erosion,t soil/ha/yr,,cf_median
+447,Morocco,soil_erosion,t soil/ha/yr,,cf_median
+448,Mozambique,soil_erosion,t soil/ha/yr,,cf_median
+449,Myanmar,soil_erosion,t soil/ha/yr,,cf_median
+450,Namibia,soil_erosion,t soil/ha/yr,,cf_median
+451,Nauru,soil_erosion,t soil/ha/yr,,cf_median
+452,Navassa Island,soil_erosion,t soil/ha/yr,,cf_median
+453,Nepal,soil_erosion,t soil/ha/yr,,cf_median
+454,Netherlands,soil_erosion,t soil/ha/yr,0.007825714759650828,cf_median
+455,Netherlands Antilles,soil_erosion,t soil/ha/yr,,cf_median
+456,New Caledonia,soil_erosion,t soil/ha/yr,,cf_median
+457,New Zealand,soil_erosion,t soil/ha/yr,0.1207075428024641,cf_median
+458,Nicaragua,soil_erosion,t soil/ha/yr,,cf_median
+459,Niger,soil_erosion,t soil/ha/yr,,cf_median
+460,Nigeria,soil_erosion,t soil/ha/yr,,cf_median
+461,Niue,soil_erosion,t soil/ha/yr,,cf_median
+462,Norfolk Island,soil_erosion,t soil/ha/yr,,cf_median
+463,Northern Mariana Islands,soil_erosion,t soil/ha/yr,,cf_median
+464,Norway,soil_erosion,t soil/ha/yr,0.1612146295118205,cf_median
+465,Oman,soil_erosion,t soil/ha/yr,,cf_median
+466,Pakistan,soil_erosion,t soil/ha/yr,,cf_median
+467,Palau,soil_erosion,t soil/ha/yr,,cf_median
+468,Palmyra Atoll,soil_erosion,t soil/ha/yr,,cf_median
+469,Panama,soil_erosion,t soil/ha/yr,,cf_median
+470,Papua New Guinea,soil_erosion,t soil/ha/yr,,cf_median
+471,Paracel Islands,soil_erosion,t soil/ha/yr,,cf_median
+472,Paraguay,soil_erosion,t soil/ha/yr,,cf_median
+473,Peru,soil_erosion,t soil/ha/yr,,cf_median
+474,Philippines,soil_erosion,t soil/ha/yr,,cf_median
+475,Pitcairn,soil_erosion,t soil/ha/yr,,cf_median
+476,Poland,soil_erosion,t soil/ha/yr,0.01043316684614098,cf_median
+477,Portugal,soil_erosion,t soil/ha/yr,,cf_median
+478,Puerto Rico,soil_erosion,t soil/ha/yr,,cf_median
+479,Qatar,soil_erosion,t soil/ha/yr,,cf_median
+480,Republic of Korea,soil_erosion,t soil/ha/yr,1.7889471229196214,cf_median
+481,Romania,soil_erosion,t soil/ha/yr,0.06697682958230752,cf_median
+482,Russian Federation,soil_erosion,t soil/ha/yr,0.014968775810491228,cf_median
+483,Rwanda,soil_erosion,t soil/ha/yr,,cf_median
+484,Réunion,soil_erosion,t soil/ha/yr,,cf_median
+485,Saint Helena,soil_erosion,t soil/ha/yr,,cf_median
+486,Saint Kitts and Nevis,soil_erosion,t soil/ha/yr,,cf_median
+487,Saint Lucia,soil_erosion,t soil/ha/yr,,cf_median
+488,Saint Pierre et Miquelon,soil_erosion,t soil/ha/yr,,cf_median
+489,Saint Vincent and the Grenadines,soil_erosion,t soil/ha/yr,,cf_median
+490,Samoa,soil_erosion,t soil/ha/yr,,cf_median
+491,San Marino,soil_erosion,t soil/ha/yr,,cf_median
+492,Sao Tome and Principe,soil_erosion,t soil/ha/yr,,cf_median
+493,Saudi Arabia,soil_erosion,t soil/ha/yr,,cf_median
+494,Scarborough Reef,soil_erosion,t soil/ha/yr,,cf_median
+495,Senegal,soil_erosion,t soil/ha/yr,,cf_median
+496,Senkaku Islands,soil_erosion,t soil/ha/yr,,cf_median
+497,Serbia,soil_erosion,t soil/ha/yr,0.12396952299103674,cf_median
+498,Seychelles,soil_erosion,t soil/ha/yr,,cf_median
+499,Sierra Leone,soil_erosion,t soil/ha/yr,,cf_median
+500,Singapore,soil_erosion,t soil/ha/yr,,cf_median
+501,Slovakia,soil_erosion,t soil/ha/yr,0.09494269475991327,cf_median
+502,Slovenia,soil_erosion,t soil/ha/yr,0.688942428084069,cf_median
+503,Solomon Islands,soil_erosion,t soil/ha/yr,,cf_median
+504,Somalia,soil_erosion,t soil/ha/yr,,cf_median
+505,South Africa,soil_erosion,t soil/ha/yr,,cf_median
+506,South Georgia and the South Sandwich Islands,soil_erosion,t soil/ha/yr,,cf_median
+507,South Sudan,soil_erosion,t soil/ha/yr,,cf_median
+508,Spain,soil_erosion,t soil/ha/yr,,cf_median
+509,Spratly Islands,soil_erosion,t soil/ha/yr,,cf_median
+510,Sri Lanka,soil_erosion,t soil/ha/yr,,cf_median
+511,Sudan,soil_erosion,t soil/ha/yr,,cf_median
+512,Suriname,soil_erosion,t soil/ha/yr,,cf_median
+513,Svalbard and Jan Mayen Islands,soil_erosion,t soil/ha/yr,,cf_median
+514,Swaziland,soil_erosion,t soil/ha/yr,,cf_median
+515,Sweden,soil_erosion,t soil/ha/yr,0.013876968701730646,cf_median
+516,Switzerland,soil_erosion,t soil/ha/yr,0.5057265309783286,cf_median
+517,Syrian Arab Republic,soil_erosion,t soil/ha/yr,,cf_median
+518,Taiwan,soil_erosion,t soil/ha/yr,,cf_median
+519,Tajikistan,soil_erosion,t soil/ha/yr,0.3081242766125014,cf_median
+520,Thailand,soil_erosion,t soil/ha/yr,,cf_median
+521,The former Yugoslav Republic of Macedonia,soil_erosion,t soil/ha/yr,0.20975376394142833,cf_median
+522,Timor-Leste,soil_erosion,t soil/ha/yr,,cf_median
+523,Togo,soil_erosion,t soil/ha/yr,,cf_median
+524,Tokelau,soil_erosion,t soil/ha/yr,,cf_median
+525,Tonga,soil_erosion,t soil/ha/yr,,cf_median
+526,Trinidad and Tobago,soil_erosion,t soil/ha/yr,,cf_median
+527,Tromelin Island,soil_erosion,t soil/ha/yr,,cf_median
+528,Tunisia,soil_erosion,t soil/ha/yr,,cf_median
+529,Turkey,soil_erosion,t soil/ha/yr,0.06097604042337486,cf_median
+530,Turkmenistan,soil_erosion,t soil/ha/yr,0.0070799957873515515,cf_median
+531,Turks and Caicos islands,soil_erosion,t soil/ha/yr,,cf_median
+532,Tuvalu,soil_erosion,t soil/ha/yr,,cf_median
+533,U.K. of Great Britain and Northern Ireland,soil_erosion,t soil/ha/yr,0.03632295131954807,cf_median
+534,Uganda,soil_erosion,t soil/ha/yr,,cf_median
+535,Ukraine,soil_erosion,t soil/ha/yr,0.012980518486024599,cf_median
+536,United Arab Emirates,soil_erosion,t soil/ha/yr,,cf_median
+537,United Republic of Tanzania,soil_erosion,t soil/ha/yr,,cf_median
+538,United States Virgin Islands,soil_erosion,t soil/ha/yr,,cf_median
+539,United States of America,soil_erosion,t soil/ha/yr,0.08444521754335364,cf_median
+540,Uruguay,soil_erosion,t soil/ha/yr,,cf_median
+541,Uzbekistan,soil_erosion,t soil/ha/yr,0.0050723470321491024,cf_median
+542,Vanuatu,soil_erosion,t soil/ha/yr,,cf_median
+543,Venezuela,soil_erosion,t soil/ha/yr,,cf_median
+544,Viet Nam,soil_erosion,t soil/ha/yr,,cf_median
+545,Wake Island,soil_erosion,t soil/ha/yr,,cf_median
+546,Wallis and Futuna,soil_erosion,t soil/ha/yr,,cf_median
+547,West Bank,soil_erosion,t soil/ha/yr,,cf_median
+548,Western Sahara,soil_erosion,t soil/ha/yr,,cf_median
+549,Yemen,soil_erosion,t soil/ha/yr,,cf_median
+550,Zambia,soil_erosion,t soil/ha/yr,,cf_median
+551,Zimbabwe,soil_erosion,t soil/ha/yr,,cf_median
+552,Abyei,soil_erosion,t soil/ha/yr,,cf_std
+553,Afghanistan,soil_erosion,t soil/ha/yr,0.10464795658753487,cf_std
+554,Aksai Chin,soil_erosion,t soil/ha/yr,,cf_std
+555,Albania,soil_erosion,t soil/ha/yr,0.37281812082155313,cf_std
+556,Algeria,soil_erosion,t soil/ha/yr,,cf_std
+557,American Samoa,soil_erosion,t soil/ha/yr,,cf_std
+558,Andorra,soil_erosion,t soil/ha/yr,,cf_std
+559,Angola,soil_erosion,t soil/ha/yr,,cf_std
+560,Anguilla,soil_erosion,t soil/ha/yr,,cf_std
+561,Antarctica,soil_erosion,t soil/ha/yr,,cf_std
+562,Antigua and Barbuda,soil_erosion,t soil/ha/yr,,cf_std
+563,Argentina,soil_erosion,t soil/ha/yr,0.08807542839793646,cf_std
+564,Armenia,soil_erosion,t soil/ha/yr,0.14367803045872116,cf_std
+565,Aruba,soil_erosion,t soil/ha/yr,,cf_std
+566,Arunachal Pradesh,soil_erosion,t soil/ha/yr,,cf_std
+567,Ashmore and Cartier Islands,soil_erosion,t soil/ha/yr,,cf_std
+568,Australia,soil_erosion,t soil/ha/yr,0.16540972704003806,cf_std
+569,Austria,soil_erosion,t soil/ha/yr,0.37983221076965296,cf_std
+570,Azerbaijan,soil_erosion,t soil/ha/yr,0.22966233298213096,cf_std
+571,Azores Islands,soil_erosion,t soil/ha/yr,,cf_std
+572,Bahamas,soil_erosion,t soil/ha/yr,,cf_std
+573,Bahrain,soil_erosion,t soil/ha/yr,,cf_std
+574,Baker Island,soil_erosion,t soil/ha/yr,,cf_std
+575,Bangladesh,soil_erosion,t soil/ha/yr,,cf_std
+576,Barbados,soil_erosion,t soil/ha/yr,,cf_std
+577,Bassas da India,soil_erosion,t soil/ha/yr,,cf_std
+578,Belarus,soil_erosion,t soil/ha/yr,0.003510960283374021,cf_std
+579,Belgium,soil_erosion,t soil/ha/yr,0.04551480375455708,cf_std
+580,Belize,soil_erosion,t soil/ha/yr,,cf_std
+581,Benin,soil_erosion,t soil/ha/yr,,cf_std
+582,Bermuda,soil_erosion,t soil/ha/yr,,cf_std
+583,Bhutan,soil_erosion,t soil/ha/yr,,cf_std
+584,Bird Island,soil_erosion,t soil/ha/yr,,cf_std
+585,Bolivia,soil_erosion,t soil/ha/yr,,cf_std
+586,Bosnia and Herzegovina,soil_erosion,t soil/ha/yr,0.31536195075209084,cf_std
+587,Botswana,soil_erosion,t soil/ha/yr,,cf_std
+588,Bouvet Island,soil_erosion,t soil/ha/yr,,cf_std
+589,Brazil,soil_erosion,t soil/ha/yr,,cf_std
+590,British Indian Ocean Territory,soil_erosion,t soil/ha/yr,,cf_std
+591,British Virgin Islands,soil_erosion,t soil/ha/yr,,cf_std
+592,Brunei Darussalam,soil_erosion,t soil/ha/yr,,cf_std
+593,Bulgaria,soil_erosion,t soil/ha/yr,0.08346151808020007,cf_std
+594,Burkina Faso,soil_erosion,t soil/ha/yr,,cf_std
+595,Burundi,soil_erosion,t soil/ha/yr,,cf_std
+596,Cambodia,soil_erosion,t soil/ha/yr,,cf_std
+597,Cameroon,soil_erosion,t soil/ha/yr,,cf_std
+598,Canada,soil_erosion,t soil/ha/yr,0.1605808711467988,cf_std
+599,Cape Verde,soil_erosion,t soil/ha/yr,,cf_std
+600,Cayman Islands,soil_erosion,t soil/ha/yr,,cf_std
+601,Central African Republic,soil_erosion,t soil/ha/yr,,cf_std
+602,Chad,soil_erosion,t soil/ha/yr,,cf_std
+603,Chile,soil_erosion,t soil/ha/yr,0.9462880916288214,cf_std
+604,China,soil_erosion,t soil/ha/yr,0.2891336067044782,cf_std
+605,China/India,soil_erosion,t soil/ha/yr,,cf_std
+606,Christmas Island,soil_erosion,t soil/ha/yr,,cf_std
+607,Clipperton Island,soil_erosion,t soil/ha/yr,,cf_std
+608,Cocos (Keeling) Islands,soil_erosion,t soil/ha/yr,,cf_std
+609,Colombia,soil_erosion,t soil/ha/yr,,cf_std
+610,Comoros,soil_erosion,t soil/ha/yr,,cf_std
+611,Congo,soil_erosion,t soil/ha/yr,,cf_std
+612,Cook Islands,soil_erosion,t soil/ha/yr,,cf_std
+613,Costa Rica,soil_erosion,t soil/ha/yr,,cf_std
+614,Croatia,soil_erosion,t soil/ha/yr,0.32692389270600475,cf_std
+615,Cuba,soil_erosion,t soil/ha/yr,,cf_std
+616,Cyprus,soil_erosion,t soil/ha/yr,,cf_std
+617,Czech Republic,soil_erosion,t soil/ha/yr,0.04297945420512956,cf_std
+618,Côte d'Ivoire,soil_erosion,t soil/ha/yr,,cf_std
+619,Dem People's Rep of Korea,soil_erosion,t soil/ha/yr,0.994673616329354,cf_std
+620,Democratic Republic of the Congo,soil_erosion,t soil/ha/yr,,cf_std
+621,Denmark,soil_erosion,t soil/ha/yr,0.005459266821860605,cf_std
+622,Djibouti,soil_erosion,t soil/ha/yr,,cf_std
+623,Dominica,soil_erosion,t soil/ha/yr,,cf_std
+624,Dominican Republic,soil_erosion,t soil/ha/yr,,cf_std
+625,Ecuador,soil_erosion,t soil/ha/yr,,cf_std
+626,Egypt,soil_erosion,t soil/ha/yr,,cf_std
+627,El Salvador,soil_erosion,t soil/ha/yr,,cf_std
+628,Equatorial Guinea,soil_erosion,t soil/ha/yr,,cf_std
+629,Eritrea,soil_erosion,t soil/ha/yr,,cf_std
+630,Estonia,soil_erosion,t soil/ha/yr,0.004189560960864385,cf_std
+631,Ethiopia,soil_erosion,t soil/ha/yr,,cf_std
+632,Europa Island,soil_erosion,t soil/ha/yr,,cf_std
+633,Falkland Islands (Malvinas),soil_erosion,t soil/ha/yr,,cf_std
+634,Faroe Islands,soil_erosion,t soil/ha/yr,,cf_std
+635,Fiji,soil_erosion,t soil/ha/yr,,cf_std
+636,Finland,soil_erosion,t soil/ha/yr,0.00503842754269736,cf_std
+637,France,soil_erosion,t soil/ha/yr,0.13756119851150211,cf_std
+638,French Guiana,soil_erosion,t soil/ha/yr,,cf_std
+639,French Polynesia,soil_erosion,t soil/ha/yr,,cf_std
+640,French Southern and Antarctic Territories,soil_erosion,t soil/ha/yr,,cf_std
+641,Gabon,soil_erosion,t soil/ha/yr,,cf_std
+642,Gambia,soil_erosion,t soil/ha/yr,,cf_std
+643,Gaza Strip,soil_erosion,t soil/ha/yr,,cf_std
+644,Georgia,soil_erosion,t soil/ha/yr,0.5302586894122515,cf_std
+645,Germany,soil_erosion,t soil/ha/yr,0.05935374315501522,cf_std
+646,Ghana,soil_erosion,t soil/ha/yr,,cf_std
+647,Gibraltar,soil_erosion,t soil/ha/yr,,cf_std
+648,Glorioso Island,soil_erosion,t soil/ha/yr,,cf_std
+649,Greece,soil_erosion,t soil/ha/yr,0.1373472124009,cf_std
+650,Greenland,soil_erosion,t soil/ha/yr,,cf_std
+651,Grenada,soil_erosion,t soil/ha/yr,,cf_std
+652,Guadeloupe,soil_erosion,t soil/ha/yr,,cf_std
+653,Guam,soil_erosion,t soil/ha/yr,,cf_std
+654,Guatemala,soil_erosion,t soil/ha/yr,,cf_std
+655,Guernsey,soil_erosion,t soil/ha/yr,,cf_std
+656,Guinea,soil_erosion,t soil/ha/yr,,cf_std
+657,Guinea-Bissau,soil_erosion,t soil/ha/yr,,cf_std
+658,Guyana,soil_erosion,t soil/ha/yr,,cf_std
+659,Haiti,soil_erosion,t soil/ha/yr,,cf_std
+660,Hala'ib triangle,soil_erosion,t soil/ha/yr,,cf_std
+661,Heard Island and McDonald Islands,soil_erosion,t soil/ha/yr,,cf_std
+662,Holy See,soil_erosion,t soil/ha/yr,,cf_std
+663,Honduras,soil_erosion,t soil/ha/yr,,cf_std
+664,Hong Kong,soil_erosion,t soil/ha/yr,,cf_std
+665,Howland Island,soil_erosion,t soil/ha/yr,,cf_std
+666,Hungary,soil_erosion,t soil/ha/yr,0.027060219310732554,cf_std
+667,Iceland,soil_erosion,t soil/ha/yr,,cf_std
+668,Ilemi triangle,soil_erosion,t soil/ha/yr,,cf_std
+669,India,soil_erosion,t soil/ha/yr,,cf_std
+670,Indonesia,soil_erosion,t soil/ha/yr,,cf_std
+671,Iran  (Islamic Republic of),soil_erosion,t soil/ha/yr,0.07369519930013399,cf_std
+672,Iraq,soil_erosion,t soil/ha/yr,0.17454604565964585,cf_std
+673,Ireland,soil_erosion,t soil/ha/yr,0.0670139951538483,cf_std
+674,Isle of Man,soil_erosion,t soil/ha/yr,,cf_std
+675,Israel,soil_erosion,t soil/ha/yr,,cf_std
+676,Italy,soil_erosion,t soil/ha/yr,0.4881887663820027,cf_std
+677,Jamaica,soil_erosion,t soil/ha/yr,,cf_std
+678,Jammu and Kashmir,soil_erosion,t soil/ha/yr,,cf_std
+679,Japan,soil_erosion,t soil/ha/yr,3.0691961432252057,cf_std
+680,Jarvis Island,soil_erosion,t soil/ha/yr,,cf_std
+681,Jersey,soil_erosion,t soil/ha/yr,,cf_std
+682,Johnston Atoll,soil_erosion,t soil/ha/yr,,cf_std
+683,Jordan,soil_erosion,t soil/ha/yr,,cf_std
+684,Juan de Nova Island,soil_erosion,t soil/ha/yr,,cf_std
+685,Kazakhstan,soil_erosion,t soil/ha/yr,0.03161307419226395,cf_std
+686,Kenya,soil_erosion,t soil/ha/yr,,cf_std
+687,Kingman Reef,soil_erosion,t soil/ha/yr,,cf_std
+688,Kiribati,soil_erosion,t soil/ha/yr,,cf_std
+689,Kuril islands,soil_erosion,t soil/ha/yr,,cf_std
+690,Kuwait,soil_erosion,t soil/ha/yr,,cf_std
+691,Kyrgyzstan,soil_erosion,t soil/ha/yr,0.2599725437164811,cf_std
+692,Lao People's Democratic Republic,soil_erosion,t soil/ha/yr,,cf_std
+693,Latvia,soil_erosion,t soil/ha/yr,0.006224664847038002,cf_std
+694,Lebanon,soil_erosion,t soil/ha/yr,,cf_std
+695,Lesotho,soil_erosion,t soil/ha/yr,,cf_std
+696,Liberia,soil_erosion,t soil/ha/yr,,cf_std
+697,Libya,soil_erosion,t soil/ha/yr,,cf_std
+698,Liechtenstein,soil_erosion,t soil/ha/yr,,cf_std
+699,Lithuania,soil_erosion,t soil/ha/yr,0.0038438968105118563,cf_std
+700,Luxembourg,soil_erosion,t soil/ha/yr,0.08258641360050271,cf_std
+701,Ma'tan al-Sarra,soil_erosion,t soil/ha/yr,,cf_std
+702,Macau,soil_erosion,t soil/ha/yr,,cf_std
+703,Madagascar,soil_erosion,t soil/ha/yr,,cf_std
+704,Madeira Islands,soil_erosion,t soil/ha/yr,,cf_std
+705,Malawi,soil_erosion,t soil/ha/yr,,cf_std
+706,Malaysia,soil_erosion,t soil/ha/yr,,cf_std
+707,Maldives,soil_erosion,t soil/ha/yr,,cf_std
+708,Mali,soil_erosion,t soil/ha/yr,,cf_std
+709,Malta,soil_erosion,t soil/ha/yr,,cf_std
+710,Marshall Islands,soil_erosion,t soil/ha/yr,,cf_std
+711,Martinique,soil_erosion,t soil/ha/yr,,cf_std
+712,Mauritania,soil_erosion,t soil/ha/yr,,cf_std
+713,Mauritius,soil_erosion,t soil/ha/yr,,cf_std
+714,Mayotte,soil_erosion,t soil/ha/yr,,cf_std
+715,Mexico,soil_erosion,t soil/ha/yr,,cf_std
+716,Micronesia (Federated States of),soil_erosion,t soil/ha/yr,,cf_std
+717,Midway Island,soil_erosion,t soil/ha/yr,,cf_std
+718,"Moldova, Republic of",soil_erosion,t soil/ha/yr,0.02493598379485659,cf_std
+719,Monaco,soil_erosion,t soil/ha/yr,,cf_std
+720,Mongolia,soil_erosion,t soil/ha/yr,0.09278438947308827,cf_std
+721,Montenegro,soil_erosion,t soil/ha/yr,0.2851446662842822,cf_std
+722,Montserrat,soil_erosion,t soil/ha/yr,,cf_std
+723,Morocco,soil_erosion,t soil/ha/yr,,cf_std
+724,Mozambique,soil_erosion,t soil/ha/yr,,cf_std
+725,Myanmar,soil_erosion,t soil/ha/yr,,cf_std
+726,Namibia,soil_erosion,t soil/ha/yr,,cf_std
+727,Nauru,soil_erosion,t soil/ha/yr,,cf_std
+728,Navassa Island,soil_erosion,t soil/ha/yr,,cf_std
+729,Nepal,soil_erosion,t soil/ha/yr,,cf_std
+730,Netherlands,soil_erosion,t soil/ha/yr,0.0029438398280664025,cf_std
+731,Netherlands Antilles,soil_erosion,t soil/ha/yr,,cf_std
+732,New Caledonia,soil_erosion,t soil/ha/yr,,cf_std
+733,New Zealand,soil_erosion,t soil/ha/yr,0.7183446623830441,cf_std
+734,Nicaragua,soil_erosion,t soil/ha/yr,,cf_std
+735,Niger,soil_erosion,t soil/ha/yr,,cf_std
+736,Nigeria,soil_erosion,t soil/ha/yr,,cf_std
+737,Niue,soil_erosion,t soil/ha/yr,,cf_std
+738,Norfolk Island,soil_erosion,t soil/ha/yr,,cf_std
+739,Northern Mariana Islands,soil_erosion,t soil/ha/yr,,cf_std
+740,Norway,soil_erosion,t soil/ha/yr,0.6231332549886877,cf_std
+741,Oman,soil_erosion,t soil/ha/yr,,cf_std
+742,Pakistan,soil_erosion,t soil/ha/yr,,cf_std
+743,Palau,soil_erosion,t soil/ha/yr,,cf_std
+744,Palmyra Atoll,soil_erosion,t soil/ha/yr,,cf_std
+745,Panama,soil_erosion,t soil/ha/yr,,cf_std
+746,Papua New Guinea,soil_erosion,t soil/ha/yr,,cf_std
+747,Paracel Islands,soil_erosion,t soil/ha/yr,,cf_std
+748,Paraguay,soil_erosion,t soil/ha/yr,,cf_std
+749,Peru,soil_erosion,t soil/ha/yr,,cf_std
+750,Philippines,soil_erosion,t soil/ha/yr,,cf_std
+751,Pitcairn,soil_erosion,t soil/ha/yr,,cf_std
+752,Poland,soil_erosion,t soil/ha/yr,0.022145387443203463,cf_std
+753,Portugal,soil_erosion,t soil/ha/yr,,cf_std
+754,Puerto Rico,soil_erosion,t soil/ha/yr,,cf_std
+755,Qatar,soil_erosion,t soil/ha/yr,,cf_std
+756,Republic of Korea,soil_erosion,t soil/ha/yr,1.2231124520562913,cf_std
+757,Romania,soil_erosion,t soil/ha/yr,0.09784293377017203,cf_std
+758,Russian Federation,soil_erosion,t soil/ha/yr,0.09975046249967576,cf_std
+759,Rwanda,soil_erosion,t soil/ha/yr,,cf_std
+760,Réunion,soil_erosion,t soil/ha/yr,,cf_std
+761,Saint Helena,soil_erosion,t soil/ha/yr,,cf_std
+762,Saint Kitts and Nevis,soil_erosion,t soil/ha/yr,,cf_std
+763,Saint Lucia,soil_erosion,t soil/ha/yr,,cf_std
+764,Saint Pierre et Miquelon,soil_erosion,t soil/ha/yr,,cf_std
+765,Saint Vincent and the Grenadines,soil_erosion,t soil/ha/yr,,cf_std
+766,Samoa,soil_erosion,t soil/ha/yr,,cf_std
+767,San Marino,soil_erosion,t soil/ha/yr,,cf_std
+768,Sao Tome and Principe,soil_erosion,t soil/ha/yr,,cf_std
+769,Saudi Arabia,soil_erosion,t soil/ha/yr,,cf_std
+770,Scarborough Reef,soil_erosion,t soil/ha/yr,,cf_std
+771,Senegal,soil_erosion,t soil/ha/yr,,cf_std
+772,Senkaku Islands,soil_erosion,t soil/ha/yr,,cf_std
+773,Serbia,soil_erosion,t soil/ha/yr,0.20794748463472265,cf_std
+774,Seychelles,soil_erosion,t soil/ha/yr,,cf_std
+775,Sierra Leone,soil_erosion,t soil/ha/yr,,cf_std
+776,Singapore,soil_erosion,t soil/ha/yr,,cf_std
+777,Slovakia,soil_erosion,t soil/ha/yr,0.1131593830267421,cf_std
+778,Slovenia,soil_erosion,t soil/ha/yr,0.5638543250541072,cf_std
+779,Solomon Islands,soil_erosion,t soil/ha/yr,,cf_std
+780,Somalia,soil_erosion,t soil/ha/yr,,cf_std
+781,South Africa,soil_erosion,t soil/ha/yr,,cf_std
+782,South Georgia and the South Sandwich Islands,soil_erosion,t soil/ha/yr,,cf_std
+783,South Sudan,soil_erosion,t soil/ha/yr,,cf_std
+784,Spain,soil_erosion,t soil/ha/yr,,cf_std
+785,Spratly Islands,soil_erosion,t soil/ha/yr,,cf_std
+786,Sri Lanka,soil_erosion,t soil/ha/yr,,cf_std
+787,Sudan,soil_erosion,t soil/ha/yr,,cf_std
+788,Suriname,soil_erosion,t soil/ha/yr,,cf_std
+789,Svalbard and Jan Mayen Islands,soil_erosion,t soil/ha/yr,,cf_std
+790,Swaziland,soil_erosion,t soil/ha/yr,,cf_std
+791,Sweden,soil_erosion,t soil/ha/yr,0.012873109819944554,cf_std
+792,Switzerland,soil_erosion,t soil/ha/yr,0.7353032415781445,cf_std
+793,Syrian Arab Republic,soil_erosion,t soil/ha/yr,,cf_std
+794,Taiwan,soil_erosion,t soil/ha/yr,,cf_std
+795,Tajikistan,soil_erosion,t soil/ha/yr,0.502004441877589,cf_std
+796,Thailand,soil_erosion,t soil/ha/yr,,cf_std
+797,The former Yugoslav Republic of Macedonia,soil_erosion,t soil/ha/yr,0.12262020680376329,cf_std
+798,Timor-Leste,soil_erosion,t soil/ha/yr,,cf_std
+799,Togo,soil_erosion,t soil/ha/yr,,cf_std
+800,Tokelau,soil_erosion,t soil/ha/yr,,cf_std
+801,Tonga,soil_erosion,t soil/ha/yr,,cf_std
+802,Trinidad and Tobago,soil_erosion,t soil/ha/yr,,cf_std
+803,Tromelin Island,soil_erosion,t soil/ha/yr,,cf_std
+804,Tunisia,soil_erosion,t soil/ha/yr,,cf_std
+805,Turkey,soil_erosion,t soil/ha/yr,0.10611237058697318,cf_std
+806,Turkmenistan,soil_erosion,t soil/ha/yr,0.010045206114126539,cf_std
+807,Turks and Caicos islands,soil_erosion,t soil/ha/yr,,cf_std
+808,Tuvalu,soil_erosion,t soil/ha/yr,,cf_std
+809,U.K. of Great Britain and Northern Ireland,soil_erosion,t soil/ha/yr,0.18735420071285913,cf_std
+810,Uganda,soil_erosion,t soil/ha/yr,,cf_std
+811,Ukraine,soil_erosion,t soil/ha/yr,0.025546979742605024,cf_std
+812,United Arab Emirates,soil_erosion,t soil/ha/yr,,cf_std
+813,United Republic of Tanzania,soil_erosion,t soil/ha/yr,,cf_std
+814,United States Virgin Islands,soil_erosion,t soil/ha/yr,,cf_std
+815,United States of America,soil_erosion,t soil/ha/yr,0.24835186382320673,cf_std
+816,Uruguay,soil_erosion,t soil/ha/yr,,cf_std
+817,Uzbekistan,soil_erosion,t soil/ha/yr,0.056216059290964675,cf_std
+818,Vanuatu,soil_erosion,t soil/ha/yr,,cf_std
+819,Venezuela,soil_erosion,t soil/ha/yr,,cf_std
+820,Viet Nam,soil_erosion,t soil/ha/yr,,cf_std
+821,Wake Island,soil_erosion,t soil/ha/yr,,cf_std
+822,Wallis and Futuna,soil_erosion,t soil/ha/yr,,cf_std
+823,West Bank,soil_erosion,t soil/ha/yr,,cf_std
+824,Western Sahara,soil_erosion,t soil/ha/yr,,cf_std
+825,Yemen,soil_erosion,t soil/ha/yr,,cf_std
+826,Zambia,soil_erosion,t soil/ha/yr,,cf_std
+827,Zimbabwe,soil_erosion,t soil/ha/yr,,cf_std

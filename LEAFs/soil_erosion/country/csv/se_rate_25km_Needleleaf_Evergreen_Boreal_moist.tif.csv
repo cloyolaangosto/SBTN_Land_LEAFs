@@ -1,9 +1,0 @@
-country,impact_category,flow_name,Unit,cf,cf_median,cf_std
-United States of America,se_rate,Needleleaf_Evergreen_Boreal_moist.tif,t soil/ha/yr,0.001933714467811809,0.0003534647425742209,0.003316785822716365
-Chile,se_rate,Needleleaf_Evergreen_Boreal_moist.tif,t soil/ha/yr,0.002311806297329923,0.0019211510976308856,0.0016233993239379322
-Russian Federation,se_rate,Needleleaf_Evergreen_Boreal_moist.tif,t soil/ha/yr,0.0023965188885980305,0.0002992330450669978,0.007748918899937552
-Norway,se_rate,Needleleaf_Evergreen_Boreal_moist.tif,t soil/ha/yr,0.006438823840946932,0.0013842452385701874,0.013829358667327802
-Sweden,se_rate,Needleleaf_Evergreen_Boreal_moist.tif,t soil/ha/yr,0.0008896408616325941,0.0003700621915688877,0.001638937722818949
-Iceland,se_rate,Needleleaf_Evergreen_Boreal_moist.tif,t soil/ha/yr,0.006708193451440661,0.0020464319551779676,0.011488067038408429
-Finland,se_rate,Needleleaf_Evergreen_Boreal_moist.tif,t soil/ha/yr,0.00029172988991053536,0.00014647113865566742,0.000491529674076158
-Canada,se_rate,Needleleaf_Evergreen_Boreal_moist.tif,t soil/ha/yr,0.0013974393287359988,0.0004940572084052442,0.0025917540607378327

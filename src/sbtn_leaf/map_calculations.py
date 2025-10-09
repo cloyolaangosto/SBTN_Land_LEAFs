@@ -36,8 +36,8 @@ import sbtn_leaf.map_plotting as mp
 country_shp = gpd.read_file("../data/CountryLayers/Country_Level0/g2015_2014_0.shp")
 subcountry_shp= gpd.read_file("../data/CountryLayers/SubCountry_Level1/g2015_2014_1.shp")
 
-# Ecoregions - One map with all ecoregions
-er_2017_fp = "../data/Ecoregions2017/Ecoregions2017.shp"
+# ecoregions - One map with all ecoregions
+er_2017_fp = "../data/ecoregions2017/ecoregions2017.shp"
 er_2017_shp = gpd.read_file(er_2017_fp)
 
 
@@ -184,7 +184,7 @@ def calculate_area_weighted_cfs_from_shp_with_std_and_median(cf_shp: gpd.GeoData
 
 def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_filepath: str, cf_name: str, cf_unit: str, flow_name: str, area_type: str, run_test = False, ):
     """
-    Calculate area-weighted characterization factors (CFs) from a raster file, including the mean, standard deviation, and median, for specified geographic regions (Ecoregion, Country, or Subcountry).
+    Calculate area-weighted characterization factors (CFs) from a raster file, including the mean, standard deviation, and median, for specified geographic regions (ecoregion, country, or subcountry).
 
     Parameters
     -----------
@@ -193,11 +193,11 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
     cf_name : str
         Name of the characterization factor (e.g., "Global Warming Potential").
     cf_unit : str
-        Unit of the characterization factor (e.g., "kg CO2-eq").
+        unit of the characterization factor (e.g., "kg CO2-eq").
     flow_name : str
         Name of the flow associated with the CF (e.g., "Carbon Dioxide").
     area_type : str
-        Type of geographic area to calculate CFs for. Valid values are "Ecoregion", "Country", or "Subcountry".
+        Type of geographic area to calculate CFs for. Valid values are "ecoregion", "country", or "subcountry".
     run_test : bool, optional
         If True, the function will only process the first 5 geometries in the shapefile for testing purposes. 
         Default is False.
@@ -213,7 +213,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
     
     Notes
     ------
-    - The function assumes that global variables `er_2017_shp`, `country_shp`, and `subcountry_shp` are defined and contain the shapefiles for Ecoregions, Countries, and Subcountries, respectively.
+    - The function assumes that global variables `er_2017_shp`, `country_shp`, and `subcountry_shp` are defined and contain the shapefiles for ecoregions, Countries, and Subcountries, respectively.
     - The raster file must have a defined coordinate reference system (CRS) that matches the CRS of the shapefile.
     - The function calculates area-weighted statistics using the pixel dimensions of the raster in the projected CRS.
     - If no valid data is found for a region, that region is skipped.
@@ -228,15 +228,15 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
     global raster_logger
 
     # Check if a valid area type is provided
-    valid_area_type = {"Ecoregion", "Country", "Subcountry"}
+    valid_area_type = {"ecoregion", "country", "subcountry"}
     if area_type is None or area_type not in valid_area_type:
-        raster_logger.info("Need to define area type. Valid values are Ecoregion, Country, or Subcountry")
+        raster_logger.info("Need to define area type. Valid values are ecoregion, country, or subcountry")
         return
 
     # Determine which shapefile to use (assume these globals are defined: er_shp, country_shp, subcountry_shp)
-    if area_type == "Ecoregion":
+    if area_type == "ecoregion":
         shp = er_2017_shp 
-    elif area_type == "Country":
+    elif area_type == "country":
         shp = country_shp
     else:
         shp = subcountry_shp
@@ -261,15 +261,15 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
     for idx, region in shp.iterrows():
         geom = [region["geometry"]]  # Single geometry as list
         
-        if area_type == "Ecoregion":
+        if area_type == "ecoregion":
             region_text = "Object # " + str(region["OBJECTID"]) + " - " + region['ECO_NAME']
-        elif area_type == "Country":
+        elif area_type == "country":
             region_text = region["ADM0_NAME"]
         else:
             region_text = region["ADM0_NAME"] + " - " + region['ADM1_NAME']
 
         try:
-            # Printing current Ecoregion loop
+            # Printing current ecoregion loop
             raster_logger.debug(f"Calculating  {region_text}")
 
             # Attempt to mask the raster with the polygon (clip operation)
@@ -317,7 +317,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
 
             
             # Append results
-            if area_type == "Ecoregion":
+            if area_type == "ecoregion":
                 results.append(
                     {
                         "ecoregion_geom_id": region["OBJECTID"],
@@ -325,19 +325,19 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
                         "Biome": region["BIOME_NAME"],
                         "impact_category": cf_name,
                         "flow_name": flow_name,
-                        "Unit": cf_unit,
+                        "unit": cf_unit,
                         "cf": weighted_mean,
                         "cf_median": weighted_median_value,
                         "cf_std": weighted_std
                     }
                 )
-            elif area_type == "Country":
+            elif area_type == "country":
                 results.append(
                     {
                         "country": region["ADM0_NAME"],
                         "impact_category": cf_name,
                         "flow_name": flow_name,
-                        "Unit": cf_unit,
+                        "unit": cf_unit,
                         "cf": weighted_mean,
                         "cf_median": weighted_median_value,
                         "cf_std": weighted_std
@@ -350,7 +350,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
                         "subcountry (adm1)": region["ADM1_NAME"],
                         "impact_category": cf_name,
                         "flow_name": flow_name,
-                        "Unit": cf_unit,
+                        "unit": cf_unit,
                         "cf": weighted_mean,
                         "cf_median": weighted_median_value,
                         "cf_std": weighted_std
@@ -369,10 +369,10 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
     results_df = pd.DataFrame(results)
 
     # Merge with shapefile for spatial data output
-    if area_type == "Ecoregion":
+    if area_type == "ecoregion":
         final_gdf = shp.merge(results_df, how="left", left_on="OBJECTID", right_on="ecoregion_geom_id")
         final_gdf = final_gdf.drop(columns=["ecoregion_geom_id", "ecoregion_name", "Biome"])
-    elif area_type == "Country":
+    elif area_type == "country":
         final_gdf = shp.merge(results_df, how="left", left_on="ADM0_NAME", right_on="country")
         final_gdf = final_gdf.drop(columns=["country"])
     else:
@@ -466,20 +466,20 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
     """
 
     # Validate area_type
-    valid_area_type = {"Ecoregion", "Country", "Subcountry"}
+    valid_area_type = {"ecoregion", "country", "subcountry"}
     if area_type not in valid_area_type:
-        if raster_logger: raster_logger.info("Need to define area type. Valid values are Ecoregion, Country, or Subcountry")
+        if raster_logger: raster_logger.info("Need to define area type. Valid values are ecoregion, country, or subcountry")
         return
 
     # Select region GeoDataFrame
-    if area_type == "Ecoregion":
-        if er_gdf is None: raise ValueError("er_gdf must be provided for area_type='Ecoregion'.")
+    if area_type == "ecoregion":
+        if er_gdf is None: raise ValueError("er_gdf must be provided for area_type='ecoregion'.")
         shp = er_gdf.copy()
-    elif area_type == "Country":
-        if country_gdf is None: raise ValueError("country_gdf must be provided for area_type='Country'.")
+    elif area_type == "country":
+        if country_gdf is None: raise ValueError("country_gdf must be provided for area_type='country'.")
         shp = country_gdf.copy()
     else:
-        if subcountry_gdf is None: raise ValueError("subcountry_gdf must be provided for area_type='Subcountry'.")
+        if subcountry_gdf is None: raise ValueError("subcountry_gdf must be provided for area_type='subcountry'.")
         shp = subcountry_gdf.copy()
 
     if run_test:
@@ -513,9 +513,9 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
             continue
 
         # Label string
-        if area_type == "Ecoregion":
+        if area_type == "ecoregion":
             region_text = f"Object # {region.get('OBJECTID', idx)} - {region.get('ECO_NAME', 'Unknown')}"
-        elif area_type == "Country":
+        elif area_type == "country":
             region_text = region.get("ADM0_NAME", "Unknown")
         else:
             region_text = f"{region.get('ADM0_NAME','Unknown')} - {region.get('ADM1_NAME','Unknown')}"
@@ -585,7 +585,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
             wmed = _weighted_median(values, weights)
 
             # Append per area_type
-            if area_type == "Ecoregion":
+            if area_type == "ecoregion":
                 results.append(
                     {
                         "er_geom_id": region.get("OBJECTID", idx),
@@ -593,19 +593,19 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
                         "Biome": region.get("BIOME_NAME", None),
                         "imp_cat": cf_name,
                         "flow_name": flow_name,
-                        "Unit": cf_unit,
+                        "unit": cf_unit,
                         "cf": wmean,
                         "cf_median": wmed,
                         "cf_std": wstd
                     }
                 )
-            elif area_type == "Country":
+            elif area_type == "country":
                 results.append(
                     {
                         "country": region.get("ADM0_NAME", None),
                         "imp_cat": cf_name,
                         "flow_name": flow_name,
-                        "Unit": cf_unit,
+                        "unit": cf_unit,
                         "cf": wmean,
                         "cf_median": wmed,
                         "cf_std": wstd
@@ -618,7 +618,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
                         "subcountry": region.get("ADM1_NAME", None),
                         "imp_cat": cf_name,
                         "flow_name": flow_name,
-                        "Unit": cf_unit,
+                        "unit": cf_unit,
                         "cf": wmean,
                         "cf_median": wmed,
                         "cf_std": wstd
@@ -639,12 +639,12 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
     results_df = pd.DataFrame(results)
 
         # Merge back for spatial output
-    if area_type == "Ecoregion":
+    if area_type == "ecoregion":
         final_gdf = shp.merge(results_df, how="left", left_on="OBJECTID", right_on="er_geom_id")
         # keep names/biome (or drop if you intentionally don't want them duplicated)
         drop_cols = ['NNH', 'SHAPE_LENG', 'SHAPE_AREA', 'NNH_NAME','COLOR', 'COLOR_BIO', 'COLOR_NNH', 'LICENSE']
         
-    elif area_type == "Country":
+    elif area_type == "country":
         final_gdf = shp.merge(results_df, how="left", left_on="ADM0_NAME", right_on="country")
         drop_cols = [ 'STATUS', 'DISP_AREA', 'ADM0_CODE', 'STR0_YEAR', 'EXP0_YEAR', 'SHAPE_LENG', 'SHAPE_AREA']
         
@@ -660,7 +660,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
 
 def build_cfs_gpkg_from_rasters(
     input_folder: str,
-    gpkg_path: str,
+    output_folder: str,
     *,
     layer_name: str = "leaf_long",
     master_gdf: gpd.GeoDataFrame,
@@ -673,8 +673,6 @@ def build_cfs_gpkg_from_rasters(
     area_type: str,
     calc_kwargs: Optional[dict] = None,
     file_filter: Iterable[str] = (".tif", ".tiff"),
-    write_per_file_csv: bool = False,
-    csv_folder: Optional[str] = None,
     reset_gpkg: bool = True,         # remove existing gpkg before first write
     promote_to_multi: bool = True,   # avoid Polygon/MultiPolygon mismatches
     add_provenance: bool = True,     # add _source_file column
@@ -692,16 +690,13 @@ def build_cfs_gpkg_from_rasters(
     (gpkg_path, n_written_rows)
     """
     calc_kwargs = calc_kwargs or {}
-
-    # CSV folder preparation
-    if write_per_file_csv:
-        if not csv_folder:
-            csv_folder = os.path.join(os.path.dirname(gpkg_path) or ".", "csv")
-        os.makedirs(csv_folder, exist_ok=True)
+    output_string = output_folder + cf_name + "_" + area_type
+    gpckg_path = output_string + ".gpkg"
+    csv_path = output_string + ".csv"
 
     # Reset gpkg if requested
-    if reset_gpkg and os.path.exists(gpkg_path):
-        os.remove(gpkg_path)
+    if reset_gpkg and os.path.exists(gpckg_path):
+        os.remove(gpckg_path)
 
     # Ensure master has needed columns & unique keys
     if master_key not in master_gdf.columns:
@@ -710,7 +705,7 @@ def build_cfs_gpkg_from_rasters(
         raise ValueError("master_gdf has no geometry column set.")
 
     if logger:
-        logger.info(f"Building '{layer_name}' from rasters in {input_folder} → {gpkg_path}")
+        logger.info(f"Building '{layer_name}' from rasters in {input_folder} → {output_folder}")
 
     # Gather files
     file_list = sorted(os.listdir(input_folder))
@@ -725,9 +720,9 @@ def build_cfs_gpkg_from_rasters(
     master_regions = master_gdf[master_key].unique()
 
     # Dropping unnecessary columns
-    if area_type == "Ecoregion":
+    if area_type == "ecoregion":
         drop_cols = ['NNH', 'SHAPE_LENG', 'SHAPE_AREA', 'NNH_NAME','COLOR', 'COLOR_BIO', 'COLOR_NNH', 'LICENSE']
-    elif area_type == "Country":
+    elif area_type == "country":
         drop_cols = [ 'STATUS', 'DISP_AREA', 'ADM0_CODE', 'STR0_YEAR', 'EXP0_YEAR', 'SHAPE_LENG', 'SHAPE_AREA']
     else:
         drop_cols = ['ADM1_CODE','STR1_YEAR', 'EXP1_YEAR', 'STATUS', 'DISP_AREA', 'ADM0_CODE',  'SHAPE_LENG', "SHAPE_AREA"]
@@ -735,7 +730,6 @@ def build_cfs_gpkg_from_rasters(
 
     # Ensure master_gdf is in an equal-area CRS (avoid referencing undefined raster/resampling variables)    
     # Guard against missing attribute 'is_geographic' on unexpected CRS objects
-    is_geo = getattr(master_gdf.crs, "is_geographic", False)
     if (master_gdf.crs.is_geographic == False) or (str(master_gdf.crs) != equal_area_crs):
         master_gdf = master_gdf.to_crs(equal_area_crs)
 
@@ -743,7 +737,7 @@ def build_cfs_gpkg_from_rasters(
     results_df = pd.DataFrame(master_gdf[master_key])
     results_df = results_df.assign(
         imp_cat = cf_name,
-        Unit = cf_unit
+        unit = cf_unit
     )
 
     # Iterates through files
@@ -767,13 +761,6 @@ def build_cfs_gpkg_from_rasters(
             area_type=area_type,
             **calc_kwargs
         )
-
-        # Optional per-file CSV
-        if write_per_file_csv:
-            if csv_folder is None:
-                raise ValueError("csv_folder must be a valid string path, not None.")
-            out_csv = os.path.join(csv_folder, f"{flow_name}.csv")
-            df_flow.to_csv(out_csv, index=False)
 
         # Align CRS
         if gdf_flow.crs != master_gdf.crs:
@@ -807,7 +794,7 @@ def build_cfs_gpkg_from_rasters(
         # Assigns the flow_name for all missing regions
         gdf_full.loc[gdf_full[master_key].isin(missing_regions), "flow_name"] = flow_name
         gdf_full.loc[gdf_full[master_key].isin(missing_regions), "imp_cat"] = cf_name
-        gdf_full.loc[gdf_full[master_key].isin(missing_regions), "Unit"] = cf_unit
+        gdf_full.loc[gdf_full[master_key].isin(missing_regions), "unit"] = cf_unit
 
         # Ensure numeric CF columns present & float dtype (NaN preserved)
         for col in ("cf", "cf_median", "cf_std"):
@@ -827,14 +814,19 @@ def build_cfs_gpkg_from_rasters(
         # 3) Creating the gpkcg
         # First write: establish stable schema
         if first_write:
-            base_cols = [master_key, "imp_cat", "flow_name", "Unit", "cf", "cf_median", "cf_std"]
+            # Drop result_key if it exists
+            if result_key in gdf_out.columns:
+                gdf_out = gdf_out.drop(columns=result_key, errors="ignore")
+
+            # Freeze columns for the geopackage
+            base_cols = [master_key, "imp_cat", "flow_name", "unit", "cf", "cf_median", "cf_std"]
             extras = [c for c in gdf_out.columns if c not in base_cols + ["geometry"]]
             schema_cols = [c for c in base_cols + extras if c in gdf_out.columns] + ["geometry"]
             gdf_out = gdf_out[schema_cols]
 
             write_df(
                 gdf_out,
-                gpkg_path,
+                gpckg_path,
                 layer=layer_name,
                 driver="GPKG",
                 append=False,
@@ -848,9 +840,13 @@ def build_cfs_gpkg_from_rasters(
                     gdf_out[c] = pd.NA
             gdf_out = gdf_out[schema_cols]
 
+            # Checks result_key has not been added back
+            if result_key in gdf_out.columns:
+                gdf_out = gdf_out.drop(columns=result_key, errors="ignore")
+
             write_df(
                 gdf_out,
-                gpkg_path,
+                gpckg_path,
                 layer=layer_name,
                 driver="GPKG",
                 append=True,
@@ -885,11 +881,13 @@ def build_cfs_gpkg_from_rasters(
         total_rows += len(gdf_out)
 
     # Creating the large single dataframe
-    results_df = pd.concat([results_df_mean,results_df_median,results_df_std], ignore_index=True)
+    results_df = pd.concat([results_df_mean,results_df_median,results_df_std], ignore_index=True).drop(columns=result_key)
+    results_df.to_csv(csv_path)
 
     if logger:
-        logger.info(f"Wrote {total_rows} rows into {gpkg_path} (layer='{layer_name}').")
-    return gpkg_path, results_df
+        logger.info(f"Wrote {total_rows} rows into {gpckg_path} (layer='{layer_name}').")
+    
+    return gpckg_path, results_df
 
 
 #############################
@@ -1119,9 +1117,9 @@ def process_region(region, raster_input_filepath, cf_name, cf_unit, flow_name, a
         return None
 
     geom = [region["geometry"]]
-    if area_type == "Ecoregion":
+    if area_type == "ecoregion":
         region_text = "Object # " + str(region["OBJECTID"]) + " - " + region['ECO_NAME']
-    elif area_type == "Country":
+    elif area_type == "country":
         region_text = region["ADM0_NAME"]
     else:
         region_text = region["ADM0_NAME"] + " - " + region['ADM1_NAME']
@@ -1163,24 +1161,24 @@ def process_region(region, raster_input_filepath, cf_name, cf_unit, flow_name, a
             weighted_mean = weighted_median_value = weighted_std = np.nan
 
         # Build the result dictionary.
-        if area_type == "Ecoregion":
+        if area_type == "ecoregion":
             result = {
                 "ecoregion_geom_id": region["OBJECTID"],
                 "ecoregion_name": region["ECO_NAME"],
                 "Biome": region["BIOME_NAME"],
                 "impact_category": cf_name,
                 "flow_name": flow_name,
-                "Unit": cf_unit,
+                "unit": cf_unit,
                 "cf": weighted_mean,
                 "cf_median": weighted_median_value,
                 "cf_std": weighted_std
             }
-        elif area_type == "Country":
+        elif area_type == "country":
             result = {
                 "country": region["ADM0_NAME"],
                 "impact_category": cf_name,
                 "flow_name": flow_name,
-                "Unit": cf_unit,
+                "unit": cf_unit,
                 "cf": weighted_mean,
                 "cf_median": weighted_median_value,
                 "cf_std": weighted_std
@@ -1191,7 +1189,7 @@ def process_region(region, raster_input_filepath, cf_name, cf_unit, flow_name, a
                 "subcountry (adm1)": region["ADM1_NAME"],
                 "impact_category": cf_name,
                 "flow_name": flow_name,
-                "Unit": cf_unit,
+                "unit": cf_unit,
                 "cf": weighted_mean,
                 "cf_median": weighted_median_value,
                 "cf_std": weighted_std
