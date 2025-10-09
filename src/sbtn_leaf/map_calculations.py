@@ -638,18 +638,22 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
 
     results_df = pd.DataFrame(results)
 
-    # Merge back for spatial output
+        # Merge back for spatial output
     if area_type == "Ecoregion":
         final_gdf = shp.merge(results_df, how="left", left_on="OBJECTID", right_on="er_geom_id")
         # keep names/biome (or drop if you intentionally don't want them duplicated)
-        # final_gdf = final_gdf.drop(columns=["ecoregion_geom_id", "ecoregion_name", "Biome"])
+        drop_cols = ['NNH', 'SHAPE_LENG', 'SHAPE_AREA', 'NNH_NAME','COLOR', 'COLOR_BIO', 'COLOR_NNH', 'LICENSE']
+        
     elif area_type == "Country":
         final_gdf = shp.merge(results_df, how="left", left_on="ADM0_NAME", right_on="country")
-        # final_gdf = final_gdf.drop(columns=["country"])
+        drop_cols = [ 'STATUS', 'DISP_AREA', 'ADM0_CODE', 'STR0_YEAR', 'EXP0_YEAR', 'SHAPE_LENG', 'SHAPE_AREA']
+        
     else:
         final_gdf = shp.merge(results_df, how="left", left_on="ADM1_NAME", right_on="subcountry")
+        drop_cols = ['ADM1_CODE','STR1_YEAR', 'EXP1_YEAR', 'STATUS', 'DISP_AREA', 'ADM0_CODE',  'SHAPE_LENG', "SHAPE_AREA"]
         # final_gdf = final_gdf.drop(columns=["country", "subcountry (adm1)"])
 
+    final_gdf = final_gdf.drop(columns=drop_cols)
     return [results_df, final_gdf]
 
 ## FUNCTION TO CALCULATE ALL LEAF INTO 1 PACKAGE ##
@@ -663,6 +667,7 @@ def build_cfs_gpkg_from_rasters(
     master_key: str,                 # e.g., 'ADM0_NAME', 'ISO_A3', 'ADM1_NAME', 'ECO_NAME'
     result_key: str,                 # column in calculator's gdf that matches master_key
     input_raster_key: Optional[str], # optional filename prefix filter; if set, only files starting with it are processed
+    equal_area_crs: str= "EPSG:6933",
     cf_name: str,
     cf_unit: str,
     area_type: str,
@@ -674,8 +679,9 @@ def build_cfs_gpkg_from_rasters(
     promote_to_multi: bool = True,   # avoid Polygon/MultiPolygon mismatches
     add_provenance: bool = True,     # add _source_file column
     run_test: bool = False,          # process only first 5 rasters
-    logger=None                      # pass a logger or None
-) -> Tuple[str, int]:
+    logger=None,                      # pass a logger or None
+    sig_figures: int = 4
+) -> Tuple[str, pd.DataFrame]:
     """
     Process all rasters in a folder into ONE GeoPackage layer (tidy/long),
     enforcing a single master geometry set (countries / subcountries / ecoregions),
@@ -709,7 +715,7 @@ def build_cfs_gpkg_from_rasters(
     # Gather files
     file_list = sorted(os.listdir(input_folder))
     if run_test:
-        file_list = file_list[:5]
+        file_list = file_list[:3]
 
     first_write = True
     schema_cols: Optional[list] = None
@@ -718,6 +724,29 @@ def build_cfs_gpkg_from_rasters(
     # Create list of master regions
     master_regions = master_gdf[master_key].unique()
 
+    # Dropping unnecessary columns
+    if area_type == "Ecoregion":
+        drop_cols = ['NNH', 'SHAPE_LENG', 'SHAPE_AREA', 'NNH_NAME','COLOR', 'COLOR_BIO', 'COLOR_NNH', 'LICENSE']
+    elif area_type == "Country":
+        drop_cols = [ 'STATUS', 'DISP_AREA', 'ADM0_CODE', 'STR0_YEAR', 'EXP0_YEAR', 'SHAPE_LENG', 'SHAPE_AREA']
+    else:
+        drop_cols = ['ADM1_CODE','STR1_YEAR', 'EXP1_YEAR', 'STATUS', 'DISP_AREA', 'ADM0_CODE',  'SHAPE_LENG', "SHAPE_AREA"]
+    master_gdf = master_gdf.drop(columns=drop_cols)
+
+    # Ensure master_gdf is in an equal-area CRS (avoid referencing undefined raster/resampling variables)    
+    # Guard against missing attribute 'is_geographic' on unexpected CRS objects
+    is_geo = getattr(master_gdf.crs, "is_geographic", False)
+    if (master_gdf.crs.is_geographic == False) or (str(master_gdf.crs) != equal_area_crs):
+        master_gdf = master_gdf.to_crs(equal_area_crs)
+
+    # Set up a master_df
+    results_df = pd.DataFrame(master_gdf[master_key])
+    results_df = results_df.assign(
+        imp_cat = cf_name,
+        Unit = cf_unit
+    )
+
+    # Iterates through files
     for file in file_list:
         if not file.lower().endswith(tuple(file_filter)):
             continue
@@ -730,7 +759,7 @@ def build_cfs_gpkg_from_rasters(
             flow_name = flow_name.replace(input_raster_key, "")
 
         # Run calculator → (df, gdf)
-        df, gdf_flow = calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
+        df_flow, gdf_flow = calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
             raster_input_filepath=raster_path,
             cf_name=cf_name,
             cf_unit=cf_unit,
@@ -738,26 +767,23 @@ def build_cfs_gpkg_from_rasters(
             area_type=area_type,
             **calc_kwargs
         )
-        # calc_fn(raster_path, flow_name=flow_name, **calc_kwargs)
 
         # Optional per-file CSV
         if write_per_file_csv:
             if csv_folder is None:
                 raise ValueError("csv_folder must be a valid string path, not None.")
             out_csv = os.path.join(csv_folder, f"{flow_name}.csv")
-            df.to_csv(out_csv, index=False)
+            df_flow.to_csv(out_csv, index=False)
 
         # Align CRS
-        if gdf_flow.crs is None and master_gdf.crs is not None:
+        if gdf_flow.crs != master_gdf.crs:
             if logger:
-                logger.warning("Result gdf has no CRS; assuming master's CRS for alignment.")
+                logger.info("Result gdf aligned with master_gdf")
             gdf_flow = gdf_flow.set_crs(master_gdf.crs, allow_override=True)
 
-        master_aligned = master_gdf.to_crs(gdf_flow.crs) if (master_gdf.crs != gdf_flow.crs) else master_gdf
-
         # 1) Attach master geometry to result rows (m:1 expected now that master is unique)
-        if result_key not in gdf_flow.columns:
-            raise KeyError(f"result_key '{result_key}' not found in result gdf. Available: {list(gdf_flow.columns)}")
+        if master_key not in gdf_flow.columns:
+            raise KeyError(f"master_key '{master_key}' not found in result gdf. Available: {list(gdf_flow.columns)}")
 
         # 2) Detect geometries with missing values
         flow_regions = gdf_flow[result_key].dropna().unique()
@@ -770,35 +796,38 @@ def build_cfs_gpkg_from_rasters(
         
         if missing_reg_amount >0:
             if logger:
-                logger.warning(
+                logger.info(
                     f"{missing_reg_amount} rows in '{file}' had no matching master geometry; "
                     f"their CF values will be NaN."
                 )
 
         # 2) Reindex to *full* master so all master features are present; CFs become NaN where absent
-        gdf_full = master_aligned.merge(gdf_flow.drop(columns = ['geometry'], errors='ignore'), how='left', on=master_key, validate='1:m')
+        gdf_full = master_gdf.merge(gdf_flow.drop(columns = ['geometry'], errors='ignore'), how='left', on=master_key, validate='1:m')
 
         # Assigns the flow_name for all missing regions
         gdf_full.loc[gdf_full[master_key].isin(missing_regions), "flow_name"] = flow_name
+        gdf_full.loc[gdf_full[master_key].isin(missing_regions), "imp_cat"] = cf_name
+        gdf_full.loc[gdf_full[master_key].isin(missing_regions), "Unit"] = cf_unit
 
         # Ensure numeric CF columns present & float dtype (NaN preserved)
         for col in ("cf", "cf_median", "cf_std"):
             if col in gdf_full.columns:
-                gdf_full[col] = gdf_full[col].astype("float64")
+                gdf_full[col] = gdf_full[col].astype("float32").round(sig_figures)
 
         # Final GeoDataFrame with consistent geometry from master
         gdf_out = gpd.GeoDataFrame(
             gdf_full,
             geometry="geometry",
-            crs=master_aligned.crs
+            crs=master_gdf.crs
         )
 
         if add_provenance:
             gdf_out["_source_file"] = file
 
+        # 3) Creating the gpkcg
         # First write: establish stable schema
         if first_write:
-            base_cols = [result_key, "imp_cat", "flow_name", "Unit", "cf", "cf_median", "cf_std"]
+            base_cols = [master_key, "imp_cat", "flow_name", "Unit", "cf", "cf_median", "cf_std"]
             extras = [c for c in gdf_out.columns if c not in base_cols + ["geometry"]]
             schema_cols = [c for c in base_cols + extras if c in gdf_out.columns] + ["geometry"]
             gdf_out = gdf_out[schema_cols]
@@ -828,11 +857,39 @@ def build_cfs_gpkg_from_rasters(
                 promote_to_multi=promote_to_multi
             )
 
+        # 4) Expand df
+        results_df_mean = results_df.merge(
+            df_flow[[result_key, "cf"]],
+            how = "left",
+            left_on = master_key,
+            right_on = result_key
+        ).rename(columns={"cf": "value"})
+        results_df_mean["metric"] = "cf_mean"
+
+        results_df_median = results_df.merge(
+            df_flow[[result_key, "cf_median"]],
+            how = "left",
+            left_on = master_key,
+            right_on = result_key
+        ).rename(columns={"cf_median": "value"})
+        results_df_median["metric"] = "cf_median"
+
+        results_df_std = results_df.merge(
+            df_flow[[result_key, "cf_std"]],
+            how = "left",
+            left_on = master_key,
+            right_on = result_key
+        ).rename(columns={"cf_std": "value"})
+        results_df_std["metric"] = "cf_std"
+        
         total_rows += len(gdf_out)
+
+    # Creating the large single dataframe
+    results_df = pd.concat([results_df_mean,results_df_median,results_df_std], ignore_index=True)
 
     if logger:
         logger.info(f"Wrote {total_rows} rows into {gpkg_path} (layer='{layer_name}').")
-    return gpkg_path, total_rows
+    return gpkg_path, results_df
 
 
 #############################
