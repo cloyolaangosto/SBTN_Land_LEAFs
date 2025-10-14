@@ -1453,15 +1453,19 @@ def create_binary_mask(input_path, output_path, binary_value = 1, band=1, src_no
         # Read the specified band from the raster.
         data = src.read(band)
         # Use the manual_nodata if provided; otherwise use the file's nodata.
-        nodata = src_nodata if src_nodata else src.nodata
+        nodata = src_nodata if src_nodata is not None else src.nodata
         # Copy metadata from the source for writing the new GeoTIFF.
         meta = src.meta.copy()
     
     # Create the binary mask.
     # If a nodata value is defined, determine valid pixels.
-    if nodata:
+    if nodata is None:
+        print(f"Input doens't have a nodata value. Value {binary_value} if cell has value and {dst_nodata} if not, disregarding which value it is.")
+        # If no nodata value is defined, assume a cell has a value if it is non-zero.
+        binary = np.where(data != 0, binary_value, dst_nodata).astype(np.float32)
+    else:
         # If the provided nodata value is np.nan, use np.isnan to check for NaN values.
-        if np.isnan(nodata):
+        if isinstance(nodata, float) and np.isnan(nodata):
             # Valid cells are those that are not NaN.
             print(f"Input No Data defined as NaN. Value {binary_value} if is not NaN and {dst_nodata} if it is.")
             valid = ~np.isnan(data)
@@ -1469,14 +1473,9 @@ def create_binary_mask(input_path, output_path, binary_value = 1, band=1, src_no
             print(f"Input No Data defined as {nodata}. Value {binary_value} if is not {nodata} and {dst_nodata} if it is.")
             # Valid cells are those that do not equal the nodata value.
             valid = (data != nodata)
-        
+
         # Create a binary mask: 1 for valid, 0 for no_data.
         binary = np.where(valid, binary_value, dst_nodata).astype(np.float32)
-
-    else:
-        print(f"Input doens't have a nodata value. Value {binary_value} if cell has value and {dst_nodata} if not, disregarding which value it is.")
-        # If no nodata value is defined, assume a cell has a value if it is non-zero.
-        binary = np.where(data != 0, binary_value, dst_nodata).astype(np.float32)
     
     # Update metadata for output:
     # - Set the data type to uint8 (since our mask only contains 0 and 1).
