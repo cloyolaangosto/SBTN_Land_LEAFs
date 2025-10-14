@@ -8,14 +8,18 @@ import pyproj
 import rasterio
 from rasterio.features import rasterize
 from rasterio.warp import reproject, Resampling
-from rasterio.transform import from_origin
+from rasterio.transform import from_origin, xy, Affine
 from rasterio.enums import Resampling
 from rasterio.mask import mask
-from rasterio.transform import xy
 import rioxarray
 import tempfile
-from typing import Optional
-from joblib import Parallel, delayed
+from typing import Optional, Callable, Iterable, Tuple, Dict, List
+from shapely.geometry import box
+from shapely.prepared import prep as prep_geom
+
+import os
+from pyogrio import write_dataframe as write_df
+
 
 # Data Analysis
 import numpy as np
@@ -31,8 +35,8 @@ import sbtn_leaf.map_plotting as mp
 country_shp = gpd.read_file("../data/CountryLayers/Country_Level0/g2015_2014_0.shp")
 subcountry_shp= gpd.read_file("../data/CountryLayers/SubCountry_Level1/g2015_2014_1.shp")
 
-# Ecoregions - One map with all ecoregions
-er_2017_fp = "../data/Ecoregions2017/Ecoregions2017.shp"
+# ecoregions - One map with all ecoregions
+er_2017_fp = "../data/ecoregions2017/ecoregions2017.shp"
 er_2017_shp = gpd.read_file(er_2017_fp)
 
 
@@ -75,123 +79,6 @@ if not shape_logger.hasHandlers():
 ### FUNCTIONS ###
 #################
 
-# Ecoregion test
-def run_categorical_map_plot_ecoregions_2017():
-    er_2017_fp = 'data/Ecoregions2017/Ecoregions2017.shp'
-    er_2017_shp = gpd.read_file(er_2017_fp)
-    er_2017_shp.columns
-    er_2017_shp['ECO_NAME'].head()
-
-    mp.plotly_shapefile_categorical(er_2017_shp,'BIOME_NAME', "WWF Ecoregions 2017")
-    
-#######################
-### CF Calculations ###
-#######################
-
-# CF Ecoregion calculations
-def calculation_ecoregion_cfs_from_shp(cf_shp: gpd.GeoDataFrame, value_column: str, calculated_variable_name = 'area_weighted_cf', er_shp: gpd.GeoDataFrame = er_2017_shp):
-    """
-    Calculate area-weighted values for each ecoregion in the er_shp based on the values from cf_shp.
-
-    Parameters:
-        cf_shp (GeoDataFrame): GeoDataFrame containing polygons and values.
-        er_shp (GeoDataFrame): GeoDataFrame containing ecoregions and their shapes.
-        value_column (str): The column name in cf_shp that holds the values to be weighted.
-        calculated_variable_name (str): Name of the calculated value. Default: area_weighted_cf
-
-    Returns:
-        pd.DataFrame: DataFrame with ecoregion names and their corresponding area-weighted values.
-        GeoDataFrame: er_shp with a new column containing the area-weighted values.
-    """
-
-    # Ensure the CRS of both shapefiles are the same
-    if cf_shp.crs != er_shp.crs:
-        if er_shp.crs is None:
-            raise ValueError("er_shp.crs is None. Cannot reproject cf_shp to a None CRS.")
-        cf_shp = cf_shp.to_crs(er_shp.crs)
-
-    # Reprojecting for more accurate calculations. Using a projected CRS (e.g., EPSG:3857 or UTM)
-    if cf_shp.crs is not None and getattr(cf_shp.crs, "is_geographic", False):
-        cf_shp = cf_shp.to_crs("EPSG:3857")  # Reproject to Web Mercator (or use a UTM zone)
-
-    if er_shp.crs is not None and getattr(er_shp.crs, "is_geographic", False):
-        er_shp = er_shp.to_crs("EPSG:3857")  # Reproject ecoregions if needed
-
-    # Perform a spatial join between cf_shp and er_shp based on intersection of polygons in both shapefiles 
-    joined_gdf = gpd.sjoin(cf_shp, er_shp, how="inner", predicate="intersects")
-
-    # Calculate the area of each cf_shp polygon
-    joined_gdf['area'] = joined_gdf.geometry.area
-
-    # Calculate the weighted value for each polygon (value * area)
-    joined_gdf['weighted_value'] = joined_gdf[value_column] * joined_gdf['area']
-
-    # Group by ecoregion and calculate the total area and total weighted value for each ecoregion
-    area_weighthed_cf = joined_gdf.groupby('ECO_NAME')['weighted_value'].sum() / joined_gdf.groupby('ECO_NAME')['area'].sum()
-
-    # Create a DataFrame with ecoregions and their corresponding area-weighted values
-    result_df = pd.DataFrame(area_weighthed_cf).reset_index()
-    result_df.columns = ['ECO_NAME', calculated_variable_name]
-    
-    # Add the area-weighted values to the er_shp GeoDataFrame
-    er_shp = er_shp.merge(result_df, on='ECO_NAME', how='left')
-
-    # Return the result: a DataFrame with ecoregion area-weighted values and the updated er_shp
-    return result_df, er_shp
-
-# CF Ecoregion calculations v2
-def calculation_ecoregion_cfs_from_shp_v2_merge_OBJECTID(cf_shp: gpd.GeoDataFrame, value_column: str, calculated_variable_name = 'area_weighted_cf', er_shp: gpd.GeoDataFrame = er_2017_shp):
-    """
-    Calculate area-weighted characterization factors for each ecoregion in the er_shp based on the values from cf_shp. In v2, shapefile results are based on polygon merger. Dataframe still delivers table based on ecoregion calculations. 
-
-    Parameters:
-        cf_shp (GeoDataFrame): GeoDataFrame containing polygons and values.
-        er_shp (GeoDataFrame): GeoDataFrame containing ecoregions and their shapes.
-        value_column (str): The column name in cf_shp that holds the values to be weighted.
-        calculated_variable_name (str): Name of the calculated value. Default: area_weighted_cf
-
-    Returns:
-        pd.DataFrame: DataFrame with ecoregion names and their corresponding area-weighted cfs.
-        GeoDataFrame: er_shp with a new column containing the area-weighted cfs.
-    """
-    
-    # Ensure the CRS of both shapefiles are the same
-    if cf_shp.crs != er_shp.crs:
-        cf_shp = cf_shp.to_crs(er_shp.crs)
-
-    # Reprojecting for more accurate calculations. Using a projected CRS (e.g., EPSG:3857 or UTM)
-    if cf_shp.crs.is_geographic:
-        cf_shp = cf_shp.to_crs("EPSG:3857")  # Reproject to Web Mercator (or use a UTM zone)
-
-    if er_shp.crs.is_geographic:
-        er_shp = er_shp.to_crs("EPSG:3857")  # Reproject ecoregions if needed
-
-    # Perform a spatial join between cf_shp and er_shp
-    joined_gdf = gpd.sjoin(cf_shp, er_shp, how="inner", predicate="intersects")
-
-    # Calculate the area of each cf_shp polygon
-    joined_gdf['area'] = joined_gdf.geometry.area
-
-    # Calculate the weighted value for each polygon (value * area)
-    joined_gdf['weighted_value'] = joined_gdf[value_column] * joined_gdf['area']
-
-    # Group by ecoregion and calculate the total area and total weighted value for each ecoregion. This is done by ecoregion and polygon, as some ecoregions are divided into several polygons.
-    grouped_gdf = joined_gdf.groupby('OBJECTID_right')['weighted_value'].sum() / joined_gdf.groupby('OBJECTID_right')['area'].sum()
-    grouped_df = joined_gdf.groupby('ECO_NAME')['weighted_value'].sum() / joined_gdf.groupby('ECO_NAME')['area'].sum()
-    
-    # Create a DataFrame with ecoregions and their corresponding area-weighted values
-    result_df = pd.DataFrame(grouped_df).reset_index()
-    result_df.columns = ['ECO_NAME', calculated_variable_name]
-
-    # Add the area-weighted values to the er_shp GeoDataFrame. For this we use the calculations made at the polygon level
-    result_df_polygons = pd.DataFrame(grouped_gdf).reset_index()
-    result_df_polygons.columns = ['OBJECTID', calculated_variable_name]
-    er_shp_result = er_shp.merge(result_df_polygons, on='OBJECTID', how='left')
-
-    # Return the result: a DataFrame with ecoregion area-weighted values and the updated er_shp
-    return result_df, er_shp_result
-
-
 def calculate_area_weighted_cfs_from_shp_with_std_and_median(cf_shp: gpd.GeoDataFrame, value_column: str, brd_shp: gpd.GeoDataFrame = er_2017_shp, brdr_name: str = "ECO_NAME", calculated_variable_name='area_weighted_cf', return_invalid=False, skip_brd_chck=False):
     """
     Calculate area-weighted characterization factors for a given border shapefile (ecoregion global shapefile by default), as well as its standard deviation, and median for each unit. It returns a DataFrame with the results and shapefile with the new characterization factors and related statistics.
@@ -217,7 +104,7 @@ def calculate_area_weighted_cfs_from_shp_with_std_and_median(cf_shp: gpd.GeoData
     cf_shp["geometry"] = cf_shp["geometry"].buffer(0)
 
     # Filtering latitudes for cf_shp
-    cf_shp, cf_shp_invalid = filter_invalid_latitudes(cf_shp)    
+    cf_shp, cf_shp_invalid = _filter_invalid_latitudes(cf_shp)    
 
     # Drop missing geometries, fixing invalid geometries for brd_shp
     if skip_brd_chck:
@@ -294,9 +181,9 @@ def calculate_area_weighted_cfs_from_shp_with_std_and_median(cf_shp: gpd.GeoData
         return result_df, brd_shp_result
 
 
-def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_filepath: str, cf_name: str, cf_unit: str, flow_name: str, area_type: str, run_test = False):
+def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_filepath: str, cf_name: str, cf_unit: str, flow_name: str, area_type: str, run_test = False, ):
     """
-    Calculate area-weighted characterization factors (CFs) from a raster file, including the mean, standard deviation, and median, for specified geographic regions (Ecoregion, Country, or Subcountry).
+    Calculate area-weighted characterization factors (CFs) from a raster file, including the mean, standard deviation, and median, for specified geographic regions (ecoregion, country, or subcountry).
 
     Parameters
     -----------
@@ -305,11 +192,11 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
     cf_name : str
         Name of the characterization factor (e.g., "Global Warming Potential").
     cf_unit : str
-        Unit of the characterization factor (e.g., "kg CO2-eq").
+        unit of the characterization factor (e.g., "kg CO2-eq").
     flow_name : str
         Name of the flow associated with the CF (e.g., "Carbon Dioxide").
     area_type : str
-        Type of geographic area to calculate CFs for. Valid values are "Ecoregion", "Country", or "Subcountry".
+        Type of geographic area to calculate CFs for. Valid values are "ecoregion", "country", or "subcountry".
     run_test : bool, optional
         If True, the function will only process the first 5 geometries in the shapefile for testing purposes. 
         Default is False.
@@ -325,7 +212,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
     
     Notes
     ------
-    - The function assumes that global variables `er_2017_shp`, `country_shp`, and `subcountry_shp` are defined and contain the shapefiles for Ecoregions, Countries, and Subcountries, respectively.
+    - The function assumes that global variables `er_2017_shp`, `country_shp`, and `subcountry_shp` are defined and contain the shapefiles for ecoregions, Countries, and Subcountries, respectively.
     - The raster file must have a defined coordinate reference system (CRS) that matches the CRS of the shapefile.
     - The function calculates area-weighted statistics using the pixel dimensions of the raster in the projected CRS.
     - If no valid data is found for a region, that region is skipped.
@@ -339,17 +226,16 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
     # Use the preconfigured global logger.
     global raster_logger
 
-
     # Check if a valid area type is provided
-    valid_area_type = {"Ecoregion", "Country", "Subcountry"}
+    valid_area_type = {"ecoregion", "country", "subcountry"}
     if area_type is None or area_type not in valid_area_type:
-        raster_logger.info("Need to define area type. Valid values are Ecoregion, Country, or Subcountry")
+        raster_logger.info("Need to define area type. Valid values are ecoregion, country, or subcountry")
         return
 
     # Determine which shapefile to use (assume these globals are defined: er_shp, country_shp, subcountry_shp)
-    if area_type == "Ecoregion":
+    if area_type == "ecoregion":
         shp = er_2017_shp 
-    elif area_type == "Country":
+    elif area_type == "country":
         shp = country_shp
     else:
         shp = subcountry_shp
@@ -374,15 +260,15 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
     for idx, region in shp.iterrows():
         geom = [region["geometry"]]  # Single geometry as list
         
-        if area_type == "Ecoregion":
+        if area_type == "ecoregion":
             region_text = "Object # " + str(region["OBJECTID"]) + " - " + region['ECO_NAME']
-        elif area_type == "Country":
+        elif area_type == "country":
             region_text = region["ADM0_NAME"]
         else:
             region_text = region["ADM0_NAME"] + " - " + region['ADM1_NAME']
 
         try:
-            # Printing current Ecoregion loop
+            # Printing current ecoregion loop
             raster_logger.debug(f"Calculating  {region_text}")
 
             # Attempt to mask the raster with the polygon (clip operation)
@@ -418,7 +304,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
                 
                 # meand and median
                 weighted_mean = np.average(valid_data, weights=area_weights)
-                weighted_median_value  = weighted_median(valid_data, area_weights)
+                weighted_median_value  = _weighted_median(valid_data, area_weights)
                 
                 # Compute weighted variance.
                 weighted_variance = np.average((valid_data - weighted_mean)**2,     weights=area_weights)
@@ -430,7 +316,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
 
             
             # Append results
-            if area_type == "Ecoregion":
+            if area_type == "ecoregion":
                 results.append(
                     {
                         "ecoregion_geom_id": region["OBJECTID"],
@@ -438,19 +324,19 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
                         "Biome": region["BIOME_NAME"],
                         "impact_category": cf_name,
                         "flow_name": flow_name,
-                        "Unit": cf_unit,
+                        "unit": cf_unit,
                         "cf": weighted_mean,
                         "cf_median": weighted_median_value,
                         "cf_std": weighted_std
                     }
                 )
-            elif area_type == "Country":
+            elif area_type == "country":
                 results.append(
                     {
                         "country": region["ADM0_NAME"],
                         "impact_category": cf_name,
                         "flow_name": flow_name,
-                        "Unit": cf_unit,
+                        "unit": cf_unit,
                         "cf": weighted_mean,
                         "cf_median": weighted_median_value,
                         "cf_std": weighted_std
@@ -463,7 +349,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
                         "subcountry (adm1)": region["ADM1_NAME"],
                         "impact_category": cf_name,
                         "flow_name": flow_name,
-                        "Unit": cf_unit,
+                        "unit": cf_unit,
                         "cf": weighted_mean,
                         "cf_median": weighted_median_value,
                         "cf_std": weighted_std
@@ -482,10 +368,10 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
     results_df = pd.DataFrame(results)
 
     # Merge with shapefile for spatial data output
-    if area_type == "Ecoregion":
+    if area_type == "ecoregion":
         final_gdf = shp.merge(results_df, how="left", left_on="OBJECTID", right_on="ecoregion_geom_id")
         final_gdf = final_gdf.drop(columns=["ecoregion_geom_id", "ecoregion_name", "Biome"])
-    elif area_type == "Country":
+    elif area_type == "country":
         final_gdf = shp.merge(results_df, how="left", left_on="ADM0_NAME", right_on="country")
         final_gdf = final_gdf.drop(columns=["country"])
     else:
@@ -495,32 +381,6 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
 
     final_results = [results_df, final_gdf]
     return final_results
-
-
-def weighted_median(values, weights):
-    """
-    Compute the weighted median of values given corresponding weights.
-    
-    Parameters:
-        values (np.array): Array of data values.
-        weights (np.array): Array of weights, same shape as values.
-        
-    Returns:
-        The weighted median.
-    """
-    # Sort values and weights based on the values.
-    sorted_indices = np.argsort(values)  # return indices that would sort an array
-    sorted_values = values[sorted_indices]
-    sorted_weights = weights[sorted_indices]
-    
-    # Compute the cumulative sum of weights.
-    cumulative_weights = np.cumsum(sorted_weights)
-    
-    # Find the index where cumulative weight exceeds half the total weight.
-    cutoff = cumulative_weights[-1] / 2.0
-    median_index = np.where(cumulative_weights >= cutoff)[0][0]
-    
-    return sorted_values[median_index]
 
 
 def run_diagnostic(cf_shp, value_column:str, brd_shp: gpd.GeoDataFrame = er_2017_shp):
@@ -544,7 +404,7 @@ def run_diagnostic(cf_shp, value_column:str, brd_shp: gpd.GeoDataFrame = er_2017
     print(f"brd_shp geometries head: {brd_shp.geometry.head()}")
 
 
-def filter_invalid_latitudes(gdf):
+def _filter_invalid_latitudes(gdf):
     """ 
     Splits a GeoDataFrame into valid and invalid latitude geometries.
     
@@ -566,6 +426,703 @@ def filter_invalid_latitudes(gdf):
     return valid_gdf, invalid_gdf
 
 
+def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
+    raster_input_filepath: str,
+    cf_name: str,
+    cf_unit: str,
+    flow_name: str,
+    area_type: str,
+    run_test: bool = False,
+    *,
+    # Equal-area handling
+    equal_area_crs: str = "EPSG:6933",
+    resampling=rasterio.enums.Resampling.average,
+    # Fractional cover options
+    coverage_method: str = "supersample",  # 'supersample' (default) or 'exact'
+    supersample_factor: int = 5,
+    # Outlier filtering
+    outlier_method: str | None = None,     # None | 'quantile' | 'std' | 'log1p_cap' | 'log1p_win'
+    q_low: float = 0.01,
+    q_high: float = 0.99,
+    std_thresh: float = 3.0,
+    # Globals for shapes expected as in your original function:
+    er_gdf: gpd.GeoDataFrame = er_2017_shp,
+    country_gdf: gpd.GeoDataFrame = country_shp,
+    subcountry_gdf: gpd.GeoDataFrame = subcountry_shp,
+    raster_logger=raster_logger
+):
+    """
+    Compute area-weighted CF stats (mean, median, std) per region with proper fractional pixel coverage and
+    guaranteed equal-area units.
+
+    Notes:
+    - Reprojects raster (and polygons) to an equal-area CRS if needed (default EPSG:6933).
+    - coverage_method:
+        'supersample' -> fast approximation via fine mask + block average
+        'exact'       -> precise per-pixel polygon intersection
+    - Outlier filtering can be applied before computing statistics:
+        outlier_method in {None, 'quantile', 'std', 'log1p_cap', 'log1p_win'}
+    """
+
+    # Validate area_type
+    valid_area_type = {"ecoregion", "country", "subcountry"}
+    if area_type not in valid_area_type:
+        if raster_logger: raster_logger.info("Need to define area type. Valid values are ecoregion, country, or subcountry")
+        return
+
+    # Select region GeoDataFrame
+    if area_type == "ecoregion":
+        if er_gdf is None: raise ValueError("er_gdf must be provided for area_type='ecoregion'.")
+        shp = er_gdf.copy()
+    elif area_type == "country":
+        if country_gdf is None: raise ValueError("country_gdf must be provided for area_type='country'.")
+        shp = country_gdf.copy()
+    else:
+        if subcountry_gdf is None: raise ValueError("subcountry_gdf must be provided for area_type='subcountry'.")
+        shp = subcountry_gdf.copy()
+
+    if run_test:
+        shp = shp.head(5).copy()
+        raster_logger.info(f'Doing a test run for {cf_name} {area_type} averages')
+
+    # Open raster
+    raster = rioxarray.open_rasterio(raster_input_filepath, masked=True)
+    raster_crs = raster.rio.crs
+
+    if raster_logger:
+        outlier_text = f'using outlier filtering method {outlier_method}' if outlier_method else None
+        raster_logger.info(f"Starting: Calculating {area_type} weighted CF for {flow_name} {outlier_text}")
+
+    # Ensure equal-area CRS
+    # If raster isn't in equal-area, reproject raster to equal_area_crs
+    need_reproj = raster_crs.is_geographic or (str(raster_crs) != equal_area_crs)
+    if need_reproj:
+        raster = raster.rio.reproject(equal_area_crs, resampling=resampling)
+        raster_crs = raster.rio.crs
+
+    # Reproject the shapefile to the raster's (equal-area) CRS
+    shp = shp.to_crs(raster_crs)
+
+    results = []
+
+    # Iterate regions
+    for idx, region in shp.iterrows():
+        geom = region.geometry
+        if geom is None or geom.is_empty:
+            continue
+
+        # Label string
+        if area_type == "ecoregion":
+            region_text = f"Object # {region.get('OBJECTID', idx)} - {region.get('ECO_NAME', 'Unknown')}"
+        elif area_type == "country":
+            region_text = region.get("ADM0_NAME", "Unknown")
+        else:
+            region_text = f"{region.get('ADM0_NAME','Unknown')} - {region.get('ADM1_NAME','Unknown')}"
+
+        try:
+            if raster_logger:
+                raster_logger.debug(f"Calculating {region_text}")
+
+            # Clip to region bounds (drop outside pixels)
+            masked = raster.rio.clip([geom], drop=True)
+
+            # Extract band 1 as ndarray; masked is xarray.DataArray with shape (band, y, x)
+            arr = masked.values[0]  # (H, W)
+            # nodata from reprojected raster
+            nodata = masked.rio.nodata
+
+            # Build validity mask for data values (finite and not nodata)
+            if nodata is not None:
+                valid = np.isfinite(arr) & (arr != nodata)
+            else:
+                valid = np.isfinite(arr)
+
+            if not np.any(valid):
+                if raster_logger:
+                    raster_logger.debug(f"No valid data for {region_text}. Skipping...")
+                continue
+
+            # Transform for the clipped raster
+            transform = masked.rio.transform()
+
+            # Fractional cover computation
+            H, W = arr.shape
+            if coverage_method == "exact":
+                frac = _fractional_cover_exact(geom, (H, W), transform)
+            else:
+                # default to supersample
+                frac = _fractional_cover_supersample(geom, (H, W), transform, factor=supersample_factor)
+
+            # Keep only pixels that are both valid and have some coverage
+            keep = valid & (frac > 0)
+            if not np.any(keep):
+                if raster_logger:
+                    raster_logger.debug(f"No overlap/valid pixels for {region_text}. Skipping...")
+                continue
+
+            values = arr[keep].astype(np.float64)
+            # area weight = frac * pixel_area
+            px_area = _pixel_area_from_transform(transform)
+            weights = (frac[keep] * px_area).astype(np.float64)
+
+            # Outlier filtering (optional)
+            values, weights = _apply_outlier_filter(values, weights,
+                                                    method=outlier_method,
+                                                    q_low=q_low, q_high=q_high,
+                                                    std_thresh=std_thresh)
+
+            if values.size == 0:
+                if raster_logger:
+                    raster_logger.debug(f"All values filtered for {region_text}. Skipping...")
+                continue
+
+            # Weighted stats (population variance)
+            wsum = np.sum(weights)
+            wmean = np.sum(values * weights) / wsum
+            wvar = np.sum(weights * (values - wmean) ** 2) / wsum
+            wstd = np.sqrt(wvar)
+            wmed = _weighted_median(values, weights)
+
+            # Append per area_type
+            if area_type == "ecoregion":
+                results.append(
+                    {
+                        "er_geom_id": region.get("OBJECTID", idx),
+                        "er_name": region.get("ECO_NAME", None),
+                        "Biome": region.get("BIOME_NAME", None),
+                        "imp_cat": cf_name,
+                        "flow_name": flow_name,
+                        "unit": cf_unit,
+                        "cf": wmean,
+                        "cf_median": wmed,
+                        "cf_std": wstd
+                    }
+                )
+            elif area_type == "country":
+                results.append(
+                    {
+                        "country": region.get("ADM0_NAME", None),
+                        "imp_cat": cf_name,
+                        "flow_name": flow_name,
+                        "unit": cf_unit,
+                        "cf": wmean,
+                        "cf_median": wmed,
+                        "cf_std": wstd
+                    }
+                )
+            else:
+                results.append(
+                    {
+                        "country": region.get("ADM0_NAME", None),
+                        "subcountry": region.get("ADM1_NAME", None),
+                        "imp_cat": cf_name,
+                        "flow_name": flow_name,
+                        "unit": cf_unit,
+                        "cf": wmean,
+                        "cf_median": wmed,
+                        "cf_std": wstd
+                    }
+                )
+
+            if raster_logger:
+                raster_logger.debug(f"Calculations finished for region {region_text}. Next!\n")
+
+        except rioxarray.exceptions.NoDataInBounds:
+            if raster_logger:
+                raster_logger.debug(f"No overlap for region {region_text}, skipping...\n")
+            continue
+
+    if raster_logger:
+        raster_logger.info(f"Calculations complete for {raster_input_filepath}! Found matches for {len(results)} regions.\n")
+
+    results_df = pd.DataFrame(results)
+
+        # Merge back for spatial output
+    if area_type == "ecoregion":
+        final_gdf = shp.merge(results_df, how="left", left_on="OBJECTID", right_on="er_geom_id")
+        # keep names/biome (or drop if you intentionally don't want them duplicated)
+        drop_cols = ['NNH', 'SHAPE_LENG', 'SHAPE_AREA', 'NNH_NAME','COLOR', 'COLOR_BIO', 'COLOR_NNH', 'LICENSE']
+        
+    elif area_type == "country":
+        final_gdf = shp.merge(results_df, how="left", left_on="ADM0_NAME", right_on="country")
+        drop_cols = [ 'STATUS', 'DISP_AREA', 'ADM0_CODE', 'STR0_YEAR', 'EXP0_YEAR', 'SHAPE_LENG', 'SHAPE_AREA']
+        
+    else:
+        final_gdf = shp.merge(results_df, how="left", left_on="ADM1_NAME", right_on="subcountry")
+        drop_cols = ['ADM1_CODE','STR1_YEAR', 'EXP1_YEAR', 'STATUS', 'DISP_AREA', 'ADM0_CODE',  'SHAPE_LENG', "SHAPE_AREA"]
+        # final_gdf = final_gdf.drop(columns=["country", "subcountry (adm1)"])
+
+    final_gdf = final_gdf.drop(columns=drop_cols)
+    return [results_df, final_gdf]
+
+## FUNCTION TO CALCULATE ALL LEAF INTO 1 PACKAGE ##
+
+def build_cfs_gpkg_from_rasters(
+    input_folder: str,
+    output_folder: str,
+    *,
+    layer_name: str,
+    master_gdf: gpd.GeoDataFrame,
+    master_key: str,                 # e.g., 'ADM0_NAME', 'ISO_A3', 'ADM1_NAME', 'ECO_NAME'
+    result_key: str,                 # column in calculator's gdf that matches master_key
+    input_raster_key: Optional[str], # optional filename prefix filter; if set, only files starting with it are processed
+    equal_area_crs: str= "EPSG:6933",
+    cf_name: str,
+    cf_unit: str,
+    area_type: str,
+    calc_kwargs: Optional[dict] = None,
+    file_filter: Iterable[str] = (".tif", ".tiff"),
+    reset_gpkg: bool = True,         # remove existing gpkg before first write
+    promote_to_multi: bool = True,   # avoid Polygon/MultiPolygon mismatches
+    add_provenance: bool = True,     # add _source_file column
+    run_test: bool = False,          # process only first 5 rasters
+    logger=None,                      # pass a logger or None
+    sig_figures: int = 4,
+    write_gpkg: bool = True,         # optionally skip GeoPackage output entirely
+) -> Tuple[Optional[str], pd.DataFrame]:
+    """
+    Process all rasters in a folder into ONE GeoPackage layer (tidy/long),
+    enforcing a single master geometry set (countries / subcountries / ecoregions),
+    and keeping CF columns as NaN where no raster match exists. Set `write_gpkg`
+    to ``False`` to skip GeoPackage creation and only emit the CSV summary.
+
+    Returns
+    -------
+    (gpkg_path | None, results_df)
+    """
+    calc_kwargs = calc_kwargs or {}
+    output_string = output_folder + cf_name + "_" + area_type
+    gpckg_path = output_string + ".gpkg" if write_gpkg else None
+    csv_path = output_string + ".csv"
+
+    # Reset gpkg if requested
+    if write_gpkg and reset_gpkg and gpckg_path and os.path.exists(gpckg_path):
+        os.remove(gpckg_path)
+
+    # Ensure master has needed columns & unique keys
+    if master_key not in master_gdf.columns:
+        raise KeyError(f"master_key '{master_key}' not in master_gdf columns.")
+    if getattr(master_gdf, "geometry", None) is None:
+        raise ValueError("master_gdf has no geometry column set.")
+
+    if logger:
+        destination = gpckg_path if write_gpkg else "CSV only"
+        logger.info(
+            f"Building '{layer_name}' from rasters in {input_folder} → {output_folder} ({destination})"
+        )
+
+    # Gather files
+    file_list = sorted(os.listdir(input_folder))
+    if run_test:
+        file_list = file_list[:3]
+
+    # Prepare GeoPackage layer bookkeeping
+    attribute_first_write = True
+    schema_cols: Optional[List[str]] = None
+    total_rows = 0
+
+    # Prepare metadata container (impact category/unit stored once per flow)
+    metadata_records: List[Dict[str, str]] = []
+
+    # Dropping unnecessary columns
+    if area_type == "ecoregion":
+        drop_cols = ['NNH', 'SHAPE_LENG', 'SHAPE_AREA', 'NNH_NAME','COLOR', 'COLOR_BIO', 'COLOR_NNH', 'LICENSE']
+    elif area_type == "country":
+        drop_cols = [ 'STATUS', 'DISP_AREA', 'ADM0_CODE', 'STR0_YEAR', 'EXP0_YEAR', 'SHAPE_LENG', 'SHAPE_AREA']
+    else:
+        drop_cols = ['ADM1_CODE','STR1_YEAR', 'EXP1_YEAR', 'STATUS', 'DISP_AREA', 'ADM0_CODE',  'SHAPE_LENG', "SHAPE_AREA"]
+    master_gdf = master_gdf.drop(columns=drop_cols)
+
+    # Ensure master_gdf is in an equal-area CRS (avoid referencing undefined raster/resampling variables)    
+    # Guard against missing attribute 'is_geographic' on unexpected CRS objects
+    if (master_gdf.crs.is_geographic == False) or (str(master_gdf.crs) != equal_area_crs):
+        master_gdf = master_gdf.to_crs(equal_area_crs)
+
+    # Persist master geometry once (recommendation #1)
+    geometry_layer = f"{layer_name}_geometry"
+    if write_gpkg:
+        write_df(
+            master_gdf,
+            gpckg_path,
+            layer=geometry_layer,
+            driver="GPKG",
+            append=False,
+            promote_to_multi=promote_to_multi,
+            layer_creation_options=["GEOMETRY_NAME=geom", "SPATIAL_INDEX=NO"],
+        )
+
+    # Base frame with master identifiers for later joins
+    master_id_df = pd.DataFrame(master_gdf[master_key])
+
+    # Store long-format results for CSV export (without constant metadata columns)
+    long_result_frames: List[pd.DataFrame] = []
+
+    # Iterates through files
+    for file in file_list:
+        if not file.lower().endswith(tuple(file_filter)):
+            continue
+        if input_raster_key and not file.startswith(input_raster_key):
+            continue
+
+        raster_path = os.path.join(input_folder, file)
+        flow_name = os.path.splitext(file)[0]
+        if input_raster_key:
+            flow_name = flow_name.replace(input_raster_key, "")
+
+        # Run calculator → (df, gdf)
+        df_flow, gdf_flow = calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
+            raster_input_filepath=raster_path,
+            cf_name=cf_name,
+            cf_unit=cf_unit,
+            flow_name=flow_name,
+            area_type=area_type,
+            **calc_kwargs
+        )
+
+        # Align CRS
+        if gdf_flow.crs != master_gdf.crs:
+            if logger:
+                logger.info("Result gdf aligned with master_gdf")
+            gdf_flow = gdf_flow.set_crs(master_gdf.crs, allow_override=True)
+
+        # Ensure flow results include the expected join key
+        if master_key not in gdf_flow.columns:
+            raise KeyError(f"master_key '{master_key}' not found in result gdf. Available: {list(gdf_flow.columns)}")
+
+        # Merge onto master identifiers so all regions are represented
+        flow_values = master_id_df.merge(
+            df_flow[[result_key, "cf", "cf_median", "cf_std"]],
+            how="left",
+            left_on=master_key,
+            right_on=result_key,
+        )
+
+        if result_key in flow_values.columns:
+            flow_values = flow_values.drop(columns=result_key)
+
+        flow_values.insert(1, "flow_name", flow_name)
+
+        for col in ("cf", "cf_median", "cf_std"):
+            if col in flow_values.columns:
+                flow_values[col] = flow_values[col].astype("float32").round(sig_figures)
+
+        if add_provenance:
+            flow_values["_source_file"] = file
+
+        # Record metadata once per flow (recommendation #2)
+        metadata_entry = {
+            "flow_name": flow_name,
+            "impact_category": cf_name,
+            "unit": cf_unit,
+        }
+        if add_provenance:
+            metadata_entry["source_file"] = file
+        metadata_records.append(metadata_entry)
+
+        if write_gpkg:
+            # Initialize schema for attribute layer on first write
+            if attribute_first_write:
+                base_cols = [master_key, "flow_name", "cf", "cf_median", "cf_std"]
+                extras = [c for c in flow_values.columns if c not in base_cols]
+                schema_cols = [c for c in base_cols + extras if c in flow_values.columns]
+                append_flag = False
+                attribute_first_write = False
+            else:
+                append_flag = True
+
+            # Align columns to schema for stability across flows
+            if schema_cols is None:
+                raise RuntimeError("GeoPackage schema not initialized before writing.")
+            for c in schema_cols:
+                if c not in flow_values.columns:
+                    flow_values[c] = pd.NA
+            flow_values = flow_values[schema_cols]
+
+            write_df(
+                flow_values,
+                gpckg_path,
+                layer=layer_name,
+                driver="GPKG",
+                append=append_flag,
+            )
+
+        # Long-format table for CSV output (no constant columns)
+        mean_df = master_id_df.merge(
+            df_flow[[result_key, "cf"]],
+            how="left",
+            left_on=master_key,
+            right_on=result_key,
+        ).rename(columns={"cf": "value"})
+        mean_df["metric"] = "cf_mean"
+
+        median_df = master_id_df.merge(
+            df_flow[[result_key, "cf_median"]],
+            how="left",
+            left_on=master_key,
+            right_on=result_key,
+        ).rename(columns={"cf_median": "value"})
+        median_df["metric"] = "cf_median"
+
+        std_df = master_id_df.merge(
+            df_flow[[result_key, "cf_std"]],
+            how="left",
+            left_on=master_key,
+            right_on=result_key,
+        ).rename(columns={"cf_std": "value"})
+        std_df["metric"] = "cf_std"
+
+        for frame in (mean_df, median_df, std_df):
+            if result_key in frame.columns:
+                frame = frame.drop(columns=result_key)
+            frame["flow_name"] = flow_name
+            long_result_frames.append(frame)
+
+        if write_gpkg:
+            total_rows += len(flow_values)
+
+    # Combine long-format data and persist to CSV
+    if long_result_frames:
+        results_df = pd.concat(long_result_frames, ignore_index=True)
+    else:
+        results_df = pd.DataFrame(columns=[master_key, "flow_name", "metric", "value"])
+    results_df.to_csv(csv_path, index=False)
+
+    # Persist metadata table once (recommendation #2)
+    if write_gpkg and metadata_records:
+        metadata_df = pd.DataFrame(metadata_records).drop_duplicates(subset=["flow_name"], keep="last")
+        metadata_layer = f"{layer_name}_metadata"
+        write_df(
+            metadata_df,
+            gpckg_path,
+            layer=metadata_layer,
+            driver="GPKG",
+            append=False,
+        )
+
+    if logger:
+        if write_gpkg:
+            logger.info(
+                f"Wrote {total_rows} attribute rows into {gpckg_path} (geometry layer='{geometry_layer}', values layer='{layer_name}')."
+            )
+        else:
+            logger.info(f"Skipped GeoPackage export; results persisted to {csv_path}.")
+
+    return gpckg_path, results_df
+
+
+#############################
+### AREA WEIGHTED HELPERS ###
+#############################
+def _weighted_median(values, weights):
+    """
+    Compute the weighted median of values given corresponding weights.
+    
+    Parameters:
+        values (np.array): Array of data values.
+        weights (np.array): Array of weights, same shape as values.
+        
+    Returns:
+        The weighted median.
+    """
+    # Check if values are none
+    if values.size == 0:
+        return np.nan
+
+    # Sort values and weights based on the values.
+    sorted_indices = np.argsort(values)  # return indices that would sort an array
+    sorted_values = values[sorted_indices]
+    sorted_weights = weights[sorted_indices]
+    
+    # Compute the cumulative sum of weights.
+    cumulative_weights = np.cumsum(sorted_weights)
+    
+    # Find the index where cumulative weight exceeds half the total weight.
+    cutoff = cumulative_weights[-1] / 2.0
+    median_index = np.where(cumulative_weights >= cutoff)[0][0]
+    
+    return sorted_values[median_index]
+
+def _apply_outlier_filter(values, weights, method=None, q_low=0.01, q_high=0.99, std_thresh=3.0):
+    """
+    Filter outliers and return filtered values/weights.
+    - method: None | 'quantile' | 'std' | 'log1p_cap' | 'log1p_win'
+    - q_low/q_high only used for 'quantile'
+    - std_thresh used for 'std' and 'log1p_std'
+    """
+    if method is None or values.size == 0:
+        return values, weights
+
+    val = values
+    wghts = weights
+
+    if method == "quantile":
+        lower_bound = np.quantile(val, q_low)
+        upper_bound = np.quantile(val, q_high)
+        keep = (val >= lower_bound) & (val <= upper_bound)
+
+    elif method == "std":
+        avg = np.average(val, weights=wghts)
+        var = np.average((val - avg) ** 2, weights=wghts)
+        sd = np.sqrt(var)
+        keep = np.abs(val - avg) <= std_thresh * sd
+
+    elif method in ['log1p_cap','log1p_win']:
+        val_trans = np.log1p(val)
+        mu = np.average(val_trans, weights=wghts)
+        var = np.average((val_trans - mu) ** 2, weights=wghts)
+        sd = np.sqrt(var)
+        val_cut = mu + std_thresh * sd
+
+        if method =='log1p_cap':
+            # Keep values before long right tail
+            keep = val_trans <= val_cut
+        else:  # Winsorize (replace all values above the threshold by the threshold)
+            x_cut = np.expm1(val_cut)
+            val_cap = np.minimum(val, x_cut)
+            keep = np.ones_like(val, dtype='bool')
+            val = val_cap
+
+    else:
+        # Unknown method; do nothing
+        return val, wghts
+
+    return val[keep], wghts[keep]
+
+def _pixel_area_from_transform(transform: Affine) -> float:
+    """
+    Pixel area for north-up rasters in projected meters CRS.
+    If rotated/skewed rasters might occur, compute polygon area per cell instead.
+    """
+    return abs(transform.a * transform.e)
+
+def _fractional_cover_supersample(geom, out_shape, transform, factor=5):
+    """
+    Approximate fractional coverage per coarse pixel using supersampling.
+    Steps:
+      - Create a finer grid (factor x factor).
+      - Rasterize polygon on fine grid as 1/0.
+      - Average blocks back to coarse grid.
+    Returns an array (H, W) with fractions in [0, 1].
+    """
+    H, W = out_shape
+    # Fine grid shape
+    Hf, Wf = H * factor, W * factor
+
+    # Fine transform (scale pixel size by 1/factor)
+    fine_transform = Affine(transform.a / factor, transform.b, transform.c,
+                            transform.d, transform.e / factor, transform.f)
+
+    fine_mask = rasterize(
+        [(geom, 1)],
+        out_shape=(Hf, Wf),
+        transform=fine_transform,
+        all_touched=True,
+        fill=0,
+        dtype="float32"
+    )
+
+    # Block-average back to coarse grid
+    # reshape and mean over blocks
+    fine_mask = fine_mask.reshape(H, factor, W, factor)
+    frac = fine_mask.mean(axis=(1, 3))
+    return frac
+
+def _fractional_cover_exact(geom, out_shape, transform):
+    """
+    Exact fractional coverage using per-cell polygon intersections.
+    Returns an array (H, W) with fractions in [0, 1].
+    NOTE: This can be slow for large rasters/regions.
+    """
+    H, W = out_shape
+    frac = np.zeros((H, W), dtype="float32")
+    prepared = _prepare_geom_for_fast_contains(geom)
+
+    # Precompute pixel area (assumes north-up)
+    px_area = _pixel_area_from_transform(transform)
+
+    # Iterate only over bbox that actually intersects the polygon bbox
+    # (here we do the full window; for speed, you could compute row/col bounds by polygon bbox)
+    for r in range(H):
+        y_top = transform.f + r * transform.e
+        y_bot = y_top + transform.e
+        for c in range(W):
+            x_left = transform.c + c * transform.a
+            x_right = x_left + transform.a
+
+            cell_poly = box(min(x_left, x_right), min(y_top, y_bot),
+                            max(x_left, x_right), max(y_top, y_bot))
+            if not prepared.intersects(cell_poly):
+                continue
+
+            inter = cell_poly.intersection(geom)
+            if inter.is_empty:
+                continue
+
+            inter_area = inter.area  # in m^2 (equal-area CRS)
+            if inter_area <= 0:
+                continue
+
+            frac[r, c] = min(1.0, inter_area / px_area)
+    return frac
+
+def _prepare_geom_for_fast_contains(geom):
+    # Shapely 'prepared geometry' for faster intersects/contains in loops
+    return prep_geom(geom)
+
+def prep_master_unique(
+    master_gdf: gpd.GeoDataFrame,
+    master_key: str,
+    *,
+    strategy: str = "dissolve",     # 'dissolve' | 'largest' | 'first'
+    area_crs: str = "EPSG:6933"     # for 'largest' (equal-area)
+) -> gpd.GeoDataFrame:
+    """
+    Ensure master_gdf has one row per master_key.
+
+    - 'dissolve': combine all parts into a single MultiPolygon per key (recommended).
+    - 'largest' : keep only the largest part (by area in equal-area CRS).
+    - 'first'   : keep the first occurrence (not recommended unless you know your data).
+    """
+    if master_key not in master_gdf.columns:
+        raise KeyError(f"master_key '{master_key}' not in master_gdf")
+
+    gdf = master_gdf.copy()
+
+    # Normalize key a bit to reduce accidental dupes from whitespace/case
+    if pd.api.types.is_string_dtype(gdf[master_key]):
+        gdf[master_key] = gdf[master_key].astype(str).str.strip()
+
+    if strategy == "dissolve":
+        # Dissolve combines multipart countries into a single row per key
+        out = gdf.dissolve(by=master_key, as_index=False, aggfunc="first")
+        # Ensure geometry is Multi* for robustness
+        out.geometry = out.geometry.apply(lambda g: g if g.geom_type.startswith("Multi") else g.buffer(0))
+        return out
+
+    elif strategy == "largest":
+        # Compute area in equal-area CRS, pick largest piece per key
+        crs_orig = gdf.crs
+        gdf_eq = gdf.to_crs(area_crs)
+        gdf_eq["_area_m2"] = gdf_eq.geometry.area
+        idx = (gdf_eq
+               .sort_values(["_area_m2"], ascending=False)
+               .drop_duplicates(subset=[master_key], keep="first")
+               .index)
+        out = gdf.loc[idx].copy()
+        # Ensure back to original CRS
+        if (out.crs != crs_orig) and crs_orig is not None:
+            out = out.to_crs(crs_orig)
+        return out.drop(columns=["_area_m2"], errors="ignore")
+
+    elif strategy == "first":
+        out = gdf.drop_duplicates(subset=[master_key], keep="first").copy()
+        return out
+
+    else:
+        raise ValueError("strategy must be one of {'dissolve','largest','first'}")
+
+
+
 #################
 def process_region(region, raster_input_filepath, cf_name, cf_unit, flow_name, area_type, raster_crs, logger):
     """
@@ -580,9 +1137,9 @@ def process_region(region, raster_input_filepath, cf_name, cf_unit, flow_name, a
         return None
 
     geom = [region["geometry"]]
-    if area_type == "Ecoregion":
+    if area_type == "ecoregion":
         region_text = "Object # " + str(region["OBJECTID"]) + " - " + region['ECO_NAME']
-    elif area_type == "Country":
+    elif area_type == "country":
         region_text = region["ADM0_NAME"]
     else:
         region_text = region["ADM0_NAME"] + " - " + region['ADM1_NAME']
@@ -617,31 +1174,31 @@ def process_region(region, raster_input_filepath, cf_name, cf_unit, flow_name, a
         if valid_data.size > 0:
             area_weights = np.full_like(valid_data, fill_value=cell_area)
             weighted_mean = np.average(valid_data, weights=area_weights)
-            weighted_median_value = weighted_median(valid_data, area_weights)
+            weighted_median_value = _weighted_median(valid_data, area_weights)
             weighted_variance = np.average((valid_data - weighted_mean) ** 2, weights=area_weights)
             weighted_std = np.sqrt(weighted_variance)
         else:
             weighted_mean = weighted_median_value = weighted_std = np.nan
 
         # Build the result dictionary.
-        if area_type == "Ecoregion":
+        if area_type == "ecoregion":
             result = {
                 "ecoregion_geom_id": region["OBJECTID"],
                 "ecoregion_name": region["ECO_NAME"],
                 "Biome": region["BIOME_NAME"],
                 "impact_category": cf_name,
                 "flow_name": flow_name,
-                "Unit": cf_unit,
+                "unit": cf_unit,
                 "cf": weighted_mean,
                 "cf_median": weighted_median_value,
                 "cf_std": weighted_std
             }
-        elif area_type == "Country":
+        elif area_type == "country":
             result = {
                 "country": region["ADM0_NAME"],
                 "impact_category": cf_name,
                 "flow_name": flow_name,
-                "Unit": cf_unit,
+                "unit": cf_unit,
                 "cf": weighted_mean,
                 "cf_median": weighted_median_value,
                 "cf_std": weighted_std
@@ -652,7 +1209,7 @@ def process_region(region, raster_input_filepath, cf_name, cf_unit, flow_name, a
                 "subcountry (adm1)": region["ADM1_NAME"],
                 "impact_category": cf_name,
                 "flow_name": flow_name,
-                "Unit": cf_unit,
+                "unit": cf_unit,
                 "cf": weighted_mean,
                 "cf_median": weighted_median_value,
                 "cf_std": weighted_std
@@ -667,80 +1224,12 @@ def process_region(region, raster_input_filepath, cf_name, cf_unit, flow_name, a
         logger.error(f"Error processing region {region_text}: {e}")
         return None
 
-def calculate_area_weighted_cfs_from_raster_with_std_and_median_MULTICORE(
-    raster_input_filepath: str, 
-    cf_name: str, 
-    cf_unit: str, 
-    flow_name: str, 
-    area_type: str, 
-    run_test=False,
-    n_jobs=-1  # Use all available cores by default.
-):
-    """
-    Optimized function that parallelizes per-region processing.
-    Detailed logs are recorded via the global logger; only key messages appear on the console.
-    """
-    global raster_logger  # Assuming a global logger is configured
-
-    # Validate area type.
-    valid_area_type = {"Ecoregion", "Country", "Subcountry"}
-    if area_type is None or area_type not in valid_area_type:
-        raster_logger.info("Need to define area type. Valid values are Ecoregion, Country, or Subcountry")
-        return
-
-    # Select the appropriate shapefile.
-    if area_type == "Ecoregion":
-        shp = er_2017_shp
-    elif area_type == "Country":
-        shp = country_shp
-    else:
-        shp = subcountry_shp
-
-    if run_test:
-        shp = shp.head()
-
-    # Open the raster once to get its CRS; then close it.
-    raster = rioxarray.open_rasterio(raster_input_filepath)
-    raster_crs = raster.rio.crs
-    raster.close()
-    shp = shp.to_crs(raster_crs)
-
-    raster_logger.info(f"Starting: Calculating {area_type} weighted average CF for {flow_name} with MULTICORE")
-
-    # Process all regions in parallel.
-    results = Parallel(n_jobs=n_jobs)(
-        delayed(process_region)(
-            region, raster_input_filepath, cf_name, cf_unit, flow_name, area_type, raster_crs, raster_logger
-        )
-        for idx, region in shp.iterrows()
-    )
-    # Remove None results (skipped regions)
-    results = [r for r in results if r is not None]
-
-    raster_logger.info(f"Finished: Calculations complete! Found matches for {len(results)} regions.")
-
-    results_df = pd.DataFrame(results)
-    if area_type == "Ecoregion":
-        final_gdf = shp.merge(results_df, how="left", left_on="OBJECTID", right_on="ecoregion_geom_id")
-        final_gdf = final_gdf.drop(columns=["ecoregion_geom_id", "ecoregion_name", "Biome"])
-    elif area_type == "Country":
-        final_gdf = shp.merge(results_df, how="left", left_on="ADM0_NAME", right_on="country")
-        final_gdf = final_gdf.drop(columns=["country"])
-    else:
-        final_gdf = shp.merge(results_df, how="left", left_on="ADM1_NAME", right_on="subcountry (adm1)")
-        final_gdf = final_gdf.drop(columns=["country", "subcountry (adm1)"])
-
-    final_results = [results_df, final_gdf]
-    return final_results
-
-
-
 
 ############################
 ### SHAPEFILE OPERAIOTNS ###
 ############################
 
-def rasterize_shapefile_to_target_raster(gdf: gpd.geodataframe, raster_filepath: str, value_column: str, output_path= None, band = 1, no_data = None):
+def rasterize_shapefile_to_target_raster(gdf: gpd.GeoDataFrame, raster_filepath: str, value_column: str, output_path= None, band = 1, no_data = None):
     
     # Checks the value column exist
     if value_column not in gdf.columns:
@@ -939,6 +1428,8 @@ def multiply_rasters(raster_paths, output_path=None, band=1):
         meta.update(dtype=product.dtype, nodata=output_nodata)
         with rasterio.open(output_path, "w", **meta) as dst:
             dst.write(product, band)
+
+        print(f"Raster saved into {output_path}")
     
     return product
 
@@ -974,15 +1465,19 @@ def create_binary_mask(input_path, output_path, binary_value = 1, band=1, src_no
         # Read the specified band from the raster.
         data = src.read(band)
         # Use the manual_nodata if provided; otherwise use the file's nodata.
-        nodata = src_nodata if src_nodata else src.nodata
+        nodata = src_nodata if src_nodata is not None else src.nodata
         # Copy metadata from the source for writing the new GeoTIFF.
         meta = src.meta.copy()
     
     # Create the binary mask.
     # If a nodata value is defined, determine valid pixels.
-    if nodata:
+    if nodata is None:
+        print(f"Input doens't have a nodata value. Value {binary_value} if cell has value and {dst_nodata} if not, disregarding which value it is.")
+        # If no nodata value is defined, assume a cell has a value if it is non-zero.
+        binary = np.where(data != 0, binary_value, dst_nodata).astype(np.float32)
+    else:
         # If the provided nodata value is np.nan, use np.isnan to check for NaN values.
-        if np.isnan(nodata):
+        if isinstance(nodata, float) and np.isnan(nodata):
             # Valid cells are those that are not NaN.
             print(f"Input No Data defined as NaN. Value {binary_value} if is not NaN and {dst_nodata} if it is.")
             valid = ~np.isnan(data)
@@ -990,14 +1485,9 @@ def create_binary_mask(input_path, output_path, binary_value = 1, band=1, src_no
             print(f"Input No Data defined as {nodata}. Value {binary_value} if is not {nodata} and {dst_nodata} if it is.")
             # Valid cells are those that do not equal the nodata value.
             valid = (data != nodata)
-        
+
         # Create a binary mask: 1 for valid, 0 for no_data.
         binary = np.where(valid, binary_value, dst_nodata).astype(np.float32)
-
-    else:
-        print(f"No Input nodata value exists. Value {binary_value} if cell has value and {dst_nodata} if not, disregarding which value it is.")
-        # If no nodata value is defined, assume a cell has a value if it is non-zero.
-        binary = np.where(data != 0, binary_value, dst_nodata).astype(np.float32)
     
     # Update metadata for output:
     # - Set the data type to uint8 (since our mask only contains 0 and 1).
@@ -1318,7 +1808,7 @@ def subtract_rasters_union(raster1_path, raster2_path, output_path, band=1, outp
     return result
 
 
-def mask_raster1_by_overlap_with_raster2(raster1_path: str, raster2_path: str, output_path: str = None):
+def mask_raster1_by_overlap_with_raster2(raster1_path: str, raster2_path: str, output_path: Optional[str] = None):
     """
     Aligns raster2 to raster1 (if needed), and returns a raster array from raster1
     masked by the valid data of raster2. Optionally saves to disk.
@@ -1373,7 +1863,7 @@ def mask_raster1_by_overlap_with_raster2(raster1_path: str, raster2_path: str, o
 
 
 
-def get_pixel_center_latitude(raster_path: str, row: int, col: int) -> float:
+def _get_pixel_center_latitude(raster_path: str, row: int, col: int) -> float:
     """
     Return the latitude (in degrees) of the centre of the pixel at (row, col)
     in the given raster.

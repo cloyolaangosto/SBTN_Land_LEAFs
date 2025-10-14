@@ -29,7 +29,11 @@ dependencies = [
   "plotly",
   "joblib",
   "fastexcel",
-  "pyarrow"
+  "pyarrow",
+  "shapely",
+  "fiona",
+  "pyogrio",
+  "pyproj"
 ]
 
 [project.optional-dependencies]

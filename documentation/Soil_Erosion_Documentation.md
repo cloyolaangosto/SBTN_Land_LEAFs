@@ -100,13 +100,13 @@ For **residue management**, it can be calculated as:
 
 $C_{residues} = 1 - 0.12 \cdot F_{residues}$
 
-Where $F_{residues} is the fraction of land that leaves residues on the field.
+Where $F_{residues}$ is the fraction of land that leaves residues on the field.
 
 Finally, for **cover crops**, $C_{cover}$ can be calculated as:
 
 $C_{cover} = 1 - 0.2 \cdot F_{cover}$
 
-Where $F_{cover} is the fraction of land that uses cover crops during winter or spring.
+Where $F_{cover}$ is the fraction of land that uses cover crops during winter or spring.
 
 ## Step 2 - Data Harmonization
 All crops C-Factors raster were downsampled into 25km values using the *RLSK* raster as base, using a nearest value approach.
