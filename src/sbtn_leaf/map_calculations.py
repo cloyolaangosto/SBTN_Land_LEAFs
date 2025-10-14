@@ -369,7 +369,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
             raster_logger.debug(f"No overalp for region {region_text}, skipping...\n")
             continue  # Skip to the next iteration if clipping fails
 
-    raster_logger.info(f"Calculations complete for {raster_input_filepath}! Found matches for {len(results)} regions.")
+    raster_logger.info(f"Calculations completed for {raster_input_filepath}! Found matches for {len(results)} regions.\n")
     
     # Convert results to a DataFrame
     results_df = pd.DataFrame(results)
@@ -674,7 +674,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
 
     if log:
         log.info(
-            "Calculations complete for %s! Found matches for %d regions.",
+            "Calculations complete for %s! Found matches for %d regions.\n",
             raster_input_filepath,
             len(results),
         )
@@ -752,7 +752,7 @@ def build_cfs_gpkg_from_rasters(
     if logger is not None:
         destination = gpckg_path if write_gpkg else "CSV only"
         logger.info(
-            f"Building '{layer_name}' from rasters in {input_folder} → {output_folder} ({destination})"
+            f"Building '{layer_name}' from rasters in {input_folder} into {output_folder} ({destination})"
         )
 
     # Gather files
