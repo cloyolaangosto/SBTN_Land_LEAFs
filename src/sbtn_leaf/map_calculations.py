@@ -47,35 +47,37 @@ er_2017_shp = gpd.read_file(er_2017_fp)
 ###############
 
 # Set up the global logger only once.
-raster_logger = logging.getLogger("calculate_raster_cf")
-if not raster_logger.hasHandlers():
-    raster_logger.setLevel(logging.DEBUG)
-    # FileHandler logs all details to a single file.
-    fh = logging.FileHandler("calculate_cf.log")
-    fh.setLevel(logging.DEBUG)
-    # StreamHandler prints only key messages (INFO level and above) to the console.
-    ch = logging.StreamHandler()
-    ch.setLevel(logging.INFO)
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    fh.setFormatter(formatter)
-    ch.setFormatter(formatter)
-    raster_logger.addHandler(fh)
-    raster_logger.addHandler(ch)
 
-shape_logger = logging.getLogger("calculate_shape_cf")
-if not shape_logger.hasHandlers():
-    shape_logger.setLevel(logging.DEBUG)
-    # FileHandler logs all details to a single file.
-    fh = logging.FileHandler("calculate_cf.log")
-    fh.setLevel(logging.DEBUG)
-    # StreamHandler prints only key messages (INFO level and above) to the console.
-    ch = logging.StreamHandler()
-    ch.setLevel(logging.INFO)
+
+def _build_logger(name: str) -> logging.Logger:
+    """Create a logger with the shared handlers if it has not been configured."""
+    logger = logging.getLogger(name)
+    if logger.handlers:
+        return logger
+
+    logger.setLevel(logging.DEBUG)
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    fh.setFormatter(formatter)
-    ch.setFormatter(formatter)
-    shape_logger.addHandler(fh)
-    shape_logger.addHandler(ch)
+
+    file_handler = logging.FileHandler("calculate_cf.log")
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+
+    stream_handler = logging.StreamHandler()
+    stream_handler.setLevel(logging.INFO)
+    stream_handler.setFormatter(formatter)
+    logger.addHandler(stream_handler)
+
+    return logger
+
+
+LOGGER = _build_logger("sbtn_leaf.map_calculations")
+raster_logger = LOGGER.getChild("raster")
+raster_logger.setLevel(logging.DEBUG)
+shape_logger = LOGGER.getChild("shape")
+shape_logger.setLevel(logging.DEBUG)
+build_logger = LOGGER.getChild("build")
+build_logger.setLevel(logging.DEBUG)
 
 #################
 ### FUNCTIONS ###
@@ -96,10 +98,13 @@ def calculate_area_weighted_cfs_from_shp_with_std_and_median(cf_shp: gpd.GeoData
         GeoDataFrame: brd_shp with new columns containing these statistics.
     """
 
-    print("Calculating area-weighted values for {value_column} with brd_shp shapefile...")
+    shape_logger.info(
+        "Calculating area-weighted values for %s with brd_shp shapefile...",
+        value_column,
+    )
     
     # Checking missing geometries
-    print("Checking cf_shp for missing geometries, invalid latitudes...")
+    shape_logger.info("Checking cf_shp for missing geometries, invalid latitudes...")
 
     # Drop missing geometries, fixing invalid geometries for cf_shp
     cf_shp = cf_shp[cf_shp.geometry.notna()]
@@ -110,14 +115,14 @@ def calculate_area_weighted_cfs_from_shp_with_std_and_median(cf_shp: gpd.GeoData
 
     # Drop missing geometries, fixing invalid geometries for brd_shp
     if skip_brd_chck:
-        print("Skipping brd_shp check.")
+        shape_logger.info("Skipping brd_shp check.")
     else:
-        print("Checking brd_shp for missing geometries, invalid latitudes...")
+        shape_logger.info("Checking brd_shp for missing geometries, invalid latitudes...")
         brd_shp = brd_shp[brd_shp.geometry.notna()]
         brd_shp["geometry"] = brd_shp["geometry"].buffer(0)
 
     # Ensure the CRS of both shapefiles are the same
-    print("Checking CRS and ensuring they're the same...")
+    shape_logger.info("Checking CRS and ensuring they're the same...")
     if cf_shp.crs != brd_shp.crs:
         cf_shp = cf_shp.to_crs(brd_shp.crs)
 
@@ -129,19 +134,19 @@ def calculate_area_weighted_cfs_from_shp_with_std_and_median(cf_shp: gpd.GeoData
         brd_shp = brd_shp.to_crs("EPSG:3857")
 
     # Remove NaN and Inf values from the value column
-    print("Removing NaN and Inf values for cf_shp...")
+    shape_logger.info("Removing NaN and Inf values for cf_shp...")
     cf_shp = cf_shp[np.isfinite(cf_shp[value_column])]
 
-    print("Data cleaned. Starting calculations...")
+    shape_logger.info("Data cleaned. Starting calculations...")
 
     # Perform a spatial join between cf_shp and brd_shp based on intersection of polygons
-    print("Performing spatial join...")
+    shape_logger.info("Performing spatial join...")
     joined_gdf = gpd.sjoin(cf_shp, brd_shp, how="inner", predicate="intersects")  # Spatial join, how = "inner" means only the intersecting polygons are kept, predicate = "intersects" means the polygons intersect
 
     # Calculate the area of each cf_shp polygon
     joined_gdf['area'] = joined_gdf.geometry.area
 
-    print("Calculating area-weighted values...")
+    shape_logger.info("Calculating area-weighted values...")
     # Calculate the weighted value for each polygon (value * area)
     joined_gdf['weighted_value'] = joined_gdf[value_column] * joined_gdf['area']
 
@@ -161,7 +166,7 @@ def calculate_area_weighted_cfs_from_shp_with_std_and_median(cf_shp: gpd.GeoData
     # Calculate median
     area_weighted_median = joined_gdf.groupby(brdr_name)[value_column].median()
 
-    print("Calculations completed. Creating results dataframes and shapefiles...")
+    shape_logger.info("Calculations completed. Creating results dataframes and shapefiles...")
 
     # Create a DataFrame with results
     result_df = pd.DataFrame({
@@ -175,7 +180,7 @@ def calculate_area_weighted_cfs_from_shp_with_std_and_median(cf_shp: gpd.GeoData
     brd_shp_result = brd_shp.merge(result_df, on=brdr_name, how='left')
 
     # Return the DataFrame with area-weighted values and the updated brd_shp
-    print("All done!")
+    shape_logger.info("All done!")
 
     if return_invalid:
         return result_df, brd_shp_result, cf_shp_invalid
@@ -387,23 +392,35 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
 
 def run_diagnostic(cf_shp, value_column:str, brd_shp: gpd.GeoDataFrame = er_2017_shp):
     # Checking missing geometries
-    print(f"Missing geometries in cf_shp: {cf_shp.geometry.isna().sum()}")
-    print(f"Missing geometries in brd_shp: {brd_shp.geometry.isna().sum()}")
+    shape_logger.info(
+        "Missing geometries in cf_shp: %s", cf_shp.geometry.isna().sum()
+    )
+    shape_logger.info(
+        "Missing geometries in brd_shp: %s", brd_shp.geometry.isna().sum()
+    )
 
     # Checking invalid geometries
-    print(f"Invalid geometries in cf_shp: {cf_shp[~cf_shp.is_valid].shape[0]} / {cf_shp.shape[0]}")
-    print(f"Invalid geometries in brd_shp: {brd_shp[~brd_shp.is_valid].shape[0]} / {brd_shp.shape[0]}")
+    shape_logger.info(
+        "Invalid geometries in cf_shp: %s / %s",
+        cf_shp[~cf_shp.is_valid].shape[0],
+        cf_shp.shape[0],
+    )
+    shape_logger.info(
+        "Invalid geometries in brd_shp: %s / %s",
+        brd_shp[~brd_shp.is_valid].shape[0],
+        brd_shp.shape[0],
+    )
 
     # Checking CRS
-    print(f"cf_shp CRS: {cf_shp.crs}")
-    print(f"brd_shp CRS: {brd_shp.crs}")
+    shape_logger.info("cf_shp CRS: %s", cf_shp.crs)
+    shape_logger.info("brd_shp CRS: %s", brd_shp.crs)
 
     # Checking NaN and Inf values
     cf_shp = cf_shp[np.isfinite(cf_shp[value_column])]
 
     # Exploring first few geometries
-    print(f"cf_shp geometries head: {cf_shp.geometry.head()}")
-    print(f"brd_shp geometries head: {brd_shp.geometry.head()}")
+    shape_logger.info("cf_shp geometries head: %s", cf_shp.geometry.head())
+    shape_logger.info("brd_shp geometries head: %s", brd_shp.geometry.head())
 
 
 def _filter_invalid_latitudes(gdf):
@@ -422,8 +439,8 @@ def _filter_invalid_latitudes(gdf):
     valid_gdf = gdf[gdf.geometry.apply(is_valid_latitude)]
     invalid_gdf = gdf[~gdf.geometry.apply(is_valid_latitude)]
 
-    print(f"Valid geometries: {valid_gdf.shape[0]}")
-    print(f"Invalid geometries: {invalid_gdf.shape[0]}")
+    shape_logger.info("Valid geometries: %s", valid_gdf.shape[0])
+    shape_logger.info("Invalid geometries: %s", invalid_gdf.shape[0])
     
     return valid_gdf, invalid_gdf
 
@@ -466,11 +483,20 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
         outlier_method in {None, 'quantile', 'std', 'log1p_cap', 'log1p_win'}
     """
 
+    log = raster_logger if raster_logger is not None else None
+
     # Validate area_type
     valid_area_type = {"ecoregion", "country", "subcountry"}
     if area_type not in valid_area_type:
-        if raster_logger: raster_logger.info("Need to define area type. Valid values are ecoregion, country, or subcountry")
-        return
+        if log:
+            log.error(
+                "Invalid area type '%s'. Valid values are: %s",
+                area_type,
+                ", ".join(sorted(valid_area_type)),
+            )
+        raise ValueError(
+            f"area_type must be one of {sorted(valid_area_type)}, got '{area_type}'."
+        )
 
     # Select region GeoDataFrame
     if area_type == "ecoregion":
@@ -485,15 +511,27 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
 
     if run_test:
         shp = shp.head(5).copy()
-        raster_logger.info(f'Doing a test run for {cf_name} {area_type} averages')
+        if log:
+            log.info("Doing a test run for %s %s averages", cf_name, area_type)
 
     # Open raster
     raster = rioxarray.open_rasterio(raster_input_filepath, masked=True)
     raster_crs = raster.rio.crs
 
-    if raster_logger:
-        outlier_text = f'using outlier filtering method {outlier_method}' if outlier_method else None
-        raster_logger.info(f"Starting: Calculating {area_type} weighted CF for {flow_name} {outlier_text}")
+    if log:
+        if outlier_method:
+            log.info(
+                "Starting: Calculating %s weighted CF for %s using outlier filtering method %s",
+                area_type,
+                flow_name,
+                outlier_method,
+            )
+        else:
+            log.info(
+                "Starting: Calculating %s weighted CF for %s without outlier filtering",
+                area_type,
+                flow_name,
+            )
 
     # Ensure equal-area CRS
     # If raster isn't in equal-area, reproject raster to equal_area_crs
@@ -522,8 +560,8 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
             region_text = f"{region.get('ADM0_NAME','Unknown')} - {region.get('ADM1_NAME','Unknown')}"
 
         try:
-            if raster_logger:
-                raster_logger.debug(f"Calculating {region_text}")
+            if log:
+                log.debug("Calculating %s", region_text)
 
             # Clip to region bounds (drop outside pixels)
             masked = raster.rio.clip([geom], drop=True)
@@ -540,8 +578,8 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
                 valid = np.isfinite(arr)
 
             if not np.any(valid):
-                if raster_logger:
-                    raster_logger.debug(f"No valid data for {region_text}. Skipping...")
+                if log:
+                    log.debug("No valid data for %s. Skipping...", region_text)
                 continue
 
             # Transform for the clipped raster
@@ -558,8 +596,8 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
             # Keep only pixels that are both valid and have some coverage
             keep = valid & (frac > 0)
             if not np.any(keep):
-                if raster_logger:
-                    raster_logger.debug(f"No overlap/valid pixels for {region_text}. Skipping...")
+                if log:
+                    log.debug("No overlap/valid pixels for %s. Skipping...", region_text)
                 continue
 
             values = arr[keep].astype(np.float64)
@@ -574,8 +612,8 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
                                                     std_thresh=std_thresh)
 
             if values.size == 0:
-                if raster_logger:
-                    raster_logger.debug(f"All values filtered for {region_text}. Skipping...")
+                if log:
+                    log.debug("All values filtered for %s. Skipping...", region_text)
                 continue
 
             # Weighted stats (population variance)
@@ -626,20 +664,24 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
                     }
                 )
 
-            if raster_logger:
-                raster_logger.debug(f"Calculations finished for region {region_text}. Next!\n")
+            if log:
+                log.debug("Calculations finished for region %s. Next!", region_text)
 
         except rioxarray.exceptions.NoDataInBounds:
-            if raster_logger:
-                raster_logger.debug(f"No overlap for region {region_text}, skipping...\n")
+            if log:
+                log.debug("No overlap for region %s, skipping...", region_text)
             continue
 
-    if raster_logger:
-        raster_logger.info(f"Calculations complete for {raster_input_filepath}! Found matches for {len(results)} regions.\n")
+    if log:
+        log.info(
+            "Calculations complete for %s! Found matches for %d regions.",
+            raster_input_filepath,
+            len(results),
+        )
 
     results_df = pd.DataFrame(results)
 
-        # Merge back for spatial output
+    # Merge back for spatial output
     if area_type == "ecoregion":
         final_gdf = shp.merge(results_df, how="left", left_on="OBJECTID", right_on="er_geom_id")
         # keep names/biome (or drop if you intentionally don't want them duplicated)
@@ -678,7 +720,7 @@ def build_cfs_gpkg_from_rasters(
     promote_to_multi: bool = True,   # avoid Polygon/MultiPolygon mismatches
     add_provenance: bool = True,     # add _source_file column
     run_test: bool = False,          # process only first 5 rasters
-    logger=None,                      # pass a logger or None
+    logger: Optional[logging.Logger] = build_logger,  # pass a logger or None
     sig_figures: int = 4,
     write_gpkg: bool = True,         # optionally skip GeoPackage output entirely
 ) -> Tuple[Optional[str], pd.DataFrame]:
@@ -693,6 +735,7 @@ def build_cfs_gpkg_from_rasters(
     (gpkg_path | None, results_df)
     """
     calc_kwargs = calc_kwargs or {}
+    geometry_layer = f"{layer_name}_geometry"
     output_string = output_folder + cf_name + "_" + area_type
     gpckg_path = output_string + ".gpkg" if write_gpkg else None
     csv_path = output_string + ".csv"
@@ -707,7 +750,7 @@ def build_cfs_gpkg_from_rasters(
     if getattr(master_gdf, "geometry", None) is None:
         raise ValueError("master_gdf has no geometry column set.")
 
-    if logger:
+    if logger is not None:
         destination = gpckg_path if write_gpkg else "CSV only"
         logger.info(
             f"Building '{layer_name}' from rasters in {input_folder} → {output_folder} ({destination})"
@@ -737,7 +780,11 @@ def build_cfs_gpkg_from_rasters(
 
     # Ensure master_gdf is in an equal-area CRS (avoid referencing undefined raster/resampling variables)    
     # Guard against missing attribute 'is_geographic' on unexpected CRS objects
-    if (master_gdf.crs.is_geographic == False) or (str(master_gdf.crs) != equal_area_crs):
+    master_crs = master_gdf.crs
+    if master_crs is None:
+        raise ValueError("master_gdf must have a defined CRS.")
+    is_geographic = bool(getattr(master_crs, "is_geographic", False))
+    if is_geographic or str(master_crs) != equal_area_crs:
         master_gdf = master_gdf.to_crs(equal_area_crs)
 
     # Persist master geometry once (recommendation #1)
@@ -745,7 +792,7 @@ def build_cfs_gpkg_from_rasters(
         write_df(
             master_gdf,
             gpckg_path,
-            layer=master_geometry,
+            layer=geometry_layer,
             driver="GPKG",
             append=False,
             promote_to_multi=promote_to_multi,
@@ -782,7 +829,7 @@ def build_cfs_gpkg_from_rasters(
 
         # Align CRS
         if gdf_flow.crs != master_gdf.crs:
-            if logger:
+            if logger is not None:
                 logger.info("Result gdf aligned with master_gdf")
             gdf_flow = gdf_flow.set_crs(master_gdf.crs, allow_override=True)
 
@@ -900,7 +947,7 @@ def build_cfs_gpkg_from_rasters(
             append=False,
         )
 
-    if logger:
+    if logger is not None:
         if write_gpkg:
             logger.info(
                 f"Wrote {total_rows} attribute rows into {gpckg_path} (geometry layer='{geometry_layer}', values layer='{layer_name}')."
