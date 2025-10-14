@@ -745,7 +745,7 @@ def build_cfs_gpkg_from_rasters(
         write_df(
             master_gdf,
             gpckg_path,
-            layer="master_geometry",
+            layer="geometry_layer",
             driver="GPKG",
             append=False,
             promote_to_multi=promote_to_multi,
