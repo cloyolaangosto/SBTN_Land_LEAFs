@@ -735,7 +735,6 @@ def build_cfs_gpkg_from_rasters(
     (gpkg_path | None, results_df)
     """
     calc_kwargs = calc_kwargs or {}
-    geometry_layer = f"{layer_name}_geometry"
     output_string = output_folder + cf_name + "_" + area_type
     gpckg_path = output_string + ".gpkg" if write_gpkg else None
     csv_path = output_string + ".csv"
@@ -950,7 +949,7 @@ def build_cfs_gpkg_from_rasters(
     if logger is not None:
         if write_gpkg:
             logger.info(
-                f"Wrote {total_rows} attribute rows into {gpckg_path} (geometry layer='{geometry_layer}', values layer='{layer_name}')."
+                f"Wrote {total_rows} attribute rows into {gpckg_path} (geometry layer='geometry_layer', values layer='{layer_name}')."
             )
         else:
             logger.info(f"Skipped GeoPackage export; results persisted to {csv_path}.")
