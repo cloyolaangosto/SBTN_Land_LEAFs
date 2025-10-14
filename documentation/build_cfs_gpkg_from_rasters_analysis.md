@@ -3,43 +3,57 @@
 This note captures opportunities to reduce the GeoPackage size produced by
 `build_cfs_gpkg_from_rasters` in `src/sbtn_leaf/map_calculations.py`.
 
-## 1. Avoid duplicating geometries per flow
-The current implementation merges each per-flow result back onto the full master
-GeoDataFrame and writes that geometry into the GeoPackage on every iteration.
-Each flow therefore re-stores the same geometry rows (`write_df(... append=True)`),
-which rapidly inflates file size when hundreds of rasters are processed.
+## 1. Proposed lightweight export flow
 
-**Recommendation:** Persist the master geometry exactly once (e.g., in a
-`master_geometry` layer) and write flow statistics to a separate non-spatial
-attribute table keyed by the master identifier. Downstream joins can reattach
-the geometry only when needed, but the GeoPackage no longer repeats identical
-geometry blobs per flow.
+The heaviest part of `build_cfs_gpkg_from_rasters` is the repeated storage of
+identical geometries for every raster that is processed. A lightweight
+alternative keeps the workflow’s analytical steps intact but limits the
+persisted artefacts to:
 
-## 2. Remove globally constant columns from the main layer
-Within each iteration the code populates `imp_cat` and `unit` with the same
-values for all rows. Keeping these string columns for every flow adds redundant
-bytes to both the GeoPackage and the CSV export.
+1. **One master geometry layer** – write the deduplicated
+   `master_gdf[[master_key, geometry]]` (plus any essential attributes) a single
+   time, e.g. as a `master_geometry` layer inside the GeoPackage.
+2. **A long, attribute-only table per raster** – store the per-flow statistics
+   (`cf`, `cf_median`, `cf_std`) in a flat file that omits geometry entirely.
+   A Parquet or Feather file keeps the table compact and typed; a CSV works too
+   if downstream tools do not support columnar formats. When the GeoPackage is
+   needed again the long table can be merged with `master_geometry` via
+   `master_key`.
 
-**Recommendation:** Move the CF-level metadata (impact category, units, source
-file) into a metadata table keyed by `flow_name` or include it once in the CSV
-header/GeoPackage layer metadata. The main results layer can store just the
-foreign keys and numeric CF statistics.
+This approach trims disk usage because each flow contributes only numeric
+columns and a small text identifier instead of a full geometry blob.
 
-## 3. Persist the results in a columnar format for CSV output
-After concatenating the mean, median, and standard deviation slices, the code
-writes a traditional CSV. CSV is row-oriented, uncompressed, and repeats column
-names per flow.
+If retaining a GeoPackage is optional, the simplest option is to **skip writing
+any GeoPackage** and persist only the statistics table. Consumers can later
+join the CSV/Parquet back to the `master_shapefile` (or the one-time
+`master_geometry` export) inside GIS software. Explicitly documenting that
+workflow keeps expectations clear for analysts who receive the lighter package.
+`build_cfs_gpkg_from_rasters` now exposes a `write_gpkg` flag so the caller can
+toggle the GeoPackage export off while continuing to receive the CSV output.
 
-**Recommendation:** Consider writing the long-format table to a compressed
-columnar format such as Parquet or Feather. These formats apply compression,
-preserve data types, and are faster to read/write while taking a fraction of the
-space of the equivalent CSV.
+## 2. Supporting function behaviour
 
-## 4. Optional: compress GeoPackage blobs
-If keeping a single GeoPackage layer is required, you can still reduce its size
-by using GeoPackage tile/feature compression. The `pyogrio.write_dataframe`
-function accepts GDAL dataset creation options; setting `GEOMETRY_NAME`,
-`SPATIAL_INDEX=NO` (if spatial index is not required), and `COLUMN_TYPES` to
-`REAL`/`FLOAT` can reduce overhead. Alternatively, writing to a spatially
-indexed Feather/Parquet file and storing geometry separately can offer sizeable
-savings when the GeoPackage format is not mandatory.
+`build_cfs_gpkg_from_rasters` orchestrates several helpers whose behaviour
+remains unchanged under the lightweight export strategy:
+
+* `calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers`
+  reads each raster, reprojects to an equal-area CRS when necessary, and
+  computes weighted mean/median/std per region. Its outputs already separate
+  tabular attributes (`results_df`) from geometries (`final_gdf`), so the master
+  geometry can be stored once while the per-flow table is persisted separately.
+* `_fractional_cover_supersample` and `_fractional_cover_exact` control how
+  fractional pixel coverage is derived. They only influence numerical
+  statistics and do not require geometry duplication.
+* `_apply_outlier_filter` and `_weighted_median` provide statistical post-
+  processing, producing the scalar values that populate the long table.
+
+Because these helpers all emit attribute data that are already aligned to
+`master_key`, no additional refactoring is required when switching the export
+mechanism. The main change is the choice of storage format.
+
+## 3. Optional format tweaks
+
+If a GeoPackage must still contain the attribute table, consider enabling GDAL
+creation options such as `GEOMETRY_NAME=geom` and `SPATIAL_INDEX=NO` to avoid
+extra indexes. When columnar formats are acceptable, favour Parquet/Feather to
+obtain compression without writing redundant column headers per flow.

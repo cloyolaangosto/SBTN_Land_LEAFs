@@ -677,24 +677,26 @@ def build_cfs_gpkg_from_rasters(
     add_provenance: bool = True,     # add _source_file column
     run_test: bool = False,          # process only first 5 rasters
     logger=None,                      # pass a logger or None
-    sig_figures: int = 4
-) -> Tuple[str, pd.DataFrame]:
+    sig_figures: int = 4,
+    write_gpkg: bool = True,         # optionally skip GeoPackage output entirely
+) -> Tuple[Optional[str], pd.DataFrame]:
     """
     Process all rasters in a folder into ONE GeoPackage layer (tidy/long),
     enforcing a single master geometry set (countries / subcountries / ecoregions),
-    and keeping CF columns as NaN where no raster match exists.
+    and keeping CF columns as NaN where no raster match exists. Set `write_gpkg`
+    to ``False`` to skip GeoPackage creation and only emit the CSV summary.
 
     Returns
     -------
-    (gpkg_path, n_written_rows)
+    (gpkg_path | None, results_df)
     """
     calc_kwargs = calc_kwargs or {}
     output_string = output_folder + cf_name + "_" + area_type
-    gpckg_path = output_string + ".gpkg"
+    gpckg_path = output_string + ".gpkg" if write_gpkg else None
     csv_path = output_string + ".csv"
 
     # Reset gpkg if requested
-    if reset_gpkg and os.path.exists(gpckg_path):
+    if write_gpkg and reset_gpkg and gpckg_path and os.path.exists(gpckg_path):
         os.remove(gpckg_path)
 
     # Ensure master has needed columns & unique keys
@@ -704,7 +706,10 @@ def build_cfs_gpkg_from_rasters(
         raise ValueError("master_gdf has no geometry column set.")
 
     if logger:
-        logger.info(f"Building '{layer_name}' from rasters in {input_folder} → {output_folder}")
+        destination = gpckg_path if write_gpkg else "CSV only"
+        logger.info(
+            f"Building '{layer_name}' from rasters in {input_folder} → {output_folder} ({destination})"
+        )
 
     # Gather files
     file_list = sorted(os.listdir(input_folder))
@@ -735,15 +740,16 @@ def build_cfs_gpkg_from_rasters(
 
     # Persist master geometry once (recommendation #1)
     geometry_layer = f"{layer_name}_geometry"
-    write_df(
-        master_gdf,
-        gpckg_path,
-        layer=geometry_layer,
-        driver="GPKG",
-        append=False,
-        promote_to_multi=promote_to_multi,
-        layer_creation_options=["GEOMETRY_NAME=geom", "SPATIAL_INDEX=NO"],
-    )
+    if write_gpkg:
+        write_df(
+            master_gdf,
+            gpckg_path,
+            layer=geometry_layer,
+            driver="GPKG",
+            append=False,
+            promote_to_multi=promote_to_multi,
+            layer_creation_options=["GEOMETRY_NAME=geom", "SPATIAL_INDEX=NO"],
+        )
 
     # Base frame with master identifiers for later joins
     master_id_df = pd.DataFrame(master_gdf[master_key])
@@ -813,29 +819,32 @@ def build_cfs_gpkg_from_rasters(
             metadata_entry["source_file"] = file
         metadata_records.append(metadata_entry)
 
-        # Initialize schema for attribute layer on first write
-        if attribute_first_write:
-            base_cols = [master_key, "flow_name", "cf", "cf_median", "cf_std"]
-            extras = [c for c in flow_values.columns if c not in base_cols]
-            schema_cols = [c for c in base_cols + extras if c in flow_values.columns]
-            append_flag = False
-            attribute_first_write = False
-        else:
-            append_flag = True
-        
-        # Align columns to schema for stability across flows
-        for c in schema_cols:
-            if c not in flow_values.columns:
-                flow_values[c] = pd.NA
-        flow_values = flow_values[schema_cols]
+        if write_gpkg:
+            # Initialize schema for attribute layer on first write
+            if attribute_first_write:
+                base_cols = [master_key, "flow_name", "cf", "cf_median", "cf_std"]
+                extras = [c for c in flow_values.columns if c not in base_cols]
+                schema_cols = [c for c in base_cols + extras if c in flow_values.columns]
+                append_flag = False
+                attribute_first_write = False
+            else:
+                append_flag = True
 
-        write_df(
-            flow_values,
-            gpckg_path,
-            layer=layer_name,
-            driver="GPKG",
-            append=append_flag,
-        )
+            # Align columns to schema for stability across flows
+            if schema_cols is None:
+                raise RuntimeError("GeoPackage schema not initialized before writing.")
+            for c in schema_cols:
+                if c not in flow_values.columns:
+                    flow_values[c] = pd.NA
+            flow_values = flow_values[schema_cols]
+
+            write_df(
+                flow_values,
+                gpckg_path,
+                layer=layer_name,
+                driver="GPKG",
+                append=append_flag,
+            )
 
         # Long-format table for CSV output (no constant columns)
         mean_df = master_id_df.merge(
@@ -868,7 +877,8 @@ def build_cfs_gpkg_from_rasters(
             frame["flow_name"] = flow_name
             long_result_frames.append(frame)
 
-        total_rows += len(flow_values)
+        if write_gpkg:
+            total_rows += len(flow_values)
 
     # Combine long-format data and persist to CSV
     if long_result_frames:
@@ -878,7 +888,7 @@ def build_cfs_gpkg_from_rasters(
     results_df.to_csv(csv_path, index=False)
 
     # Persist metadata table once (recommendation #2)
-    if metadata_records:
+    if write_gpkg and metadata_records:
         metadata_df = pd.DataFrame(metadata_records).drop_duplicates(subset=["flow_name"], keep="last")
         metadata_layer = f"{layer_name}_metadata"
         write_df(
@@ -890,9 +900,12 @@ def build_cfs_gpkg_from_rasters(
         )
 
     if logger:
-        logger.info(
-            f"Wrote {total_rows} attribute rows into {gpckg_path} (geometry layer='{geometry_layer}', values layer='{layer_name}')."
-        )
+        if write_gpkg:
+            logger.info(
+                f"Wrote {total_rows} attribute rows into {gpckg_path} (geometry layer='{geometry_layer}', values layer='{layer_name}')."
+            )
+        else:
+            logger.info(f"Skipped GeoPackage export; results persisted to {csv_path}.")
 
     return gpckg_path, results_df
 
@@ -1452,15 +1465,19 @@ def create_binary_mask(input_path, output_path, binary_value = 1, band=1, src_no
         # Read the specified band from the raster.
         data = src.read(band)
         # Use the manual_nodata if provided; otherwise use the file's nodata.
-        nodata = src_nodata if src_nodata else src.nodata
+        nodata = src_nodata if src_nodata is not None else src.nodata
         # Copy metadata from the source for writing the new GeoTIFF.
         meta = src.meta.copy()
     
     # Create the binary mask.
     # If a nodata value is defined, determine valid pixels.
-    if nodata:
+    if nodata is None:
+        print(f"Input doens't have a nodata value. Value {binary_value} if cell has value and {dst_nodata} if not, disregarding which value it is.")
+        # If no nodata value is defined, assume a cell has a value if it is non-zero.
+        binary = np.where(data != 0, binary_value, dst_nodata).astype(np.float32)
+    else:
         # If the provided nodata value is np.nan, use np.isnan to check for NaN values.
-        if np.isnan(nodata):
+        if isinstance(nodata, float) and np.isnan(nodata):
             # Valid cells are those that are not NaN.
             print(f"Input No Data defined as NaN. Value {binary_value} if is not NaN and {dst_nodata} if it is.")
             valid = ~np.isnan(data)
@@ -1468,14 +1485,9 @@ def create_binary_mask(input_path, output_path, binary_value = 1, band=1, src_no
             print(f"Input No Data defined as {nodata}. Value {binary_value} if is not {nodata} and {dst_nodata} if it is.")
             # Valid cells are those that do not equal the nodata value.
             valid = (data != nodata)
-        
+
         # Create a binary mask: 1 for valid, 0 for no_data.
         binary = np.where(valid, binary_value, dst_nodata).astype(np.float32)
-
-    else:
-        print(f"Input doens't have a nodata value. Value {binary_value} if cell has value and {dst_nodata} if not, disregarding which value it is.")
-        # If no nodata value is defined, assume a cell has a value if it is non-zero.
-        binary = np.where(data != 0, binary_value, dst_nodata).astype(np.float32)
     
     # Update metadata for output:
     # - Set the data type to uint8 (since our mask only contains 0 and 1).
