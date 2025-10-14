@@ -18,7 +18,9 @@ from shapely.geometry import box
 from shapely.prepared import prep as prep_geom
 
 import os
+
 from pyogrio import write_dataframe as write_df
+gpd.options.io_engine = "pyogrio"  # To be able to write gpckg's
 
 
 # Data Analysis
@@ -739,16 +741,15 @@ def build_cfs_gpkg_from_rasters(
         master_gdf = master_gdf.to_crs(equal_area_crs)
 
     # Persist master geometry once (recommendation #1)
-    geometry_layer = f"{layer_name}_geometry"
     if write_gpkg:
         write_df(
             master_gdf,
             gpckg_path,
-            layer=geometry_layer,
+            layer=master_geometry,
             driver="GPKG",
             append=False,
             promote_to_multi=promote_to_multi,
-            layer_creation_options=["GEOMETRY_NAME=geom", "SPATIAL_INDEX=NO"],
+            layer_options={"GEOMETRY_NAME": "geom", "SPATIAL_INDEX": "NO"}
         )
 
     # Base frame with master identifiers for later joins

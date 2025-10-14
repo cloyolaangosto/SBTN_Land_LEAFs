@@ -1,829 +1,2485 @@
-,ADM0_NAME,imp_cat,unit,value,metric
-0,Abyei,soil_erosion,t soil/ha/yr,,cf_mean
-1,Afghanistan,soil_erosion,t soil/ha/yr,0.07317715518084313,cf_mean
-2,Aksai Chin,soil_erosion,t soil/ha/yr,,cf_mean
-3,Albania,soil_erosion,t soil/ha/yr,1.1230120259348058,cf_mean
-4,Algeria,soil_erosion,t soil/ha/yr,,cf_mean
-5,American Samoa,soil_erosion,t soil/ha/yr,,cf_mean
-6,Andorra,soil_erosion,t soil/ha/yr,,cf_mean
-7,Angola,soil_erosion,t soil/ha/yr,,cf_mean
-8,Anguilla,soil_erosion,t soil/ha/yr,,cf_mean
-9,Antarctica,soil_erosion,t soil/ha/yr,,cf_mean
-10,Antigua and Barbuda,soil_erosion,t soil/ha/yr,,cf_mean
-11,Argentina,soil_erosion,t soil/ha/yr,0.04280888375304363,cf_mean
-12,Armenia,soil_erosion,t soil/ha/yr,0.18991652137483106,cf_mean
-13,Aruba,soil_erosion,t soil/ha/yr,,cf_mean
-14,Arunachal Pradesh,soil_erosion,t soil/ha/yr,,cf_mean
-15,Ashmore and Cartier Islands,soil_erosion,t soil/ha/yr,,cf_mean
-16,Australia,soil_erosion,t soil/ha/yr,0.20205610132610238,cf_mean
-17,Austria,soil_erosion,t soil/ha/yr,0.4747628609434955,cf_mean
-18,Azerbaijan,soil_erosion,t soil/ha/yr,0.17552855634670664,cf_mean
-19,Azores Islands,soil_erosion,t soil/ha/yr,,cf_mean
-20,Bahamas,soil_erosion,t soil/ha/yr,,cf_mean
-21,Bahrain,soil_erosion,t soil/ha/yr,,cf_mean
-22,Baker Island,soil_erosion,t soil/ha/yr,,cf_mean
-23,Bangladesh,soil_erosion,t soil/ha/yr,,cf_mean
-24,Barbados,soil_erosion,t soil/ha/yr,,cf_mean
-25,Bassas da India,soil_erosion,t soil/ha/yr,,cf_mean
-26,Belarus,soil_erosion,t soil/ha/yr,0.009645033584584465,cf_mean
-27,Belgium,soil_erosion,t soil/ha/yr,0.037273496605618975,cf_mean
-28,Belize,soil_erosion,t soil/ha/yr,,cf_mean
-29,Benin,soil_erosion,t soil/ha/yr,,cf_mean
-30,Bermuda,soil_erosion,t soil/ha/yr,,cf_mean
-31,Bhutan,soil_erosion,t soil/ha/yr,,cf_mean
-32,Bird Island,soil_erosion,t soil/ha/yr,,cf_mean
-33,Bolivia,soil_erosion,t soil/ha/yr,,cf_mean
-34,Bosnia and Herzegovina,soil_erosion,t soil/ha/yr,0.4345714501376752,cf_mean
-35,Botswana,soil_erosion,t soil/ha/yr,,cf_mean
-36,Bouvet Island,soil_erosion,t soil/ha/yr,,cf_mean
-37,Brazil,soil_erosion,t soil/ha/yr,,cf_mean
-38,British Indian Ocean Territory,soil_erosion,t soil/ha/yr,,cf_mean
-39,British Virgin Islands,soil_erosion,t soil/ha/yr,,cf_mean
-40,Brunei Darussalam,soil_erosion,t soil/ha/yr,,cf_mean
-41,Bulgaria,soil_erosion,t soil/ha/yr,0.11158841738355085,cf_mean
-42,Burkina Faso,soil_erosion,t soil/ha/yr,,cf_mean
-43,Burundi,soil_erosion,t soil/ha/yr,,cf_mean
-44,Cambodia,soil_erosion,t soil/ha/yr,,cf_mean
-45,Cameroon,soil_erosion,t soil/ha/yr,,cf_mean
-46,Canada,soil_erosion,t soil/ha/yr,0.08275161109519834,cf_mean
-47,Cape Verde,soil_erosion,t soil/ha/yr,,cf_mean
-48,Cayman Islands,soil_erosion,t soil/ha/yr,,cf_mean
-49,Central African Republic,soil_erosion,t soil/ha/yr,,cf_mean
-50,Chad,soil_erosion,t soil/ha/yr,,cf_mean
-51,Chile,soil_erosion,t soil/ha/yr,0.8059044591746546,cf_mean
-52,China,soil_erosion,t soil/ha/yr,0.19130584091657804,cf_mean
-53,China/India,soil_erosion,t soil/ha/yr,,cf_mean
-54,Christmas Island,soil_erosion,t soil/ha/yr,,cf_mean
-55,Clipperton Island,soil_erosion,t soil/ha/yr,,cf_mean
-56,Cocos (Keeling) Islands,soil_erosion,t soil/ha/yr,,cf_mean
-57,Colombia,soil_erosion,t soil/ha/yr,,cf_mean
-58,Comoros,soil_erosion,t soil/ha/yr,,cf_mean
-59,Congo,soil_erosion,t soil/ha/yr,,cf_mean
-60,Cook Islands,soil_erosion,t soil/ha/yr,,cf_mean
-61,Costa Rica,soil_erosion,t soil/ha/yr,,cf_mean
-62,Croatia,soil_erosion,t soil/ha/yr,0.28343207586772945,cf_mean
-63,Cuba,soil_erosion,t soil/ha/yr,,cf_mean
-64,Cyprus,soil_erosion,t soil/ha/yr,,cf_mean
-65,Czech Republic,soil_erosion,t soil/ha/yr,0.04885636645133789,cf_mean
-66,Côte d'Ivoire,soil_erosion,t soil/ha/yr,,cf_mean
-67,Dem People's Rep of Korea,soil_erosion,t soil/ha/yr,1.1892375857934625,cf_mean
-68,Democratic Republic of the Congo,soil_erosion,t soil/ha/yr,,cf_mean
-69,Denmark,soil_erosion,t soil/ha/yr,0.015048120658745116,cf_mean
-70,Djibouti,soil_erosion,t soil/ha/yr,,cf_mean
-71,Dominica,soil_erosion,t soil/ha/yr,,cf_mean
-72,Dominican Republic,soil_erosion,t soil/ha/yr,,cf_mean
-73,Ecuador,soil_erosion,t soil/ha/yr,,cf_mean
-74,Egypt,soil_erosion,t soil/ha/yr,,cf_mean
-75,El Salvador,soil_erosion,t soil/ha/yr,,cf_mean
-76,Equatorial Guinea,soil_erosion,t soil/ha/yr,,cf_mean
-77,Eritrea,soil_erosion,t soil/ha/yr,,cf_mean
-78,Estonia,soil_erosion,t soil/ha/yr,0.011745293173291066,cf_mean
-79,Ethiopia,soil_erosion,t soil/ha/yr,,cf_mean
-80,Europa Island,soil_erosion,t soil/ha/yr,,cf_mean
-81,Falkland Islands (Malvinas),soil_erosion,t soil/ha/yr,,cf_mean
-82,Faroe Islands,soil_erosion,t soil/ha/yr,,cf_mean
-83,Fiji,soil_erosion,t soil/ha/yr,,cf_mean
-84,Finland,soil_erosion,t soil/ha/yr,0.009467904522218192,cf_mean
-85,France,soil_erosion,t soil/ha/yr,0.08308325574695727,cf_mean
-86,French Guiana,soil_erosion,t soil/ha/yr,,cf_mean
-87,French Polynesia,soil_erosion,t soil/ha/yr,,cf_mean
-88,French Southern and Antarctic Territories,soil_erosion,t soil/ha/yr,,cf_mean
-89,Gabon,soil_erosion,t soil/ha/yr,,cf_mean
-90,Gambia,soil_erosion,t soil/ha/yr,,cf_mean
-91,Gaza Strip,soil_erosion,t soil/ha/yr,,cf_mean
-92,Georgia,soil_erosion,t soil/ha/yr,0.6301535826770289,cf_mean
-93,Germany,soil_erosion,t soil/ha/yr,0.044816527724351594,cf_mean
-94,Ghana,soil_erosion,t soil/ha/yr,,cf_mean
-95,Gibraltar,soil_erosion,t soil/ha/yr,,cf_mean
-96,Glorioso Island,soil_erosion,t soil/ha/yr,,cf_mean
-97,Greece,soil_erosion,t soil/ha/yr,0.15736113365303872,cf_mean
-98,Greenland,soil_erosion,t soil/ha/yr,,cf_mean
-99,Grenada,soil_erosion,t soil/ha/yr,,cf_mean
-100,Guadeloupe,soil_erosion,t soil/ha/yr,,cf_mean
-101,Guam,soil_erosion,t soil/ha/yr,,cf_mean
-102,Guatemala,soil_erosion,t soil/ha/yr,,cf_mean
-103,Guernsey,soil_erosion,t soil/ha/yr,,cf_mean
-104,Guinea,soil_erosion,t soil/ha/yr,,cf_mean
-105,Guinea-Bissau,soil_erosion,t soil/ha/yr,,cf_mean
-106,Guyana,soil_erosion,t soil/ha/yr,,cf_mean
-107,Haiti,soil_erosion,t soil/ha/yr,,cf_mean
-108,Hala'ib triangle,soil_erosion,t soil/ha/yr,,cf_mean
-109,Heard Island and McDonald Islands,soil_erosion,t soil/ha/yr,,cf_mean
-110,Holy See,soil_erosion,t soil/ha/yr,,cf_mean
-111,Honduras,soil_erosion,t soil/ha/yr,,cf_mean
-112,Hong Kong,soil_erosion,t soil/ha/yr,,cf_mean
-113,Howland Island,soil_erosion,t soil/ha/yr,,cf_mean
-114,Hungary,soil_erosion,t soil/ha/yr,0.028914227681223956,cf_mean
-115,Iceland,soil_erosion,t soil/ha/yr,,cf_mean
-116,Ilemi triangle,soil_erosion,t soil/ha/yr,,cf_mean
-117,India,soil_erosion,t soil/ha/yr,,cf_mean
-118,Indonesia,soil_erosion,t soil/ha/yr,,cf_mean
-119,Iran  (Islamic Republic of),soil_erosion,t soil/ha/yr,0.06268565464866842,cf_mean
-120,Iraq,soil_erosion,t soil/ha/yr,0.23925632840668115,cf_mean
-121,Ireland,soil_erosion,t soil/ha/yr,0.05400617620183165,cf_mean
-122,Isle of Man,soil_erosion,t soil/ha/yr,,cf_mean
-123,Israel,soil_erosion,t soil/ha/yr,,cf_mean
-124,Italy,soil_erosion,t soil/ha/yr,0.46136277152226507,cf_mean
-125,Jamaica,soil_erosion,t soil/ha/yr,,cf_mean
-126,Jammu and Kashmir,soil_erosion,t soil/ha/yr,,cf_mean
-127,Japan,soil_erosion,t soil/ha/yr,2.4765724481151867,cf_mean
-128,Jarvis Island,soil_erosion,t soil/ha/yr,,cf_mean
-129,Jersey,soil_erosion,t soil/ha/yr,,cf_mean
-130,Johnston Atoll,soil_erosion,t soil/ha/yr,,cf_mean
-131,Jordan,soil_erosion,t soil/ha/yr,,cf_mean
-132,Juan de Nova Island,soil_erosion,t soil/ha/yr,,cf_mean
-133,Kazakhstan,soil_erosion,t soil/ha/yr,0.013332364240760241,cf_mean
-134,Kenya,soil_erosion,t soil/ha/yr,,cf_mean
-135,Kingman Reef,soil_erosion,t soil/ha/yr,,cf_mean
-136,Kiribati,soil_erosion,t soil/ha/yr,,cf_mean
-137,Kuril islands,soil_erosion,t soil/ha/yr,,cf_mean
-138,Kuwait,soil_erosion,t soil/ha/yr,,cf_mean
-139,Kyrgyzstan,soil_erosion,t soil/ha/yr,0.27894479649552517,cf_mean
-140,Lao People's Democratic Republic,soil_erosion,t soil/ha/yr,,cf_mean
-141,Latvia,soil_erosion,t soil/ha/yr,0.014901125594877324,cf_mean
-142,Lebanon,soil_erosion,t soil/ha/yr,,cf_mean
-143,Lesotho,soil_erosion,t soil/ha/yr,,cf_mean
-144,Liberia,soil_erosion,t soil/ha/yr,,cf_mean
-145,Libya,soil_erosion,t soil/ha/yr,,cf_mean
-146,Liechtenstein,soil_erosion,t soil/ha/yr,,cf_mean
-147,Lithuania,soil_erosion,t soil/ha/yr,0.01175274147863552,cf_mean
-148,Luxembourg,soil_erosion,t soil/ha/yr,0.13711400941733243,cf_mean
-149,Ma'tan al-Sarra,soil_erosion,t soil/ha/yr,,cf_mean
-150,Macau,soil_erosion,t soil/ha/yr,,cf_mean
-151,Madagascar,soil_erosion,t soil/ha/yr,,cf_mean
-152,Madeira Islands,soil_erosion,t soil/ha/yr,,cf_mean
-153,Malawi,soil_erosion,t soil/ha/yr,,cf_mean
-154,Malaysia,soil_erosion,t soil/ha/yr,,cf_mean
-155,Maldives,soil_erosion,t soil/ha/yr,,cf_mean
-156,Mali,soil_erosion,t soil/ha/yr,,cf_mean
-157,Malta,soil_erosion,t soil/ha/yr,,cf_mean
-158,Marshall Islands,soil_erosion,t soil/ha/yr,,cf_mean
-159,Martinique,soil_erosion,t soil/ha/yr,,cf_mean
-160,Mauritania,soil_erosion,t soil/ha/yr,,cf_mean
-161,Mauritius,soil_erosion,t soil/ha/yr,,cf_mean
-162,Mayotte,soil_erosion,t soil/ha/yr,,cf_mean
-163,Mexico,soil_erosion,t soil/ha/yr,,cf_mean
-164,Micronesia (Federated States of),soil_erosion,t soil/ha/yr,,cf_mean
-165,Midway Island,soil_erosion,t soil/ha/yr,,cf_mean
-166,"Moldova, Republic of",soil_erosion,t soil/ha/yr,0.04955526586627782,cf_mean
-167,Monaco,soil_erosion,t soil/ha/yr,,cf_mean
-168,Mongolia,soil_erosion,t soil/ha/yr,0.0732546168662064,cf_mean
-169,Montenegro,soil_erosion,t soil/ha/yr,0.5589342568973525,cf_mean
-170,Montserrat,soil_erosion,t soil/ha/yr,,cf_mean
-171,Morocco,soil_erosion,t soil/ha/yr,,cf_mean
-172,Mozambique,soil_erosion,t soil/ha/yr,,cf_mean
-173,Myanmar,soil_erosion,t soil/ha/yr,,cf_mean
-174,Namibia,soil_erosion,t soil/ha/yr,,cf_mean
-175,Nauru,soil_erosion,t soil/ha/yr,,cf_mean
-176,Navassa Island,soil_erosion,t soil/ha/yr,,cf_mean
-177,Nepal,soil_erosion,t soil/ha/yr,,cf_mean
-178,Netherlands,soil_erosion,t soil/ha/yr,0.008423752962919171,cf_mean
-179,Netherlands Antilles,soil_erosion,t soil/ha/yr,,cf_mean
-180,New Caledonia,soil_erosion,t soil/ha/yr,,cf_mean
-181,New Zealand,soil_erosion,t soil/ha/yr,0.4203978544529243,cf_mean
-182,Nicaragua,soil_erosion,t soil/ha/yr,,cf_mean
-183,Niger,soil_erosion,t soil/ha/yr,,cf_mean
-184,Nigeria,soil_erosion,t soil/ha/yr,,cf_mean
-185,Niue,soil_erosion,t soil/ha/yr,,cf_mean
-186,Norfolk Island,soil_erosion,t soil/ha/yr,,cf_mean
-187,Northern Mariana Islands,soil_erosion,t soil/ha/yr,,cf_mean
-188,Norway,soil_erosion,t soil/ha/yr,0.45232912865265645,cf_mean
-189,Oman,soil_erosion,t soil/ha/yr,,cf_mean
-190,Pakistan,soil_erosion,t soil/ha/yr,,cf_mean
-191,Palau,soil_erosion,t soil/ha/yr,,cf_mean
-192,Palmyra Atoll,soil_erosion,t soil/ha/yr,,cf_mean
-193,Panama,soil_erosion,t soil/ha/yr,,cf_mean
-194,Papua New Guinea,soil_erosion,t soil/ha/yr,,cf_mean
-195,Paracel Islands,soil_erosion,t soil/ha/yr,,cf_mean
-196,Paraguay,soil_erosion,t soil/ha/yr,,cf_mean
-197,Peru,soil_erosion,t soil/ha/yr,,cf_mean
-198,Philippines,soil_erosion,t soil/ha/yr,,cf_mean
-199,Pitcairn,soil_erosion,t soil/ha/yr,,cf_mean
-200,Poland,soil_erosion,t soil/ha/yr,0.01777734641300758,cf_mean
-201,Portugal,soil_erosion,t soil/ha/yr,,cf_mean
-202,Puerto Rico,soil_erosion,t soil/ha/yr,,cf_mean
-203,Qatar,soil_erosion,t soil/ha/yr,,cf_mean
-204,Republic of Korea,soil_erosion,t soil/ha/yr,1.9507388272587742,cf_mean
-205,Romania,soil_erosion,t soil/ha/yr,0.10282090245896487,cf_mean
-206,Russian Federation,soil_erosion,t soil/ha/yr,0.06202197769475834,cf_mean
-207,Rwanda,soil_erosion,t soil/ha/yr,,cf_mean
-208,Réunion,soil_erosion,t soil/ha/yr,,cf_mean
-209,Saint Helena,soil_erosion,t soil/ha/yr,,cf_mean
-210,Saint Kitts and Nevis,soil_erosion,t soil/ha/yr,,cf_mean
-211,Saint Lucia,soil_erosion,t soil/ha/yr,,cf_mean
-212,Saint Pierre et Miquelon,soil_erosion,t soil/ha/yr,,cf_mean
-213,Saint Vincent and the Grenadines,soil_erosion,t soil/ha/yr,,cf_mean
-214,Samoa,soil_erosion,t soil/ha/yr,,cf_mean
-215,San Marino,soil_erosion,t soil/ha/yr,,cf_mean
-216,Sao Tome and Principe,soil_erosion,t soil/ha/yr,,cf_mean
-217,Saudi Arabia,soil_erosion,t soil/ha/yr,,cf_mean
-218,Scarborough Reef,soil_erosion,t soil/ha/yr,,cf_mean
-219,Senegal,soil_erosion,t soil/ha/yr,,cf_mean
-220,Senkaku Islands,soil_erosion,t soil/ha/yr,,cf_mean
-221,Serbia,soil_erosion,t soil/ha/yr,0.20112242526998766,cf_mean
-222,Seychelles,soil_erosion,t soil/ha/yr,,cf_mean
-223,Sierra Leone,soil_erosion,t soil/ha/yr,,cf_mean
-224,Singapore,soil_erosion,t soil/ha/yr,,cf_mean
-225,Slovakia,soil_erosion,t soil/ha/yr,0.13754448527229027,cf_mean
-226,Slovenia,soil_erosion,t soil/ha/yr,0.7505948667751255,cf_mean
-227,Solomon Islands,soil_erosion,t soil/ha/yr,,cf_mean
-228,Somalia,soil_erosion,t soil/ha/yr,,cf_mean
-229,South Africa,soil_erosion,t soil/ha/yr,,cf_mean
-230,South Georgia and the South Sandwich Islands,soil_erosion,t soil/ha/yr,,cf_mean
-231,South Sudan,soil_erosion,t soil/ha/yr,,cf_mean
-232,Spain,soil_erosion,t soil/ha/yr,,cf_mean
-233,Spratly Islands,soil_erosion,t soil/ha/yr,,cf_mean
-234,Sri Lanka,soil_erosion,t soil/ha/yr,,cf_mean
-235,Sudan,soil_erosion,t soil/ha/yr,,cf_mean
-236,Suriname,soil_erosion,t soil/ha/yr,,cf_mean
-237,Svalbard and Jan Mayen Islands,soil_erosion,t soil/ha/yr,,cf_mean
-238,Swaziland,soil_erosion,t soil/ha/yr,,cf_mean
-239,Sweden,soil_erosion,t soil/ha/yr,0.018244950900523676,cf_mean
-240,Switzerland,soil_erosion,t soil/ha/yr,0.7626670677407489,cf_mean
-241,Syrian Arab Republic,soil_erosion,t soil/ha/yr,,cf_mean
-242,Taiwan,soil_erosion,t soil/ha/yr,,cf_mean
-243,Tajikistan,soil_erosion,t soil/ha/yr,0.4795780242090451,cf_mean
-244,Thailand,soil_erosion,t soil/ha/yr,,cf_mean
-245,The former Yugoslav Republic of Macedonia,soil_erosion,t soil/ha/yr,0.24034479725278318,cf_mean
-246,Timor-Leste,soil_erosion,t soil/ha/yr,,cf_mean
-247,Togo,soil_erosion,t soil/ha/yr,,cf_mean
-248,Tokelau,soil_erosion,t soil/ha/yr,,cf_mean
-249,Tonga,soil_erosion,t soil/ha/yr,,cf_mean
-250,Trinidad and Tobago,soil_erosion,t soil/ha/yr,,cf_mean
-251,Tromelin Island,soil_erosion,t soil/ha/yr,,cf_mean
-252,Tunisia,soil_erosion,t soil/ha/yr,,cf_mean
-253,Turkey,soil_erosion,t soil/ha/yr,0.09949621600710623,cf_mean
-254,Turkmenistan,soil_erosion,t soil/ha/yr,0.00980960596952527,cf_mean
-255,Turks and Caicos islands,soil_erosion,t soil/ha/yr,,cf_mean
-256,Tuvalu,soil_erosion,t soil/ha/yr,,cf_mean
-257,U.K. of Great Britain and Northern Ireland,soil_erosion,t soil/ha/yr,0.115904729073599,cf_mean
-258,Uganda,soil_erosion,t soil/ha/yr,,cf_mean
-259,Ukraine,soil_erosion,t soil/ha/yr,0.021372567784913397,cf_mean
-260,United Arab Emirates,soil_erosion,t soil/ha/yr,,cf_mean
-261,United Republic of Tanzania,soil_erosion,t soil/ha/yr,,cf_mean
-262,United States Virgin Islands,soil_erosion,t soil/ha/yr,,cf_mean
-263,United States of America,soil_erosion,t soil/ha/yr,0.18035276146733642,cf_mean
-264,Uruguay,soil_erosion,t soil/ha/yr,,cf_mean
-265,Uzbekistan,soil_erosion,t soil/ha/yr,0.021569008930999292,cf_mean
-266,Vanuatu,soil_erosion,t soil/ha/yr,,cf_mean
-267,Venezuela,soil_erosion,t soil/ha/yr,,cf_mean
-268,Viet Nam,soil_erosion,t soil/ha/yr,,cf_mean
-269,Wake Island,soil_erosion,t soil/ha/yr,,cf_mean
-270,Wallis and Futuna,soil_erosion,t soil/ha/yr,,cf_mean
-271,West Bank,soil_erosion,t soil/ha/yr,,cf_mean
-272,Western Sahara,soil_erosion,t soil/ha/yr,,cf_mean
-273,Yemen,soil_erosion,t soil/ha/yr,,cf_mean
-274,Zambia,soil_erosion,t soil/ha/yr,,cf_mean
-275,Zimbabwe,soil_erosion,t soil/ha/yr,,cf_mean
-276,Abyei,soil_erosion,t soil/ha/yr,,cf_median
-277,Afghanistan,soil_erosion,t soil/ha/yr,0.016890496000662687,cf_median
-278,Aksai Chin,soil_erosion,t soil/ha/yr,,cf_median
-279,Albania,soil_erosion,t soil/ha/yr,1.2037908371954313,cf_median
-280,Algeria,soil_erosion,t soil/ha/yr,,cf_median
-281,American Samoa,soil_erosion,t soil/ha/yr,,cf_median
-282,Andorra,soil_erosion,t soil/ha/yr,,cf_median
-283,Angola,soil_erosion,t soil/ha/yr,,cf_median
-284,Anguilla,soil_erosion,t soil/ha/yr,,cf_median
-285,Antarctica,soil_erosion,t soil/ha/yr,,cf_median
-286,Antigua and Barbuda,soil_erosion,t soil/ha/yr,,cf_median
-287,Argentina,soil_erosion,t soil/ha/yr,0.010921213555789455,cf_median
-288,Armenia,soil_erosion,t soil/ha/yr,0.17109737369762143,cf_median
-289,Aruba,soil_erosion,t soil/ha/yr,,cf_median
-290,Arunachal Pradesh,soil_erosion,t soil/ha/yr,,cf_median
-291,Ashmore and Cartier Islands,soil_erosion,t soil/ha/yr,,cf_median
-292,Australia,soil_erosion,t soil/ha/yr,0.15441385773719213,cf_median
-293,Austria,soil_erosion,t soil/ha/yr,0.4302060433203758,cf_median
-294,Azerbaijan,soil_erosion,t soil/ha/yr,0.07067499514037204,cf_median
-295,Azores Islands,soil_erosion,t soil/ha/yr,,cf_median
-296,Bahamas,soil_erosion,t soil/ha/yr,,cf_median
-297,Bahrain,soil_erosion,t soil/ha/yr,,cf_median
-298,Baker Island,soil_erosion,t soil/ha/yr,,cf_median
-299,Bangladesh,soil_erosion,t soil/ha/yr,,cf_median
-300,Barbados,soil_erosion,t soil/ha/yr,,cf_median
-301,Bassas da India,soil_erosion,t soil/ha/yr,,cf_median
-302,Belarus,soil_erosion,t soil/ha/yr,0.008783023434618387,cf_median
-303,Belgium,soil_erosion,t soil/ha/yr,0.016517049601394027,cf_median
-304,Belize,soil_erosion,t soil/ha/yr,,cf_median
-305,Benin,soil_erosion,t soil/ha/yr,,cf_median
-306,Bermuda,soil_erosion,t soil/ha/yr,,cf_median
-307,Bhutan,soil_erosion,t soil/ha/yr,,cf_median
-308,Bird Island,soil_erosion,t soil/ha/yr,,cf_median
-309,Bolivia,soil_erosion,t soil/ha/yr,,cf_median
-310,Bosnia and Herzegovina,soil_erosion,t soil/ha/yr,0.38309425481863446,cf_median
-311,Botswana,soil_erosion,t soil/ha/yr,,cf_median
-312,Bouvet Island,soil_erosion,t soil/ha/yr,,cf_median
-313,Brazil,soil_erosion,t soil/ha/yr,,cf_median
-314,British Indian Ocean Territory,soil_erosion,t soil/ha/yr,,cf_median
-315,British Virgin Islands,soil_erosion,t soil/ha/yr,,cf_median
-316,Brunei Darussalam,soil_erosion,t soil/ha/yr,,cf_median
-317,Bulgaria,soil_erosion,t soil/ha/yr,0.08855909923595008,cf_median
-318,Burkina Faso,soil_erosion,t soil/ha/yr,,cf_median
-319,Burundi,soil_erosion,t soil/ha/yr,,cf_median
-320,Cambodia,soil_erosion,t soil/ha/yr,,cf_median
-321,Cameroon,soil_erosion,t soil/ha/yr,,cf_median
-322,Canada,soil_erosion,t soil/ha/yr,0.02266574008495719,cf_median
-323,Cape Verde,soil_erosion,t soil/ha/yr,,cf_median
-324,Cayman Islands,soil_erosion,t soil/ha/yr,,cf_median
-325,Central African Republic,soil_erosion,t soil/ha/yr,,cf_median
-326,Chad,soil_erosion,t soil/ha/yr,,cf_median
-327,Chile,soil_erosion,t soil/ha/yr,0.45300657633356306,cf_median
-328,China,soil_erosion,t soil/ha/yr,0.0767067799916873,cf_median
-329,China/India,soil_erosion,t soil/ha/yr,,cf_median
-330,Christmas Island,soil_erosion,t soil/ha/yr,,cf_median
-331,Clipperton Island,soil_erosion,t soil/ha/yr,,cf_median
-332,Cocos (Keeling) Islands,soil_erosion,t soil/ha/yr,,cf_median
-333,Colombia,soil_erosion,t soil/ha/yr,,cf_median
-334,Comoros,soil_erosion,t soil/ha/yr,,cf_median
-335,Congo,soil_erosion,t soil/ha/yr,,cf_median
-336,Cook Islands,soil_erosion,t soil/ha/yr,,cf_median
-337,Costa Rica,soil_erosion,t soil/ha/yr,,cf_median
-338,Croatia,soil_erosion,t soil/ha/yr,0.14302059150551524,cf_median
-339,Cuba,soil_erosion,t soil/ha/yr,,cf_median
-340,Cyprus,soil_erosion,t soil/ha/yr,,cf_median
-341,Czech Republic,soil_erosion,t soil/ha/yr,0.03287068627602013,cf_median
-342,Côte d'Ivoire,soil_erosion,t soil/ha/yr,,cf_median
-343,Dem People's Rep of Korea,soil_erosion,t soil/ha/yr,0.8636197845317383,cf_median
-344,Democratic Republic of the Congo,soil_erosion,t soil/ha/yr,,cf_median
-345,Denmark,soil_erosion,t soil/ha/yr,0.014106654927143211,cf_median
-346,Djibouti,soil_erosion,t soil/ha/yr,,cf_median
-347,Dominica,soil_erosion,t soil/ha/yr,,cf_median
-348,Dominican Republic,soil_erosion,t soil/ha/yr,,cf_median
-349,Ecuador,soil_erosion,t soil/ha/yr,,cf_median
-350,Egypt,soil_erosion,t soil/ha/yr,,cf_median
-351,El Salvador,soil_erosion,t soil/ha/yr,,cf_median
-352,Equatorial Guinea,soil_erosion,t soil/ha/yr,,cf_median
-353,Eritrea,soil_erosion,t soil/ha/yr,,cf_median
-354,Estonia,soil_erosion,t soil/ha/yr,0.010636566261946973,cf_median
-355,Ethiopia,soil_erosion,t soil/ha/yr,,cf_median
-356,Europa Island,soil_erosion,t soil/ha/yr,,cf_median
-357,Falkland Islands (Malvinas),soil_erosion,t soil/ha/yr,,cf_median
-358,Faroe Islands,soil_erosion,t soil/ha/yr,,cf_median
-359,Fiji,soil_erosion,t soil/ha/yr,,cf_median
-360,Finland,soil_erosion,t soil/ha/yr,0.0085627341828677,cf_median
-361,France,soil_erosion,t soil/ha/yr,0.025553194353595987,cf_median
-362,French Guiana,soil_erosion,t soil/ha/yr,,cf_median
-363,French Polynesia,soil_erosion,t soil/ha/yr,,cf_median
-364,French Southern and Antarctic Territories,soil_erosion,t soil/ha/yr,,cf_median
-365,Gabon,soil_erosion,t soil/ha/yr,,cf_median
-366,Gambia,soil_erosion,t soil/ha/yr,,cf_median
-367,Gaza Strip,soil_erosion,t soil/ha/yr,,cf_median
-368,Georgia,soil_erosion,t soil/ha/yr,0.5226963521437992,cf_median
-369,Germany,soil_erosion,t soil/ha/yr,0.022180757441334083,cf_median
-370,Ghana,soil_erosion,t soil/ha/yr,,cf_median
-371,Gibraltar,soil_erosion,t soil/ha/yr,,cf_median
-372,Glorioso Island,soil_erosion,t soil/ha/yr,,cf_median
-373,Greece,soil_erosion,t soil/ha/yr,0.11442313435008784,cf_median
-374,Greenland,soil_erosion,t soil/ha/yr,,cf_median
-375,Grenada,soil_erosion,t soil/ha/yr,,cf_median
-376,Guadeloupe,soil_erosion,t soil/ha/yr,,cf_median
-377,Guam,soil_erosion,t soil/ha/yr,,cf_median
-378,Guatemala,soil_erosion,t soil/ha/yr,,cf_median
-379,Guernsey,soil_erosion,t soil/ha/yr,,cf_median
-380,Guinea,soil_erosion,t soil/ha/yr,,cf_median
-381,Guinea-Bissau,soil_erosion,t soil/ha/yr,,cf_median
-382,Guyana,soil_erosion,t soil/ha/yr,,cf_median
-383,Haiti,soil_erosion,t soil/ha/yr,,cf_median
-384,Hala'ib triangle,soil_erosion,t soil/ha/yr,,cf_median
-385,Heard Island and McDonald Islands,soil_erosion,t soil/ha/yr,,cf_median
-386,Holy See,soil_erosion,t soil/ha/yr,,cf_median
-387,Honduras,soil_erosion,t soil/ha/yr,,cf_median
-388,Hong Kong,soil_erosion,t soil/ha/yr,,cf_median
-389,Howland Island,soil_erosion,t soil/ha/yr,,cf_median
-390,Hungary,soil_erosion,t soil/ha/yr,0.016455439493477504,cf_median
-391,Iceland,soil_erosion,t soil/ha/yr,,cf_median
-392,Ilemi triangle,soil_erosion,t soil/ha/yr,,cf_median
-393,India,soil_erosion,t soil/ha/yr,,cf_median
-394,Indonesia,soil_erosion,t soil/ha/yr,,cf_median
-395,Iran  (Islamic Republic of),soil_erosion,t soil/ha/yr,0.03107240744091396,cf_median
-396,Iraq,soil_erosion,t soil/ha/yr,0.1167730525224148,cf_median
-397,Ireland,soil_erosion,t soil/ha/yr,0.02633201411949156,cf_median
-398,Isle of Man,soil_erosion,t soil/ha/yr,,cf_median
-399,Israel,soil_erosion,t soil/ha/yr,,cf_median
-400,Italy,soil_erosion,t soil/ha/yr,0.32564590495777845,cf_median
-401,Jamaica,soil_erosion,t soil/ha/yr,,cf_median
-402,Jammu and Kashmir,soil_erosion,t soil/ha/yr,,cf_median
-403,Japan,soil_erosion,t soil/ha/yr,1.4479082239668286,cf_median
-404,Jarvis Island,soil_erosion,t soil/ha/yr,,cf_median
-405,Jersey,soil_erosion,t soil/ha/yr,,cf_median
-406,Johnston Atoll,soil_erosion,t soil/ha/yr,,cf_median
-407,Jordan,soil_erosion,t soil/ha/yr,,cf_median
-408,Juan de Nova Island,soil_erosion,t soil/ha/yr,,cf_median
-409,Kazakhstan,soil_erosion,t soil/ha/yr,0.005200245378107151,cf_median
-410,Kenya,soil_erosion,t soil/ha/yr,,cf_median
-411,Kingman Reef,soil_erosion,t soil/ha/yr,,cf_median
-412,Kiribati,soil_erosion,t soil/ha/yr,,cf_median
-413,Kuril islands,soil_erosion,t soil/ha/yr,,cf_median
-414,Kuwait,soil_erosion,t soil/ha/yr,,cf_median
-415,Kyrgyzstan,soil_erosion,t soil/ha/yr,0.20059115292513033,cf_median
-416,Lao People's Democratic Republic,soil_erosion,t soil/ha/yr,,cf_median
-417,Latvia,soil_erosion,t soil/ha/yr,0.013351193626889782,cf_median
-418,Lebanon,soil_erosion,t soil/ha/yr,,cf_median
-419,Lesotho,soil_erosion,t soil/ha/yr,,cf_median
-420,Liberia,soil_erosion,t soil/ha/yr,,cf_median
-421,Libya,soil_erosion,t soil/ha/yr,,cf_median
-422,Liechtenstein,soil_erosion,t soil/ha/yr,,cf_median
-423,Lithuania,soil_erosion,t soil/ha/yr,0.010841281597271435,cf_median
-424,Luxembourg,soil_erosion,t soil/ha/yr,0.06920399175012967,cf_median
-425,Ma'tan al-Sarra,soil_erosion,t soil/ha/yr,,cf_median
-426,Macau,soil_erosion,t soil/ha/yr,,cf_median
-427,Madagascar,soil_erosion,t soil/ha/yr,,cf_median
-428,Madeira Islands,soil_erosion,t soil/ha/yr,,cf_median
-429,Malawi,soil_erosion,t soil/ha/yr,,cf_median
-430,Malaysia,soil_erosion,t soil/ha/yr,,cf_median
-431,Maldives,soil_erosion,t soil/ha/yr,,cf_median
-432,Mali,soil_erosion,t soil/ha/yr,,cf_median
-433,Malta,soil_erosion,t soil/ha/yr,,cf_median
-434,Marshall Islands,soil_erosion,t soil/ha/yr,,cf_median
-435,Martinique,soil_erosion,t soil/ha/yr,,cf_median
-436,Mauritania,soil_erosion,t soil/ha/yr,,cf_median
-437,Mauritius,soil_erosion,t soil/ha/yr,,cf_median
-438,Mayotte,soil_erosion,t soil/ha/yr,,cf_median
-439,Mexico,soil_erosion,t soil/ha/yr,,cf_median
-440,Micronesia (Federated States of),soil_erosion,t soil/ha/yr,,cf_median
-441,Midway Island,soil_erosion,t soil/ha/yr,,cf_median
-442,"Moldova, Republic of",soil_erosion,t soil/ha/yr,0.049652444441931114,cf_median
-443,Monaco,soil_erosion,t soil/ha/yr,,cf_median
-444,Mongolia,soil_erosion,t soil/ha/yr,0.032822041024071304,cf_median
-445,Montenegro,soil_erosion,t soil/ha/yr,0.5030030871407355,cf_median
-446,Montserrat,soil_erosion,t soil/ha/yr,,cf_median
-447,Morocco,soil_erosion,t soil/ha/yr,,cf_median
-448,Mozambique,soil_erosion,t soil/ha/yr,,cf_median
-449,Myanmar,soil_erosion,t soil/ha/yr,,cf_median
-450,Namibia,soil_erosion,t soil/ha/yr,,cf_median
-451,Nauru,soil_erosion,t soil/ha/yr,,cf_median
-452,Navassa Island,soil_erosion,t soil/ha/yr,,cf_median
-453,Nepal,soil_erosion,t soil/ha/yr,,cf_median
-454,Netherlands,soil_erosion,t soil/ha/yr,0.007825714759650828,cf_median
-455,Netherlands Antilles,soil_erosion,t soil/ha/yr,,cf_median
-456,New Caledonia,soil_erosion,t soil/ha/yr,,cf_median
-457,New Zealand,soil_erosion,t soil/ha/yr,0.1207075428024641,cf_median
-458,Nicaragua,soil_erosion,t soil/ha/yr,,cf_median
-459,Niger,soil_erosion,t soil/ha/yr,,cf_median
-460,Nigeria,soil_erosion,t soil/ha/yr,,cf_median
-461,Niue,soil_erosion,t soil/ha/yr,,cf_median
-462,Norfolk Island,soil_erosion,t soil/ha/yr,,cf_median
-463,Northern Mariana Islands,soil_erosion,t soil/ha/yr,,cf_median
-464,Norway,soil_erosion,t soil/ha/yr,0.1612146295118205,cf_median
-465,Oman,soil_erosion,t soil/ha/yr,,cf_median
-466,Pakistan,soil_erosion,t soil/ha/yr,,cf_median
-467,Palau,soil_erosion,t soil/ha/yr,,cf_median
-468,Palmyra Atoll,soil_erosion,t soil/ha/yr,,cf_median
-469,Panama,soil_erosion,t soil/ha/yr,,cf_median
-470,Papua New Guinea,soil_erosion,t soil/ha/yr,,cf_median
-471,Paracel Islands,soil_erosion,t soil/ha/yr,,cf_median
-472,Paraguay,soil_erosion,t soil/ha/yr,,cf_median
-473,Peru,soil_erosion,t soil/ha/yr,,cf_median
-474,Philippines,soil_erosion,t soil/ha/yr,,cf_median
-475,Pitcairn,soil_erosion,t soil/ha/yr,,cf_median
-476,Poland,soil_erosion,t soil/ha/yr,0.01043316684614098,cf_median
-477,Portugal,soil_erosion,t soil/ha/yr,,cf_median
-478,Puerto Rico,soil_erosion,t soil/ha/yr,,cf_median
-479,Qatar,soil_erosion,t soil/ha/yr,,cf_median
-480,Republic of Korea,soil_erosion,t soil/ha/yr,1.7889471229196214,cf_median
-481,Romania,soil_erosion,t soil/ha/yr,0.06697682958230752,cf_median
-482,Russian Federation,soil_erosion,t soil/ha/yr,0.014968775810491228,cf_median
-483,Rwanda,soil_erosion,t soil/ha/yr,,cf_median
-484,Réunion,soil_erosion,t soil/ha/yr,,cf_median
-485,Saint Helena,soil_erosion,t soil/ha/yr,,cf_median
-486,Saint Kitts and Nevis,soil_erosion,t soil/ha/yr,,cf_median
-487,Saint Lucia,soil_erosion,t soil/ha/yr,,cf_median
-488,Saint Pierre et Miquelon,soil_erosion,t soil/ha/yr,,cf_median
-489,Saint Vincent and the Grenadines,soil_erosion,t soil/ha/yr,,cf_median
-490,Samoa,soil_erosion,t soil/ha/yr,,cf_median
-491,San Marino,soil_erosion,t soil/ha/yr,,cf_median
-492,Sao Tome and Principe,soil_erosion,t soil/ha/yr,,cf_median
-493,Saudi Arabia,soil_erosion,t soil/ha/yr,,cf_median
-494,Scarborough Reef,soil_erosion,t soil/ha/yr,,cf_median
-495,Senegal,soil_erosion,t soil/ha/yr,,cf_median
-496,Senkaku Islands,soil_erosion,t soil/ha/yr,,cf_median
-497,Serbia,soil_erosion,t soil/ha/yr,0.12396952299103674,cf_median
-498,Seychelles,soil_erosion,t soil/ha/yr,,cf_median
-499,Sierra Leone,soil_erosion,t soil/ha/yr,,cf_median
-500,Singapore,soil_erosion,t soil/ha/yr,,cf_median
-501,Slovakia,soil_erosion,t soil/ha/yr,0.09494269475991327,cf_median
-502,Slovenia,soil_erosion,t soil/ha/yr,0.688942428084069,cf_median
-503,Solomon Islands,soil_erosion,t soil/ha/yr,,cf_median
-504,Somalia,soil_erosion,t soil/ha/yr,,cf_median
-505,South Africa,soil_erosion,t soil/ha/yr,,cf_median
-506,South Georgia and the South Sandwich Islands,soil_erosion,t soil/ha/yr,,cf_median
-507,South Sudan,soil_erosion,t soil/ha/yr,,cf_median
-508,Spain,soil_erosion,t soil/ha/yr,,cf_median
-509,Spratly Islands,soil_erosion,t soil/ha/yr,,cf_median
-510,Sri Lanka,soil_erosion,t soil/ha/yr,,cf_median
-511,Sudan,soil_erosion,t soil/ha/yr,,cf_median
-512,Suriname,soil_erosion,t soil/ha/yr,,cf_median
-513,Svalbard and Jan Mayen Islands,soil_erosion,t soil/ha/yr,,cf_median
-514,Swaziland,soil_erosion,t soil/ha/yr,,cf_median
-515,Sweden,soil_erosion,t soil/ha/yr,0.013876968701730646,cf_median
-516,Switzerland,soil_erosion,t soil/ha/yr,0.5057265309783286,cf_median
-517,Syrian Arab Republic,soil_erosion,t soil/ha/yr,,cf_median
-518,Taiwan,soil_erosion,t soil/ha/yr,,cf_median
-519,Tajikistan,soil_erosion,t soil/ha/yr,0.3081242766125014,cf_median
-520,Thailand,soil_erosion,t soil/ha/yr,,cf_median
-521,The former Yugoslav Republic of Macedonia,soil_erosion,t soil/ha/yr,0.20975376394142833,cf_median
-522,Timor-Leste,soil_erosion,t soil/ha/yr,,cf_median
-523,Togo,soil_erosion,t soil/ha/yr,,cf_median
-524,Tokelau,soil_erosion,t soil/ha/yr,,cf_median
-525,Tonga,soil_erosion,t soil/ha/yr,,cf_median
-526,Trinidad and Tobago,soil_erosion,t soil/ha/yr,,cf_median
-527,Tromelin Island,soil_erosion,t soil/ha/yr,,cf_median
-528,Tunisia,soil_erosion,t soil/ha/yr,,cf_median
-529,Turkey,soil_erosion,t soil/ha/yr,0.06097604042337486,cf_median
-530,Turkmenistan,soil_erosion,t soil/ha/yr,0.0070799957873515515,cf_median
-531,Turks and Caicos islands,soil_erosion,t soil/ha/yr,,cf_median
-532,Tuvalu,soil_erosion,t soil/ha/yr,,cf_median
-533,U.K. of Great Britain and Northern Ireland,soil_erosion,t soil/ha/yr,0.03632295131954807,cf_median
-534,Uganda,soil_erosion,t soil/ha/yr,,cf_median
-535,Ukraine,soil_erosion,t soil/ha/yr,0.012980518486024599,cf_median
-536,United Arab Emirates,soil_erosion,t soil/ha/yr,,cf_median
-537,United Republic of Tanzania,soil_erosion,t soil/ha/yr,,cf_median
-538,United States Virgin Islands,soil_erosion,t soil/ha/yr,,cf_median
-539,United States of America,soil_erosion,t soil/ha/yr,0.08444521754335364,cf_median
-540,Uruguay,soil_erosion,t soil/ha/yr,,cf_median
-541,Uzbekistan,soil_erosion,t soil/ha/yr,0.0050723470321491024,cf_median
-542,Vanuatu,soil_erosion,t soil/ha/yr,,cf_median
-543,Venezuela,soil_erosion,t soil/ha/yr,,cf_median
-544,Viet Nam,soil_erosion,t soil/ha/yr,,cf_median
-545,Wake Island,soil_erosion,t soil/ha/yr,,cf_median
-546,Wallis and Futuna,soil_erosion,t soil/ha/yr,,cf_median
-547,West Bank,soil_erosion,t soil/ha/yr,,cf_median
-548,Western Sahara,soil_erosion,t soil/ha/yr,,cf_median
-549,Yemen,soil_erosion,t soil/ha/yr,,cf_median
-550,Zambia,soil_erosion,t soil/ha/yr,,cf_median
-551,Zimbabwe,soil_erosion,t soil/ha/yr,,cf_median
-552,Abyei,soil_erosion,t soil/ha/yr,,cf_std
-553,Afghanistan,soil_erosion,t soil/ha/yr,0.10464795658753487,cf_std
-554,Aksai Chin,soil_erosion,t soil/ha/yr,,cf_std
-555,Albania,soil_erosion,t soil/ha/yr,0.37281812082155313,cf_std
-556,Algeria,soil_erosion,t soil/ha/yr,,cf_std
-557,American Samoa,soil_erosion,t soil/ha/yr,,cf_std
-558,Andorra,soil_erosion,t soil/ha/yr,,cf_std
-559,Angola,soil_erosion,t soil/ha/yr,,cf_std
-560,Anguilla,soil_erosion,t soil/ha/yr,,cf_std
-561,Antarctica,soil_erosion,t soil/ha/yr,,cf_std
-562,Antigua and Barbuda,soil_erosion,t soil/ha/yr,,cf_std
-563,Argentina,soil_erosion,t soil/ha/yr,0.08807542839793646,cf_std
-564,Armenia,soil_erosion,t soil/ha/yr,0.14367803045872116,cf_std
-565,Aruba,soil_erosion,t soil/ha/yr,,cf_std
-566,Arunachal Pradesh,soil_erosion,t soil/ha/yr,,cf_std
-567,Ashmore and Cartier Islands,soil_erosion,t soil/ha/yr,,cf_std
-568,Australia,soil_erosion,t soil/ha/yr,0.16540972704003806,cf_std
-569,Austria,soil_erosion,t soil/ha/yr,0.37983221076965296,cf_std
-570,Azerbaijan,soil_erosion,t soil/ha/yr,0.22966233298213096,cf_std
-571,Azores Islands,soil_erosion,t soil/ha/yr,,cf_std
-572,Bahamas,soil_erosion,t soil/ha/yr,,cf_std
-573,Bahrain,soil_erosion,t soil/ha/yr,,cf_std
-574,Baker Island,soil_erosion,t soil/ha/yr,,cf_std
-575,Bangladesh,soil_erosion,t soil/ha/yr,,cf_std
-576,Barbados,soil_erosion,t soil/ha/yr,,cf_std
-577,Bassas da India,soil_erosion,t soil/ha/yr,,cf_std
-578,Belarus,soil_erosion,t soil/ha/yr,0.003510960283374021,cf_std
-579,Belgium,soil_erosion,t soil/ha/yr,0.04551480375455708,cf_std
-580,Belize,soil_erosion,t soil/ha/yr,,cf_std
-581,Benin,soil_erosion,t soil/ha/yr,,cf_std
-582,Bermuda,soil_erosion,t soil/ha/yr,,cf_std
-583,Bhutan,soil_erosion,t soil/ha/yr,,cf_std
-584,Bird Island,soil_erosion,t soil/ha/yr,,cf_std
-585,Bolivia,soil_erosion,t soil/ha/yr,,cf_std
-586,Bosnia and Herzegovina,soil_erosion,t soil/ha/yr,0.31536195075209084,cf_std
-587,Botswana,soil_erosion,t soil/ha/yr,,cf_std
-588,Bouvet Island,soil_erosion,t soil/ha/yr,,cf_std
-589,Brazil,soil_erosion,t soil/ha/yr,,cf_std
-590,British Indian Ocean Territory,soil_erosion,t soil/ha/yr,,cf_std
-591,British Virgin Islands,soil_erosion,t soil/ha/yr,,cf_std
-592,Brunei Darussalam,soil_erosion,t soil/ha/yr,,cf_std
-593,Bulgaria,soil_erosion,t soil/ha/yr,0.08346151808020007,cf_std
-594,Burkina Faso,soil_erosion,t soil/ha/yr,,cf_std
-595,Burundi,soil_erosion,t soil/ha/yr,,cf_std
-596,Cambodia,soil_erosion,t soil/ha/yr,,cf_std
-597,Cameroon,soil_erosion,t soil/ha/yr,,cf_std
-598,Canada,soil_erosion,t soil/ha/yr,0.1605808711467988,cf_std
-599,Cape Verde,soil_erosion,t soil/ha/yr,,cf_std
-600,Cayman Islands,soil_erosion,t soil/ha/yr,,cf_std
-601,Central African Republic,soil_erosion,t soil/ha/yr,,cf_std
-602,Chad,soil_erosion,t soil/ha/yr,,cf_std
-603,Chile,soil_erosion,t soil/ha/yr,0.9462880916288214,cf_std
-604,China,soil_erosion,t soil/ha/yr,0.2891336067044782,cf_std
-605,China/India,soil_erosion,t soil/ha/yr,,cf_std
-606,Christmas Island,soil_erosion,t soil/ha/yr,,cf_std
-607,Clipperton Island,soil_erosion,t soil/ha/yr,,cf_std
-608,Cocos (Keeling) Islands,soil_erosion,t soil/ha/yr,,cf_std
-609,Colombia,soil_erosion,t soil/ha/yr,,cf_std
-610,Comoros,soil_erosion,t soil/ha/yr,,cf_std
-611,Congo,soil_erosion,t soil/ha/yr,,cf_std
-612,Cook Islands,soil_erosion,t soil/ha/yr,,cf_std
-613,Costa Rica,soil_erosion,t soil/ha/yr,,cf_std
-614,Croatia,soil_erosion,t soil/ha/yr,0.32692389270600475,cf_std
-615,Cuba,soil_erosion,t soil/ha/yr,,cf_std
-616,Cyprus,soil_erosion,t soil/ha/yr,,cf_std
-617,Czech Republic,soil_erosion,t soil/ha/yr,0.04297945420512956,cf_std
-618,Côte d'Ivoire,soil_erosion,t soil/ha/yr,,cf_std
-619,Dem People's Rep of Korea,soil_erosion,t soil/ha/yr,0.994673616329354,cf_std
-620,Democratic Republic of the Congo,soil_erosion,t soil/ha/yr,,cf_std
-621,Denmark,soil_erosion,t soil/ha/yr,0.005459266821860605,cf_std
-622,Djibouti,soil_erosion,t soil/ha/yr,,cf_std
-623,Dominica,soil_erosion,t soil/ha/yr,,cf_std
-624,Dominican Republic,soil_erosion,t soil/ha/yr,,cf_std
-625,Ecuador,soil_erosion,t soil/ha/yr,,cf_std
-626,Egypt,soil_erosion,t soil/ha/yr,,cf_std
-627,El Salvador,soil_erosion,t soil/ha/yr,,cf_std
-628,Equatorial Guinea,soil_erosion,t soil/ha/yr,,cf_std
-629,Eritrea,soil_erosion,t soil/ha/yr,,cf_std
-630,Estonia,soil_erosion,t soil/ha/yr,0.004189560960864385,cf_std
-631,Ethiopia,soil_erosion,t soil/ha/yr,,cf_std
-632,Europa Island,soil_erosion,t soil/ha/yr,,cf_std
-633,Falkland Islands (Malvinas),soil_erosion,t soil/ha/yr,,cf_std
-634,Faroe Islands,soil_erosion,t soil/ha/yr,,cf_std
-635,Fiji,soil_erosion,t soil/ha/yr,,cf_std
-636,Finland,soil_erosion,t soil/ha/yr,0.00503842754269736,cf_std
-637,France,soil_erosion,t soil/ha/yr,0.13756119851150211,cf_std
-638,French Guiana,soil_erosion,t soil/ha/yr,,cf_std
-639,French Polynesia,soil_erosion,t soil/ha/yr,,cf_std
-640,French Southern and Antarctic Territories,soil_erosion,t soil/ha/yr,,cf_std
-641,Gabon,soil_erosion,t soil/ha/yr,,cf_std
-642,Gambia,soil_erosion,t soil/ha/yr,,cf_std
-643,Gaza Strip,soil_erosion,t soil/ha/yr,,cf_std
-644,Georgia,soil_erosion,t soil/ha/yr,0.5302586894122515,cf_std
-645,Germany,soil_erosion,t soil/ha/yr,0.05935374315501522,cf_std
-646,Ghana,soil_erosion,t soil/ha/yr,,cf_std
-647,Gibraltar,soil_erosion,t soil/ha/yr,,cf_std
-648,Glorioso Island,soil_erosion,t soil/ha/yr,,cf_std
-649,Greece,soil_erosion,t soil/ha/yr,0.1373472124009,cf_std
-650,Greenland,soil_erosion,t soil/ha/yr,,cf_std
-651,Grenada,soil_erosion,t soil/ha/yr,,cf_std
-652,Guadeloupe,soil_erosion,t soil/ha/yr,,cf_std
-653,Guam,soil_erosion,t soil/ha/yr,,cf_std
-654,Guatemala,soil_erosion,t soil/ha/yr,,cf_std
-655,Guernsey,soil_erosion,t soil/ha/yr,,cf_std
-656,Guinea,soil_erosion,t soil/ha/yr,,cf_std
-657,Guinea-Bissau,soil_erosion,t soil/ha/yr,,cf_std
-658,Guyana,soil_erosion,t soil/ha/yr,,cf_std
-659,Haiti,soil_erosion,t soil/ha/yr,,cf_std
-660,Hala'ib triangle,soil_erosion,t soil/ha/yr,,cf_std
-661,Heard Island and McDonald Islands,soil_erosion,t soil/ha/yr,,cf_std
-662,Holy See,soil_erosion,t soil/ha/yr,,cf_std
-663,Honduras,soil_erosion,t soil/ha/yr,,cf_std
-664,Hong Kong,soil_erosion,t soil/ha/yr,,cf_std
-665,Howland Island,soil_erosion,t soil/ha/yr,,cf_std
-666,Hungary,soil_erosion,t soil/ha/yr,0.027060219310732554,cf_std
-667,Iceland,soil_erosion,t soil/ha/yr,,cf_std
-668,Ilemi triangle,soil_erosion,t soil/ha/yr,,cf_std
-669,India,soil_erosion,t soil/ha/yr,,cf_std
-670,Indonesia,soil_erosion,t soil/ha/yr,,cf_std
-671,Iran  (Islamic Republic of),soil_erosion,t soil/ha/yr,0.07369519930013399,cf_std
-672,Iraq,soil_erosion,t soil/ha/yr,0.17454604565964585,cf_std
-673,Ireland,soil_erosion,t soil/ha/yr,0.0670139951538483,cf_std
-674,Isle of Man,soil_erosion,t soil/ha/yr,,cf_std
-675,Israel,soil_erosion,t soil/ha/yr,,cf_std
-676,Italy,soil_erosion,t soil/ha/yr,0.4881887663820027,cf_std
-677,Jamaica,soil_erosion,t soil/ha/yr,,cf_std
-678,Jammu and Kashmir,soil_erosion,t soil/ha/yr,,cf_std
-679,Japan,soil_erosion,t soil/ha/yr,3.0691961432252057,cf_std
-680,Jarvis Island,soil_erosion,t soil/ha/yr,,cf_std
-681,Jersey,soil_erosion,t soil/ha/yr,,cf_std
-682,Johnston Atoll,soil_erosion,t soil/ha/yr,,cf_std
-683,Jordan,soil_erosion,t soil/ha/yr,,cf_std
-684,Juan de Nova Island,soil_erosion,t soil/ha/yr,,cf_std
-685,Kazakhstan,soil_erosion,t soil/ha/yr,0.03161307419226395,cf_std
-686,Kenya,soil_erosion,t soil/ha/yr,,cf_std
-687,Kingman Reef,soil_erosion,t soil/ha/yr,,cf_std
-688,Kiribati,soil_erosion,t soil/ha/yr,,cf_std
-689,Kuril islands,soil_erosion,t soil/ha/yr,,cf_std
-690,Kuwait,soil_erosion,t soil/ha/yr,,cf_std
-691,Kyrgyzstan,soil_erosion,t soil/ha/yr,0.2599725437164811,cf_std
-692,Lao People's Democratic Republic,soil_erosion,t soil/ha/yr,,cf_std
-693,Latvia,soil_erosion,t soil/ha/yr,0.006224664847038002,cf_std
-694,Lebanon,soil_erosion,t soil/ha/yr,,cf_std
-695,Lesotho,soil_erosion,t soil/ha/yr,,cf_std
-696,Liberia,soil_erosion,t soil/ha/yr,,cf_std
-697,Libya,soil_erosion,t soil/ha/yr,,cf_std
-698,Liechtenstein,soil_erosion,t soil/ha/yr,,cf_std
-699,Lithuania,soil_erosion,t soil/ha/yr,0.0038438968105118563,cf_std
-700,Luxembourg,soil_erosion,t soil/ha/yr,0.08258641360050271,cf_std
-701,Ma'tan al-Sarra,soil_erosion,t soil/ha/yr,,cf_std
-702,Macau,soil_erosion,t soil/ha/yr,,cf_std
-703,Madagascar,soil_erosion,t soil/ha/yr,,cf_std
-704,Madeira Islands,soil_erosion,t soil/ha/yr,,cf_std
-705,Malawi,soil_erosion,t soil/ha/yr,,cf_std
-706,Malaysia,soil_erosion,t soil/ha/yr,,cf_std
-707,Maldives,soil_erosion,t soil/ha/yr,,cf_std
-708,Mali,soil_erosion,t soil/ha/yr,,cf_std
-709,Malta,soil_erosion,t soil/ha/yr,,cf_std
-710,Marshall Islands,soil_erosion,t soil/ha/yr,,cf_std
-711,Martinique,soil_erosion,t soil/ha/yr,,cf_std
-712,Mauritania,soil_erosion,t soil/ha/yr,,cf_std
-713,Mauritius,soil_erosion,t soil/ha/yr,,cf_std
-714,Mayotte,soil_erosion,t soil/ha/yr,,cf_std
-715,Mexico,soil_erosion,t soil/ha/yr,,cf_std
-716,Micronesia (Federated States of),soil_erosion,t soil/ha/yr,,cf_std
-717,Midway Island,soil_erosion,t soil/ha/yr,,cf_std
-718,"Moldova, Republic of",soil_erosion,t soil/ha/yr,0.02493598379485659,cf_std
-719,Monaco,soil_erosion,t soil/ha/yr,,cf_std
-720,Mongolia,soil_erosion,t soil/ha/yr,0.09278438947308827,cf_std
-721,Montenegro,soil_erosion,t soil/ha/yr,0.2851446662842822,cf_std
-722,Montserrat,soil_erosion,t soil/ha/yr,,cf_std
-723,Morocco,soil_erosion,t soil/ha/yr,,cf_std
-724,Mozambique,soil_erosion,t soil/ha/yr,,cf_std
-725,Myanmar,soil_erosion,t soil/ha/yr,,cf_std
-726,Namibia,soil_erosion,t soil/ha/yr,,cf_std
-727,Nauru,soil_erosion,t soil/ha/yr,,cf_std
-728,Navassa Island,soil_erosion,t soil/ha/yr,,cf_std
-729,Nepal,soil_erosion,t soil/ha/yr,,cf_std
-730,Netherlands,soil_erosion,t soil/ha/yr,0.0029438398280664025,cf_std
-731,Netherlands Antilles,soil_erosion,t soil/ha/yr,,cf_std
-732,New Caledonia,soil_erosion,t soil/ha/yr,,cf_std
-733,New Zealand,soil_erosion,t soil/ha/yr,0.7183446623830441,cf_std
-734,Nicaragua,soil_erosion,t soil/ha/yr,,cf_std
-735,Niger,soil_erosion,t soil/ha/yr,,cf_std
-736,Nigeria,soil_erosion,t soil/ha/yr,,cf_std
-737,Niue,soil_erosion,t soil/ha/yr,,cf_std
-738,Norfolk Island,soil_erosion,t soil/ha/yr,,cf_std
-739,Northern Mariana Islands,soil_erosion,t soil/ha/yr,,cf_std
-740,Norway,soil_erosion,t soil/ha/yr,0.6231332549886877,cf_std
-741,Oman,soil_erosion,t soil/ha/yr,,cf_std
-742,Pakistan,soil_erosion,t soil/ha/yr,,cf_std
-743,Palau,soil_erosion,t soil/ha/yr,,cf_std
-744,Palmyra Atoll,soil_erosion,t soil/ha/yr,,cf_std
-745,Panama,soil_erosion,t soil/ha/yr,,cf_std
-746,Papua New Guinea,soil_erosion,t soil/ha/yr,,cf_std
-747,Paracel Islands,soil_erosion,t soil/ha/yr,,cf_std
-748,Paraguay,soil_erosion,t soil/ha/yr,,cf_std
-749,Peru,soil_erosion,t soil/ha/yr,,cf_std
-750,Philippines,soil_erosion,t soil/ha/yr,,cf_std
-751,Pitcairn,soil_erosion,t soil/ha/yr,,cf_std
-752,Poland,soil_erosion,t soil/ha/yr,0.022145387443203463,cf_std
-753,Portugal,soil_erosion,t soil/ha/yr,,cf_std
-754,Puerto Rico,soil_erosion,t soil/ha/yr,,cf_std
-755,Qatar,soil_erosion,t soil/ha/yr,,cf_std
-756,Republic of Korea,soil_erosion,t soil/ha/yr,1.2231124520562913,cf_std
-757,Romania,soil_erosion,t soil/ha/yr,0.09784293377017203,cf_std
-758,Russian Federation,soil_erosion,t soil/ha/yr,0.09975046249967576,cf_std
-759,Rwanda,soil_erosion,t soil/ha/yr,,cf_std
-760,Réunion,soil_erosion,t soil/ha/yr,,cf_std
-761,Saint Helena,soil_erosion,t soil/ha/yr,,cf_std
-762,Saint Kitts and Nevis,soil_erosion,t soil/ha/yr,,cf_std
-763,Saint Lucia,soil_erosion,t soil/ha/yr,,cf_std
-764,Saint Pierre et Miquelon,soil_erosion,t soil/ha/yr,,cf_std
-765,Saint Vincent and the Grenadines,soil_erosion,t soil/ha/yr,,cf_std
-766,Samoa,soil_erosion,t soil/ha/yr,,cf_std
-767,San Marino,soil_erosion,t soil/ha/yr,,cf_std
-768,Sao Tome and Principe,soil_erosion,t soil/ha/yr,,cf_std
-769,Saudi Arabia,soil_erosion,t soil/ha/yr,,cf_std
-770,Scarborough Reef,soil_erosion,t soil/ha/yr,,cf_std
-771,Senegal,soil_erosion,t soil/ha/yr,,cf_std
-772,Senkaku Islands,soil_erosion,t soil/ha/yr,,cf_std
-773,Serbia,soil_erosion,t soil/ha/yr,0.20794748463472265,cf_std
-774,Seychelles,soil_erosion,t soil/ha/yr,,cf_std
-775,Sierra Leone,soil_erosion,t soil/ha/yr,,cf_std
-776,Singapore,soil_erosion,t soil/ha/yr,,cf_std
-777,Slovakia,soil_erosion,t soil/ha/yr,0.1131593830267421,cf_std
-778,Slovenia,soil_erosion,t soil/ha/yr,0.5638543250541072,cf_std
-779,Solomon Islands,soil_erosion,t soil/ha/yr,,cf_std
-780,Somalia,soil_erosion,t soil/ha/yr,,cf_std
-781,South Africa,soil_erosion,t soil/ha/yr,,cf_std
-782,South Georgia and the South Sandwich Islands,soil_erosion,t soil/ha/yr,,cf_std
-783,South Sudan,soil_erosion,t soil/ha/yr,,cf_std
-784,Spain,soil_erosion,t soil/ha/yr,,cf_std
-785,Spratly Islands,soil_erosion,t soil/ha/yr,,cf_std
-786,Sri Lanka,soil_erosion,t soil/ha/yr,,cf_std
-787,Sudan,soil_erosion,t soil/ha/yr,,cf_std
-788,Suriname,soil_erosion,t soil/ha/yr,,cf_std
-789,Svalbard and Jan Mayen Islands,soil_erosion,t soil/ha/yr,,cf_std
-790,Swaziland,soil_erosion,t soil/ha/yr,,cf_std
-791,Sweden,soil_erosion,t soil/ha/yr,0.012873109819944554,cf_std
-792,Switzerland,soil_erosion,t soil/ha/yr,0.7353032415781445,cf_std
-793,Syrian Arab Republic,soil_erosion,t soil/ha/yr,,cf_std
-794,Taiwan,soil_erosion,t soil/ha/yr,,cf_std
-795,Tajikistan,soil_erosion,t soil/ha/yr,0.502004441877589,cf_std
-796,Thailand,soil_erosion,t soil/ha/yr,,cf_std
-797,The former Yugoslav Republic of Macedonia,soil_erosion,t soil/ha/yr,0.12262020680376329,cf_std
-798,Timor-Leste,soil_erosion,t soil/ha/yr,,cf_std
-799,Togo,soil_erosion,t soil/ha/yr,,cf_std
-800,Tokelau,soil_erosion,t soil/ha/yr,,cf_std
-801,Tonga,soil_erosion,t soil/ha/yr,,cf_std
-802,Trinidad and Tobago,soil_erosion,t soil/ha/yr,,cf_std
-803,Tromelin Island,soil_erosion,t soil/ha/yr,,cf_std
-804,Tunisia,soil_erosion,t soil/ha/yr,,cf_std
-805,Turkey,soil_erosion,t soil/ha/yr,0.10611237058697318,cf_std
-806,Turkmenistan,soil_erosion,t soil/ha/yr,0.010045206114126539,cf_std
-807,Turks and Caicos islands,soil_erosion,t soil/ha/yr,,cf_std
-808,Tuvalu,soil_erosion,t soil/ha/yr,,cf_std
-809,U.K. of Great Britain and Northern Ireland,soil_erosion,t soil/ha/yr,0.18735420071285913,cf_std
-810,Uganda,soil_erosion,t soil/ha/yr,,cf_std
-811,Ukraine,soil_erosion,t soil/ha/yr,0.025546979742605024,cf_std
-812,United Arab Emirates,soil_erosion,t soil/ha/yr,,cf_std
-813,United Republic of Tanzania,soil_erosion,t soil/ha/yr,,cf_std
-814,United States Virgin Islands,soil_erosion,t soil/ha/yr,,cf_std
-815,United States of America,soil_erosion,t soil/ha/yr,0.24835186382320673,cf_std
-816,Uruguay,soil_erosion,t soil/ha/yr,,cf_std
-817,Uzbekistan,soil_erosion,t soil/ha/yr,0.056216059290964675,cf_std
-818,Vanuatu,soil_erosion,t soil/ha/yr,,cf_std
-819,Venezuela,soil_erosion,t soil/ha/yr,,cf_std
-820,Viet Nam,soil_erosion,t soil/ha/yr,,cf_std
-821,Wake Island,soil_erosion,t soil/ha/yr,,cf_std
-822,Wallis and Futuna,soil_erosion,t soil/ha/yr,,cf_std
-823,West Bank,soil_erosion,t soil/ha/yr,,cf_std
-824,Western Sahara,soil_erosion,t soil/ha/yr,,cf_std
-825,Yemen,soil_erosion,t soil/ha/yr,,cf_std
-826,Zambia,soil_erosion,t soil/ha/yr,,cf_std
-827,Zimbabwe,soil_erosion,t soil/ha/yr,,cf_std
+ADM0_NAME,value,metric,flow_name
+Abyei,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Afghanistan,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Aksai Chin,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Albania,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Algeria,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+American Samoa,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Andorra,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Angola,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Anguilla,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Antarctica,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Antigua and Barbuda,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Argentina,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Armenia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Aruba,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Arunachal Pradesh,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Ashmore and Cartier Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Australia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Austria,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Azerbaijan,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Azores Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Bahamas,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Bahrain,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Baker Island,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Bangladesh,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Barbados,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Bassas da India,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Belarus,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Belgium,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Belize,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Benin,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Bermuda,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Bhutan,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Bird Island,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Bolivia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Bosnia and Herzegovina,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Botswana,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Bouvet Island,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Brazil,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+British Indian Ocean Territory,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+British Virgin Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Brunei Darussalam,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Bulgaria,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Burkina Faso,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Burundi,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Cambodia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Cameroon,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Canada,0.024293478045843708,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Cape Verde,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Cayman Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Central African Republic,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Chad,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Chile,0.12208800340464789,cf_mean,Broadleaf_Deciduous_Boreal_dry
+China,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+China/India,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Christmas Island,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Clipperton Island,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Cocos (Keeling) Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Colombia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Comoros,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Congo,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Cook Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Costa Rica,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Croatia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Cuba,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Cyprus,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Czech Republic,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Côte d'Ivoire,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Dem People's Rep of Korea,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Democratic Republic of the Congo,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Denmark,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Djibouti,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Dominica,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Dominican Republic,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Ecuador,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Egypt,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+El Salvador,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Equatorial Guinea,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Eritrea,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Estonia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Ethiopia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Europa Island,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Falkland Islands (Malvinas),,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Faroe Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Fiji,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Finland,0.007543084571343564,cf_mean,Broadleaf_Deciduous_Boreal_dry
+France,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+French Guiana,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+French Polynesia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+French Southern and Antarctic Territories,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Gabon,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Gambia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Gaza Strip,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Georgia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Germany,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Ghana,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Gibraltar,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Glorioso Island,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Greece,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Greenland,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Grenada,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Guadeloupe,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Guam,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Guatemala,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Guernsey,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Guinea,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Guinea-Bissau,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Guyana,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Haiti,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Hala'ib triangle,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Heard Island and McDonald Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Holy See,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Honduras,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Hong Kong,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Howland Island,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Hungary,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Iceland,0.19106931438055075,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Ilemi triangle,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+India,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Indonesia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Iran  (Islamic Republic of),,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Iraq,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Ireland,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Isle of Man,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Israel,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Italy,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Jamaica,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Jammu and Kashmir,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Japan,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Jarvis Island,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Jersey,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Johnston Atoll,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Jordan,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Juan de Nova Island,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Kazakhstan,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Kenya,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Kingman Reef,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Kiribati,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Kuril islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Kuwait,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Kyrgyzstan,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Lao People's Democratic Republic,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Latvia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Lebanon,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Lesotho,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Liberia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Libya,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Liechtenstein,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Lithuania,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Luxembourg,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Ma'tan al-Sarra,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Macau,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Madagascar,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Madeira Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Malawi,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Malaysia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Maldives,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Mali,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Malta,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Marshall Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Martinique,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Mauritania,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Mauritius,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Mayotte,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Mexico,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Micronesia (Federated States of),,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Midway Island,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+"Moldova, Republic of",,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Monaco,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Mongolia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Montenegro,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Montserrat,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Morocco,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Mozambique,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Myanmar,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Namibia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Nauru,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Navassa Island,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Nepal,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Netherlands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Netherlands Antilles,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+New Caledonia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+New Zealand,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Nicaragua,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Niger,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Nigeria,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Niue,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Norfolk Island,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Northern Mariana Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Norway,0.22711124991992665,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Oman,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Pakistan,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Palau,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Palmyra Atoll,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Panama,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Papua New Guinea,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Paracel Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Paraguay,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Peru,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Philippines,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Pitcairn,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Poland,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Portugal,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Puerto Rico,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Qatar,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Republic of Korea,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Romania,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Russian Federation,0.05901521212259806,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Rwanda,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Réunion,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Saint Helena,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Saint Kitts and Nevis,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Saint Lucia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Saint Pierre et Miquelon,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Saint Vincent and the Grenadines,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Samoa,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+San Marino,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Sao Tome and Principe,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Saudi Arabia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Scarborough Reef,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Senegal,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Senkaku Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Serbia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Seychelles,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Sierra Leone,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Singapore,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Slovakia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Slovenia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Solomon Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Somalia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+South Africa,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+South Georgia and the South Sandwich Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+South Sudan,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Spain,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Spratly Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Sri Lanka,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Sudan,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Suriname,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Svalbard and Jan Mayen Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Swaziland,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Sweden,0.028956272663435645,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Switzerland,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Syrian Arab Republic,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Taiwan,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Tajikistan,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Thailand,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+The former Yugoslav Republic of Macedonia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Timor-Leste,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Togo,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Tokelau,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Tonga,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Trinidad and Tobago,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Tromelin Island,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Tunisia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Turkey,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Turkmenistan,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Turks and Caicos islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Tuvalu,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+U.K. of Great Britain and Northern Ireland,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Uganda,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Ukraine,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+United Arab Emirates,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+United Republic of Tanzania,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+United States Virgin Islands,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+United States of America,0.05888081970290906,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Uruguay,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Uzbekistan,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Vanuatu,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Venezuela,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Viet Nam,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Wake Island,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Wallis and Futuna,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+West Bank,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Western Sahara,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Yemen,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Zambia,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Zimbabwe,,cf_mean,Broadleaf_Deciduous_Boreal_dry
+Abyei,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Afghanistan,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Aksai Chin,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Albania,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Algeria,,cf_median,Broadleaf_Deciduous_Boreal_dry
+American Samoa,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Andorra,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Angola,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Anguilla,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Antarctica,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Antigua and Barbuda,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Argentina,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Armenia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Aruba,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Arunachal Pradesh,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Ashmore and Cartier Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Australia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Austria,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Azerbaijan,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Azores Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Bahamas,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Bahrain,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Baker Island,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Bangladesh,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Barbados,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Bassas da India,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Belarus,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Belgium,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Belize,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Benin,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Bermuda,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Bhutan,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Bird Island,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Bolivia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Bosnia and Herzegovina,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Botswana,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Bouvet Island,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Brazil,,cf_median,Broadleaf_Deciduous_Boreal_dry
+British Indian Ocean Territory,,cf_median,Broadleaf_Deciduous_Boreal_dry
+British Virgin Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Brunei Darussalam,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Bulgaria,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Burkina Faso,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Burundi,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Cambodia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Cameroon,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Canada,0.010686508940845673,cf_median,Broadleaf_Deciduous_Boreal_dry
+Cape Verde,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Cayman Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Central African Republic,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Chad,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Chile,0.11227825579050366,cf_median,Broadleaf_Deciduous_Boreal_dry
+China,,cf_median,Broadleaf_Deciduous_Boreal_dry
+China/India,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Christmas Island,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Clipperton Island,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Cocos (Keeling) Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Colombia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Comoros,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Congo,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Cook Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Costa Rica,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Croatia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Cuba,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Cyprus,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Czech Republic,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Côte d'Ivoire,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Dem People's Rep of Korea,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Democratic Republic of the Congo,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Denmark,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Djibouti,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Dominica,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Dominican Republic,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Ecuador,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Egypt,,cf_median,Broadleaf_Deciduous_Boreal_dry
+El Salvador,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Equatorial Guinea,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Eritrea,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Estonia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Ethiopia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Europa Island,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Falkland Islands (Malvinas),,cf_median,Broadleaf_Deciduous_Boreal_dry
+Faroe Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Fiji,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Finland,0.005624657169124463,cf_median,Broadleaf_Deciduous_Boreal_dry
+France,,cf_median,Broadleaf_Deciduous_Boreal_dry
+French Guiana,,cf_median,Broadleaf_Deciduous_Boreal_dry
+French Polynesia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+French Southern and Antarctic Territories,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Gabon,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Gambia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Gaza Strip,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Georgia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Germany,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Ghana,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Gibraltar,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Glorioso Island,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Greece,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Greenland,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Grenada,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Guadeloupe,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Guam,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Guatemala,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Guernsey,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Guinea,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Guinea-Bissau,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Guyana,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Haiti,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Hala'ib triangle,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Heard Island and McDonald Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Holy See,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Honduras,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Hong Kong,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Howland Island,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Hungary,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Iceland,0.0883855157044528,cf_median,Broadleaf_Deciduous_Boreal_dry
+Ilemi triangle,,cf_median,Broadleaf_Deciduous_Boreal_dry
+India,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Indonesia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Iran  (Islamic Republic of),,cf_median,Broadleaf_Deciduous_Boreal_dry
+Iraq,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Ireland,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Isle of Man,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Israel,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Italy,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Jamaica,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Jammu and Kashmir,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Japan,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Jarvis Island,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Jersey,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Johnston Atoll,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Jordan,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Juan de Nova Island,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Kazakhstan,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Kenya,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Kingman Reef,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Kiribati,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Kuril islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Kuwait,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Kyrgyzstan,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Lao People's Democratic Republic,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Latvia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Lebanon,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Lesotho,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Liberia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Libya,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Liechtenstein,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Lithuania,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Luxembourg,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Ma'tan al-Sarra,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Macau,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Madagascar,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Madeira Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Malawi,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Malaysia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Maldives,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Mali,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Malta,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Marshall Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Martinique,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Mauritania,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Mauritius,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Mayotte,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Mexico,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Micronesia (Federated States of),,cf_median,Broadleaf_Deciduous_Boreal_dry
+Midway Island,,cf_median,Broadleaf_Deciduous_Boreal_dry
+"Moldova, Republic of",,cf_median,Broadleaf_Deciduous_Boreal_dry
+Monaco,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Mongolia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Montenegro,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Montserrat,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Morocco,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Mozambique,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Myanmar,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Namibia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Nauru,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Navassa Island,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Nepal,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Netherlands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Netherlands Antilles,,cf_median,Broadleaf_Deciduous_Boreal_dry
+New Caledonia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+New Zealand,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Nicaragua,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Niger,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Nigeria,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Niue,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Norfolk Island,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Northern Mariana Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Norway,0.08757268284933586,cf_median,Broadleaf_Deciduous_Boreal_dry
+Oman,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Pakistan,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Palau,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Palmyra Atoll,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Panama,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Papua New Guinea,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Paracel Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Paraguay,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Peru,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Philippines,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Pitcairn,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Poland,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Portugal,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Puerto Rico,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Qatar,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Republic of Korea,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Romania,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Russian Federation,0.012217287823946687,cf_median,Broadleaf_Deciduous_Boreal_dry
+Rwanda,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Réunion,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Saint Helena,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Saint Kitts and Nevis,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Saint Lucia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Saint Pierre et Miquelon,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Saint Vincent and the Grenadines,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Samoa,,cf_median,Broadleaf_Deciduous_Boreal_dry
+San Marino,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Sao Tome and Principe,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Saudi Arabia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Scarborough Reef,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Senegal,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Senkaku Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Serbia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Seychelles,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Sierra Leone,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Singapore,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Slovakia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Slovenia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Solomon Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Somalia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+South Africa,,cf_median,Broadleaf_Deciduous_Boreal_dry
+South Georgia and the South Sandwich Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+South Sudan,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Spain,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Spratly Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Sri Lanka,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Sudan,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Suriname,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Svalbard and Jan Mayen Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Swaziland,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Sweden,0.013882236629438688,cf_median,Broadleaf_Deciduous_Boreal_dry
+Switzerland,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Syrian Arab Republic,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Taiwan,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Tajikistan,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Thailand,,cf_median,Broadleaf_Deciduous_Boreal_dry
+The former Yugoslav Republic of Macedonia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Timor-Leste,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Togo,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Tokelau,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Tonga,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Trinidad and Tobago,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Tromelin Island,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Tunisia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Turkey,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Turkmenistan,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Turks and Caicos islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Tuvalu,,cf_median,Broadleaf_Deciduous_Boreal_dry
+U.K. of Great Britain and Northern Ireland,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Uganda,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Ukraine,,cf_median,Broadleaf_Deciduous_Boreal_dry
+United Arab Emirates,,cf_median,Broadleaf_Deciduous_Boreal_dry
+United Republic of Tanzania,,cf_median,Broadleaf_Deciduous_Boreal_dry
+United States Virgin Islands,,cf_median,Broadleaf_Deciduous_Boreal_dry
+United States of America,0.014205562239297403,cf_median,Broadleaf_Deciduous_Boreal_dry
+Uruguay,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Uzbekistan,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Vanuatu,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Venezuela,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Viet Nam,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Wake Island,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Wallis and Futuna,,cf_median,Broadleaf_Deciduous_Boreal_dry
+West Bank,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Western Sahara,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Yemen,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Zambia,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Zimbabwe,,cf_median,Broadleaf_Deciduous_Boreal_dry
+Abyei,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Afghanistan,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Aksai Chin,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Albania,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Algeria,,cf_std,Broadleaf_Deciduous_Boreal_dry
+American Samoa,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Andorra,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Angola,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Anguilla,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Antarctica,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Antigua and Barbuda,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Argentina,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Armenia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Aruba,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Arunachal Pradesh,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Ashmore and Cartier Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Australia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Austria,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Azerbaijan,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Azores Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Bahamas,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Bahrain,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Baker Island,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Bangladesh,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Barbados,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Bassas da India,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Belarus,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Belgium,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Belize,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Benin,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Bermuda,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Bhutan,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Bird Island,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Bolivia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Bosnia and Herzegovina,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Botswana,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Bouvet Island,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Brazil,,cf_std,Broadleaf_Deciduous_Boreal_dry
+British Indian Ocean Territory,,cf_std,Broadleaf_Deciduous_Boreal_dry
+British Virgin Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Brunei Darussalam,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Bulgaria,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Burkina Faso,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Burundi,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Cambodia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Cameroon,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Canada,0.03407878187405472,cf_std,Broadleaf_Deciduous_Boreal_dry
+Cape Verde,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Cayman Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Central African Republic,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Chad,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Chile,0.027971937571543877,cf_std,Broadleaf_Deciduous_Boreal_dry
+China,,cf_std,Broadleaf_Deciduous_Boreal_dry
+China/India,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Christmas Island,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Clipperton Island,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Cocos (Keeling) Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Colombia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Comoros,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Congo,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Cook Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Costa Rica,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Croatia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Cuba,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Cyprus,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Czech Republic,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Côte d'Ivoire,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Dem People's Rep of Korea,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Democratic Republic of the Congo,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Denmark,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Djibouti,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Dominica,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Dominican Republic,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Ecuador,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Egypt,,cf_std,Broadleaf_Deciduous_Boreal_dry
+El Salvador,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Equatorial Guinea,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Eritrea,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Estonia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Ethiopia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Europa Island,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Falkland Islands (Malvinas),,cf_std,Broadleaf_Deciduous_Boreal_dry
+Faroe Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Fiji,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Finland,0.005497797651304272,cf_std,Broadleaf_Deciduous_Boreal_dry
+France,,cf_std,Broadleaf_Deciduous_Boreal_dry
+French Guiana,,cf_std,Broadleaf_Deciduous_Boreal_dry
+French Polynesia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+French Southern and Antarctic Territories,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Gabon,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Gambia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Gaza Strip,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Georgia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Germany,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Ghana,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Gibraltar,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Glorioso Island,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Greece,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Greenland,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Grenada,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Guadeloupe,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Guam,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Guatemala,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Guernsey,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Guinea,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Guinea-Bissau,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Guyana,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Haiti,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Hala'ib triangle,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Heard Island and McDonald Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Holy See,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Honduras,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Hong Kong,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Howland Island,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Hungary,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Iceland,0.25020127529133174,cf_std,Broadleaf_Deciduous_Boreal_dry
+Ilemi triangle,,cf_std,Broadleaf_Deciduous_Boreal_dry
+India,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Indonesia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Iran  (Islamic Republic of),,cf_std,Broadleaf_Deciduous_Boreal_dry
+Iraq,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Ireland,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Isle of Man,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Israel,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Italy,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Jamaica,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Jammu and Kashmir,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Japan,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Jarvis Island,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Jersey,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Johnston Atoll,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Jordan,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Juan de Nova Island,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Kazakhstan,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Kenya,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Kingman Reef,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Kiribati,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Kuril islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Kuwait,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Kyrgyzstan,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Lao People's Democratic Republic,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Latvia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Lebanon,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Lesotho,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Liberia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Libya,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Liechtenstein,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Lithuania,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Luxembourg,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Ma'tan al-Sarra,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Macau,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Madagascar,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Madeira Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Malawi,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Malaysia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Maldives,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Mali,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Malta,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Marshall Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Martinique,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Mauritania,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Mauritius,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Mayotte,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Mexico,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Micronesia (Federated States of),,cf_std,Broadleaf_Deciduous_Boreal_dry
+Midway Island,,cf_std,Broadleaf_Deciduous_Boreal_dry
+"Moldova, Republic of",,cf_std,Broadleaf_Deciduous_Boreal_dry
+Monaco,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Mongolia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Montenegro,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Montserrat,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Morocco,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Mozambique,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Myanmar,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Namibia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Nauru,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Navassa Island,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Nepal,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Netherlands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Netherlands Antilles,,cf_std,Broadleaf_Deciduous_Boreal_dry
+New Caledonia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+New Zealand,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Nicaragua,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Niger,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Nigeria,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Niue,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Norfolk Island,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Northern Mariana Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Norway,0.31932084640184166,cf_std,Broadleaf_Deciduous_Boreal_dry
+Oman,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Pakistan,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Palau,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Palmyra Atoll,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Panama,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Papua New Guinea,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Paracel Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Paraguay,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Peru,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Philippines,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Pitcairn,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Poland,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Portugal,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Puerto Rico,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Qatar,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Republic of Korea,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Romania,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Russian Federation,0.1114575467525006,cf_std,Broadleaf_Deciduous_Boreal_dry
+Rwanda,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Réunion,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Saint Helena,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Saint Kitts and Nevis,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Saint Lucia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Saint Pierre et Miquelon,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Saint Vincent and the Grenadines,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Samoa,,cf_std,Broadleaf_Deciduous_Boreal_dry
+San Marino,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Sao Tome and Principe,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Saudi Arabia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Scarborough Reef,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Senegal,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Senkaku Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Serbia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Seychelles,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Sierra Leone,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Singapore,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Slovakia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Slovenia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Solomon Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Somalia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+South Africa,,cf_std,Broadleaf_Deciduous_Boreal_dry
+South Georgia and the South Sandwich Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+South Sudan,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Spain,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Spratly Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Sri Lanka,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Sudan,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Suriname,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Svalbard and Jan Mayen Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Swaziland,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Sweden,0.040700001927809315,cf_std,Broadleaf_Deciduous_Boreal_dry
+Switzerland,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Syrian Arab Republic,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Taiwan,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Tajikistan,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Thailand,,cf_std,Broadleaf_Deciduous_Boreal_dry
+The former Yugoslav Republic of Macedonia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Timor-Leste,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Togo,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Tokelau,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Tonga,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Trinidad and Tobago,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Tromelin Island,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Tunisia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Turkey,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Turkmenistan,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Turks and Caicos islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Tuvalu,,cf_std,Broadleaf_Deciduous_Boreal_dry
+U.K. of Great Britain and Northern Ireland,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Uganda,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Ukraine,,cf_std,Broadleaf_Deciduous_Boreal_dry
+United Arab Emirates,,cf_std,Broadleaf_Deciduous_Boreal_dry
+United Republic of Tanzania,,cf_std,Broadleaf_Deciduous_Boreal_dry
+United States Virgin Islands,,cf_std,Broadleaf_Deciduous_Boreal_dry
+United States of America,0.09217116354869552,cf_std,Broadleaf_Deciduous_Boreal_dry
+Uruguay,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Uzbekistan,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Vanuatu,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Venezuela,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Viet Nam,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Wake Island,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Wallis and Futuna,,cf_std,Broadleaf_Deciduous_Boreal_dry
+West Bank,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Western Sahara,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Yemen,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Zambia,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Zimbabwe,,cf_std,Broadleaf_Deciduous_Boreal_dry
+Abyei,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Afghanistan,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Aksai Chin,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Albania,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Algeria,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+American Samoa,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Andorra,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Angola,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Anguilla,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Antarctica,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Antigua and Barbuda,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Argentina,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Armenia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Aruba,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Arunachal Pradesh,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Ashmore and Cartier Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Australia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Austria,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Azerbaijan,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Azores Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Bahamas,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Bahrain,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Baker Island,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Bangladesh,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Barbados,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Bassas da India,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Belarus,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Belgium,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Belize,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Benin,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Bermuda,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Bhutan,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Bird Island,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Bolivia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Bosnia and Herzegovina,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Botswana,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Bouvet Island,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Brazil,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+British Indian Ocean Territory,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+British Virgin Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Brunei Darussalam,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Bulgaria,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Burkina Faso,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Burundi,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Cambodia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Cameroon,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Canada,0.022373449034310586,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Cape Verde,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Cayman Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Central African Republic,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Chad,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Chile,0.030765639653315892,cf_mean,Broadleaf_Deciduous_Boreal_moist
+China,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+China/India,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Christmas Island,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Clipperton Island,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Cocos (Keeling) Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Colombia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Comoros,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Congo,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Cook Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Costa Rica,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Croatia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Cuba,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Cyprus,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Czech Republic,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Côte d'Ivoire,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Dem People's Rep of Korea,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Democratic Republic of the Congo,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Denmark,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Djibouti,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Dominica,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Dominican Republic,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Ecuador,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Egypt,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+El Salvador,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Equatorial Guinea,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Eritrea,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Estonia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Ethiopia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Europa Island,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Falkland Islands (Malvinas),,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Faroe Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Fiji,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Finland,0.0074982558842697855,cf_mean,Broadleaf_Deciduous_Boreal_moist
+France,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+French Guiana,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+French Polynesia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+French Southern and Antarctic Territories,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Gabon,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Gambia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Gaza Strip,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Georgia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Germany,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Ghana,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Gibraltar,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Glorioso Island,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Greece,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Greenland,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Grenada,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Guadeloupe,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Guam,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Guatemala,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Guernsey,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Guinea,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Guinea-Bissau,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Guyana,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Haiti,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Hala'ib triangle,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Heard Island and McDonald Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Holy See,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Honduras,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Hong Kong,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Howland Island,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Hungary,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Iceland,0.18140691600288514,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Ilemi triangle,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+India,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Indonesia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Iran  (Islamic Republic of),,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Iraq,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Ireland,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Isle of Man,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Israel,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Italy,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Jamaica,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Jammu and Kashmir,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Japan,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Jarvis Island,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Jersey,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Johnston Atoll,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Jordan,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Juan de Nova Island,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Kazakhstan,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Kenya,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Kingman Reef,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Kiribati,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Kuril islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Kuwait,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Kyrgyzstan,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Lao People's Democratic Republic,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Latvia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Lebanon,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Lesotho,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Liberia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Libya,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Liechtenstein,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Lithuania,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Luxembourg,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Ma'tan al-Sarra,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Macau,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Madagascar,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Madeira Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Malawi,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Malaysia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Maldives,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Mali,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Malta,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Marshall Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Martinique,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Mauritania,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Mauritius,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Mayotte,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Mexico,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Micronesia (Federated States of),,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Midway Island,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+"Moldova, Republic of",,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Monaco,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Mongolia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Montenegro,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Montserrat,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Morocco,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Mozambique,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Myanmar,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Namibia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Nauru,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Navassa Island,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Nepal,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Netherlands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Netherlands Antilles,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+New Caledonia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+New Zealand,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Nicaragua,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Niger,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Nigeria,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Niue,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Norfolk Island,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Northern Mariana Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Norway,0.20182834188784593,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Oman,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Pakistan,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Palau,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Palmyra Atoll,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Panama,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Papua New Guinea,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Paracel Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Paraguay,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Peru,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Philippines,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Pitcairn,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Poland,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Portugal,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Puerto Rico,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Qatar,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Republic of Korea,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Romania,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Russian Federation,0.06334174341577116,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Rwanda,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Réunion,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Saint Helena,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Saint Kitts and Nevis,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Saint Lucia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Saint Pierre et Miquelon,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Saint Vincent and the Grenadines,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Samoa,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+San Marino,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Sao Tome and Principe,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Saudi Arabia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Scarborough Reef,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Senegal,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Senkaku Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Serbia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Seychelles,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Sierra Leone,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Singapore,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Slovakia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Slovenia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Solomon Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Somalia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+South Africa,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+South Georgia and the South Sandwich Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+South Sudan,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Spain,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Spratly Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Sri Lanka,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Sudan,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Suriname,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Svalbard and Jan Mayen Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Swaziland,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Sweden,0.031439704338134984,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Switzerland,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Syrian Arab Republic,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Taiwan,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Tajikistan,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Thailand,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+The former Yugoslav Republic of Macedonia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Timor-Leste,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Togo,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Tokelau,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Tonga,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Trinidad and Tobago,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Tromelin Island,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Tunisia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Turkey,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Turkmenistan,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Turks and Caicos islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Tuvalu,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+U.K. of Great Britain and Northern Ireland,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Uganda,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Ukraine,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+United Arab Emirates,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+United Republic of Tanzania,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+United States Virgin Islands,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+United States of America,0.05591790983490181,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Uruguay,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Uzbekistan,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Vanuatu,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Venezuela,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Viet Nam,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Wake Island,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Wallis and Futuna,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+West Bank,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Western Sahara,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Yemen,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Zambia,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Zimbabwe,,cf_mean,Broadleaf_Deciduous_Boreal_moist
+Abyei,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Afghanistan,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Aksai Chin,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Albania,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Algeria,,cf_median,Broadleaf_Deciduous_Boreal_moist
+American Samoa,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Andorra,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Angola,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Anguilla,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Antarctica,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Antigua and Barbuda,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Argentina,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Armenia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Aruba,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Arunachal Pradesh,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Ashmore and Cartier Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Australia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Austria,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Azerbaijan,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Azores Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Bahamas,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Bahrain,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Baker Island,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Bangladesh,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Barbados,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Bassas da India,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Belarus,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Belgium,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Belize,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Benin,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Bermuda,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Bhutan,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Bird Island,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Bolivia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Bosnia and Herzegovina,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Botswana,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Bouvet Island,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Brazil,,cf_median,Broadleaf_Deciduous_Boreal_moist
+British Indian Ocean Territory,,cf_median,Broadleaf_Deciduous_Boreal_moist
+British Virgin Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Brunei Darussalam,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Bulgaria,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Burkina Faso,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Burundi,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Cambodia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Cameroon,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Canada,0.010007670001126328,cf_median,Broadleaf_Deciduous_Boreal_moist
+Cape Verde,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Cayman Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Central African Republic,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Chad,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Chile,0.029080165569864397,cf_median,Broadleaf_Deciduous_Boreal_moist
+China,,cf_median,Broadleaf_Deciduous_Boreal_moist
+China/India,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Christmas Island,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Clipperton Island,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Cocos (Keeling) Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Colombia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Comoros,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Congo,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Cook Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Costa Rica,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Croatia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Cuba,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Cyprus,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Czech Republic,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Côte d'Ivoire,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Dem People's Rep of Korea,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Democratic Republic of the Congo,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Denmark,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Djibouti,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Dominica,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Dominican Republic,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Ecuador,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Egypt,,cf_median,Broadleaf_Deciduous_Boreal_moist
+El Salvador,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Equatorial Guinea,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Eritrea,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Estonia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Ethiopia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Europa Island,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Falkland Islands (Malvinas),,cf_median,Broadleaf_Deciduous_Boreal_moist
+Faroe Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Fiji,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Finland,0.005520031440876896,cf_median,Broadleaf_Deciduous_Boreal_moist
+France,,cf_median,Broadleaf_Deciduous_Boreal_moist
+French Guiana,,cf_median,Broadleaf_Deciduous_Boreal_moist
+French Polynesia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+French Southern and Antarctic Territories,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Gabon,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Gambia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Gaza Strip,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Georgia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Germany,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Ghana,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Gibraltar,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Glorioso Island,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Greece,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Greenland,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Grenada,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Guadeloupe,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Guam,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Guatemala,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Guernsey,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Guinea,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Guinea-Bissau,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Guyana,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Haiti,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Hala'ib triangle,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Heard Island and McDonald Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Holy See,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Honduras,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Hong Kong,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Howland Island,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Hungary,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Iceland,0.06707932424725141,cf_median,Broadleaf_Deciduous_Boreal_moist
+Ilemi triangle,,cf_median,Broadleaf_Deciduous_Boreal_moist
+India,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Indonesia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Iran  (Islamic Republic of),,cf_median,Broadleaf_Deciduous_Boreal_moist
+Iraq,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Ireland,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Isle of Man,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Israel,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Italy,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Jamaica,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Jammu and Kashmir,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Japan,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Jarvis Island,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Jersey,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Johnston Atoll,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Jordan,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Juan de Nova Island,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Kazakhstan,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Kenya,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Kingman Reef,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Kiribati,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Kuril islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Kuwait,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Kyrgyzstan,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Lao People's Democratic Republic,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Latvia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Lebanon,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Lesotho,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Liberia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Libya,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Liechtenstein,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Lithuania,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Luxembourg,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Ma'tan al-Sarra,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Macau,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Madagascar,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Madeira Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Malawi,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Malaysia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Maldives,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Mali,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Malta,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Marshall Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Martinique,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Mauritania,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Mauritius,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Mayotte,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Mexico,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Micronesia (Federated States of),,cf_median,Broadleaf_Deciduous_Boreal_moist
+Midway Island,,cf_median,Broadleaf_Deciduous_Boreal_moist
+"Moldova, Republic of",,cf_median,Broadleaf_Deciduous_Boreal_moist
+Monaco,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Mongolia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Montenegro,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Montserrat,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Morocco,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Mozambique,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Myanmar,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Namibia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Nauru,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Navassa Island,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Nepal,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Netherlands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Netherlands Antilles,,cf_median,Broadleaf_Deciduous_Boreal_moist
+New Caledonia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+New Zealand,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Nicaragua,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Niger,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Nigeria,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Niue,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Norfolk Island,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Northern Mariana Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Norway,0.06668834450200876,cf_median,Broadleaf_Deciduous_Boreal_moist
+Oman,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Pakistan,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Palau,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Palmyra Atoll,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Panama,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Papua New Guinea,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Paracel Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Paraguay,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Peru,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Philippines,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Pitcairn,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Poland,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Portugal,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Puerto Rico,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Qatar,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Republic of Korea,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Romania,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Russian Federation,0.012252152756109524,cf_median,Broadleaf_Deciduous_Boreal_moist
+Rwanda,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Réunion,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Saint Helena,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Saint Kitts and Nevis,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Saint Lucia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Saint Pierre et Miquelon,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Saint Vincent and the Grenadines,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Samoa,,cf_median,Broadleaf_Deciduous_Boreal_moist
+San Marino,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Sao Tome and Principe,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Saudi Arabia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Scarborough Reef,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Senegal,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Senkaku Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Serbia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Seychelles,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Sierra Leone,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Singapore,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Slovakia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Slovenia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Solomon Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Somalia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+South Africa,,cf_median,Broadleaf_Deciduous_Boreal_moist
+South Georgia and the South Sandwich Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+South Sudan,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Spain,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Spratly Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Sri Lanka,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Sudan,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Suriname,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Svalbard and Jan Mayen Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Swaziland,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Sweden,0.011383900473798737,cf_median,Broadleaf_Deciduous_Boreal_moist
+Switzerland,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Syrian Arab Republic,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Taiwan,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Tajikistan,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Thailand,,cf_median,Broadleaf_Deciduous_Boreal_moist
+The former Yugoslav Republic of Macedonia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Timor-Leste,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Togo,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Tokelau,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Tonga,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Trinidad and Tobago,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Tromelin Island,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Tunisia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Turkey,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Turkmenistan,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Turks and Caicos islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Tuvalu,,cf_median,Broadleaf_Deciduous_Boreal_moist
+U.K. of Great Britain and Northern Ireland,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Uganda,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Ukraine,,cf_median,Broadleaf_Deciduous_Boreal_moist
+United Arab Emirates,,cf_median,Broadleaf_Deciduous_Boreal_moist
+United Republic of Tanzania,,cf_median,Broadleaf_Deciduous_Boreal_moist
+United States Virgin Islands,,cf_median,Broadleaf_Deciduous_Boreal_moist
+United States of America,0.011229889414935194,cf_median,Broadleaf_Deciduous_Boreal_moist
+Uruguay,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Uzbekistan,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Vanuatu,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Venezuela,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Viet Nam,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Wake Island,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Wallis and Futuna,,cf_median,Broadleaf_Deciduous_Boreal_moist
+West Bank,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Western Sahara,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Yemen,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Zambia,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Zimbabwe,,cf_median,Broadleaf_Deciduous_Boreal_moist
+Abyei,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Afghanistan,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Aksai Chin,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Albania,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Algeria,,cf_std,Broadleaf_Deciduous_Boreal_moist
+American Samoa,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Andorra,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Angola,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Anguilla,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Antarctica,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Antigua and Barbuda,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Argentina,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Armenia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Aruba,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Arunachal Pradesh,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Ashmore and Cartier Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Australia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Austria,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Azerbaijan,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Azores Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Bahamas,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Bahrain,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Baker Island,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Bangladesh,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Barbados,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Bassas da India,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Belarus,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Belgium,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Belize,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Benin,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Bermuda,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Bhutan,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Bird Island,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Bolivia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Bosnia and Herzegovina,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Botswana,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Bouvet Island,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Brazil,,cf_std,Broadleaf_Deciduous_Boreal_moist
+British Indian Ocean Territory,,cf_std,Broadleaf_Deciduous_Boreal_moist
+British Virgin Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Brunei Darussalam,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Bulgaria,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Burkina Faso,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Burundi,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Cambodia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Cameroon,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Canada,0.031911262559044924,cf_std,Broadleaf_Deciduous_Boreal_moist
+Cape Verde,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Cayman Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Central African Republic,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Chad,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Chile,0.022212362123634314,cf_std,Broadleaf_Deciduous_Boreal_moist
+China,,cf_std,Broadleaf_Deciduous_Boreal_moist
+China/India,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Christmas Island,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Clipperton Island,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Cocos (Keeling) Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Colombia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Comoros,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Congo,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Cook Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Costa Rica,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Croatia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Cuba,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Cyprus,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Czech Republic,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Côte d'Ivoire,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Dem People's Rep of Korea,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Democratic Republic of the Congo,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Denmark,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Djibouti,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Dominica,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Dominican Republic,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Ecuador,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Egypt,,cf_std,Broadleaf_Deciduous_Boreal_moist
+El Salvador,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Equatorial Guinea,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Eritrea,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Estonia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Ethiopia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Europa Island,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Falkland Islands (Malvinas),,cf_std,Broadleaf_Deciduous_Boreal_moist
+Faroe Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Fiji,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Finland,0.005466188691048035,cf_std,Broadleaf_Deciduous_Boreal_moist
+France,,cf_std,Broadleaf_Deciduous_Boreal_moist
+French Guiana,,cf_std,Broadleaf_Deciduous_Boreal_moist
+French Polynesia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+French Southern and Antarctic Territories,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Gabon,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Gambia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Gaza Strip,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Georgia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Germany,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Ghana,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Gibraltar,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Glorioso Island,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Greece,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Greenland,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Grenada,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Guadeloupe,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Guam,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Guatemala,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Guernsey,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Guinea,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Guinea-Bissau,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Guyana,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Haiti,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Hala'ib triangle,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Heard Island and McDonald Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Holy See,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Honduras,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Hong Kong,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Howland Island,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Hungary,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Iceland,0.24349958486787282,cf_std,Broadleaf_Deciduous_Boreal_moist
+Ilemi triangle,,cf_std,Broadleaf_Deciduous_Boreal_moist
+India,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Indonesia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Iran  (Islamic Republic of),,cf_std,Broadleaf_Deciduous_Boreal_moist
+Iraq,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Ireland,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Isle of Man,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Israel,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Italy,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Jamaica,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Jammu and Kashmir,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Japan,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Jarvis Island,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Jersey,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Johnston Atoll,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Jordan,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Juan de Nova Island,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Kazakhstan,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Kenya,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Kingman Reef,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Kiribati,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Kuril islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Kuwait,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Kyrgyzstan,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Lao People's Democratic Republic,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Latvia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Lebanon,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Lesotho,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Liberia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Libya,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Liechtenstein,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Lithuania,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Luxembourg,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Ma'tan al-Sarra,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Macau,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Madagascar,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Madeira Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Malawi,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Malaysia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Maldives,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Mali,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Malta,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Marshall Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Martinique,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Mauritania,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Mauritius,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Mayotte,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Mexico,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Micronesia (Federated States of),,cf_std,Broadleaf_Deciduous_Boreal_moist
+Midway Island,,cf_std,Broadleaf_Deciduous_Boreal_moist
+"Moldova, Republic of",,cf_std,Broadleaf_Deciduous_Boreal_moist
+Monaco,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Mongolia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Montenegro,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Montserrat,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Morocco,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Mozambique,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Myanmar,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Namibia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Nauru,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Navassa Island,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Nepal,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Netherlands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Netherlands Antilles,,cf_std,Broadleaf_Deciduous_Boreal_moist
+New Caledonia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+New Zealand,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Nicaragua,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Niger,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Nigeria,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Niue,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Norfolk Island,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Northern Mariana Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Norway,0.27168591330033354,cf_std,Broadleaf_Deciduous_Boreal_moist
+Oman,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Pakistan,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Palau,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Palmyra Atoll,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Panama,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Papua New Guinea,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Paracel Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Paraguay,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Peru,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Philippines,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Pitcairn,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Poland,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Portugal,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Puerto Rico,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Qatar,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Republic of Korea,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Romania,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Russian Federation,0.12147116924216932,cf_std,Broadleaf_Deciduous_Boreal_moist
+Rwanda,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Réunion,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Saint Helena,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Saint Kitts and Nevis,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Saint Lucia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Saint Pierre et Miquelon,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Saint Vincent and the Grenadines,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Samoa,,cf_std,Broadleaf_Deciduous_Boreal_moist
+San Marino,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Sao Tome and Principe,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Saudi Arabia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Scarborough Reef,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Senegal,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Senkaku Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Serbia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Seychelles,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Sierra Leone,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Singapore,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Slovakia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Slovenia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Solomon Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Somalia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+South Africa,,cf_std,Broadleaf_Deciduous_Boreal_moist
+South Georgia and the South Sandwich Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+South Sudan,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Spain,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Spratly Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Sri Lanka,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Sudan,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Suriname,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Svalbard and Jan Mayen Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Swaziland,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Sweden,0.047500378400272596,cf_std,Broadleaf_Deciduous_Boreal_moist
+Switzerland,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Syrian Arab Republic,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Taiwan,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Tajikistan,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Thailand,,cf_std,Broadleaf_Deciduous_Boreal_moist
+The former Yugoslav Republic of Macedonia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Timor-Leste,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Togo,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Tokelau,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Tonga,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Trinidad and Tobago,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Tromelin Island,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Tunisia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Turkey,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Turkmenistan,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Turks and Caicos islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Tuvalu,,cf_std,Broadleaf_Deciduous_Boreal_moist
+U.K. of Great Britain and Northern Ireland,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Uganda,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Ukraine,,cf_std,Broadleaf_Deciduous_Boreal_moist
+United Arab Emirates,,cf_std,Broadleaf_Deciduous_Boreal_moist
+United Republic of Tanzania,,cf_std,Broadleaf_Deciduous_Boreal_moist
+United States Virgin Islands,,cf_std,Broadleaf_Deciduous_Boreal_moist
+United States of America,0.09468796422402252,cf_std,Broadleaf_Deciduous_Boreal_moist
+Uruguay,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Uzbekistan,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Vanuatu,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Venezuela,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Viet Nam,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Wake Island,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Wallis and Futuna,,cf_std,Broadleaf_Deciduous_Boreal_moist
+West Bank,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Western Sahara,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Yemen,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Zambia,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Zimbabwe,,cf_std,Broadleaf_Deciduous_Boreal_moist
+Abyei,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Afghanistan,0.07317715518084313,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Aksai Chin,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Albania,1.1230120259348058,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Algeria,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+American Samoa,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Andorra,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Angola,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Anguilla,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Antarctica,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Antigua and Barbuda,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Argentina,0.04280888375304363,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Armenia,0.18991652137483106,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Aruba,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Arunachal Pradesh,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Ashmore and Cartier Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Australia,0.20205610132610238,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Austria,0.4747628609434955,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Azerbaijan,0.17552855634670664,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Azores Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Bahamas,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Bahrain,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Baker Island,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Bangladesh,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Barbados,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Bassas da India,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Belarus,0.009645033584584465,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Belgium,0.037273496605618975,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Belize,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Benin,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Bermuda,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Bhutan,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Bird Island,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Bolivia,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Bosnia and Herzegovina,0.4345714501376752,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Botswana,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Bouvet Island,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Brazil,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+British Indian Ocean Territory,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+British Virgin Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Brunei Darussalam,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Bulgaria,0.11158841738355085,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Burkina Faso,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Burundi,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Cambodia,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Cameroon,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Canada,0.08275161109519834,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Cape Verde,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Cayman Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Central African Republic,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Chad,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Chile,0.8059044591746546,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+China,0.19130584091657804,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+China/India,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Christmas Island,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Clipperton Island,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Cocos (Keeling) Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Colombia,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Comoros,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Congo,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Cook Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Costa Rica,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Croatia,0.28343207586772945,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Cuba,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Cyprus,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Czech Republic,0.04885636645133789,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Côte d'Ivoire,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Dem People's Rep of Korea,1.1892375857934625,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Democratic Republic of the Congo,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Denmark,0.015048120658745116,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Djibouti,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Dominica,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Dominican Republic,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Ecuador,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Egypt,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+El Salvador,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Equatorial Guinea,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Eritrea,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Estonia,0.011745293173291066,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Ethiopia,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Europa Island,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Falkland Islands (Malvinas),,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Faroe Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Fiji,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Finland,0.009467904522218192,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+France,0.08308325574695727,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+French Guiana,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+French Polynesia,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+French Southern and Antarctic Territories,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Gabon,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Gambia,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Gaza Strip,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Georgia,0.6301535826770289,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Germany,0.044816527724351594,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Ghana,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Gibraltar,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Glorioso Island,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Greece,0.15736113365303872,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Greenland,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Grenada,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Guadeloupe,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Guam,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Guatemala,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Guernsey,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Guinea,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Guinea-Bissau,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Guyana,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Haiti,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Hala'ib triangle,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Heard Island and McDonald Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Holy See,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Honduras,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Hong Kong,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Howland Island,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Hungary,0.028914227681223956,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Iceland,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Ilemi triangle,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+India,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Indonesia,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Iran  (Islamic Republic of),0.06268565464866842,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Iraq,0.23925632840668115,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Ireland,0.05400617620183165,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Isle of Man,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Israel,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Italy,0.46136277152226507,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Jamaica,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Jammu and Kashmir,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Japan,2.4765724481151867,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Jarvis Island,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Jersey,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Johnston Atoll,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Jordan,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Juan de Nova Island,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Kazakhstan,0.013332364240760241,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Kenya,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Kingman Reef,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Kiribati,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Kuril islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Kuwait,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Kyrgyzstan,0.27894479649552517,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Lao People's Democratic Republic,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Latvia,0.014901125594877324,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Lebanon,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Lesotho,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Liberia,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Libya,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Liechtenstein,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Lithuania,0.01175274147863552,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Luxembourg,0.13711400941733243,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Ma'tan al-Sarra,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Macau,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Madagascar,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Madeira Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Malawi,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Malaysia,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Maldives,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Mali,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Malta,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Marshall Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Martinique,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Mauritania,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Mauritius,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Mayotte,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Mexico,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Micronesia (Federated States of),,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Midway Island,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+"Moldova, Republic of",0.04955526586627782,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Monaco,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Mongolia,0.0732546168662064,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Montenegro,0.5589342568973525,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Montserrat,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Morocco,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Mozambique,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Myanmar,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Namibia,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Nauru,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Navassa Island,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Nepal,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Netherlands,0.008423752962919171,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Netherlands Antilles,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+New Caledonia,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+New Zealand,0.4203978544529243,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Nicaragua,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Niger,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Nigeria,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Niue,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Norfolk Island,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Northern Mariana Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Norway,0.45232912865265645,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Oman,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Pakistan,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Palau,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Palmyra Atoll,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Panama,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Papua New Guinea,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Paracel Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Paraguay,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Peru,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Philippines,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Pitcairn,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Poland,0.01777734641300758,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Portugal,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Puerto Rico,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Qatar,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Republic of Korea,1.9507388272587742,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Romania,0.10282090245896487,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Russian Federation,0.06202197769475834,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Rwanda,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Réunion,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Saint Helena,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Saint Kitts and Nevis,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Saint Lucia,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Saint Pierre et Miquelon,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Saint Vincent and the Grenadines,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Samoa,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+San Marino,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Sao Tome and Principe,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Saudi Arabia,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Scarborough Reef,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Senegal,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Senkaku Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Serbia,0.20112242526998766,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Seychelles,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Sierra Leone,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Singapore,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Slovakia,0.13754448527229027,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Slovenia,0.7505948667751255,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Solomon Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Somalia,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+South Africa,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+South Georgia and the South Sandwich Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+South Sudan,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Spain,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Spratly Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Sri Lanka,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Sudan,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Suriname,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Svalbard and Jan Mayen Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Swaziland,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Sweden,0.018244950900523676,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Switzerland,0.7626670677407489,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Syrian Arab Republic,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Taiwan,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Tajikistan,0.4795780242090451,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Thailand,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+The former Yugoslav Republic of Macedonia,0.24034479725278318,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Timor-Leste,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Togo,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Tokelau,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Tonga,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Trinidad and Tobago,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Tromelin Island,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Tunisia,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Turkey,0.09949621600710623,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Turkmenistan,0.00980960596952527,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Turks and Caicos islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Tuvalu,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+U.K. of Great Britain and Northern Ireland,0.115904729073599,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Uganda,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Ukraine,0.021372567784913397,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+United Arab Emirates,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+United Republic of Tanzania,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+United States Virgin Islands,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+United States of America,0.18035276146733642,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Uruguay,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Uzbekistan,0.021569008930999292,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Vanuatu,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Venezuela,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Viet Nam,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Wake Island,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Wallis and Futuna,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+West Bank,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Western Sahara,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Yemen,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Zambia,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Zimbabwe,,cf_mean,Broadleaf_Deciduous_Cold_temperate_dry
+Abyei,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Afghanistan,0.016890496000662687,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Aksai Chin,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Albania,1.2037908371954313,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Algeria,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+American Samoa,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Andorra,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Angola,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Anguilla,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Antarctica,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Antigua and Barbuda,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Argentina,0.010921213555789455,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Armenia,0.17109737369762143,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Aruba,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Arunachal Pradesh,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Ashmore and Cartier Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Australia,0.15441385773719213,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Austria,0.4302060433203758,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Azerbaijan,0.07067499514037204,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Azores Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Bahamas,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Bahrain,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Baker Island,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Bangladesh,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Barbados,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Bassas da India,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Belarus,0.008783023434618387,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Belgium,0.016517049601394027,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Belize,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Benin,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Bermuda,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Bhutan,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Bird Island,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Bolivia,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Bosnia and Herzegovina,0.38309425481863446,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Botswana,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Bouvet Island,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Brazil,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+British Indian Ocean Territory,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+British Virgin Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Brunei Darussalam,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Bulgaria,0.08855909923595008,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Burkina Faso,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Burundi,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Cambodia,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Cameroon,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Canada,0.02266574008495719,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Cape Verde,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Cayman Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Central African Republic,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Chad,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Chile,0.45300657633356306,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+China,0.0767067799916873,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+China/India,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Christmas Island,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Clipperton Island,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Cocos (Keeling) Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Colombia,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Comoros,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Congo,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Cook Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Costa Rica,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Croatia,0.14302059150551524,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Cuba,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Cyprus,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Czech Republic,0.03287068627602013,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Côte d'Ivoire,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Dem People's Rep of Korea,0.8636197845317383,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Democratic Republic of the Congo,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Denmark,0.014106654927143211,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Djibouti,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Dominica,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Dominican Republic,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Ecuador,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Egypt,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+El Salvador,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Equatorial Guinea,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Eritrea,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Estonia,0.010636566261946973,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Ethiopia,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Europa Island,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Falkland Islands (Malvinas),,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Faroe Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Fiji,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Finland,0.0085627341828677,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+France,0.025553194353595987,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+French Guiana,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+French Polynesia,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+French Southern and Antarctic Territories,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Gabon,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Gambia,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Gaza Strip,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Georgia,0.5226963521437992,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Germany,0.022180757441334083,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Ghana,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Gibraltar,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Glorioso Island,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Greece,0.11442313435008784,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Greenland,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Grenada,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Guadeloupe,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Guam,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Guatemala,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Guernsey,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Guinea,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Guinea-Bissau,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Guyana,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Haiti,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Hala'ib triangle,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Heard Island and McDonald Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Holy See,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Honduras,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Hong Kong,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Howland Island,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Hungary,0.016455439493477504,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Iceland,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Ilemi triangle,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+India,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Indonesia,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Iran  (Islamic Republic of),0.03107240744091396,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Iraq,0.1167730525224148,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Ireland,0.02633201411949156,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Isle of Man,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Israel,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Italy,0.32564590495777845,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Jamaica,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Jammu and Kashmir,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Japan,1.4479082239668286,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Jarvis Island,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Jersey,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Johnston Atoll,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Jordan,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Juan de Nova Island,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Kazakhstan,0.005200245378107151,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Kenya,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Kingman Reef,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Kiribati,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Kuril islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Kuwait,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Kyrgyzstan,0.20059115292513033,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Lao People's Democratic Republic,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Latvia,0.013351193626889782,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Lebanon,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Lesotho,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Liberia,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Libya,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Liechtenstein,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Lithuania,0.010841281597271435,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Luxembourg,0.06920399175012967,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Ma'tan al-Sarra,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Macau,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Madagascar,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Madeira Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Malawi,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Malaysia,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Maldives,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Mali,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Malta,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Marshall Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Martinique,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Mauritania,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Mauritius,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Mayotte,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Mexico,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Micronesia (Federated States of),,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Midway Island,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+"Moldova, Republic of",0.049652444441931114,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Monaco,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Mongolia,0.032822041024071304,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Montenegro,0.5030030871407355,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Montserrat,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Morocco,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Mozambique,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Myanmar,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Namibia,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Nauru,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Navassa Island,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Nepal,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Netherlands,0.007825714759650828,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Netherlands Antilles,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+New Caledonia,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+New Zealand,0.1207075428024641,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Nicaragua,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Niger,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Nigeria,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Niue,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Norfolk Island,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Northern Mariana Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Norway,0.1612146295118205,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Oman,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Pakistan,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Palau,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Palmyra Atoll,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Panama,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Papua New Guinea,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Paracel Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Paraguay,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Peru,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Philippines,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Pitcairn,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Poland,0.01043316684614098,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Portugal,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Puerto Rico,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Qatar,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Republic of Korea,1.7889471229196214,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Romania,0.06697682958230752,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Russian Federation,0.014968775810491228,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Rwanda,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Réunion,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Saint Helena,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Saint Kitts and Nevis,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Saint Lucia,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Saint Pierre et Miquelon,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Saint Vincent and the Grenadines,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Samoa,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+San Marino,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Sao Tome and Principe,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Saudi Arabia,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Scarborough Reef,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Senegal,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Senkaku Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Serbia,0.12396952299103674,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Seychelles,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Sierra Leone,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Singapore,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Slovakia,0.09494269475991327,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Slovenia,0.688942428084069,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Solomon Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Somalia,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+South Africa,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+South Georgia and the South Sandwich Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+South Sudan,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Spain,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Spratly Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Sri Lanka,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Sudan,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Suriname,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Svalbard and Jan Mayen Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Swaziland,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Sweden,0.013876968701730646,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Switzerland,0.5057265309783286,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Syrian Arab Republic,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Taiwan,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Tajikistan,0.3081242766125014,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Thailand,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+The former Yugoslav Republic of Macedonia,0.20975376394142833,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Timor-Leste,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Togo,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Tokelau,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Tonga,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Trinidad and Tobago,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Tromelin Island,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Tunisia,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Turkey,0.06097604042337486,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Turkmenistan,0.0070799957873515515,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Turks and Caicos islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Tuvalu,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+U.K. of Great Britain and Northern Ireland,0.03632295131954807,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Uganda,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Ukraine,0.012980518486024599,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+United Arab Emirates,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+United Republic of Tanzania,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+United States Virgin Islands,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+United States of America,0.08444521754335364,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Uruguay,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Uzbekistan,0.0050723470321491024,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Vanuatu,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Venezuela,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Viet Nam,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Wake Island,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Wallis and Futuna,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+West Bank,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Western Sahara,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Yemen,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Zambia,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Zimbabwe,,cf_median,Broadleaf_Deciduous_Cold_temperate_dry
+Abyei,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Afghanistan,0.10464795658753487,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Aksai Chin,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Albania,0.37281812082155313,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Algeria,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+American Samoa,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Andorra,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Angola,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Anguilla,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Antarctica,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Antigua and Barbuda,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Argentina,0.08807542839793646,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Armenia,0.14367803045872116,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Aruba,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Arunachal Pradesh,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Ashmore and Cartier Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Australia,0.16540972704003806,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Austria,0.37983221076965296,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Azerbaijan,0.22966233298213096,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Azores Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Bahamas,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Bahrain,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Baker Island,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Bangladesh,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Barbados,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Bassas da India,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Belarus,0.003510960283374021,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Belgium,0.04551480375455708,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Belize,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Benin,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Bermuda,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Bhutan,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Bird Island,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Bolivia,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Bosnia and Herzegovina,0.31536195075209084,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Botswana,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Bouvet Island,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Brazil,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+British Indian Ocean Territory,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+British Virgin Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Brunei Darussalam,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Bulgaria,0.08346151808020007,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Burkina Faso,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Burundi,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Cambodia,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Cameroon,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Canada,0.1605808711467988,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Cape Verde,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Cayman Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Central African Republic,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Chad,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Chile,0.9462880916288214,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+China,0.2891336067044782,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+China/India,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Christmas Island,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Clipperton Island,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Cocos (Keeling) Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Colombia,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Comoros,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Congo,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Cook Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Costa Rica,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Croatia,0.32692389270600475,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Cuba,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Cyprus,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Czech Republic,0.04297945420512956,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Côte d'Ivoire,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Dem People's Rep of Korea,0.994673616329354,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Democratic Republic of the Congo,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Denmark,0.005459266821860605,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Djibouti,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Dominica,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Dominican Republic,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Ecuador,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Egypt,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+El Salvador,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Equatorial Guinea,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Eritrea,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Estonia,0.004189560960864385,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Ethiopia,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Europa Island,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Falkland Islands (Malvinas),,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Faroe Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Fiji,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Finland,0.00503842754269736,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+France,0.13756119851150211,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+French Guiana,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+French Polynesia,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+French Southern and Antarctic Territories,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Gabon,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Gambia,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Gaza Strip,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Georgia,0.5302586894122515,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Germany,0.05935374315501522,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Ghana,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Gibraltar,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Glorioso Island,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Greece,0.1373472124009,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Greenland,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Grenada,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Guadeloupe,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Guam,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Guatemala,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Guernsey,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Guinea,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Guinea-Bissau,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Guyana,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Haiti,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Hala'ib triangle,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Heard Island and McDonald Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Holy See,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Honduras,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Hong Kong,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Howland Island,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Hungary,0.027060219310732554,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Iceland,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Ilemi triangle,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+India,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Indonesia,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Iran  (Islamic Republic of),0.07369519930013399,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Iraq,0.17454604565964585,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Ireland,0.0670139951538483,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Isle of Man,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Israel,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Italy,0.4881887663820027,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Jamaica,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Jammu and Kashmir,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Japan,3.0691961432252057,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Jarvis Island,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Jersey,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Johnston Atoll,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Jordan,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Juan de Nova Island,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Kazakhstan,0.03161307419226395,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Kenya,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Kingman Reef,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Kiribati,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Kuril islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Kuwait,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Kyrgyzstan,0.2599725437164811,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Lao People's Democratic Republic,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Latvia,0.006224664847038002,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Lebanon,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Lesotho,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Liberia,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Libya,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Liechtenstein,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Lithuania,0.0038438968105118563,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Luxembourg,0.08258641360050271,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Ma'tan al-Sarra,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Macau,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Madagascar,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Madeira Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Malawi,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Malaysia,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Maldives,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Mali,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Malta,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Marshall Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Martinique,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Mauritania,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Mauritius,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Mayotte,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Mexico,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Micronesia (Federated States of),,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Midway Island,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+"Moldova, Republic of",0.02493598379485659,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Monaco,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Mongolia,0.09278438947308827,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Montenegro,0.2851446662842822,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Montserrat,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Morocco,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Mozambique,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Myanmar,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Namibia,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Nauru,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Navassa Island,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Nepal,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Netherlands,0.0029438398280664025,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Netherlands Antilles,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+New Caledonia,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+New Zealand,0.7183446623830441,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Nicaragua,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Niger,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Nigeria,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Niue,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Norfolk Island,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Northern Mariana Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Norway,0.6231332549886877,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Oman,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Pakistan,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Palau,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Palmyra Atoll,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Panama,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Papua New Guinea,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Paracel Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Paraguay,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Peru,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Philippines,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Pitcairn,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Poland,0.022145387443203463,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Portugal,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Puerto Rico,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Qatar,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Republic of Korea,1.2231124520562913,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Romania,0.09784293377017203,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Russian Federation,0.09975046249967576,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Rwanda,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Réunion,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Saint Helena,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Saint Kitts and Nevis,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Saint Lucia,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Saint Pierre et Miquelon,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Saint Vincent and the Grenadines,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Samoa,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+San Marino,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Sao Tome and Principe,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Saudi Arabia,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Scarborough Reef,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Senegal,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Senkaku Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Serbia,0.20794748463472265,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Seychelles,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Sierra Leone,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Singapore,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Slovakia,0.1131593830267421,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Slovenia,0.5638543250541072,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Solomon Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Somalia,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+South Africa,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+South Georgia and the South Sandwich Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+South Sudan,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Spain,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Spratly Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Sri Lanka,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Sudan,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Suriname,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Svalbard and Jan Mayen Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Swaziland,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Sweden,0.012873109819944554,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Switzerland,0.7353032415781445,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Syrian Arab Republic,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Taiwan,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Tajikistan,0.502004441877589,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Thailand,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+The former Yugoslav Republic of Macedonia,0.12262020680376329,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Timor-Leste,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Togo,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Tokelau,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Tonga,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Trinidad and Tobago,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Tromelin Island,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Tunisia,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Turkey,0.10611237058697318,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Turkmenistan,0.010045206114126539,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Turks and Caicos islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Tuvalu,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+U.K. of Great Britain and Northern Ireland,0.18735420071285913,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Uganda,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Ukraine,0.025546979742605024,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+United Arab Emirates,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+United Republic of Tanzania,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+United States Virgin Islands,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+United States of America,0.24835186382320673,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Uruguay,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Uzbekistan,0.056216059290964675,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Vanuatu,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Venezuela,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Viet Nam,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Wake Island,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Wallis and Futuna,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+West Bank,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Western Sahara,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Yemen,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Zambia,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
+Zimbabwe,,cf_std,Broadleaf_Deciduous_Cold_temperate_dry
