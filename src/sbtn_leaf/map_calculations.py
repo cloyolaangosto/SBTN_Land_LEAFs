@@ -655,7 +655,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
                     {
                         "country": region.get("ADM0_NAME", None),
                         "subcountry": region.get("ADM1_NAME", None),
-                        "subcountry-id": region.get("ADM1_CODE", None),
+                        "ADM1_CODE": region.get("ADM1_CODE", None),
                         "imp_cat": cf_name,
                         "flow_name": flow_name,
                         "unit": cf_unit,
@@ -693,8 +693,8 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
         drop_cols = [ 'STATUS', 'DISP_AREA', 'ADM0_CODE', 'STR0_YEAR', 'EXP0_YEAR', 'SHAPE_LENG', 'SHAPE_AREA']
         
     else:
-        final_gdf = shp.merge(results_df, how="left", on="ADM1_NAME")
-        drop_cols = ['ADM1_CODE','STR1_YEAR', 'EXP1_YEAR', 'STATUS', 'DISP_AREA', 'ADM0_CODE',  'SHAPE_LENG', "SHAPE_AREA"]
+        final_gdf = shp.merge(results_df, how="left", on="ADM1_CODE")
+        drop_cols = ['STR1_YEAR', 'EXP1_YEAR', 'STATUS', 'DISP_AREA', 'ADM0_CODE',  'SHAPE_LENG', "SHAPE_AREA"]
         # final_gdf = final_gdf.drop(columns=["country", "subcountry (adm1)"])
 
     final_gdf = final_gdf.drop(columns=drop_cols)
@@ -774,8 +774,8 @@ def build_cfs_gpkg_from_rasters(
         drop_cols = ['NNH', 'SHAPE_LENG', 'SHAPE_AREA', 'NNH_NAME','COLOR', 'COLOR_BIO', 'COLOR_NNH', 'LICENSE']
     elif area_type == "country":
         drop_cols = [ 'STATUS', 'DISP_AREA', 'ADM0_CODE', 'STR0_YEAR', 'EXP0_YEAR', 'SHAPE_LENG', 'SHAPE_AREA']
-    else:
-        drop_cols = ['ADM1_CODE','STR1_YEAR', 'EXP1_YEAR', 'STATUS', 'DISP_AREA', 'ADM0_CODE',  'SHAPE_LENG', "SHAPE_AREA"]
+    else:  #subcountry
+        drop_cols = ['STR1_YEAR', 'EXP1_YEAR', 'STATUS', 'DISP_AREA', 'ADM0_CODE',  'SHAPE_LENG', "SHAPE_AREA"]
     master_gdf = master_gdf.drop(columns=drop_cols)
 
     # Ensure master_gdf is in an equal-area CRS (avoid referencing undefined raster/resampling variables)    
