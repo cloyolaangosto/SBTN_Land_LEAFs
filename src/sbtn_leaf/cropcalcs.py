@@ -1732,7 +1732,7 @@ def create_monthly_residue_vPipeline(
     output_path: str,
     output_nodata = np.nan,
     climate_raster_path: str = uhth_climates_fp,
-    C_Content: float = 0.50,
+    C_Content: float = 0.40,
     *,
     climate_zone_lookup: Optional[Mapping[int, str]] = None,
     crop_table: Optional[pl.DataFrame] = None,
