@@ -752,7 +752,7 @@ def build_cfs_gpkg_from_rasters(
     if logger is not None:
         destination = gpckg_path if write_gpkg else "CSV only"
         logger.info(
-            f"Building '{layer_name}' from rasters in {input_folder} into {output_folder} ({destination})"
+            f"Building '{layer_name}' from rasters in {input_folder} into {output_folder} ({destination})\n"
         )
 
     # Gather files
@@ -825,6 +825,13 @@ def build_cfs_gpkg_from_rasters(
             area_type=area_type,
             **calc_kwargs
         )
+
+        # Check if the result is empty and thus skip
+        # Skip this flow if no results were returned
+        if df_flow is None or (isinstance(df_flow, pd.DataFrame) and df_flow.empty) or gdf_flow is None or getattr(gdf_flow, "empty", False):
+            if logger is not None:
+                logger.info("No results for flow '%s' (file=%s). Skipping...", flow_name, file)
+            continue
 
         # Align CRS
         if gdf_flow.crs != master_gdf.crs:
