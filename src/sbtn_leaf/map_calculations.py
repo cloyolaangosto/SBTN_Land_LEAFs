@@ -655,6 +655,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
                     {
                         "country": region.get("ADM0_NAME", None),
                         "subcountry": region.get("ADM1_NAME", None),
+                        "subcountry-id": region.get("ADM1_CODE", None),
                         "imp_cat": cf_name,
                         "flow_name": flow_name,
                         "unit": cf_unit,
@@ -692,7 +693,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
         drop_cols = [ 'STATUS', 'DISP_AREA', 'ADM0_CODE', 'STR0_YEAR', 'EXP0_YEAR', 'SHAPE_LENG', 'SHAPE_AREA']
         
     else:
-        final_gdf = shp.merge(results_df, how="left", left_on="ADM1_NAME", right_on="subcountry")
+        final_gdf = shp.merge(results_df, how="left", on="ADM1_NAME")
         drop_cols = ['ADM1_CODE','STR1_YEAR', 'EXP1_YEAR', 'STATUS', 'DISP_AREA', 'ADM0_CODE',  'SHAPE_LENG', "SHAPE_AREA"]
         # final_gdf = final_gdf.drop(columns=["country", "subcountry (adm1)"])
 
