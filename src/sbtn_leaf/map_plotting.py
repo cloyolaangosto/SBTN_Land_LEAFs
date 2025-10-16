@@ -801,7 +801,9 @@ def plot_raster_over_gdf(raster_path: str,
                          title: str = "Raster over GeoDataFrame",
                          cmap: str = "viridis",
                          alpha: float = 0.7,
-                         figsize: tuple = (12, 8)):
+                         figsize: tuple = (12, 8),
+                         polygon_linewidth = 0.5,
+                         polygon_edgecolor = "lightgrey"):
     """
     Clip a raster to the given GeoDataFrame and plot only the overlapping pixels,
     honoring the raster's own nodata value by rendering those pixels transparent.
@@ -866,7 +868,7 @@ def plot_raster_over_gdf(raster_path: str,
     )
 
     # Overlay polygon boundaries
-    gdf_proj.boundary.plot(ax=ax, edgecolor="black", linewidth=1)
+    gdf_proj.boundary.plot(ax=ax, edgecolor=polygon_edgecolor, linewidth=polygon_linewidth)
 
     # Colorbar and labels
     cbar = fig.colorbar(img, ax=ax, label="Value")
@@ -875,7 +877,169 @@ def plot_raster_over_gdf(raster_path: str,
     ax.set_ylabel("Latitude")
     plt.show()
 
+def plot_raster_over_gdf_showpolygonvalues(
+    raster_path: str,
+    gdf: gpd.GeoDataFrame,
+    band: int = 1,
+    title: str = "Raster over GeoDataFrame",
+    cmap: str = "viridis",
+    alpha: float = 0.7,
+    figsize: tuple = (12, 8),
+    polygon_linewidth: float = 0.5,
+    polygon_edgecolor: str = "lightgrey",
+    # polygons
+    polygon_value_col: str | None = None,
+    polygon_alpha: float = 0.6,
+    polygon_cmap: str | None = None,
+    # scale/linking
+    match_color_scale: bool = True,
+    add_polygon_colorbar_when_unmatched: bool = True,
+    # labels
+    raster_colorbar_label: str = "Raster value",
+    polygon_colorbar_label: str = "Polygon value",
+    # NEW: quantiles
+    n_quantiles: int = 0,   # 0 = continuous, >=1 = quantile bins
+):
+    """
+    Plot a raster clipped to gdf and (optionally) fill polygons by an attribute.
+    Supports quantile-based color binning via `n_quantiles`:
+      - n_quantiles = 0  → continuous color scale (Normalize)
+      - n_quantiles >= 1 → quantile bins (BoundaryNorm)
+    If `match_color_scale=True`, polygons reuse the raster's colormap AND scale
+    (continuous or quantile bins), so colors mean the same across layers.
+    """
+    # Load raster & CRS
+    raster = rioxarray.open_rasterio(raster_path)
+    if raster.rio.crs is None:
+        raise ValueError("Raster must have a CRS.")
+    gdf_proj = gdf.to_crs(raster.rio.crs)
 
+    # Clip and extract band
+    clipped = raster.rio.clip(gdf_proj.geometry, drop=True)
+    try:
+        da = clipped.sel(band=band)
+    except ValueError:
+        da = clipped.isel(band=band - 1)
+
+    data = da.values
+    nodata_val = clipped.rio.nodata
+    if nodata_val is not None:
+        data = np.where(data == nodata_val, np.nan, data)
+
+    # Base cmap with NaNs transparent
+    base_cmap = cm.get_cmap(cmap).copy()
+    base_cmap.set_bad(color="none")
+
+    # Raster scale: continuous or quantile
+    valid_data = data[~np.isnan(data)]
+    if valid_data.size == 0:
+        raise ValueError("No valid raster pixels after clipping.")
+
+    if n_quantiles and n_quantiles >= 1:
+        # Build quantile bin edges from raster
+        probs = np.linspace(0, 1, n_quantiles + 1)
+        boundaries = np.quantile(valid_data, probs)
+        # Ensure strictly increasing boundaries (may collapse if data are constant)
+        boundaries = np.unique(boundaries)
+        if boundaries.size < 2:
+            # fallback to min/max
+            vmin, vmax = float(np.nanmin(valid_data)), float(np.nanmax(valid_data))
+            boundaries = np.array([vmin, vmax])
+        raster_norm = mcolors.BoundaryNorm(boundaries, ncolors=base_cmap.N, clip=False)
+        raster_boundaries = boundaries  # keep for colorbar and polygons
+        poly_scale_kind = "quantiles"
+    else:
+        vmin, vmax = float(np.nanmin(valid_data)), float(np.nanmax(valid_data))
+        raster_norm = mcolors.Normalize(vmin=vmin, vmax=vmax)
+        raster_boundaries = None
+        poly_scale_kind = "continuous"
+
+    # Extent
+    minx, miny, maxx, maxy = clipped.rio.bounds()
+    extent = [minx, maxx, miny, maxy]
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    # 1) Polygons beneath raster
+    drew_polys = False
+    if polygon_value_col is not None:
+        if polygon_value_col not in gdf_proj.columns:
+            raise ValueError(f"Column '{polygon_value_col}' not found in GeoDataFrame.")
+        series = gdf_proj[polygon_value_col].astype(float)
+        finite_vals = series[np.isfinite(series)]
+
+        if match_color_scale:
+            # Reuse raster scale/cmap
+            poly_cmap = base_cmap
+            if poly_scale_kind == "quantiles":
+                poly_norm = mcolors.BoundaryNorm(raster_boundaries, ncolors=poly_cmap.N, clip=False)
+            else:
+                poly_norm = raster_norm
+        else:
+            # Independent polygon scale
+            poly_cmap = cm.get_cmap(polygon_cmap or cmap)
+            if finite_vals.size == 0:
+                poly_norm = None
+            else:
+                if n_quantiles and n_quantiles >= 1:
+                    probs = np.linspace(0, 1, n_quantiles + 1)
+                    poly_bounds = np.quantile(finite_vals, probs)
+                    poly_bounds = np.unique(poly_bounds)
+                    if poly_bounds.size < 2:
+                        poly_bounds = np.array([finite_vals.min(), finite_vals.max()])
+                    poly_norm = mcolors.BoundaryNorm(poly_bounds, ncolors=poly_cmap.N, clip=False)
+                else:
+                    poly_norm = mcolors.Normalize(vmin=float(finite_vals.min()),
+                                                  vmax=float(finite_vals.max()))
+
+        gdf_proj.plot(
+            column=polygon_value_col,
+            ax=ax,
+            cmap=poly_cmap,
+            norm=poly_norm,
+            alpha=polygon_alpha,
+            linewidth=0,
+            legend=False
+        )
+        drew_polys = True
+
+    # 2) Raster on top
+    img = ax.imshow(
+        data,
+        extent=extent,
+        origin="upper",
+        cmap=base_cmap,
+        norm=raster_norm,
+        alpha=alpha
+    )
+
+    # 3) Polygon boundaries
+    gdf_proj.boundary.plot(ax=ax, edgecolor=polygon_edgecolor, linewidth=polygon_linewidth)
+
+    # 4) Colorbars
+    # Raster colorbar
+    if n_quantiles and n_quantiles >= 1 and raster_boundaries is not None:
+        cbar = fig.colorbar(img, ax=ax, label=raster_colorbar_label, boundaries=raster_boundaries, spacing="proportional")
+    else:
+        cbar = fig.colorbar(img, ax=ax, label=raster_colorbar_label)
+
+    # Optional separate polygon colorbar (only when not matching)
+    if drew_polys and (not match_color_scale) and add_polygon_colorbar_when_unmatched:
+        poly_mappable = cm.ScalarMappable(norm=poly_norm, cmap=poly_cmap)  # type: ignore
+        poly_mappable.set_array([])
+        cax = fig.add_axes([ax.get_position().x0 - 0.035, ax.get_position().y0, 0.02, ax.get_position().height])
+        if isinstance(poly_norm, mcolors.BoundaryNorm):
+            fig.colorbar(poly_mappable, cax=cax, label=polygon_colorbar_label, boundaries=poly_norm.boundaries, spacing="proportional")
+        else:
+            fig.colorbar(poly_mappable, cax=cax, label=polygon_colorbar_label)
+
+    # Labels
+    ax.set_title(title, fontsize=16)
+    ax.set_xlabel("Longitude")
+    ax.set_ylabel("Latitude")
+
+    plt.show()
+    return fig, ax
 
 ###############################
 ### SHAPE PLOTLY FORMATTING ###
