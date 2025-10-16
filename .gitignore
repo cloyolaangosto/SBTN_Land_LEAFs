@@ -68,6 +68,9 @@ Thumbs.db
 .vscode/
 .idea/
 
+# ---- Specific Files ----
+LEAFs/soil_erosion/soil_erosion_subcountry.csv
+
 
 # ---- KEEP EXCEPTIONS ------
 
