@@ -13,9 +13,12 @@ from rasterio.enums import Resampling
 from rasterio.mask import mask
 import rioxarray
 import tempfile
+from contextlib import nullcontext
 from typing import Optional, Callable, Iterable, Tuple, Dict, List
 from shapely.geometry import box
 from shapely.prepared import prep as prep_geom
+from tqdm.auto import tqdm
+from tqdm.contrib.logging import logging_redirect_tqdm
 
 import os
 
@@ -757,9 +760,26 @@ def build_cfs_gpkg_from_rasters(
         )
 
     # Gather files
-    file_list = sorted(os.listdir(input_folder))
+    all_files = sorted(os.listdir(input_folder))
     if run_test:
-        file_list = file_list[:3]
+        all_files = all_files[:3]
+
+    file_list = [
+        file
+        for file in all_files
+        if file.lower().endswith(tuple(file_filter))
+        and (not input_raster_key or file.startswith(input_raster_key))
+    ]
+
+    progress_iter = tqdm(
+        file_list,
+        desc=f"Processing rasters ({layer_name})",
+        unit="raster",
+        dynamic_ncols=True,
+        disable=not file_list,
+    )
+
+    logging_context = logging_redirect_tqdm() if logger is not None else nullcontext()
 
     # Prepare GeoPackage layer bookkeeping
     attribute_first_write = True
@@ -806,134 +826,136 @@ def build_cfs_gpkg_from_rasters(
     long_result_frames: List[pd.DataFrame] = []
 
     # Iterates through files
-    for file in file_list:
-        if not file.lower().endswith(tuple(file_filter)):
-            continue
-        if input_raster_key and not file.startswith(input_raster_key):
-            continue
+    with logging_context:
+        for file in progress_iter:
 
-        raster_path = os.path.join(input_folder, file)
-        flow_name = os.path.splitext(file)[0]
-        if input_raster_key:
-            flow_name = flow_name.replace(input_raster_key, "")
+            raster_path = os.path.join(input_folder, file)
+            flow_name = os.path.splitext(file)[0]
+            if input_raster_key:
+                flow_name = flow_name.replace(input_raster_key, "")
 
-        # Run calculator → (df, gdf)
-        df_flow, gdf_flow = calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
-            raster_input_filepath=raster_path,
-            cf_name=cf_name,
-            cf_unit=cf_unit,
-            flow_name=flow_name,
-            area_type=area_type,
-            **calc_kwargs
-        )
-
-        # Check if the result is empty and thus skip
-        # Skip this flow if no results were returned
-        if df_flow is None or (isinstance(df_flow, pd.DataFrame) and df_flow.empty) or gdf_flow is None or getattr(gdf_flow, "empty", False):
-            if logger is not None:
-                logger.info("No results for flow '%s' (file=%s). Skipping...", flow_name, file)
-            continue
-
-        # Align CRS
-        if gdf_flow.crs != master_gdf.crs:
-            if logger is not None:
-                logger.info("Result gdf aligned with master_gdf")
-            gdf_flow = gdf_flow.set_crs(master_gdf.crs, allow_override=True)
-
-        # Ensure flow results include the expected join key
-        if master_key not in gdf_flow.columns:
-            raise KeyError(f"master_key '{master_key}' not found in result gdf. Available: {list(gdf_flow.columns)}")
-
-        # Merge onto master identifiers so all regions are represented
-        flow_values = master_id_df.merge(
-            df_flow[[result_key, "cf", "cf_median", "cf_std"]],
-            how="left",
-            left_on=master_key,
-            right_on=result_key,
-        )
-
-        if (result_key in flow_values.columns) and (master_key != result_key):
-            flow_values = flow_values.drop(columns=result_key)
-
-        flow_values.insert(1, "flow_name", flow_name)
-
-        for col in ("cf", "cf_median", "cf_std"):
-            if col in flow_values.columns:
-                flow_values[col] = flow_values[col].astype("float32")
-
-        if add_provenance:
-            flow_values["_source_file"] = file
-
-        # Record metadata once per flow (recommendation #2)
-        metadata_entry = {
-            "flow_name": flow_name,
-            "impact_category": cf_name,
-            "unit": cf_unit,
-        }
-        if add_provenance:
-            metadata_entry["source_file"] = file
-        metadata_records.append(metadata_entry)
-
-        if write_gpkg:
-            # Initialize schema for attribute layer on first write
-            if attribute_first_write:
-                base_cols = [master_key, "flow_name", "cf", "cf_median", "cf_std"]
-                extras = [c for c in flow_values.columns if c not in base_cols]
-                schema_cols = [c for c in base_cols + extras if c in flow_values.columns]
-                append_flag = False
-                attribute_first_write = False
-            else:
-                append_flag = True
-
-            # Align columns to schema for stability across flows
-            if schema_cols is None:
-                raise RuntimeError("GeoPackage schema not initialized before writing.")
-            for c in schema_cols:
-                if c not in flow_values.columns:
-                    flow_values[c] = pd.NA
-            flow_values = flow_values[schema_cols]
-
-            write_df(
-                flow_values,
-                gpckg_path,
-                layer=layer_name,
-                driver="GPKG",
-                append=append_flag,
+            # Run calculator → (df, gdf)
+            df_flow, gdf_flow = calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
+                raster_input_filepath=raster_path,
+                cf_name=cf_name,
+                cf_unit=cf_unit,
+                flow_name=flow_name,
+                area_type=area_type,
+                **calc_kwargs
             )
 
-        # Long-format table for CSV output (no constant columns)
-        mean_df = master_id_df.merge(
-            df_flow[[result_key, "cf"]],
-            how="left",
-            left_on=master_key,
-            right_on=result_key,
-        ).rename(columns={"cf": "value"})
-        mean_df["metric"] = "cf_mean"
+            # Check if the result is empty and thus skip
+            # Skip this flow if no results were returned
+            if df_flow is None or (isinstance(df_flow, pd.DataFrame) and df_flow.empty) or gdf_flow is None or getattr(gdf_flow, "empty", False):
+                if logger is not None:
+                    logger.info("No results for flow '%s' (file=%s). Skipping...", flow_name, file)
+                continue
 
-        median_df = master_id_df.merge(
-            df_flow[[result_key, "cf_median"]],
-            how="left",
-            left_on=master_key,
-            right_on=result_key,
-        ).rename(columns={"cf_median": "value"})
-        median_df["metric"] = "cf_median"
+            # Align CRS
+            if gdf_flow.crs != master_gdf.crs:
+                if logger is not None:
+                    logger.info("Result gdf aligned with master_gdf")
+                gdf_flow = gdf_flow.set_crs(master_gdf.crs, allow_override=True)
 
-        std_df = master_id_df.merge(
-            df_flow[[result_key, "cf_std"]],
-            how="left",
-            left_on=master_key,
-            right_on=result_key,
-        ).rename(columns={"cf_std": "value"})
-        std_df["metric"] = "cf_std"
+            # Ensure flow results include the expected join key
+            if master_key not in gdf_flow.columns:
+                raise KeyError(f"master_key '{master_key}' not found in result gdf. Available: {list(gdf_flow.columns)}")
 
-        for frame in (mean_df, median_df, std_df):
+            # Merge onto master identifiers so all regions are represented
+            flow_values = master_id_df.merge(
+                df_flow[[result_key, "cf", "cf_median", "cf_std"]],
+                how="left",
+                left_on=master_key,
+                right_on=result_key,
+            )
+
             if (result_key in flow_values.columns) and (master_key != result_key):
-                frame = frame.drop(columns=result_key)
-            frame["flow_name"] = flow_name
-            long_result_frames.append(frame)
+                flow_values = flow_values.drop(columns=result_key)
 
-        if write_gpkg:
-            total_rows += len(flow_values)
+            flow_values.insert(1, "flow_name", flow_name)
+
+            for col in ("cf", "cf_median", "cf_std"):
+                if col in flow_values.columns:
+                    flow_values[col] = flow_values[col].astype("float32")
+
+            if add_provenance:
+                flow_values["_source_file"] = file
+
+            # Record metadata once per flow (recommendation #2)
+            metadata_entry = {
+                "flow_name": flow_name,
+                "impact_category": cf_name,
+                "unit": cf_unit,
+            }
+            if add_provenance:
+                metadata_entry["source_file"] = file
+            metadata_records.append(metadata_entry)
+
+            if write_gpkg:
+                # Initialize schema for attribute layer on first write
+                if attribute_first_write:
+                    base_cols = [master_key, "flow_name", "cf", "cf_median", "cf_std"]
+                    extras = [c for c in flow_values.columns if c not in base_cols]
+                    schema_cols = [c for c in base_cols + extras if c in flow_values.columns]
+                    append_flag = False
+                    attribute_first_write = False
+                else:
+                    append_flag = True
+
+                # Align columns to schema for stability across flows
+                if schema_cols is None:
+                    raise RuntimeError("GeoPackage schema not initialized before writing.")
+                for c in schema_cols:
+                    if c not in flow_values.columns:
+                        flow_values[c] = pd.NA
+                flow_values = flow_values[schema_cols]
+
+                write_df(
+                    flow_values,
+                    gpckg_path,
+                    layer=layer_name,
+                    driver="GPKG",
+                    append=append_flag,
+                )
+
+            # Long-format table for CSV output (no constant columns)
+            mean_df = master_id_df.merge(
+                df_flow[[result_key, "cf"]],
+                how="left",
+                left_on=master_key,
+                right_on=result_key,
+            ).rename(columns={"cf": "value"})
+            mean_df["metric"] = "cf_mean"
+
+            median_df = master_id_df.merge(
+                df_flow[[result_key, "cf_median"]],
+                how="left",
+                left_on=master_key,
+                right_on=result_key,
+            ).rename(columns={"cf_median": "value"})
+            median_df["metric"] = "cf_median"
+
+            std_df = master_id_df.merge(
+                df_flow[[result_key, "cf_std"]],
+                how="left",
+                left_on=master_key,
+                right_on=result_key,
+            ).rename(columns={"cf_std": "value"})
+            std_df["metric"] = "cf_std"
+
+            for frame in (mean_df, median_df, std_df):
+                if (result_key in flow_values.columns) and (master_key != result_key):
+                    frame = frame.drop(columns=result_key)
+                frame["flow_name"] = flow_name
+                long_result_frames.append(frame)
+
+            if write_gpkg:
+                total_rows += len(flow_values)
+
+    if hasattr(progress_iter, "close"):
+        progress_iter.close()
+    elif hasattr(progress_iter, "update"):
+        progress_iter.update(0)
 
     # Combine long-format data and persist to CSV
     if long_result_frames:
