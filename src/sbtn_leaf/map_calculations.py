@@ -852,14 +852,14 @@ def build_cfs_gpkg_from_rasters(
             right_on=result_key,
         )
 
-        if result_key in flow_values.columns:
+        if (result_key in flow_values.columns) and (master_key != result_key):
             flow_values = flow_values.drop(columns=result_key)
 
         flow_values.insert(1, "flow_name", flow_name)
 
         for col in ("cf", "cf_median", "cf_std"):
             if col in flow_values.columns:
-                flow_values[col] = flow_values[col].astype("float32").round(sig_figures)
+                flow_values[col] = flow_values[col].astype("float32")
 
         if add_provenance:
             flow_values["_source_file"] = file
@@ -927,7 +927,7 @@ def build_cfs_gpkg_from_rasters(
         std_df["metric"] = "cf_std"
 
         for frame in (mean_df, median_df, std_df):
-            if result_key in frame.columns:
+            if (result_key in flow_values.columns) and (master_key != result_key):
                 frame = frame.drop(columns=result_key)
             frame["flow_name"] = flow_name
             long_result_frames.append(frame)
@@ -940,6 +940,13 @@ def build_cfs_gpkg_from_rasters(
         results_df = pd.concat(long_result_frames, ignore_index=True)
     else:
         results_df = pd.DataFrame(columns=[master_key, "flow_name", "metric", "value"])
+
+    # Add missing columns for subcountries
+    if area_type == "subcountry":
+        results_df = results_df.merge(master_gdf[["ADM1_CODE", "ADM1_NAME", "ADM0_NAME"]], how="left", on="ADM1_CODE")
+        results_df = results_df[["ADM0_NAME", "ADM1_NAME", "ADM1_CODE", "flow_name", "metric", "value"]]
+    
+    # Store results
     results_df.to_csv(csv_path, index=False)
 
     # Persist metadata table once (recommendation #2)
