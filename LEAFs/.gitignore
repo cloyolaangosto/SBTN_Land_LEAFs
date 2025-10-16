@@ -1,12 +1,17 @@
-# Ignore generated outputs by default
+# Ignore everything by default
 *
 
-# Allow documentation and lightweight text artifacts to be versioned when needed
-!.gitignore
-!README.md
+# Allow directories
+!*/
+
+# Allow certain file types
 !*.csv
 !*.json
 !*.txt
 !*.ipynb
-!*/
-!*/README.md
+!README.md
+!.gitignore
+
+# ---- Specific files to ignore even if their type is allowed ----
+soil_erosion/soil_erosion_subcountry.csv
+
