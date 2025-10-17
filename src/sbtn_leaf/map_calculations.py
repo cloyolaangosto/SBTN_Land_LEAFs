@@ -471,7 +471,8 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
     er_gdf: gpd.GeoDataFrame = er_2017_shp,
     country_gdf: gpd.GeoDataFrame = country_shp,
     subcountry_gdf: gpd.GeoDataFrame = subcountry_shp,
-    raster_logger=raster_logger
+    raster_logger=raster_logger,
+    suppress_logging: bool = False,
 ):
     """
     Compute area-weighted CF stats (mean, median, std) per region with proper fractional pixel coverage and
@@ -484,9 +485,11 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
         'exact'       -> precise per-pixel polygon intersection
     - Outlier filtering can be applied before computing statistics:
         outlier_method in {None, 'quantile', 'std', 'log1p_cap', 'log1p_win'}
+    - Set ``suppress_logging`` to ``True`` to silence informational/debug messages when the function is used as a
+      building block inside larger batch operations.
     """
 
-    log = raster_logger if raster_logger is not None else None
+    log = None if suppress_logging else raster_logger
 
     # Validate area_type
     valid_area_type = {"ecoregion", "country", "subcountry"}
@@ -543,6 +546,10 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
         raster = raster.rio.reproject(equal_area_crs, resampling=resampling)
         raster_crs = raster.rio.crs
 
+    # Pre-compute the transform and pixel area once so it can be reused per region
+    base_transform = raster.rio.transform()
+    base_pixel_area = _pixel_area_from_transform(base_transform)
+
     # Reproject the shapefile to the raster's (equal-area) CRS
     shp = shp.to_crs(raster_crs)
 
@@ -573,8 +580,17 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
             if log:
                 log.debug("Calculating %s", region_text)
 
-            # Clip to region bounds (drop outside pixels)
-            masked = raster.rio.clip([geom], drop=True)
+            # Clip quickly to region bounds; fall back to precise clipping if needed
+            minx, miny, maxx, maxy = geom.bounds
+            try:
+                window = raster.rio.window(minx, miny, maxx, maxy)
+                masked = raster.rio.isel_window(window)
+                if masked.size == 0 or masked.rio.width == 0 or masked.rio.height == 0:
+                    if log:
+                        log.debug("Window outside raster for %s. Skipping...", region_text)
+                    continue
+            except Exception:
+                masked = raster.rio.clip([geom], drop=True)
 
             # Extract band 1 as ndarray; masked is xarray.DataArray with shape (band, y, x)
             arr = masked.values[0]  # (H, W)
@@ -610,10 +626,9 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
                     log.debug("No overlap/valid pixels for %s. Skipping...", region_text)
                 continue
 
-            values = arr[keep].astype(np.float64)
+            values = arr[keep].astype(np.float64, copy=False)
             # area weight = frac * pixel_area
-            px_area = _pixel_area_from_transform(transform)
-            weights = (frac[keep] * px_area).astype(np.float64)
+            weights = (frac[keep] * base_pixel_area).astype(np.float64, copy=False)
 
             # Outlier filtering (optional)
             values, weights = _apply_outlier_filter(values, weights,
@@ -745,7 +760,8 @@ def build_cfs_gpkg_from_rasters(
     -------
     (gpkg_path | None, results_df)
     """
-    calc_kwargs = calc_kwargs or {}
+    calc_kwargs = dict(calc_kwargs or {})
+    calc_kwargs.setdefault("suppress_logging", True)
     output_string = output_folder + cf_name + "_" + area_type
     gpckg_path = output_string + ".gpkg" if write_gpkg else None
     csv_path = output_string + ".csv"
