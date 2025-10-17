@@ -974,6 +974,8 @@ def build_cfs_gpkg_from_rasters(
     if area_type == "subcountry":
         results_df = results_df.merge(master_gdf[["ADM1_CODE", "ADM1_NAME", "ADM0_NAME"]], how="left", on="ADM1_CODE")
         results_df = results_df[["ADM0_NAME", "ADM1_NAME", "ADM1_CODE", "flow_name", "metric", "value"]]
+    elif area_type == "ecoregion":
+        results_df = results_df.merge(master_gdf[['OBJECTID', 'ECO_NAME', 'BIOME_NUM', 'BIOME_NAME', 'REALM']], how="left", on="OBJECTID")
     
     # Store results
     results_df.to_csv(csv_path, index=False)
