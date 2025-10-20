@@ -19,7 +19,7 @@ Geopackages are organized in two layers: a "geometry_layer", which cointains all
 
 ## LEAFs availability and selection
 ### SOC and Soil Erosion
-SOC and soil erosion LEAF are associated with land use and should be selected based on the companies' land use. 
+SOC and soil erosion LEAF are associated with land use and should be selected based on the companies' land use for a given ecoregion or subcountry region.
 
 LEAFs are were calculated for 42 different land use classes, following Morais, Teixeira & Domingos (2019), including 28 agricultural, 15 forest (Needleleaf_Evergreen_Warm_temperate_moist has been eliminated as it's an empty output.), and 1 grassland.
 
@@ -40,4 +40,10 @@ Complete documentation on how LEAFs are generated can be found on [Soil Erosion 
 Soil Erosion LEAFs represent the estimated erosion in one year per hectare (ton soil/ha/year).
 
 ### Terrestrial Acidification
-Terrestrial Acidification LEAFs are given for 3 acidifying gases $(NO_x, NH_3, SO_x)$
+Terrestrial Acidification LEAFs are given for 3 acidifying gases $(NO_x, NH_3, SO_x)$, and are also available in raster at XX km resolution, as well as the 3 different geographic level. 
+
+In this case, companies need to match the appropiate LEAF for each gas depending on which area of the world is being emmitted.
+
+These LEAFs represented the potential acidification of the soil for a given gases emmited in a given region when compared to $SO_2$ global average, expressed as $kg SO_2-eq./kg$. 
+
+Lightweight documentation on how these are genearted is provided in [TerrAcidification_Documentation](../documentation/TerrAcidification_Documentation.md)
