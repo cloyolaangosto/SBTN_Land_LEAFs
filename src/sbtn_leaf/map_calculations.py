@@ -857,6 +857,9 @@ def build_cfs_gpkg_from_rasters(
             if input_raster_key:
                 flow_name = flow_name.replace(input_raster_key, "")
 
+            if logger:
+                logger.info(f"Calculating {cf_name} for {flow_name}...")
+
             # Run calculator → (df, gdf)
             df_flow, gdf_flow = calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
                 raster_input_filepath=raster_path,
@@ -868,7 +871,6 @@ def build_cfs_gpkg_from_rasters(
             )
 
             # Check if the result is empty and thus skip
-            # Skip this flow if no results were returned
             if df_flow is None or (isinstance(df_flow, pd.DataFrame) and df_flow.empty) or gdf_flow is None or getattr(gdf_flow, "empty", False):
                 if logger is not None:
                     logger.info("No results for flow '%s' (file=%s). Skipping...", flow_name, file)
