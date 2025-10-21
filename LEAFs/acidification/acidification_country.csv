@@ -3,19 +3,19 @@ Abyei,Abyei,0.9973235830316023,cf_mean,nh3
 Afghanistan,Afghanistan,3.747787338797678,cf_mean,nh3
 Aksai Chin,Aksai Chin,5.1878812990693115,cf_mean,nh3
 Albania,Albania,2.305967176061263,cf_mean,nh3
-Algeria,Algeria,1.0218234846763667,cf_mean,nh3
+Algeria,Algeria,1.0269725797105942,cf_mean,nh3
 American Samoa,American Samoa,0.0054345253522340735,cf_mean,nh3
 Andorra,Andorra,3.372956863790347,cf_mean,nh3
 Angola,Angola,0.8261154033114314,cf_mean,nh3
 Anguilla,Anguilla,0.5822328091617575,cf_mean,nh3
-Antarctica,Antarctica,0.00011241362965011817,cf_mean,nh3
+Antarctica,Antarctica,0.00035395296833998544,cf_mean,nh3
 Antigua and Barbuda,Antigua and Barbuda,0.5990779536641807,cf_mean,nh3
-Argentina,Argentina,0.6580412704045202,cf_mean,nh3
+Argentina,Argentina,0.6833978931581381,cf_mean,nh3
 Armenia,Armenia,3.644156080745853,cf_mean,nh3
 Aruba,Aruba,0.5077657254157358,cf_mean,nh3
 Arunachal Pradesh,Arunachal Pradesh,2.546260759771533,cf_mean,nh3
 Ashmore and Cartier Islands,,,cf_mean,nh3
-Australia,Australia,0.4594269027715661,cf_mean,nh3
+Australia,Australia,0.4949244944071761,cf_mean,nh3
 Austria,Austria,7.343093215116961,cf_mean,nh3
 Azerbaijan,Azerbaijan,2.7425588630944424,cf_mean,nh3
 Azores Islands,Azores Islands,0.3420287302539099,cf_mean,nh3
@@ -25,33 +25,33 @@ Baker Island,,,cf_mean,nh3
 Bangladesh,Bangladesh,0.7278259274691373,cf_mean,nh3
 Barbados,Barbados,0.5877045340005156,cf_mean,nh3
 Bassas da India,,,cf_mean,nh3
-Belarus,Belarus,2.669167873484636,cf_mean,nh3
+Belarus,Belarus,2.683592264706866,cf_mean,nh3
 Belgium,Belgium,4.740327855024871,cf_mean,nh3
 Belize,Belize,0.6191879927826843,cf_mean,nh3
 Benin,Benin,0.5453720923265327,cf_mean,nh3
 Bermuda,Bermuda,0.6037995133856778,cf_mean,nh3
 Bhutan,Bhutan,3.6329009859016574,cf_mean,nh3
 Bird Island,,,cf_mean,nh3
-Bolivia,Bolivia,1.4101984019230263,cf_mean,nh3
+Bolivia,Bolivia,1.4555842274259885,cf_mean,nh3
 Bosnia and Herzegovina,Bosnia and Herzegovina,4.886454291490547,cf_mean,nh3
 Botswana,Botswana,1.2982394868252844,cf_mean,nh3
 Bouvet Island,,,cf_mean,nh3
-Brazil,Brazil,1.3540207118506964,cf_mean,nh3
+Brazil,Brazil,1.3644414852527338,cf_mean,nh3
 British Indian Ocean Territory,,,cf_mean,nh3
 British Virgin Islands,British Virgin Islands,0.5822328091617575,cf_mean,nh3
 Brunei Darussalam,Brunei Darussalam,0.3192840089379162,cf_mean,nh3
 Bulgaria,Bulgaria,2.389771908839566,cf_mean,nh3
-Burkina Faso,Burkina Faso,0.7952156848137518,cf_mean,nh3
+Burkina Faso,Burkina Faso,0.7955115533549876,cf_mean,nh3
 Burundi,Burundi,0.9222715368407082,cf_mean,nh3
 Cambodia,Cambodia,0.4792134644042453,cf_mean,nh3
-Cameroon,Cameroon,1.0087432950551738,cf_mean,nh3
+Cameroon,Cameroon,1.0125745462411764,cf_mean,nh3
 Canada,Canada,4.2415504366155705,cf_mean,nh3
 Cape Verde,Cape Verde,0.48551282609104424,cf_mean,nh3
 Cayman Islands,Cayman Islands,0.7544438103520666,cf_mean,nh3
 Central African Republic,Central African Republic,1.505600664897841,cf_mean,nh3
 Chad,Chad,1.5853940601887095,cf_mean,nh3
 Chile,Chile,1.8000567730897543,cf_mean,nh3
-China,China,3.60389093360268,cf_mean,nh3
+China,China,3.701508999060085,cf_mean,nh3
 China/India,China/India,3.8475057066928415,cf_mean,nh3
 Christmas Island,Christmas Island,0.15656723103258074,cf_mean,nh3
 Clipperton Island,,,cf_mean,nh3
@@ -65,7 +65,7 @@ Croatia,Croatia,4.583774338351788,cf_mean,nh3
 Cuba,Cuba,0.9039439149430102,cf_mean,nh3
 Cyprus,Cyprus,1.1095232131689003,cf_mean,nh3
 Czech Republic,Czech Republic,7.7521190033427105,cf_mean,nh3
-Côte d'Ivoire,Côte d'Ivoire,0.7054183737523162,cf_mean,nh3
+Côte d'Ivoire,Côte d'Ivoire,0.7138795235780343,cf_mean,nh3
 Dem People's Rep of Korea,Dem People's Rep of Korea,5.460807342065269,cf_mean,nh3
 Democratic Republic of the Congo,Democratic Republic of the Congo,1.0718362133450354,cf_mean,nh3
 Denmark,Denmark,4.299964632039803,cf_mean,nh3
@@ -73,12 +73,12 @@ Djibouti,Djibouti,0.7708634812388034,cf_mean,nh3
 Dominica,Dominica,0.5920119451413215,cf_mean,nh3
 Dominican Republic,Dominican Republic,0.5288203689550229,cf_mean,nh3
 Ecuador,Ecuador,1.136966701566166,cf_mean,nh3
-Egypt,Egypt,1.5368436104332253,cf_mean,nh3
+Egypt,Egypt,1.781410348507088,cf_mean,nh3
 El Salvador,El Salvador,0.5556469915938002,cf_mean,nh3
 Equatorial Guinea,Equatorial Guinea,1.1527341471963664,cf_mean,nh3
-Eritrea,Eritrea,0.9532708703465066,cf_mean,nh3
-Estonia,Estonia,2.648685006277792,cf_mean,nh3
-Ethiopia,Ethiopia,0.7375272243275872,cf_mean,nh3
+Eritrea,Eritrea,0.9544903087677646,cf_mean,nh3
+Estonia,Estonia,2.6498785693048337,cf_mean,nh3
+Ethiopia,Ethiopia,0.7700713853079111,cf_mean,nh3
 Europa Island,Europa Island,0.512295101875698,cf_mean,nh3
 Falkland Islands (Malvinas),Falkland Islands (Malvinas),0.09248374460727903,cf_mean,nh3
 Faroe Islands,Faroe Islands,0.7764431006151649,cf_mean,nh3
@@ -86,21 +86,21 @@ Fiji,Fiji,0.015411891251324337,cf_mean,nh3
 Finland,Finland,2.513716851307541,cf_mean,nh3
 France,France,3.7788145807155167,cf_mean,nh3
 French Guiana,French Guiana,0.9467399124815457,cf_mean,nh3
-French Polynesia,French Polynesia,0.0008878018715652316,cf_mean,nh3
-French Southern and Antarctic Territories,French Southern and Antarctic Territories,0.0022647486018234964,cf_mean,nh3
+French Polynesia,French Polynesia,0.0008880043780797639,cf_mean,nh3
+French Southern and Antarctic Territories,French Southern and Antarctic Territories,0.002384490953222017,cf_mean,nh3
 Gabon,Gabon,1.4848552819225065,cf_mean,nh3
 Gambia,Gambia,0.7910624542513789,cf_mean,nh3
 Gaza Strip,Gaza Strip,2.106156084102373,cf_mean,nh3
 Georgia,Georgia,4.456714259138795,cf_mean,nh3
 Germany,Germany,4.772605727922526,cf_mean,nh3
-Ghana,Ghana,0.5372149208509812,cf_mean,nh3
+Ghana,Ghana,0.5400655158191585,cf_mean,nh3
 Gibraltar,,,cf_mean,nh3
 Glorioso Island,,,cf_mean,nh3
-Greece,Greece,1.4979457223898602,cf_mean,nh3
-Greenland,Greenland,0.08640323909992147,cf_mean,nh3
+Greece,Greece,1.5037056398656,cf_mean,nh3
+Greenland,Greenland,0.10091680545088191,cf_mean,nh3
 Grenada,Grenada,0.5948046671252228,cf_mean,nh3
 Guadeloupe,Guadeloupe,0.5917305311669525,cf_mean,nh3
-Guam,Guam,0.18832751896089547,cf_mean,nh3
+Guam,Guam,0.18832751896089553,cf_mean,nh3
 Guatemala,Guatemala,0.6653575003232101,cf_mean,nh3
 Guernsey,Guernsey,1.2649064654115403,cf_mean,nh3
 Guinea,Guinea,0.9812767730247068,cf_mean,nh3
@@ -116,10 +116,10 @@ Howland Island,,,cf_mean,nh3
 Hungary,Hungary,4.527842610241503,cf_mean,nh3
 Iceland,Iceland,1.0570601824524912,cf_mean,nh3
 Ilemi triangle,Ilemi triangle,0.7832009864608785,cf_mean,nh3
-India,India,0.990827969840887,cf_mean,nh3
+India,India,1.0020429703350509,cf_mean,nh3
 Indonesia,Indonesia,0.30184204103771284,cf_mean,nh3
-Iran  (Islamic Republic of),Iran  (Islamic Republic of),1.861101360766531,cf_mean,nh3
-Iraq,Iraq,1.4809661140046797,cf_mean,nh3
+Iran  (Islamic Republic of),Iran  (Islamic Republic of),1.8940059056737857,cf_mean,nh3
+Iraq,Iraq,1.486602397969914,cf_mean,nh3
 Ireland,Ireland,0.42083917782051766,cf_mean,nh3
 Isle of Man,Isle of Man,0.8985450029257802,cf_mean,nh3
 Israel,Israel,4.973894788334598,cf_mean,nh3
@@ -132,17 +132,17 @@ Jersey,Jersey,1.5159678108792884,cf_mean,nh3
 Johnston Atoll,Johnston Atoll,0.030735261882692818,cf_mean,nh3
 Jordan,Jordan,2.4244222607803643,cf_mean,nh3
 Juan de Nova Island,,,cf_mean,nh3
-Kazakhstan,Kazakhstan,2.8541294446707215,cf_mean,nh3
-Kenya,Kenya,0.9107456917313836,cf_mean,nh3
+Kazakhstan,Kazakhstan,2.8961613501198546,cf_mean,nh3
+Kenya,Kenya,0.9209396271255103,cf_mean,nh3
 Kingman Reef,Kingman Reef,0.005721588075867773,cf_mean,nh3
-Kiribati,Kiribati,0.004345371221919936,cf_mean,nh3
+Kiribati,Kiribati,0.004408334903637564,cf_mean,nh3
 Kuril islands,Kuril islands,1.0840627714791875,cf_mean,nh3
 Kuwait,Kuwait,2.9275914967345202,cf_mean,nh3
 Kyrgyzstan,Kyrgyzstan,12.658763177101928,cf_mean,nh3
 Lao People's Democratic Republic,Lao People's Democratic Republic,0.8147798387846397,cf_mean,nh3
 Latvia,Latvia,2.775077452484359,cf_mean,nh3
 Lebanon,Lebanon,1.2511788913775614,cf_mean,nh3
-Lesotho,Lesotho,0.6348520268138351,cf_mean,nh3
+Lesotho,Lesotho,0.6603790824165919,cf_mean,nh3
 Liberia,Liberia,1.5731491327426073,cf_mean,nh3
 Libya,Libya,1.0523010303127263,cf_mean,nh3
 Liechtenstein,Liechtenstein,5.43621575259957,cf_mean,nh3
@@ -150,29 +150,29 @@ Lithuania,Lithuania,3.133411132781505,cf_mean,nh3
 Luxembourg,Luxembourg,6.44255966454921,cf_mean,nh3
 Ma'tan al-Sarra,Ma'tan al-Sarra,1.1724168278888762,cf_mean,nh3
 Macau,Macau,0.9078980688735994,cf_mean,nh3
-Madagascar,Madagascar,0.86797785261771,cf_mean,nh3
+Madagascar,Madagascar,0.8703946995932729,cf_mean,nh3
 Madeira Islands,Madeira Islands,0.635212760758325,cf_mean,nh3
 Malawi,Malawi,1.1975799034891963,cf_mean,nh3
-Malaysia,Malaysia,0.33566192044513515,cf_mean,nh3
+Malaysia,Malaysia,0.33737136767534687,cf_mean,nh3
 Maldives,Maldives,0.15384214878359936,cf_mean,nh3
-Mali,Mali,1.9589066466951701,cf_mean,nh3
+Mali,Mali,1.9839612244134777,cf_mean,nh3
 Malta,Malta,1.1934354555483777,cf_mean,nh3
 Marshall Islands,Marshall Islands,0.027152405518005858,cf_mean,nh3
 Martinique,Martinique,0.5862229058207736,cf_mean,nh3
-Mauritania,Mauritania,1.8834890079523985,cf_mean,nh3
+Mauritania,Mauritania,1.98466804724796,cf_mean,nh3
 Mauritius,Mauritius,0.18857951861849698,cf_mean,nh3
 Mayotte,Mayotte,0.3545143977758946,cf_mean,nh3
-Mexico,Mexico,1.158103287566286,cf_mean,nh3
-Micronesia (Federated States of),Micronesia (Federated States of),0.03896427246701213,cf_mean,nh3
+Mexico,Mexico,1.1592144027724334,cf_mean,nh3
+Micronesia (Federated States of),Micronesia (Federated States of),0.03922348770885261,cf_mean,nh3
 Midway Island,,,cf_mean,nh3
-"Moldova, Republic of","Moldova, Republic of",1.8257910350313085,cf_mean,nh3
+"Moldova, Republic of","Moldova, Republic of",1.8514674071014954,cf_mean,nh3
 Monaco,,,cf_mean,nh3
-Mongolia,Mongolia,1.7360643266060625,cf_mean,nh3
+Mongolia,Mongolia,1.8567418738823669,cf_mean,nh3
 Montenegro,Montenegro,3.1188790733723266,cf_mean,nh3
 Montserrat,Montserrat,0.5920119451413214,cf_mean,nh3
-Morocco,Morocco,0.7791671907029478,cf_mean,nh3
+Morocco,Morocco,0.7792388538264186,cf_mean,nh3
 Mozambique,Mozambique,0.8580425440455817,cf_mean,nh3
-Myanmar,Myanmar,0.9180932896821726,cf_mean,nh3
+Myanmar,Myanmar,0.9371013861318794,cf_mean,nh3
 Namibia,Namibia,1.3544267485860475,cf_mean,nh3
 Nauru,,,cf_mean,nh3
 Navassa Island,,,cf_mean,nh3
@@ -181,21 +181,21 @@ Netherlands,Netherlands,1.3090477411057972,cf_mean,nh3
 Netherlands Antilles,Netherlands Antilles,0.5184351814214935,cf_mean,nh3
 New Caledonia,New Caledonia,0.040277425284034,cf_mean,nh3
 New Zealand,New Zealand,0.5705207188420073,cf_mean,nh3
-Nicaragua,Nicaragua,0.5336404526728832,cf_mean,nh3
-Niger,Niger,1.2206740142957246,cf_mean,nh3
-Nigeria,Nigeria,0.7195717598123703,cf_mean,nh3
+Nicaragua,Nicaragua,0.5340346033698918,cf_mean,nh3
+Niger,Niger,1.2657259315087592,cf_mean,nh3
+Nigeria,Nigeria,0.7721420961575943,cf_mean,nh3
 Niue,Niue,0.0059535382055857,cf_mean,nh3
 Norfolk Island,,,cf_mean,nh3
 Northern Mariana Islands,Northern Mariana Islands,0.16145405583870734,cf_mean,nh3
 Norway,Norway,3.416609954766224,cf_mean,nh3
-Oman,Oman,1.0935569037416513,cf_mean,nh3
+Oman,Oman,1.1019487332641607,cf_mean,nh3
 Pakistan,Pakistan,3.630312223930129,cf_mean,nh3
 Palau,Palau,0.21186833222217125,cf_mean,nh3
 Palmyra Atoll,,,cf_mean,nh3
-Panama,Panama,0.5583392382572027,cf_mean,nh3
+Panama,Panama,0.5648170397052995,cf_mean,nh3
 Papua New Guinea,Papua New Guinea,0.20477731480903386,cf_mean,nh3
 Paracel Islands,Paracel Islands,0.5986953592616737,cf_mean,nh3
-Paraguay,Paraguay,0.6310825582031632,cf_mean,nh3
+Paraguay,Paraguay,0.6326031858403756,cf_mean,nh3
 Peru,Peru,2.2294161745996965,cf_mean,nh3
 Philippines,Philippines,0.4026387986423266,cf_mean,nh3
 Pitcairn,Pitcairn,0.004931776064674022,cf_mean,nh3
@@ -205,7 +205,7 @@ Puerto Rico,Puerto Rico,0.5682917839357476,cf_mean,nh3
 Qatar,Qatar,2.253055245273416,cf_mean,nh3
 Republic of Korea,Republic of Korea,1.9759705351146546,cf_mean,nh3
 Romania,Romania,4.575373537140315,cf_mean,nh3
-Russian Federation,Russian Federation,2.2346140321233636,cf_mean,nh3
+Russian Federation,Russian Federation,2.237957897647956,cf_mean,nh3
 Rwanda,Rwanda,1.030803287123709,cf_mean,nh3
 Réunion,Réunion,0.21333120535293457,cf_mean,nh3
 Saint Helena,Saint Helena,0.10748108209763702,cf_mean,nh3
@@ -215,8 +215,8 @@ Saint Pierre et Miquelon,Saint Pierre et Miquelon,4.0280727166124555,cf_mean,nh3
 Saint Vincent and the Grenadines,Saint Vincent and the Grenadines,0.5873839676575396,cf_mean,nh3
 Samoa,Samoa,0.005790153105208126,cf_mean,nh3
 San Marino,San Marino,3.8027180092767816,cf_mean,nh3
-Sao Tome and Principe,Sao Tome and Principe,0.4136020603413204,cf_mean,nh3
-Saudi Arabia,Saudi Arabia,2.946236460160463,cf_mean,nh3
+Sao Tome and Principe,Sao Tome and Principe,0.41412613070748927,cf_mean,nh3
+Saudi Arabia,Saudi Arabia,3.010592242574834,cf_mean,nh3
 Scarborough Reef,Scarborough Reef,0.5486544665786093,cf_mean,nh3
 Senegal,Senegal,1.170774780938024,cf_mean,nh3
 Senkaku Islands,,,cf_mean,nh3
@@ -230,52 +230,52 @@ Solomon Islands,Solomon Islands,0.031467501461499875,cf_mean,nh3
 Somalia,Somalia,1.1605143912885882,cf_mean,nh3
 South Africa,South Africa,1.1133053042056629,cf_mean,nh3
 South Georgia and the South Sandwich Islands,South Georgia and the South Sandwich Islands,0.028881199202503698,cf_mean,nh3
-South Sudan,South Sudan,1.010493381389225,cf_mean,nh3
+South Sudan,South Sudan,1.0112022496898347,cf_mean,nh3
 Spain,Spain,1.425359068135569,cf_mean,nh3
 Spratly Islands,,,cf_mean,nh3
 Sri Lanka,Sri Lanka,0.2077357531624879,cf_mean,nh3
-Sudan,Sudan,1.4192551053528693,cf_mean,nh3
+Sudan,Sudan,1.5065014245434172,cf_mean,nh3
 Suriname,Suriname,1.3011634034625965,cf_mean,nh3
 Svalbard and Jan Mayen Islands,Svalbard and Jan Mayen Islands,0.1622843150592534,cf_mean,nh3
 Swaziland,Swaziland,0.5325306771302263,cf_mean,nh3
 Sweden,Sweden,4.225642961154477,cf_mean,nh3
 Switzerland,Switzerland,6.332655523897009,cf_mean,nh3
-Syrian Arab Republic,Syrian Arab Republic,1.2038308112636,cf_mean,nh3
+Syrian Arab Republic,Syrian Arab Republic,1.2045793106164286,cf_mean,nh3
 Taiwan,Taiwan,0.9962817779333217,cf_mean,nh3
 Tajikistan,Tajikistan,5.285700402407858,cf_mean,nh3
 Thailand,Thailand,0.5390127124553802,cf_mean,nh3
 The former Yugoslav Republic of Macedonia,The former Yugoslav Republic of Macedonia,3.7475421812690732,cf_mean,nh3
 Timor-Leste,Timor-Leste,0.172873477207142,cf_mean,nh3
-Togo,Togo,0.49497884581181856,cf_mean,nh3
+Togo,Togo,0.49501745671764896,cf_mean,nh3
 Tokelau,,,cf_mean,nh3
 Tonga,Tonga,0.01204590343475293,cf_mean,nh3
-Trinidad and Tobago,Trinidad and Tobago,0.5935101712590677,cf_mean,nh3
+Trinidad and Tobago,Trinidad and Tobago,0.5935301805325426,cf_mean,nh3
 Tromelin Island,,,cf_mean,nh3
-Tunisia,Tunisia,1.017385289626438,cf_mean,nh3
+Tunisia,Tunisia,1.019533241743183,cf_mean,nh3
 Turkey,Turkey,1.7968437162923527,cf_mean,nh3
 Turkmenistan,Turkmenistan,3.21667962580374,cf_mean,nh3
-Turks and Caicos islands,Turks and Caicos islands,0.6772087147775383,cf_mean,nh3
+Turks and Caicos islands,Turks and Caicos islands,0.6772108122446522,cf_mean,nh3
 Tuvalu,Tuvalu,0.011282300125571638,cf_mean,nh3
 U.K. of Great Britain and Northern Ireland,U.K. of Great Britain and Northern Ireland,1.443088949191907,cf_mean,nh3
 Uganda,Uganda,0.8811774732358995,cf_mean,nh3
 Ukraine,Ukraine,2.0586469657180335,cf_mean,nh3
 United Arab Emirates,United Arab Emirates,2.3639799179925083,cf_mean,nh3
-United Republic of Tanzania,United Republic of Tanzania,0.6286033078048459,cf_mean,nh3
+United Republic of Tanzania,United Republic of Tanzania,0.6295235573570336,cf_mean,nh3
 United States Virgin Islands,United States Virgin Islands,0.5819942049097311,cf_mean,nh3
-United States of America,United States of America,3.8601644773303097,cf_mean,nh3
+United States of America,United States of America,3.9022718194961588,cf_mean,nh3
 Uruguay,Uruguay,0.30001634699453444,cf_mean,nh3
-Uzbekistan,Uzbekistan,2.914279381526183,cf_mean,nh3
+Uzbekistan,Uzbekistan,2.9167532842883124,cf_mean,nh3
 Vanuatu,Vanuatu,0.02730640877755164,cf_mean,nh3
 Venezuela,Venezuela,1.2661673100215507,cf_mean,nh3
 Viet Nam,Viet Nam,0.7580930742841909,cf_mean,nh3
 Wake Island,,,cf_mean,nh3
 Wallis and Futuna,Wallis and Futuna,0.009230157577541257,cf_mean,nh3
 West Bank,West Bank,1.4693297687926354,cf_mean,nh3
-West Bank,West Bank,1.464705232497822,cf_mean,nh3
+West Bank,West Bank,1.474059674546666,cf_mean,nh3
 Western Sahara,Western Sahara,0.8306467886220658,cf_mean,nh3
-Yemen,Yemen,1.2748547416371012,cf_mean,nh3
-Zambia,Zambia,0.7838970178220706,cf_mean,nh3
-Zimbabwe,Zimbabwe,0.7038386631507657,cf_mean,nh3
+Yemen,Yemen,1.3528090031386983,cf_mean,nh3
+Zambia,Zambia,0.786717577771392,cf_mean,nh3
+Zimbabwe,Zimbabwe,0.712444742121611,cf_mean,nh3
 Abyei,Abyei,0.9973235830316018,cf_median,nh3
 Afghanistan,Afghanistan,2.855079774725108,cf_median,nh3
 Aksai Chin,Aksai Chin,6.174968893624954,cf_median,nh3
@@ -377,7 +377,7 @@ Greece,Greece,1.277511916164742,cf_median,nh3
 Greenland,Greenland,0.0,cf_median,nh3
 Grenada,Grenada,0.5948046671252227,cf_median,nh3
 Guadeloupe,Guadeloupe,0.5920119451413214,cf_median,nh3
-Guam,Guam,0.1883275189608955,cf_median,nh3
+Guam,Guam,0.18832751896089553,cf_median,nh3
 Guatemala,Guatemala,0.6011954517022746,cf_median,nh3
 Guernsey,Guernsey,1.2649064654115403,cf_median,nh3
 Guinea,Guinea,0.7923636000428249,cf_median,nh3
@@ -475,7 +475,7 @@ Paracel Islands,Paracel Islands,0.5986953592616737,cf_median,nh3
 Paraguay,Paraguay,0.6167837472229506,cf_median,nh3
 Peru,Peru,1.6130846558145553,cf_median,nh3
 Philippines,Philippines,0.3639631455624241,cf_median,nh3
-Pitcairn,Pitcairn,0.004931776064674022,cf_median,nh3
+Pitcairn,Pitcairn,0.004931776064674023,cf_median,nh3
 Poland,Poland,5.647740068142174,cf_median,nh3
 Portugal,Portugal,1.2768983824095186,cf_median,nh3
 Puerto Rico,Puerto Rico,0.5686193087979222,cf_median,nh3
@@ -557,19 +557,19 @@ Abyei,Abyei,4.440892098500626e-16,cf_std,nh3
 Afghanistan,Afghanistan,1.7519314553826109,cf_std,nh3
 Aksai Chin,Aksai Chin,1.0458819786381979,cf_std,nh3
 Albania,Albania,0.9394606086811813,cf_std,nh3
-Algeria,Algeria,0.0748244397683243,cf_std,nh3
+Algeria,Algeria,0.09939570053062075,cf_std,nh3
 American Samoa,American Samoa,0.0,cf_std,nh3
 Andorra,Andorra,0.0,cf_std,nh3
 Angola,Angola,0.28409120237939656,cf_std,nh3
 Anguilla,Anguilla,0.0,cf_std,nh3
-Antarctica,Antarctica,0.001078978142701943,cf_std,nh3
+Antarctica,Antarctica,0.003494231925959474,cf_std,nh3
 Antigua and Barbuda,Antigua and Barbuda,0.0,cf_std,nh3
-Argentina,Argentina,0.5294334236912182,cf_std,nh3
+Argentina,Argentina,0.6380747081461546,cf_std,nh3
 Armenia,Armenia,0.5266831598309403,cf_std,nh3
 Aruba,Aruba,0.010669456005757638,cf_std,nh3
 Arunachal Pradesh,Arunachal Pradesh,0.63876926851592,cf_std,nh3
 Ashmore and Cartier Islands,,,cf_std,nh3
-Australia,Australia,0.5468363883070934,cf_std,nh3
+Australia,Australia,0.7128824107107932,cf_std,nh3
 Austria,Austria,1.04326782166732,cf_std,nh3
 Azerbaijan,Azerbaijan,1.016195453813605,cf_std,nh3
 Azores Islands,Azores Islands,0.023292877633101915,cf_std,nh3
@@ -579,33 +579,33 @@ Baker Island,,,cf_std,nh3
 Bangladesh,Bangladesh,0.11267053693890604,cf_std,nh3
 Barbados,Barbados,0.0,cf_std,nh3
 Bassas da India,,,cf_std,nh3
-Belarus,Belarus,0.7575784881063814,cf_std,nh3
+Belarus,Belarus,0.8069581950745056,cf_std,nh3
 Belgium,Belgium,1.4514278775322418,cf_std,nh3
 Belize,Belize,0.014659787458739073,cf_std,nh3
 Benin,Benin,0.066847519023599,cf_std,nh3
 Bermuda,Bermuda,0.0,cf_std,nh3
 Bhutan,Bhutan,1.196918207941912,cf_std,nh3
 Bird Island,,,cf_std,nh3
-Bolivia,Bolivia,1.131091443214083,cf_std,nh3
+Bolivia,Bolivia,1.3064149001228547,cf_std,nh3
 Bosnia and Herzegovina,Bosnia and Herzegovina,0.6562793533955487,cf_std,nh3
 Botswana,Botswana,1.0627175079284654,cf_std,nh3
 Bouvet Island,,,cf_std,nh3
-Brazil,Brazil,0.713559723424469,cf_std,nh3
+Brazil,Brazil,0.7650896935725694,cf_std,nh3
 British Indian Ocean Territory,,,cf_std,nh3
 British Virgin Islands,British Virgin Islands,0.0,cf_std,nh3
 Brunei Darussalam,Brunei Darussalam,0.010090428741038429,cf_std,nh3
 Bulgaria,Bulgaria,0.8083552532834758,cf_std,nh3
-Burkina Faso,Burkina Faso,0.24775590469298178,cf_std,nh3
+Burkina Faso,Burkina Faso,0.24893841566372996,cf_std,nh3
 Burundi,Burundi,0.1204952817983928,cf_std,nh3
 Cambodia,Cambodia,0.035024674785171954,cf_std,nh3
-Cameroon,Cameroon,0.29281493075716325,cf_std,nh3
+Cameroon,Cameroon,0.3201718363446765,cf_std,nh3
 Canada,Canada,3.8481832972635557,cf_std,nh3
 Cape Verde,Cape Verde,0.017514050757544634,cf_std,nh3
 Cayman Islands,Cayman Islands,1.1102230246251565e-16,cf_std,nh3
 Central African Republic,Central African Republic,0.5735555747362453,cf_std,nh3
 Chad,Chad,1.27314934137784,cf_std,nh3
 Chile,Chile,1.38959293643992,cf_std,nh3
-China,China,3.067015706152911,cf_std,nh3
+China,China,3.5431213311379994,cf_std,nh3
 China/India,China/India,0.5962679424893496,cf_std,nh3
 Christmas Island,Christmas Island,0.0,cf_std,nh3
 Clipperton Island,,,cf_std,nh3
@@ -619,7 +619,7 @@ Croatia,Croatia,1.3386239881607473,cf_std,nh3
 Cuba,Cuba,0.2915188604387694,cf_std,nh3
 Cyprus,Cyprus,0.24514538733029895,cf_std,nh3
 Czech Republic,Czech Republic,0.4048137850275776,cf_std,nh3
-Côte d'Ivoire,Côte d'Ivoire,0.2925362907059648,cf_std,nh3
+Côte d'Ivoire,Côte d'Ivoire,0.32142035986789586,cf_std,nh3
 Dem People's Rep of Korea,Dem People's Rep of Korea,2.201137798038874,cf_std,nh3
 Democratic Republic of the Congo,Democratic Republic of the Congo,0.5044676476209913,cf_std,nh3
 Denmark,Denmark,3.1934236417926942,cf_std,nh3
@@ -627,12 +627,12 @@ Djibouti,Djibouti,0.009658670138696031,cf_std,nh3
 Dominica,Dominica,1.1102230246251565e-16,cf_std,nh3
 Dominican Republic,Dominican Republic,0.02321054914327781,cf_std,nh3
 Ecuador,Ecuador,0.37795919337500683,cf_std,nh3
-Egypt,Egypt,1.238187406105566,cf_std,nh3
+Egypt,Egypt,2.3433878416707605,cf_std,nh3
 El Salvador,El Salvador,0.00401748307683501,cf_std,nh3
 Equatorial Guinea,Equatorial Guinea,0.3315399884280537,cf_std,nh3
-Eritrea,Eritrea,0.08060576206426606,cf_std,nh3
-Estonia,Estonia,0.36845868067128956,cf_std,nh3
-Ethiopia,Ethiopia,0.17917955212027575,cf_std,nh3
+Eritrea,Eritrea,0.08693338022871697,cf_std,nh3
+Estonia,Estonia,0.3721985139561109,cf_std,nh3
+Ethiopia,Ethiopia,0.36824022839306214,cf_std,nh3
 Europa Island,Europa Island,0.0,cf_std,nh3
 Falkland Islands (Malvinas),Falkland Islands (Malvinas),0.0063185289941403,cf_std,nh3
 Faroe Islands,Faroe Islands,0.013091950812859467,cf_std,nh3
@@ -640,21 +640,21 @@ Fiji,Fiji,0.0012785798187861241,cf_std,nh3
 Finland,Finland,1.074926206870674,cf_std,nh3
 France,France,1.5354009769962689,cf_std,nh3
 French Guiana,French Guiana,0.22933417181869717,cf_std,nh3
-French Polynesia,French Polynesia,0.00048643863888100215,cf_std,nh3
-French Southern and Antarctic Territories,French Southern and Antarctic Territories,0.0010566074348593256,cf_std,nh3
+French Polynesia,French Polynesia,0.0004870495331167102,cf_std,nh3
+French Southern and Antarctic Territories,French Southern and Antarctic Territories,0.0016508016001544965,cf_std,nh3
 Gabon,Gabon,0.5397021871613313,cf_std,nh3
 Gambia,Gambia,0.041286930965349855,cf_std,nh3
 Gaza Strip,Gaza Strip,4.440892098500626e-16,cf_std,nh3
 Georgia,Georgia,0.8084608435466301,cf_std,nh3
 Germany,Germany,2.4645806534632504,cf_std,nh3
-Ghana,Ghana,0.07521368977474711,cf_std,nh3
+Ghana,Ghana,0.08551389131493667,cf_std,nh3
 Gibraltar,,,cf_std,nh3
 Glorioso Island,,,cf_std,nh3
-Greece,Greece,0.5966752257992977,cf_std,nh3
-Greenland,Greenland,0.21263831347441345,cf_std,nh3
+Greece,Greece,0.6160345475019106,cf_std,nh3
+Greenland,Greenland,0.2811751157331875,cf_std,nh3
 Grenada,Grenada,1.1102230246251565e-16,cf_std,nh3
 Guadeloupe,Guadeloupe,0.001634867486046867,cf_std,nh3
-Guam,Guam,2.7755575615628914e-17,cf_std,nh3
+Guam,Guam,0.0,cf_std,nh3
 Guatemala,Guatemala,0.1336111807210024,cf_std,nh3
 Guernsey,Guernsey,0.0,cf_std,nh3
 Guinea,Guinea,0.37026114683544714,cf_std,nh3
@@ -670,10 +670,10 @@ Howland Island,,,cf_std,nh3
 Hungary,Hungary,1.1132108812658519,cf_std,nh3
 Iceland,Iceland,0.6296043218493548,cf_std,nh3
 Ilemi triangle,Ilemi triangle,0.04142292841267969,cf_std,nh3
-India,India,0.9710380388571456,cf_std,nh3
+India,India,1.0253501928028794,cf_std,nh3
 Indonesia,Indonesia,0.12905555866805385,cf_std,nh3
-Iran  (Islamic Republic of),Iran  (Islamic Republic of),0.4623780363851725,cf_std,nh3
-Iraq,Iraq,0.2176420628753478,cf_std,nh3
+Iran  (Islamic Republic of),Iran  (Islamic Republic of),0.6348379111218014,cf_std,nh3
+Iraq,Iraq,0.24281995881395507,cf_std,nh3
 Ireland,Ireland,0.35154686091856624,cf_std,nh3
 Isle of Man,Isle of Man,0.0,cf_std,nh3
 Israel,Israel,4.629637653651571,cf_std,nh3
@@ -686,17 +686,17 @@ Jersey,Jersey,0.0,cf_std,nh3
 Johnston Atoll,Johnston Atoll,3.469446951953614e-18,cf_std,nh3
 Jordan,Jordan,1.1402419157551396,cf_std,nh3
 Juan de Nova Island,,,cf_std,nh3
-Kazakhstan,Kazakhstan,2.95950295572493,cf_std,nh3
-Kenya,Kenya,0.5432189895682723,cf_std,nh3
+Kazakhstan,Kazakhstan,3.160463501607119,cf_std,nh3
+Kenya,Kenya,0.5789725931836908,cf_std,nh3
 Kingman Reef,Kingman Reef,0.0003387955506475731,cf_std,nh3
-Kiribati,Kiribati,0.004064014363487732,cf_std,nh3
+Kiribati,Kiribati,0.004263465182548897,cf_std,nh3
 Kuril islands,Kuril islands,0.6102771687519531,cf_std,nh3
 Kuwait,Kuwait,2.1398634829193206,cf_std,nh3
 Kyrgyzstan,Kyrgyzstan,5.94826745696727,cf_std,nh3
 Lao People's Democratic Republic,Lao People's Democratic Republic,0.23402064705174114,cf_std,nh3
 Latvia,Latvia,0.38187407129216233,cf_std,nh3
 Lebanon,Lebanon,2.220446049250313e-16,cf_std,nh3
-Lesotho,Lesotho,0.5716592997348038,cf_std,nh3
+Lesotho,Lesotho,0.656470113458671,cf_std,nh3
 Liberia,Liberia,0.5212956578975566,cf_std,nh3
 Libya,Libya,0.03817566481234099,cf_std,nh3
 Liechtenstein,Liechtenstein,8.881784197001252e-16,cf_std,nh3
@@ -704,29 +704,29 @@ Lithuania,Lithuania,0.4260310074202429,cf_std,nh3
 Luxembourg,Luxembourg,1.7763568394002505e-15,cf_std,nh3
 Ma'tan al-Sarra,Ma'tan al-Sarra,0.0,cf_std,nh3
 Macau,Macau,0.0,cf_std,nh3
-Madagascar,Madagascar,0.5672989249686134,cf_std,nh3
+Madagascar,Madagascar,0.5756420551959484,cf_std,nh3
 Madeira Islands,Madeira Islands,0.0,cf_std,nh3
 Malawi,Malawi,0.5409361360834555,cf_std,nh3
-Malaysia,Malaysia,0.05476384952238049,cf_std,nh3
+Malaysia,Malaysia,0.06137909439192658,cf_std,nh3
 Maldives,Maldives,0.00609502895344325,cf_std,nh3
-Mali,Mali,2.5578466348450863,cf_std,nh3
+Mali,Mali,2.6536025623309167,cf_std,nh3
 Malta,Malta,0.0,cf_std,nh3
 Marshall Islands,Marshall Islands,0.0012568418115072079,cf_std,nh3
 Martinique,Martinique,1.1102230246251565e-16,cf_std,nh3
-Mauritania,Mauritania,2.1834067850945,cf_std,nh3
+Mauritania,Mauritania,2.5903563152047404,cf_std,nh3
 Mauritius,Mauritius,0.01977119328552537,cf_std,nh3
 Mayotte,Mayotte,0.0,cf_std,nh3
-Mexico,Mexico,0.30545544364475397,cf_std,nh3
-Micronesia (Federated States of),Micronesia (Federated States of),0.006954796943990711,cf_std,nh3
+Mexico,Mexico,0.3093433617532233,cf_std,nh3
+Micronesia (Federated States of),Micronesia (Federated States of),0.00785579993492484,cf_std,nh3
 Midway Island,,,cf_std,nh3
-"Moldova, Republic of","Moldova, Republic of",0.8739983739869069,cf_std,nh3
+"Moldova, Republic of","Moldova, Republic of",0.9566212669237467,cf_std,nh3
 Monaco,,,cf_std,nh3
-Mongolia,Mongolia,1.1807669638814318,cf_std,nh3
+Mongolia,Mongolia,1.9097522611150581,cf_std,nh3
 Montenegro,Montenegro,1.3087773443940356,cf_std,nh3
 Montserrat,Montserrat,0.0,cf_std,nh3
-Morocco,Morocco,0.05566385672326048,cf_std,nh3
+Morocco,Morocco,0.05588694197842022,cf_std,nh3
 Mozambique,Mozambique,0.8604360021684277,cf_std,nh3
-Myanmar,Myanmar,0.4582451472701142,cf_std,nh3
+Myanmar,Myanmar,0.5426766926965304,cf_std,nh3
 Namibia,Namibia,1.7566169610265678,cf_std,nh3
 Nauru,,,cf_std,nh3
 Navassa Island,,,cf_std,nh3
@@ -735,31 +735,31 @@ Netherlands,Netherlands,1.7392362201173894,cf_std,nh3
 Netherlands Antilles,Netherlands Antilles,0.0,cf_std,nh3
 New Caledonia,New Caledonia,0.002835215034401128,cf_std,nh3
 New Zealand,New Zealand,0.44924754500032926,cf_std,nh3
-Nicaragua,Nicaragua,0.04899331909819976,cf_std,nh3
-Niger,Niger,0.6985396946416284,cf_std,nh3
-Nigeria,Nigeria,0.2692848541689206,cf_std,nh3
+Nicaragua,Nicaragua,0.050357142054780354,cf_std,nh3
+Niger,Niger,0.8853261535268815,cf_std,nh3
+Nigeria,Nigeria,0.6166283491916591,cf_std,nh3
 Niue,Niue,6.114773452892048e-05,cf_std,nh3
 Norfolk Island,,,cf_std,nh3
 Northern Mariana Islands,Northern Mariana Islands,0.010926836572026154,cf_std,nh3
 Norway,Norway,2.77983162394388,cf_std,nh3
-Oman,Oman,0.34803573544854327,cf_std,nh3
+Oman,Oman,0.39611813989231925,cf_std,nh3
 Pakistan,Pakistan,2.292076027781503,cf_std,nh3
 Palau,Palau,0.005021257162400825,cf_std,nh3
 Palmyra Atoll,,,cf_std,nh3
-Panama,Panama,0.07769582424049376,cf_std,nh3
+Panama,Panama,0.10973358861787404,cf_std,nh3
 Papua New Guinea,Papua New Guinea,0.12271296134896134,cf_std,nh3
 Paracel Islands,Paracel Islands,0.0,cf_std,nh3
-Paraguay,Paraguay,0.06616147873552547,cf_std,nh3
+Paraguay,Paraguay,0.07207443159069477,cf_std,nh3
 Peru,Peru,1.8695222918842997,cf_std,nh3
 Philippines,Philippines,0.12896845211879548,cf_std,nh3
-Pitcairn,Pitcairn,0.0,cf_std,nh3
+Pitcairn,Pitcairn,8.673617379884035e-19,cf_std,nh3
 Poland,Poland,2.933177861401469,cf_std,nh3
 Portugal,Portugal,0.12447588824024979,cf_std,nh3
 Puerto Rico,Puerto Rico,0.003969902243638418,cf_std,nh3
 Qatar,Qatar,0.15118520061047555,cf_std,nh3
 Republic of Korea,Republic of Korea,0.49137883737521515,cf_std,nh3
 Romania,Romania,2.2003078735617914,cf_std,nh3
-Russian Federation,Russian Federation,3.0231471837369024,cf_std,nh3
+Russian Federation,Russian Federation,3.041901355121021,cf_std,nh3
 Rwanda,Rwanda,0.04678570591131786,cf_std,nh3
 Réunion,Réunion,0.0020460168637880687,cf_std,nh3
 Saint Helena,Saint Helena,0.04238439066017255,cf_std,nh3
@@ -769,8 +769,8 @@ Saint Pierre et Miquelon,Saint Pierre et Miquelon,2.4398610146629647,cf_std,nh3
 Saint Vincent and the Grenadines,Saint Vincent and the Grenadines,0.002935283794463064,cf_std,nh3
 Samoa,Samoa,0.0006471815096349391,cf_std,nh3
 San Marino,San Marino,0.0,cf_std,nh3
-Sao Tome and Principe,Sao Tome and Principe,0.006408950148495591,cf_std,nh3
-Saudi Arabia,Saudi Arabia,2.6999924604938954,cf_std,nh3
+Sao Tome and Principe,Sao Tome and Principe,0.008539430945283638,cf_std,nh3
+Saudi Arabia,Saudi Arabia,2.9784721313633993,cf_std,nh3
 Scarborough Reef,Scarborough Reef,0.0,cf_std,nh3
 Senegal,Senegal,0.7854577556203143,cf_std,nh3
 Senkaku Islands,,,cf_std,nh3
@@ -784,52 +784,52 @@ Solomon Islands,Solomon Islands,0.0058042689804247306,cf_std,nh3
 Somalia,Somalia,1.2403643728730773,cf_std,nh3
 South Africa,South Africa,1.0742822941660302,cf_std,nh3
 South Georgia and the South Sandwich Islands,South Georgia and the South Sandwich Islands,0.005331633934786457,cf_std,nh3
-South Sudan,South Sudan,0.4485241129331514,cf_std,nh3
+South Sudan,South Sudan,0.45092283236000147,cf_std,nh3
 Spain,Spain,0.6902948201388207,cf_std,nh3
 Spratly Islands,,,cf_std,nh3
 Sri Lanka,Sri Lanka,0.010343544516445069,cf_std,nh3
-Sudan,Sudan,1.1003110245571026,cf_std,nh3
+Sudan,Sudan,1.4225932966272414,cf_std,nh3
 Suriname,Suriname,0.42974264018661357,cf_std,nh3
 Svalbard and Jan Mayen Islands,Svalbard and Jan Mayen Islands,0.04366491050679781,cf_std,nh3
 Swaziland,Swaziland,0.028734593554398065,cf_std,nh3
 Sweden,Sweden,3.6494425501193546,cf_std,nh3
 Switzerland,Switzerland,0.8501441229967471,cf_std,nh3
-Syrian Arab Republic,Syrian Arab Republic,0.07311617912353614,cf_std,nh3
+Syrian Arab Republic,Syrian Arab Republic,0.07551683123976734,cf_std,nh3
 Taiwan,Taiwan,0.11533941449998424,cf_std,nh3
 Tajikistan,Tajikistan,1.780057536436256,cf_std,nh3
 Thailand,Thailand,0.1251429737750009,cf_std,nh3
 The former Yugoslav Republic of Macedonia,The former Yugoslav Republic of Macedonia,0.45967434469092316,cf_std,nh3
 Timor-Leste,Timor-Leste,0.021931542745224644,cf_std,nh3
-Togo,Togo,0.0424104302315551,cf_std,nh3
+Togo,Togo,0.04253764821769316,cf_std,nh3
 Tokelau,,,cf_std,nh3
 Tonga,Tonga,0.0018962174108446725,cf_std,nh3
-Trinidad and Tobago,Trinidad and Tobago,0.00018998640994914216,cf_std,nh3
+Trinidad and Tobago,Trinidad and Tobago,0.0002808029457431445,cf_std,nh3
 Tromelin Island,,,cf_std,nh3
-Tunisia,Tunisia,0.06966419294742082,cf_std,nh3
+Tunisia,Tunisia,0.07838764113783626,cf_std,nh3
 Turkey,Turkey,0.9798883803690511,cf_std,nh3
 Turkmenistan,Turkmenistan,1.6077839278098458,cf_std,nh3
-Turks and Caicos islands,Turks and Caicos islands,0.00033683933319134996,cf_std,nh3
+Turks and Caicos islands,Turks and Caicos islands,0.00034326478111469894,cf_std,nh3
 Tuvalu,Tuvalu,0.0005264622119421057,cf_std,nh3
 U.K. of Great Britain and Northern Ireland,U.K. of Great Britain and Northern Ireland,0.822558356248968,cf_std,nh3
 Uganda,Uganda,0.12254070825278765,cf_std,nh3
 Ukraine,Ukraine,1.53247341147582,cf_std,nh3
 United Arab Emirates,United Arab Emirates,0.688667164639334,cf_std,nh3
-United Republic of Tanzania,United Republic of Tanzania,0.17374046574877816,cf_std,nh3
+United Republic of Tanzania,United Republic of Tanzania,0.1783669102340061,cf_std,nh3
 United States Virgin Islands,United States Virgin Islands,0.0005780709481957568,cf_std,nh3
-United States of America,United States of America,3.09372484588649,cf_std,nh3
+United States of America,United States of America,3.3196249596223724,cf_std,nh3
 Uruguay,Uruguay,0.03807480660882554,cf_std,nh3
-Uzbekistan,Uzbekistan,1.2922358749455471,cf_std,nh3
+Uzbekistan,Uzbekistan,1.304747461702607,cf_std,nh3
 Vanuatu,Vanuatu,0.002475522634521529,cf_std,nh3
 Venezuela,Venezuela,0.6877658142871942,cf_std,nh3
 Viet Nam,Viet Nam,0.2930044222590371,cf_std,nh3
 Wake Island,,,cf_std,nh3
 Wallis and Futuna,Wallis and Futuna,0.0008550257650929561,cf_std,nh3
 West Bank,West Bank,0.016705556565659675,cf_std,nh3
-West Bank,West Bank,0.05666457857114663,cf_std,nh3
+West Bank,West Bank,0.11012177660239313,cf_std,nh3
 Western Sahara,Western Sahara,0.04836959725194936,cf_std,nh3
-Yemen,Yemen,0.5539186497863171,cf_std,nh3
-Zambia,Zambia,0.2648236944911711,cf_std,nh3
-Zimbabwe,Zimbabwe,0.5048568904567979,cf_std,nh3
+Yemen,Yemen,1.0191408239490685,cf_std,nh3
+Zambia,Zambia,0.27513581333516307,cf_std,nh3
+Zimbabwe,Zimbabwe,0.5327648898391981,cf_std,nh3
 Abyei,Abyei,0.3395472384293334,cf_mean,nox
 Afghanistan,Afghanistan,0.9536921239346142,cf_mean,nox
 Aksai Chin,Aksai Chin,1.1664976339596005,cf_mean,nox
@@ -839,14 +839,14 @@ American Samoa,American Samoa,0.006946914732757956,cf_mean,nox
 Andorra,Andorra,0.5765525351918592,cf_mean,nox
 Angola,Angola,0.22472367329484458,cf_mean,nox
 Anguilla,Anguilla,0.05671404879778452,cf_mean,nox
-Antarctica,Antarctica,1.3261911457017588e-05,cf_mean,nox
+Antarctica,Antarctica,9.7315204805831e-05,cf_mean,nox
 Antigua and Barbuda,Antigua and Barbuda,0.05111651919324063,cf_mean,nox
-Argentina,Argentina,0.12829640184258734,cf_mean,nox
-Armenia,Armenia,0.8253850429595646,cf_mean,nox
+Argentina,Argentina,0.12899469363365318,cf_mean,nox
+Armenia,Armenia,0.825421674470001,cf_mean,nox
 Aruba,Aruba,0.07225586491792128,cf_mean,nox
 Arunachal Pradesh,Arunachal Pradesh,0.5760229147163647,cf_mean,nox
 Ashmore and Cartier Islands,,,cf_mean,nox
-Australia,Australia,0.13515675874811509,cf_mean,nox
+Australia,Australia,0.1377309813908731,cf_mean,nox
 Austria,Austria,1.0648934482368784,cf_mean,nox
 Azerbaijan,Azerbaijan,0.7460994982077547,cf_mean,nox
 Azores Islands,Azores Islands,0.3885898388737125,cf_mean,nox
@@ -867,24 +867,24 @@ Bolivia,Bolivia,0.2438565512490666,cf_mean,nox
 Bosnia and Herzegovina,Bosnia and Herzegovina,0.804568203869455,cf_mean,nox
 Botswana,Botswana,0.35525391538600654,cf_mean,nox
 Bouvet Island,,,cf_mean,nox
-Brazil,Brazil,0.22160018016770644,cf_mean,nox
+Brazil,Brazil,0.22187841913993595,cf_mean,nox
 British Indian Ocean Territory,,,cf_mean,nox
 British Virgin Islands,British Virgin Islands,0.05671404879778452,cf_mean,nox
 Brunei Darussalam,Brunei Darussalam,0.12894171532647006,cf_mean,nox
 Bulgaria,Bulgaria,0.6320542430000368,cf_mean,nox
-Burkina Faso,Burkina Faso,0.1385555716426705,cf_mean,nox
+Burkina Faso,Burkina Faso,0.13857440716904776,cf_mean,nox
 Burundi,Burundi,0.19217770403153425,cf_mean,nox
 Cambodia,Cambodia,0.19553849555606712,cf_mean,nox
-Cameroon,Cameroon,0.19388816577652362,cf_mean,nox
+Cameroon,Cameroon,0.19405361125488918,cf_mean,nox
 Canada,Canada,0.5611434890133256,cf_mean,nox
 Cape Verde,Cape Verde,0.060420467591327055,cf_mean,nox
-Cayman Islands,Cayman Islands,0.07656493559917077,cf_mean,nox
+Cayman Islands,Cayman Islands,0.07656493559917078,cf_mean,nox
 Central African Republic,Central African Republic,0.3884880759115691,cf_mean,nox
 Chad,Chad,0.2973338633909415,cf_mean,nox
-Chile,Chile,0.22401376954244384,cf_mean,nox
-China,China,0.8300563766351874,cf_mean,nox
+Chile,Chile,0.2240792479096538,cf_mean,nox
+China,China,0.8346301349577551,cf_mean,nox
 China/India,China/India,0.8483392777072672,cf_mean,nox
-Christmas Island,Christmas Island,0.06280232863998074,cf_mean,nox
+Christmas Island,Christmas Island,0.06280232863998075,cf_mean,nox
 Clipperton Island,,,cf_mean,nox
 Cocos (Keeling) Islands,,,cf_mean,nox
 Colombia,Colombia,0.1544643158524389,cf_mean,nox
@@ -898,21 +898,21 @@ Cyprus,Cyprus,0.4967188875443387,cf_mean,nox
 Czech Republic,Czech Republic,1.1216727354108318,cf_mean,nox
 Côte d'Ivoire,Côte d'Ivoire,0.09486134166660908,cf_mean,nox
 Dem People's Rep of Korea,Dem People's Rep of Korea,0.8273743899381488,cf_mean,nox
-Democratic Republic of the Congo,Democratic Republic of the Congo,0.2055774813154272,cf_mean,nox
+Democratic Republic of the Congo,Democratic Republic of the Congo,0.20585391146438256,cf_mean,nox
 Denmark,Denmark,0.5996390089318163,cf_mean,nox
 Djibouti,Djibouti,0.222317274436576,cf_mean,nox
 Dominica,Dominica,0.04753937173756598,cf_mean,nox
 Dominican Republic,Dominican Republic,0.05978811562896307,cf_mean,nox
 Ecuador,Ecuador,0.17946554973441226,cf_mean,nox
-Egypt,Egypt,0.5439185227922549,cf_mean,nox
+Egypt,Egypt,0.5505309111872864,cf_mean,nox
 El Salvador,El Salvador,0.07666819485528834,cf_mean,nox
 Equatorial Guinea,Equatorial Guinea,0.13871701024803385,cf_mean,nox
 Eritrea,Eritrea,0.27101754714099324,cf_mean,nox
 Estonia,Estonia,0.7440669294279114,cf_mean,nox
-Ethiopia,Ethiopia,0.22758442425352576,cf_mean,nox
+Ethiopia,Ethiopia,0.22920021351944547,cf_mean,nox
 Europa Island,Europa Island,0.17030101386072072,cf_mean,nox
 Falkland Islands (Malvinas),Falkland Islands (Malvinas),0.06381300921125453,cf_mean,nox
-Faroe Islands,Faroe Islands,0.37092880416138857,cf_mean,nox
+Faroe Islands,Faroe Islands,0.3710586475990805,cf_mean,nox
 Fiji,Fiji,0.009070274923458738,cf_mean,nox
 Finland,Finland,0.6720322640057884,cf_mean,nox
 France,France,0.6710032234829822,cf_mean,nox
@@ -921,24 +921,24 @@ French Polynesia,French Polynesia,0.006919473090520532,cf_mean,nox
 French Southern and Antarctic Territories,French Southern and Antarctic Territories,0.03694689513054283,cf_mean,nox
 Gabon,Gabon,0.1640260263780018,cf_mean,nox
 Gambia,Gambia,0.1134084436444766,cf_mean,nox
-Gaza Strip,Gaza Strip,0.8043866949219003,cf_mean,nox
+Gaza Strip,Gaza Strip,0.8043866949219004,cf_mean,nox
 Georgia,Georgia,0.839089473910565,cf_mean,nox
 Germany,Germany,0.8064794403637664,cf_mean,nox
-Ghana,Ghana,0.09725792554851612,cf_mean,nox
+Ghana,Ghana,0.09726203727017457,cf_mean,nox
 Gibraltar,,,cf_mean,nox
 Glorioso Island,,,cf_mean,nox
-Greece,Greece,0.4628256314398638,cf_mean,nox
+Greece,Greece,0.46300991066272046,cf_mean,nox
 Greenland,Greenland,0.06380643553808305,cf_mean,nox
 Grenada,Grenada,0.086278904256379,cf_mean,nox
-Guadeloupe,Guadeloupe,0.04767909830691151,cf_mean,nox
+Guadeloupe,Guadeloupe,0.047803391211317346,cf_mean,nox
 Guam,Guam,0.04793596131412444,cf_mean,nox
 Guatemala,Guatemala,0.07982405919345043,cf_mean,nox
-Guernsey,Guernsey,0.4112197403064567,cf_mean,nox
+Guernsey,Guernsey,0.4112197403064568,cf_mean,nox
 Guinea,Guinea,0.11077148795403077,cf_mean,nox
 Guinea-Bissau,Guinea-Bissau,0.0967775628738542,cf_mean,nox
 Guyana,Guyana,0.21742123488228612,cf_mean,nox
 Haiti,Haiti,0.06004546716983695,cf_mean,nox
-Hala'ib triangle,Hala'ib triangle,0.34120496014696966,cf_mean,nox
+Hala'ib triangle,Hala'ib triangle,0.3416932467146348,cf_mean,nox
 Heard Island and McDonald Islands,Heard Island and McDonald Islands,0.05435232090006364,cf_mean,nox
 Holy See,,,cf_mean,nox
 Honduras,Honduras,0.07431081722722914,cf_mean,nox
@@ -947,9 +947,9 @@ Howland Island,,,cf_mean,nox
 Hungary,Hungary,0.8917945104030791,cf_mean,nox
 Iceland,Iceland,0.17495316260001673,cf_mean,nox
 Ilemi triangle,Ilemi triangle,0.2408053836216906,cf_mean,nox
-India,India,0.3956134005615364,cf_mean,nox
+India,India,0.3975134284511862,cf_mean,nox
 Indonesia,Indonesia,0.09258338241579359,cf_mean,nox
-Iran  (Islamic Republic of),Iran  (Islamic Republic of),0.5588076355858964,cf_mean,nox
+Iran  (Islamic Republic of),Iran  (Islamic Republic of),0.5603306930096854,cf_mean,nox
 Iraq,Iraq,0.594244577266423,cf_mean,nox
 Ireland,Ireland,0.11954666168047058,cf_mean,nox
 Isle of Man,Isle of Man,0.1322495646256485,cf_mean,nox
@@ -964,7 +964,7 @@ Johnston Atoll,Johnston Atoll,0.027874952346521126,cf_mean,nox
 Jordan,Jordan,0.8048046708046874,cf_mean,nox
 Juan de Nova Island,,,cf_mean,nox
 Kazakhstan,Kazakhstan,0.849604042368701,cf_mean,nox
-Kenya,Kenya,0.2304585891136909,cf_mean,nox
+Kenya,Kenya,0.23093794221955405,cf_mean,nox
 Kingman Reef,Kingman Reef,0.007398651705317423,cf_mean,nox
 Kiribati,Kiribati,0.008536519920563052,cf_mean,nox
 Kuril islands,Kuril islands,0.2697605011128035,cf_mean,nox
@@ -973,7 +973,7 @@ Kyrgyzstan,Kyrgyzstan,1.644858008247372,cf_mean,nox
 Lao People's Democratic Republic,Lao People's Democratic Republic,0.2771137213237765,cf_mean,nox
 Latvia,Latvia,0.7398092296686553,cf_mean,nox
 Lebanon,Lebanon,0.5368743263092912,cf_mean,nox
-Lesotho,Lesotho,0.2749009257375774,cf_mean,nox
+Lesotho,Lesotho,0.2760881820879773,cf_mean,nox
 Liberia,Liberia,0.10543122541889892,cf_mean,nox
 Libya,Libya,0.2783819934803613,cf_mean,nox
 Liechtenstein,Liechtenstein,0.9397174347128197,cf_mean,nox
@@ -984,24 +984,24 @@ Macau,Macau,0.3552922694300165,cf_mean,nox
 Madagascar,Madagascar,0.19471960656851284,cf_mean,nox
 Madeira Islands,Madeira Islands,0.23841164974558327,cf_mean,nox
 Malawi,Malawi,0.3054929031858846,cf_mean,nox
-Malaysia,Malaysia,0.13479051857696586,cf_mean,nox
+Malaysia,Malaysia,0.13479661501853546,cf_mean,nox
 Maldives,Maldives,0.07963136723052583,cf_mean,nox
-Mali,Mali,0.2122054848387194,cf_mean,nox
+Mali,Mali,0.21297913696309842,cf_mean,nox
 Malta,Malta,0.3544608006754137,cf_mean,nox
 Marshall Islands,Marshall Islands,0.007922236224534735,cf_mean,nox
 Martinique,Martinique,0.054113490794711575,cf_mean,nox
 Mauritania,Mauritania,0.22558494251402328,cf_mean,nox
 Mauritius,Mauritius,0.07683861298818694,cf_mean,nox
 Mayotte,Mayotte,0.12990397051172703,cf_mean,nox
-Mexico,Mexico,0.13209843033652746,cf_mean,nox
-Micronesia (Federated States of),Micronesia (Federated States of),0.011137677338917606,cf_mean,nox
+Mexico,Mexico,0.13216650464725524,cf_mean,nox
+Micronesia (Federated States of),Micronesia (Federated States of),0.011199208584255785,cf_mean,nox
 Midway Island,,,cf_mean,nox
-"Moldova, Republic of","Moldova, Republic of",0.5949618597032383,cf_mean,nox
+"Moldova, Republic of","Moldova, Republic of",0.5960426742147711,cf_mean,nox
 Monaco,,,cf_mean,nox
-Mongolia,Mongolia,0.7911331958438527,cf_mean,nox
+Mongolia,Mongolia,0.7951234198633336,cf_mean,nox
 Montenegro,Montenegro,0.6794927565833229,cf_mean,nox
 Montserrat,Montserrat,0.04753937173756597,cf_mean,nox
-Morocco,Morocco,0.16700094093237347,cf_mean,nox
+Morocco,Morocco,0.16708132035056408,cf_mean,nox
 Mozambique,Mozambique,0.25807755508110514,cf_mean,nox
 Myanmar,Myanmar,0.33455327693233805,cf_mean,nox
 Namibia,Namibia,0.30184610472459594,cf_mean,nox
@@ -1012,27 +1012,27 @@ Netherlands,Netherlands,0.2424127641889369,cf_mean,nox
 Netherlands Antilles,Netherlands Antilles,0.07404160341641061,cf_mean,nox
 New Caledonia,New Caledonia,0.012798827954760872,cf_mean,nox
 New Zealand,New Zealand,0.12324717515915516,cf_mean,nox
-Nicaragua,Nicaragua,0.07157355160389507,cf_mean,nox
-Niger,Niger,0.22654584545870438,cf_mean,nox
-Nigeria,Nigeria,0.17469613849564625,cf_mean,nox
+Nicaragua,Nicaragua,0.07167960866757152,cf_mean,nox
+Niger,Niger,0.22844942330510376,cf_mean,nox
+Nigeria,Nigeria,0.17716380427095757,cf_mean,nox
 Niue,Niue,0.00833977357977093,cf_mean,nox
 Norfolk Island,,,cf_mean,nox
 Northern Mariana Islands,Northern Mariana Islands,0.0434615311273103,cf_mean,nox
 Norway,Norway,0.6092266583672993,cf_mean,nox
-Oman,Oman,0.26850652488988486,cf_mean,nox
+Oman,Oman,0.2697317564559985,cf_mean,nox
 Pakistan,Pakistan,0.9253529194233949,cf_mean,nox
 Palau,Palau,0.08409308584694462,cf_mean,nox
 Palmyra Atoll,,,cf_mean,nox
 Panama,Panama,0.08262229639708046,cf_mean,nox
 Papua New Guinea,Papua New Guinea,0.042629462229457744,cf_mean,nox
-Paracel Islands,Paracel Islands,0.23499174502709633,cf_mean,nox
+Paracel Islands,Paracel Islands,0.23499174502709635,cf_mean,nox
 Paraguay,Paraguay,0.12607868263106403,cf_mean,nox
-Peru,Peru,0.3140576725686063,cf_mean,nox
+Peru,Peru,0.31429569342792213,cf_mean,nox
 Philippines,Philippines,0.15499706190412135,cf_mean,nox
-Pitcairn,Pitcairn,0.010885954372490483,cf_mean,nox
+Pitcairn,Pitcairn,0.010885954372490484,cf_mean,nox
 Poland,Poland,0.8102332281933915,cf_mean,nox
 Portugal,Portugal,0.2436502726868967,cf_mean,nox
-Puerto Rico,Puerto Rico,0.05715070711095174,cf_mean,nox
+Puerto Rico,Puerto Rico,0.05715352608023273,cf_mean,nox
 Qatar,Qatar,0.791763557808714,cf_mean,nox
 Republic of Korea,Republic of Korea,0.46917081246293246,cf_mean,nox
 Romania,Romania,0.7856249000422961,cf_mean,nox
@@ -1046,9 +1046,9 @@ Saint Pierre et Miquelon,Saint Pierre et Miquelon,0.3599800011855847,cf_mean,nox
 Saint Vincent and the Grenadines,Saint Vincent and the Grenadines,0.058465282077321955,cf_mean,nox
 Samoa,Samoa,0.006948106457687899,cf_mean,nox
 San Marino,San Marino,0.7814757375323046,cf_mean,nox
-Sao Tome and Principe,Sao Tome and Principe,0.05344483467551184,cf_mean,nox
-Saudi Arabia,Saudi Arabia,0.7589116809233072,cf_mean,nox
-Scarborough Reef,Scarborough Reef,0.20734332993760624,cf_mean,nox
+Sao Tome and Principe,Sao Tome and Principe,0.05347722981767357,cf_mean,nox
+Saudi Arabia,Saudi Arabia,0.7692962527038845,cf_mean,nox
+Scarborough Reef,Scarborough Reef,0.20734332993760626,cf_mean,nox
 Senegal,Senegal,0.15350498550344205,cf_mean,nox
 Senkaku Islands,,,cf_mean,nox
 Serbia,Serbia,0.8251828505756044,cf_mean,nox
@@ -1060,18 +1060,18 @@ Slovenia,Slovenia,0.9751333403537018,cf_mean,nox
 Solomon Islands,Solomon Islands,0.009069558584114698,cf_mean,nox
 Somalia,Somalia,0.2509954836573255,cf_mean,nox
 South Africa,South Africa,0.3265644249557391,cf_mean,nox
-South Georgia and the South Sandwich Islands,South Georgia and the South Sandwich Islands,0.07522452558194886,cf_mean,nox
+South Georgia and the South Sandwich Islands,South Georgia and the South Sandwich Islands,0.07528924223674024,cf_mean,nox
 South Sudan,South Sudan,0.31218490377568786,cf_mean,nox
 Spain,Spain,0.3203966462604654,cf_mean,nox
 Spratly Islands,,,cf_mean,nox
 Sri Lanka,Sri Lanka,0.11822428378079843,cf_mean,nox
-Sudan,Sudan,0.3155367228821695,cf_mean,nox
+Sudan,Sudan,0.3185569366456811,cf_mean,nox
 Suriname,Suriname,0.1693171601266971,cf_mean,nox
 Svalbard and Jan Mayen Islands,Svalbard and Jan Mayen Islands,0.3155942584659345,cf_mean,nox
 Swaziland,Swaziland,0.2592196760516053,cf_mean,nox
 Sweden,Sweden,0.6656166631910021,cf_mean,nox
 Switzerland,Switzerland,0.9333493843741969,cf_mean,nox
-Syrian Arab Republic,Syrian Arab Republic,0.5241732749853335,cf_mean,nox
+Syrian Arab Republic,Syrian Arab Republic,0.5251691263874904,cf_mean,nox
 Taiwan,Taiwan,0.30688865134277543,cf_mean,nox
 Tajikistan,Tajikistan,1.3677591560958964,cf_mean,nox
 Thailand,Thailand,0.22482295306873695,cf_mean,nox
@@ -1091,9 +1091,9 @@ U.K. of Great Britain and Northern Ireland,U.K. of Great Britain and Northern Ir
 Uganda,Uganda,0.21096118323805776,cf_mean,nox
 Ukraine,Ukraine,0.5838496122934146,cf_mean,nox
 United Arab Emirates,United Arab Emirates,0.5723218076147973,cf_mean,nox
-United Republic of Tanzania,United Republic of Tanzania,0.19569347867177328,cf_mean,nox
+United Republic of Tanzania,United Republic of Tanzania,0.19592021271442597,cf_mean,nox
 United States Virgin Islands,United States Virgin Islands,0.056721685428309784,cf_mean,nox
-United States of America,United States of America,0.43560490521948037,cf_mean,nox
+United States of America,United States of America,0.4371446593476259,cf_mean,nox
 Uruguay,Uruguay,0.08072816852153232,cf_mean,nox
 Uzbekistan,Uzbekistan,0.9739562010269148,cf_mean,nox
 Vanuatu,Vanuatu,0.009571199828603282,cf_mean,nox
@@ -1102,9 +1102,9 @@ Viet Nam,Viet Nam,0.2694170851824769,cf_mean,nox
 Wake Island,,,cf_mean,nox
 Wallis and Futuna,Wallis and Futuna,0.0071749971230568345,cf_mean,nox
 West Bank,West Bank,0.6729022449250298,cf_mean,nox
-West Bank,West Bank,0.6720229843364538,cf_mean,nox
+West Bank,West Bank,0.6738788205495831,cf_mean,nox
 Western Sahara,Western Sahara,0.19251406473597862,cf_mean,nox
-Yemen,Yemen,0.30386098148456636,cf_mean,nox
+Yemen,Yemen,0.3081156930636331,cf_mean,nox
 Zambia,Zambia,0.26268409097506834,cf_mean,nox
 Zimbabwe,Zimbabwe,0.287673720283627,cf_mean,nox
 Abyei,Abyei,0.3395472384293333,cf_median,nox
@@ -1155,13 +1155,13 @@ Cambodia,Cambodia,0.19493335756606386,cf_median,nox
 Cameroon,Cameroon,0.1949203338998268,cf_median,nox
 Canada,Canada,0.4950479382095843,cf_median,nox
 Cape Verde,Cape Verde,0.037586821541649884,cf_median,nox
-Cayman Islands,Cayman Islands,0.07656493559917077,cf_median,nox
+Cayman Islands,Cayman Islands,0.07656493559917078,cf_median,nox
 Central African Republic,Central African Republic,0.35511485057759107,cf_median,nox
 Chad,Chad,0.26043894186267463,cf_median,nox
 Chile,Chile,0.22897608692215166,cf_median,nox
 China,China,0.7617108964677084,cf_median,nox
 China/India,China/India,0.8505821900609719,cf_median,nox
-Christmas Island,Christmas Island,0.06280232863998074,cf_median,nox
+Christmas Island,Christmas Island,0.06280232863998075,cf_median,nox
 Clipperton Island,,,cf_median,nox
 Cocos (Keeling) Islands,,,cf_median,nox
 Colombia,Colombia,0.1499966064605603,cf_median,nox
@@ -1198,7 +1198,7 @@ French Polynesia,French Polynesia,0.007507864959629287,cf_median,nox
 French Southern and Antarctic Territories,French Southern and Antarctic Territories,0.05315554276283962,cf_median,nox
 Gabon,Gabon,0.17343234693006865,cf_median,nox
 Gambia,Gambia,0.10339699151156839,cf_median,nox
-Gaza Strip,Gaza Strip,0.8043866949219003,cf_median,nox
+Gaza Strip,Gaza Strip,0.8043866949219004,cf_median,nox
 Georgia,Georgia,0.8810015183190593,cf_median,nox
 Germany,Germany,0.9717014145615027,cf_median,nox
 Ghana,Ghana,0.09533358458824177,cf_median,nox
@@ -1210,7 +1210,7 @@ Grenada,Grenada,0.086278904256379,cf_median,nox
 Guadeloupe,Guadeloupe,0.04753937173756597,cf_median,nox
 Guam,Guam,0.04793596131412445,cf_median,nox
 Guatemala,Guatemala,0.07659901809152087,cf_median,nox
-Guernsey,Guernsey,0.4112197403064567,cf_median,nox
+Guernsey,Guernsey,0.41121974030645675,cf_median,nox
 Guinea,Guinea,0.1112001715671821,cf_median,nox
 Guinea-Bissau,Guinea-Bissau,0.1103192815619768,cf_median,nox
 Guyana,Guyana,0.1977677047684637,cf_median,nox
@@ -1302,11 +1302,11 @@ Palau,Palau,0.08418065376257584,cf_median,nox
 Palmyra Atoll,,,cf_median,nox
 Panama,Panama,0.0829378541801789,cf_median,nox
 Papua New Guinea,Papua New Guinea,0.04402864994580996,cf_median,nox
-Paracel Islands,Paracel Islands,0.23499174502709633,cf_median,nox
+Paracel Islands,Paracel Islands,0.23499174502709635,cf_median,nox
 Paraguay,Paraguay,0.12432667022500221,cf_median,nox
 Peru,Peru,0.27873176193574656,cf_median,nox
 Philippines,Philippines,0.14048654343448774,cf_median,nox
-Pitcairn,Pitcairn,0.010885954372490483,cf_median,nox
+Pitcairn,Pitcairn,0.010885954372490484,cf_median,nox
 Poland,Poland,0.9934286268681618,cf_median,nox
 Portugal,Portugal,0.2388586509623541,cf_median,nox
 Puerto Rico,Puerto Rico,0.05714975466451262,cf_median,nox
@@ -1325,7 +1325,7 @@ Samoa,Samoa,0.006946914732757955,cf_median,nox
 San Marino,San Marino,0.7814757375323046,cf_median,nox
 Sao Tome and Principe,Sao Tome and Principe,0.05334622955955101,cf_median,nox
 Saudi Arabia,Saudi Arabia,0.6419684605975319,cf_median,nox
-Scarborough Reef,Scarborough Reef,0.20734332993760624,cf_median,nox
+Scarborough Reef,Scarborough Reef,0.20734332993760626,cf_median,nox
 Senegal,Senegal,0.13236810032521384,cf_median,nox
 Senkaku Islands,,,cf_median,nox
 Serbia,Serbia,0.8457828120193437,cf_median,nox
@@ -1393,14 +1393,14 @@ American Samoa,American Samoa,8.673617379884035e-19,cf_std,nox
 Andorra,Andorra,0.0,cf_std,nox
 Angola,Angola,0.049133547085857196,cf_std,nox
 Anguilla,Anguilla,0.0,cf_std,nox
-Antarctica,Antarctica,0.00029516884536035345,cf_std,nox
+Antarctica,Antarctica,0.0022098095969559327,cf_std,nox
 Antigua and Barbuda,Antigua and Barbuda,0.0,cf_std,nox
-Argentina,Argentina,0.045369660609468274,cf_std,nox
-Armenia,Armenia,0.024139833740769032,cf_std,nox
+Argentina,Argentina,0.048264377581847866,cf_std,nox
+Armenia,Armenia,0.02425629355902393,cf_std,nox
 Aruba,Aruba,0.0017857384984893282,cf_std,nox
 Arunachal Pradesh,Arunachal Pradesh,0.030007576329270827,cf_std,nox
 Ashmore and Cartier Islands,,,cf_std,nox
-Australia,Australia,0.0752978215092175,cf_std,nox
+Australia,Australia,0.08578291802479349,cf_std,nox
 Austria,Austria,0.061767680610872316,cf_std,nox
 Azerbaijan,Azerbaijan,0.07960518433584884,cf_std,nox
 Azores Islands,Azores Islands,0.07913075258023719,cf_std,nox
@@ -1421,22 +1421,22 @@ Bolivia,Bolivia,0.09723707140336418,cf_std,nox
 Bosnia and Herzegovina,Bosnia and Herzegovina,0.059308630930546204,cf_std,nox
 Botswana,Botswana,0.1055285399698354,cf_std,nox
 Bouvet Island,,,cf_std,nox
-Brazil,Brazil,0.09830752550629948,cf_std,nox
+Brazil,Brazil,0.09921593991293877,cf_std,nox
 British Indian Ocean Territory,,,cf_std,nox
 British Virgin Islands,British Virgin Islands,0.0,cf_std,nox
 Brunei Darussalam,Brunei Darussalam,0.004716397550920329,cf_std,nox
 Bulgaria,Bulgaria,0.092760518841775,cf_std,nox
-Burkina Faso,Burkina Faso,0.023920757358799893,cf_std,nox
+Burkina Faso,Burkina Faso,0.023986971064624454,cf_std,nox
 Burundi,Burundi,0.03060087240670746,cf_std,nox
 Cambodia,Cambodia,0.0075879593124062806,cf_std,nox
-Cameroon,Cameroon,0.0438221077143561,cf_std,nox
+Cameroon,Cameroon,0.04479827399904639,cf_std,nox
 Canada,Canada,0.23566911016090092,cf_std,nox
 Cape Verde,Cape Verde,0.05691447666850986,cf_std,nox
 Cayman Islands,Cayman Islands,0.0,cf_std,nox
 Central African Republic,Central African Republic,0.12436386724594284,cf_std,nox
 Chad,Chad,0.10319627086388536,cf_std,nox
-Chile,Chile,0.10934314652451904,cf_std,nox
-China,China,0.30782420660761567,cf_std,nox
+Chile,Chile,0.10955888240070231,cf_std,nox
+China,China,0.32989431911720346,cf_std,nox
 China/India,China/India,0.09345804198628727,cf_std,nox
 Christmas Island,Christmas Island,0.0,cf_std,nox
 Clipperton Island,,,cf_std,nox
@@ -1452,21 +1452,21 @@ Cyprus,Cyprus,0.04033559712166741,cf_std,nox
 Czech Republic,Czech Republic,0.03144943866999683,cf_std,nox
 Côte d'Ivoire,Côte d'Ivoire,0.011660574497028765,cf_std,nox
 Dem People's Rep of Korea,Dem People's Rep of Korea,0.145298307566049,cf_std,nox
-Democratic Republic of the Congo,Democratic Republic of the Congo,0.06813328687686705,cf_std,nox
+Democratic Republic of the Congo,Democratic Republic of the Congo,0.06930013864220584,cf_std,nox
 Denmark,Denmark,0.35323291300846277,cf_std,nox
 Djibouti,Djibouti,0.0027219117992751283,cf_std,nox
 Dominica,Dominica,6.938893903907228e-18,cf_std,nox
 Dominican Republic,Dominican Republic,0.0017278460589860152,cf_std,nox
 Ecuador,Ecuador,0.03141139676558978,cf_std,nox
-Egypt,Egypt,0.3739568290363082,cf_std,nox
+Egypt,Egypt,0.39703805958168836,cf_std,nox
 El Salvador,El Salvador,0.0008554903521762145,cf_std,nox
 Equatorial Guinea,Equatorial Guinea,0.03860527496567005,cf_std,nox
 Eritrea,Eritrea,0.02465217357982056,cf_std,nox
 Estonia,Estonia,0.025915066263581178,cf_std,nox
-Ethiopia,Ethiopia,0.018327438485143253,cf_std,nox
+Ethiopia,Ethiopia,0.02644377578888495,cf_std,nox
 Europa Island,Europa Island,0.0,cf_std,nox
 Falkland Islands (Malvinas),Falkland Islands (Malvinas),0.0005006660865041295,cf_std,nox
-Faroe Islands,Faroe Islands,0.0006301102558683826,cf_std,nox
+Faroe Islands,Faroe Islands,0.001710901608833201,cf_std,nox
 Fiji,Fiji,0.00042673248883180954,cf_std,nox
 Finland,Finland,0.10809990992305427,cf_std,nox
 France,France,0.13717207928136194,cf_std,nox
@@ -1478,21 +1478,21 @@ Gambia,Gambia,0.013708396995772145,cf_std,nox
 Gaza Strip,Gaza Strip,0.0,cf_std,nox
 Georgia,Georgia,0.07485874992763636,cf_std,nox
 Germany,Germany,0.35767899597306213,cf_std,nox
-Ghana,Ghana,0.009811851901016739,cf_std,nox
+Ghana,Ghana,0.009824875850880172,cf_std,nox
 Gibraltar,,,cf_std,nox
 Glorioso Island,,,cf_std,nox
-Greece,Greece,0.09403781192498341,cf_std,nox
+Greece,Greece,0.094641173364148,cf_std,nox
 Greenland,Greenland,0.08387789735006439,cf_std,nox
 Grenada,Grenada,0.0,cf_std,nox
-Guadeloupe,Guadeloupe,0.0008117380299686984,cf_std,nox
+Guadeloupe,Guadeloupe,0.0015338145672661176,cf_std,nox
 Guam,Guam,6.938893903907228e-18,cf_std,nox
 Guatemala,Guatemala,0.009019332739774736,cf_std,nox
-Guernsey,Guernsey,0.0,cf_std,nox
+Guernsey,Guernsey,5.551115123125783e-17,cf_std,nox
 Guinea,Guinea,0.00978541165102154,cf_std,nox
 Guinea-Bissau,Guinea-Bissau,0.01586013113686411,cf_std,nox
 Guyana,Guyana,0.06998404488911521,cf_std,nox
 Haiti,Haiti,0.004477191510102378,cf_std,nox
-Hala'ib triangle,Hala'ib triangle,0.004082047849736287,cf_std,nox
+Hala'ib triangle,Hala'ib triangle,0.008102989305434254,cf_std,nox
 Heard Island and McDonald Islands,Heard Island and McDonald Islands,0.00010013686268388118,cf_std,nox
 Holy See,,,cf_std,nox
 Honduras,Honduras,0.0018974059143958227,cf_std,nox
@@ -1501,9 +1501,9 @@ Howland Island,,,cf_std,nox
 Hungary,Hungary,0.07550660672963401,cf_std,nox
 Iceland,Iceland,0.02025380623677203,cf_std,nox
 Ilemi triangle,Ilemi triangle,0.0009738570577737668,cf_std,nox
-India,India,0.24100487867730497,cf_std,nox
+India,India,0.24893562224431362,cf_std,nox
 Indonesia,Indonesia,0.031244986966008043,cf_std,nox
-Iran  (Islamic Republic of),Iran  (Islamic Republic of),0.12315727007087107,cf_std,nox
+Iran  (Islamic Republic of),Iran  (Islamic Republic of),0.12898130225385504,cf_std,nox
 Iraq,Iraq,0.05899871461407719,cf_std,nox
 Ireland,Ireland,0.15522688138755825,cf_std,nox
 Isle of Man,Isle of Man,0.0,cf_std,nox
@@ -1518,7 +1518,7 @@ Johnston Atoll,Johnston Atoll,0.0,cf_std,nox
 Jordan,Jordan,0.19230282438748067,cf_std,nox
 Juan de Nova Island,,,cf_std,nox
 Kazakhstan,Kazakhstan,0.28936123902228256,cf_std,nox
-Kenya,Kenya,0.0414098420472282,cf_std,nox
+Kenya,Kenya,0.04297356487479136,cf_std,nox
 Kingman Reef,Kingman Reef,0.0009561548210888381,cf_std,nox
 Kiribati,Kiribati,0.001260686885043733,cf_std,nox
 Kuril islands,Kuril islands,0.043240499611951345,cf_std,nox
@@ -1527,7 +1527,7 @@ Kyrgyzstan,Kyrgyzstan,0.1350024458745721,cf_std,nox
 Lao People's Democratic Republic,Lao People's Democratic Republic,0.04822359246388675,cf_std,nox
 Latvia,Latvia,0.03165419487759698,cf_std,nox
 Lebanon,Lebanon,1.1102230246251565e-16,cf_std,nox
-Lesotho,Lesotho,0.05833987083787308,cf_std,nox
+Lesotho,Lesotho,0.062176986320598426,cf_std,nox
 Liberia,Liberia,0.018850523750733324,cf_std,nox
 Libya,Libya,0.050603904240549176,cf_std,nox
 Liechtenstein,Liechtenstein,0.0,cf_std,nox
@@ -1538,24 +1538,24 @@ Macau,Macau,0.0,cf_std,nox
 Madagascar,Madagascar,0.057421992638215104,cf_std,nox
 Madeira Islands,Madeira Islands,2.7755575615628914e-17,cf_std,nox
 Malawi,Malawi,0.07971349474641014,cf_std,nox
-Malaysia,Malaysia,0.013691329914776462,cf_std,nox
+Malaysia,Malaysia,0.013710768500690394,cf_std,nox
 Maldives,Maldives,0.014183402711059685,cf_std,nox
-Mali,Mali,0.0756494204388636,cf_std,nox
+Mali,Mali,0.0781841187746113,cf_std,nox
 Malta,Malta,5.551115123125783e-17,cf_std,nox
 Marshall Islands,Marshall Islands,0.00043723401584116637,cf_std,nox
 Martinique,Martinique,0.0,cf_std,nox
 Mauritania,Mauritania,0.07535755809141194,cf_std,nox
 Mauritius,Mauritius,0.018562249805707837,cf_std,nox
 Mayotte,Mayotte,2.7755575615628914e-17,cf_std,nox
-Mexico,Mexico,0.03065680778632089,cf_std,nox
-Micronesia (Federated States of),Micronesia (Federated States of),0.0014948785028774943,cf_std,nox
+Mexico,Mexico,0.03087015340957563,cf_std,nox
+Micronesia (Federated States of),Micronesia (Federated States of),0.0017116524602260048,cf_std,nox
 Midway Island,,,cf_std,nox
-"Moldova, Republic of","Moldova, Republic of",0.06530506239395338,cf_std,nox
+"Moldova, Republic of","Moldova, Republic of",0.06874244735941669,cf_std,nox
 Monaco,,,cf_std,nox
-Mongolia,Mongolia,0.12104542128012948,cf_std,nox
+Mongolia,Mongolia,0.14100641493879018,cf_std,nox
 Montenegro,Montenegro,0.1030391542668981,cf_std,nox
 Montserrat,Montserrat,0.0,cf_std,nox
-Morocco,Morocco,0.029755345288246537,cf_std,nox
+Morocco,Morocco,0.030036948665548877,cf_std,nox
 Mozambique,Mozambique,0.12060108762368522,cf_std,nox
 Myanmar,Myanmar,0.09144476651745062,cf_std,nox
 Namibia,Namibia,0.14573799838781487,cf_std,nox
@@ -1566,14 +1566,14 @@ Netherlands,Netherlands,0.28359733832240636,cf_std,nox
 Netherlands Antilles,Netherlands Antilles,0.0,cf_std,nox
 New Caledonia,New Caledonia,0.0007085330625693168,cf_std,nox
 New Zealand,New Zealand,0.07906918601847181,cf_std,nox
-Nicaragua,Nicaragua,0.0036725347609936703,cf_std,nox
-Niger,Niger,0.07313438336524858,cf_std,nox
-Nigeria,Nigeria,0.054205681890331064,cf_std,nox
+Nicaragua,Nicaragua,0.004127801026753531,cf_std,nox
+Niger,Niger,0.08058636485791516,cf_std,nox
+Nigeria,Nigeria,0.06614224029616196,cf_std,nox
 Niue,Niue,6.232574955502932e-05,cf_std,nox
 Norfolk Island,,,cf_std,nox
 Northern Mariana Islands,Northern Mariana Islands,0.0013709250852103469,cf_std,nox
 Norway,Norway,0.25481523165043185,cf_std,nox
-Oman,Oman,0.07999597577351912,cf_std,nox
+Oman,Oman,0.08579044093854922,cf_std,nox
 Pakistan,Pakistan,0.42295317309309893,cf_std,nox
 Palau,Palau,0.000380581966693327,cf_std,nox
 Palmyra Atoll,,,cf_std,nox
@@ -1581,12 +1581,12 @@ Panama,Panama,0.005102923346769801,cf_std,nox
 Papua New Guinea,Papua New Guinea,0.01709652658558877,cf_std,nox
 Paracel Islands,Paracel Islands,0.0,cf_std,nox
 Paraguay,Paraguay,0.013284730229567783,cf_std,nox
-Peru,Peru,0.2006028331512104,cf_std,nox
+Peru,Peru,0.20139270091132122,cf_std,nox
 Philippines,Philippines,0.03213128214136692,cf_std,nox
 Pitcairn,Pitcairn,0.0,cf_std,nox
 Poland,Poland,0.4100854815282863,cf_std,nox
 Portugal,Portugal,0.026362540354177927,cf_std,nox
-Puerto Rico,Puerto Rico,1.1544525904122457e-05,cf_std,nox
+Puerto Rico,Puerto Rico,4.571302352298483e-05,cf_std,nox
 Qatar,Qatar,0.04054822055210719,cf_std,nox
 Republic of Korea,Republic of Korea,0.09302076435418352,cf_std,nox
 Romania,Romania,0.14146776261812055,cf_std,nox
@@ -1600,8 +1600,8 @@ Saint Pierre et Miquelon,Saint Pierre et Miquelon,0.10189301048689708,cf_std,nox
 Saint Vincent and the Grenadines,Saint Vincent and the Grenadines,0.011001776153723513,cf_std,nox
 Samoa,Samoa,2.168734956089194e-06,cf_std,nox
 San Marino,San Marino,0.0,cf_std,nox
-Sao Tome and Principe,Sao Tome and Principe,0.000400855151485319,cf_std,nox
-Saudi Arabia,Saudi Arabia,0.4820481289484736,cf_std,nox
+Sao Tome and Principe,Sao Tome and Principe,0.0005325497343889922,cf_std,nox
+Saudi Arabia,Saudi Arabia,0.5239791863605675,cf_std,nox
 Scarborough Reef,Scarborough Reef,0.0,cf_std,nox
 Senegal,Senegal,0.06844558114592178,cf_std,nox
 Senkaku Islands,,,cf_std,nox
@@ -1614,18 +1614,18 @@ Slovenia,Slovenia,0.09406955526066856,cf_std,nox
 Solomon Islands,Solomon Islands,0.0015457156708097847,cf_std,nox
 Somalia,Somalia,0.09370161800651655,cf_std,nox
 South Africa,South Africa,0.1224459545442082,cf_std,nox
-South Georgia and the South Sandwich Islands,South Georgia and the South Sandwich Islands,0.0019122368156264907,cf_std,nox
+South Georgia and the South Sandwich Islands,South Georgia and the South Sandwich Islands,0.002132933021247035,cf_std,nox
 South Sudan,South Sudan,0.08438142353605081,cf_std,nox
 Spain,Spain,0.09755480944625233,cf_std,nox
 Spratly Islands,,,cf_std,nox
 Sri Lanka,Sri Lanka,0.004762468757613494,cf_std,nox
-Sudan,Sudan,0.09324307650422502,cf_std,nox
+Sudan,Sudan,0.10373939996493972,cf_std,nox
 Suriname,Suriname,0.041188969329048045,cf_std,nox
 Svalbard and Jan Mayen Islands,Svalbard and Jan Mayen Islands,0.1604747565842509,cf_std,nox
 Swaziland,Swaziland,0.005382830890188433,cf_std,nox
 Sweden,Sweden,0.31706024775158936,cf_std,nox
 Switzerland,Switzerland,0.04775704331451078,cf_std,nox
-Syrian Arab Republic,Syrian Arab Republic,0.03697810021627332,cf_std,nox
+Syrian Arab Republic,Syrian Arab Republic,0.04040586336010785,cf_std,nox
 Taiwan,Taiwan,0.026897728967511775,cf_std,nox
 Tajikistan,Tajikistan,0.11616540409334847,cf_std,nox
 Thailand,Thailand,0.034476843898243,cf_std,nox
@@ -1645,9 +1645,9 @@ U.K. of Great Britain and Northern Ireland,U.K. of Great Britain and Northern Ir
 Uganda,Uganda,0.029951098551511558,cf_std,nox
 Ukraine,Ukraine,0.14221476768864477,cf_std,nox
 United Arab Emirates,United Arab Emirates,0.1345713459389943,cf_std,nox
-United Republic of Tanzania,United Republic of Tanzania,0.019297197726990824,cf_std,nox
+United Republic of Tanzania,United Republic of Tanzania,0.020789176736244745,cf_std,nox
 United States Virgin Islands,United States Virgin Islands,1.850140645554021e-05,cf_std,nox
-United States of America,United States of America,0.22708180332132274,cf_std,nox
+United States of America,United States of America,0.23304532277828424,cf_std,nox
 Uruguay,Uruguay,0.0025434650813365655,cf_std,nox
 Uzbekistan,Uzbekistan,0.28197127442599385,cf_std,nox
 Vanuatu,Vanuatu,0.00026939511403444613,cf_std,nox
@@ -1656,31 +1656,31 @@ Viet Nam,Viet Nam,0.08002710824753301,cf_std,nox
 Wake Island,,,cf_std,nox
 Wallis and Futuna,Wallis and Futuna,0.00014191423393112554,cf_std,nox
 West Bank,West Bank,0.0034491679506979153,cf_std,nox
-West Bank,West Bank,0.01212778554860565,cf_std,nox
+West Bank,West Bank,0.022736656575194306,cf_std,nox
 Western Sahara,Western Sahara,0.05609401823299643,cf_std,nox
-Yemen,Yemen,0.06659731601812481,cf_std,nox
+Yemen,Yemen,0.08736990161425426,cf_std,nox
 Zambia,Zambia,0.046472204773771286,cf_std,nox
 Zimbabwe,Zimbabwe,0.08358582940001537,cf_std,nox
 Abyei,Abyei,1.1147005290100451,cf_mean,so2
 Afghanistan,Afghanistan,2.584195552689803,cf_mean,so2
 Aksai Chin,Aksai Chin,3.3353625207099906,cf_mean,so2
 Albania,Albania,1.267968585697772,cf_mean,so2
-Algeria,Algeria,0.5952460970542383,cf_mean,so2
+Algeria,Algeria,0.6000473009645476,cf_mean,so2
 American Samoa,American Samoa,0.007758615345232898,cf_mean,so2
 Andorra,Andorra,1.5268767847516813,cf_mean,so2
 Angola,Angola,0.8921151336986819,cf_mean,so2
 Anguilla,Anguilla,0.1630029435044853,cf_mean,so2
-Antarctica,Antarctica,0.0003132334392875458,cf_mean,so2
+Antarctica,Antarctica,0.0006372248715259758,cf_mean,so2
 Antigua and Barbuda,Antigua and Barbuda,0.17377224382011588,cf_mean,so2
-Argentina,Argentina,0.6531905675744063,cf_mean,so2
+Argentina,Argentina,0.6590488102412347,cf_mean,so2
 Armenia,Armenia,2.1666340534034134,cf_mean,so2
 Aruba,Aruba,0.1372156657324837,cf_mean,so2
 Arunachal Pradesh,Arunachal Pradesh,1.5863573410017329,cf_mean,so2
 Ashmore and Cartier Islands,,,cf_mean,so2
-Australia,Australia,0.3746492273024428,cf_mean,so2
+Australia,Australia,0.39274492441646724,cf_mean,so2
 Austria,Austria,2.957703322823168,cf_mean,so2
 Azerbaijan,Azerbaijan,1.769144213513119,cf_mean,so2
-Azores Islands,Azores Islands,0.2712540082091792,cf_mean,so2
+Azores Islands,Azores Islands,0.27173144465368715,cf_mean,so2
 Bahamas,Bahamas,0.3178327088331188,cf_mean,so2
 Bahrain,Bahrain,1.3507803540269596,cf_mean,so2
 Baker Island,,,cf_mean,so2
@@ -1694,7 +1694,7 @@ Benin,Benin,0.6748310964229736,cf_mean,so2
 Bermuda,Bermuda,0.27151774856630917,cf_mean,so2
 Bhutan,Bhutan,1.8481096789469817,cf_mean,so2
 Bird Island,,,cf_mean,so2
-Bolivia,Bolivia,1.6728146174234477,cf_mean,so2
+Bolivia,Bolivia,1.6786166547760206,cf_mean,so2
 Bosnia and Herzegovina,Bosnia and Herzegovina,2.0925358641199714,cf_mean,so2
 Botswana,Botswana,1.243068608532777,cf_mean,so2
 Bouvet Island,,,cf_mean,so2
@@ -1703,17 +1703,17 @@ British Indian Ocean Territory,,,cf_mean,so2
 British Virgin Islands,British Virgin Islands,0.16300294350448533,cf_mean,so2
 Brunei Darussalam,Brunei Darussalam,0.2799666268929926,cf_mean,so2
 Bulgaria,Bulgaria,1.4013598901232673,cf_mean,so2
-Burkina Faso,Burkina Faso,0.75090828639479,cf_mean,so2
+Burkina Faso,Burkina Faso,0.7511164449891882,cf_mean,so2
 Burundi,Burundi,1.067739337234104,cf_mean,so2
 Cambodia,Cambodia,0.4371094147926314,cf_mean,so2
-Cameroon,Cameroon,1.1504198042254221,cf_mean,so2
+Cameroon,Cameroon,1.1562807032299123,cf_mean,so2
 Canada,Canada,2.8902225664755408,cf_mean,so2
 Cape Verde,Cape Verde,0.1714190899344294,cf_mean,so2
 Cayman Islands,Cayman Islands,0.24040515912666183,cf_mean,so2
 Central African Republic,Central African Republic,1.4833169831934188,cf_mean,so2
-Chad,Chad,1.5372770986898094,cf_mean,so2
-Chile,Chile,1.3879414626328703,cf_mean,so2
-China,China,2.214923790625413,cf_mean,so2
+Chad,Chad,1.612413662592545,cf_mean,so2
+Chile,Chile,1.3894253938158578,cf_mean,so2
+China,China,2.255638766782981,cf_mean,so2
 China/India,China/India,2.288260083196507,cf_mean,so2
 Christmas Island,Christmas Island,0.16053294717365443,cf_mean,so2
 Clipperton Island,,,cf_mean,so2
@@ -1735,12 +1735,12 @@ Djibouti,Djibouti,0.49376241852660385,cf_mean,so2
 Dominica,Dominica,0.1672390230213749,cf_mean,so2
 Dominican Republic,Dominican Republic,0.1371336363553625,cf_mean,so2
 Ecuador,Ecuador,0.7760348625964262,cf_mean,so2
-Egypt,Egypt,1.113314598845384,cf_mean,so2
-El Salvador,El Salvador,0.2334539168430679,cf_mean,so2
+Egypt,Egypt,1.182048608259195,cf_mean,so2
+El Salvador,El Salvador,0.23370838842636052,cf_mean,so2
 Equatorial Guinea,Equatorial Guinea,0.976399768390367,cf_mean,so2
-Eritrea,Eritrea,0.5834785958856629,cf_mean,so2
+Eritrea,Eritrea,0.5839844293418912,cf_mean,so2
 Estonia,Estonia,2.7976765546680276,cf_mean,so2
-Ethiopia,Ethiopia,0.5893142984003478,cf_mean,so2
+Ethiopia,Ethiopia,0.6014154147240878,cf_mean,so2
 Europa Island,Europa Island,0.5242902556247708,cf_mean,so2
 Falkland Islands (Malvinas),Falkland Islands (Malvinas),0.4738217336538662,cf_mean,so2
 Faroe Islands,Faroe Islands,0.9156353757765087,cf_mean,so2
@@ -1748,17 +1748,17 @@ Fiji,Fiji,0.017543574268231246,cf_mean,so2
 Finland,Finland,4.378919707045781,cf_mean,so2
 France,France,1.68263207901417,cf_mean,so2
 French Guiana,French Guiana,0.6559777429455887,cf_mean,so2
-French Polynesia,French Polynesia,0.0026185378172025693,cf_mean,so2
-French Southern and Antarctic Territories,French Southern and Antarctic Territories,0.03380260554716176,cf_mean,so2
+French Polynesia,French Polynesia,0.002720449081363805,cf_mean,so2
+French Southern and Antarctic Territories,French Southern and Antarctic Territories,0.033818110258155065,cf_mean,so2
 Gabon,Gabon,1.1444117467163124,cf_mean,so2
 Gambia,Gambia,0.3066336234832852,cf_mean,so2
 Gaza Strip,Gaza Strip,1.5182177699492547,cf_mean,so2
 Georgia,Georgia,2.3004070391948632,cf_mean,so2
 Germany,Germany,2.290046656315133,cf_mean,so2
-Ghana,Ghana,0.5941311808863234,cf_mean,so2
+Ghana,Ghana,0.5942050910754452,cf_mean,so2
 Gibraltar,,,cf_mean,so2
 Glorioso Island,,,cf_mean,so2
-Greece,Greece,0.7719286629009912,cf_mean,so2
+Greece,Greece,0.7730116192253996,cf_mean,so2
 Greenland,Greenland,0.9621883547305097,cf_mean,so2
 Grenada,Grenada,0.18360151691821724,cf_mean,so2
 Guadeloupe,Guadeloupe,0.1671171214571588,cf_mean,so2
@@ -1769,19 +1769,19 @@ Guinea,Guinea,0.5041552161603448,cf_mean,so2
 Guinea-Bissau,Guinea-Bissau,0.32014724344644624,cf_mean,so2
 Guyana,Guyana,0.7681611327907322,cf_mean,so2
 Haiti,Haiti,0.15462868621700368,cf_mean,so2
-Hala'ib triangle,Hala'ib triangle,0.8262500231886724,cf_mean,so2
+Hala'ib triangle,Hala'ib triangle,0.826394069050843,cf_mean,so2
 Heard Island and McDonald Islands,Heard Island and McDonald Islands,0.032681784488822405,cf_mean,so2
 Holy See,,,cf_mean,so2
 Honduras,Honduras,0.21026318260353621,cf_mean,so2
-Hong Kong,Hong Kong,0.6868630135315258,cf_mean,so2
+Hong Kong,Hong Kong,0.6868630135315259,cf_mean,so2
 Howland Island,,,cf_mean,so2
 Hungary,Hungary,2.2015568450245193,cf_mean,so2
 Iceland,Iceland,0.7970911366139518,cf_mean,so2
 Ilemi triangle,Ilemi triangle,0.7907674459626494,cf_mean,so2
-India,India,0.6654371484499926,cf_mean,so2
-Indonesia,Indonesia,0.3245366378023495,cf_mean,so2
-Iran  (Islamic Republic of),Iran  (Islamic Republic of),1.2207886216399297,cf_mean,so2
-Iraq,Iraq,1.1797448533722592,cf_mean,so2
+India,India,0.6718954595414066,cf_mean,so2
+Indonesia,Indonesia,0.3309318846527344,cf_mean,so2
+Iran  (Islamic Republic of),Iran  (Islamic Republic of),1.2262436233428275,cf_mean,so2
+Iraq,Iraq,1.1801602937869429,cf_mean,so2
 Ireland,Ireland,0.313040885723126,cf_mean,so2
 Isle of Man,Isle of Man,0.6524513966396698,cf_mean,so2
 Israel,Israel,2.9295950469429957,cf_mean,so2
@@ -1794,8 +1794,8 @@ Jersey,Jersey,0.9008789416556745,cf_mean,so2
 Johnston Atoll,Johnston Atoll,0.04258959251846755,cf_mean,so2
 Jordan,Jordan,2.8885030164869434,cf_mean,so2
 Juan de Nova Island,,,cf_mean,so2
-Kazakhstan,Kazakhstan,1.9600549262757825,cf_mean,so2
-Kenya,Kenya,0.818847143063425,cf_mean,so2
+Kazakhstan,Kazakhstan,1.9680708332773793,cf_mean,so2
+Kenya,Kenya,0.8213671453137414,cf_mean,so2
 Kingman Reef,Kingman Reef,0.020668285429649703,cf_mean,so2
 Kiribati,Kiribati,0.01227064343963345,cf_mean,so2
 Kuril islands,Kuril islands,1.08896589226828,cf_mean,so2
@@ -1804,37 +1804,37 @@ Kyrgyzstan,Kyrgyzstan,4.720172118718249,cf_mean,so2
 Lao People's Democratic Republic,Lao People's Democratic Republic,0.659476494545569,cf_mean,so2
 Latvia,Latvia,2.5066366443401975,cf_mean,so2
 Lebanon,Lebanon,0.8074051240276239,cf_mean,so2
-Lesotho,Lesotho,0.543069190508902,cf_mean,so2
+Lesotho,Lesotho,0.5488407315413983,cf_mean,so2
 Liberia,Liberia,0.5996557312595178,cf_mean,so2
-Libya,Libya,0.6866387669654608,cf_mean,so2
+Libya,Libya,0.686809801600601,cf_mean,so2
 Liechtenstein,Liechtenstein,2.4968072796323497,cf_mean,so2
 Lithuania,Lithuania,2.45371042735059,cf_mean,so2
 Luxembourg,Luxembourg,2.771728441791388,cf_mean,so2
 Ma'tan al-Sarra,Ma'tan al-Sarra,0.8587324113591533,cf_mean,so2
-Macau,Macau,0.6868630135315259,cf_mean,so2
+Macau,Macau,0.686863013531526,cf_mean,so2
 Madagascar,Madagascar,0.612984245045116,cf_mean,so2
 Madeira Islands,Madeira Islands,0.21564716014017887,cf_mean,so2
 Malawi,Malawi,1.3929321175299114,cf_mean,so2
-Malaysia,Malaysia,0.35284447725155493,cf_mean,so2
+Malaysia,Malaysia,0.3561206689870755,cf_mean,so2
 Maldives,Maldives,0.10532549645976562,cf_mean,so2
-Mali,Mali,1.3254924791194145,cf_mean,so2
+Mali,Mali,1.3805018873028574,cf_mean,so2
 Malta,Malta,0.7789966929682337,cf_mean,so2
 Marshall Islands,Marshall Islands,0.04470278104045231,cf_mean,so2
 Martinique,Martinique,0.17067838077124786,cf_mean,so2
-Mauritania,Mauritania,0.9208148608504603,cf_mean,so2
+Mauritania,Mauritania,0.9468783665562293,cf_mean,so2
 Mauritius,Mauritius,0.12372299216519149,cf_mean,so2
 Mayotte,Mayotte,0.31293906846820696,cf_mean,so2
 Mexico,Mexico,0.4523424449159504,cf_mean,so2
-Micronesia (Federated States of),Micronesia (Federated States of),0.049123942610792094,cf_mean,so2
+Micronesia (Federated States of),Micronesia (Federated States of),0.049319906984727456,cf_mean,so2
 Midway Island,,,cf_mean,so2
-"Moldova, Republic of","Moldova, Republic of",1.425884637715503,cf_mean,so2
+"Moldova, Republic of","Moldova, Republic of",1.4289274410495647,cf_mean,so2
 Monaco,,,cf_mean,so2
-Mongolia,Mongolia,2.145300742223291,cf_mean,so2
+Mongolia,Mongolia,2.16908563302992,cf_mean,so2
 Montenegro,Montenegro,1.5769197030163504,cf_mean,so2
 Montserrat,Montserrat,0.1672390230213749,cf_mean,so2
-Morocco,Morocco,0.3459429079056055,cf_mean,so2
+Morocco,Morocco,0.34619814933554693,cf_mean,so2
 Mozambique,Mozambique,0.9505076821740879,cf_mean,so2
-Myanmar,Myanmar,0.8394202300447011,cf_mean,so2
+Myanmar,Myanmar,0.8404118856570916,cf_mean,so2
 Namibia,Namibia,1.0883166249383618,cf_mean,so2
 Nauru,,,cf_mean,so2
 Navassa Island,,,cf_mean,so2
@@ -1844,23 +1844,23 @@ Netherlands Antilles,Netherlands Antilles,0.12756607000922784,cf_mean,so2
 New Caledonia,New Caledonia,0.0394258650039083,cf_mean,so2
 New Zealand,New Zealand,0.5396060470295226,cf_mean,so2
 Nicaragua,Nicaragua,0.21388163908708643,cf_mean,so2
-Niger,Niger,1.3596923533381378,cf_mean,so2
-Nigeria,Nigeria,0.9832112987796602,cf_mean,so2
+Niger,Niger,1.42561489768173,cf_mean,so2
+Nigeria,Nigeria,1.0819166279936818,cf_mean,so2
 Niue,Niue,0.006492674037652753,cf_mean,so2
 Norfolk Island,,,cf_mean,so2
 Northern Mariana Islands,Northern Mariana Islands,0.09851959923787446,cf_mean,so2
 Norway,Norway,2.6194331228867576,cf_mean,so2
-Oman,Oman,0.43047769981977935,cf_mean,so2
+Oman,Oman,0.43493673541274597,cf_mean,so2
 Pakistan,Pakistan,2.5820374228288108,cf_mean,so2
-Palau,Palau,0.13562893431553397,cf_mean,so2
+Palau,Palau,0.13571567903817738,cf_mean,so2
 Palmyra Atoll,,,cf_mean,so2
-Panama,Panama,0.2225491854539479,cf_mean,so2
+Panama,Panama,0.22353307062927077,cf_mean,so2
 Papua New Guinea,Papua New Guinea,0.2575414594888345,cf_mean,so2
-Paracel Islands,Paracel Islands,0.468072193549223,cf_mean,so2
+Paracel Islands,Paracel Islands,0.4680721935492231,cf_mean,so2
 Paraguay,Paraguay,0.8863216408796586,cf_mean,so2
 Peru,Peru,1.8888370820617875,cf_mean,so2
 Philippines,Philippines,0.2666427892006483,cf_mean,so2
-Pitcairn,Pitcairn,0.01875199618191873,cf_mean,so2
+Pitcairn,Pitcairn,0.018751996181918733,cf_mean,so2
 Poland,Poland,2.361573445204385,cf_mean,so2
 Portugal,Portugal,0.4735977281904509,cf_mean,so2
 Puerto Rico,Puerto Rico,0.14816315061600488,cf_mean,so2
@@ -1877,9 +1877,9 @@ Saint Pierre et Miquelon,Saint Pierre et Miquelon,1.3718916582674392,cf_mean,so2
 Saint Vincent and the Grenadines,Saint Vincent and the Grenadines,0.1724268050933972,cf_mean,so2
 Samoa,Samoa,0.008093210318986624,cf_mean,so2
 San Marino,San Marino,1.93008706311633,cf_mean,so2
-Sao Tome and Principe,Sao Tome and Principe,0.6126691237982254,cf_mean,so2
-Saudi Arabia,Saudi Arabia,1.9653551715893323,cf_mean,so2
-Scarborough Reef,Scarborough Reef,0.3438187074593554,cf_mean,so2
+Sao Tome and Principe,Sao Tome and Principe,0.6130374282686352,cf_mean,so2
+Saudi Arabia,Saudi Arabia,1.995738575347646,cf_mean,so2
+Scarborough Reef,Scarborough Reef,0.34381870745935544,cf_mean,so2
 Senegal,Senegal,0.47355185772284925,cf_mean,so2
 Senkaku Islands,,,cf_mean,so2
 Serbia,Serbia,2.139187052022391,cf_mean,so2
@@ -1888,7 +1888,7 @@ Sierra Leone,Sierra Leone,0.5544050137956172,cf_mean,so2
 Singapore,Singapore,0.5035288565244433,cf_mean,so2
 Slovakia,Slovakia,2.669394200870769,cf_mean,so2
 Slovenia,Slovenia,2.6406015652237573,cf_mean,so2
-Solomon Islands,Solomon Islands,0.06460647561858271,cf_mean,so2
+Solomon Islands,Solomon Islands,0.06524536697325116,cf_mean,so2
 Somalia,Somalia,0.8243976775092675,cf_mean,so2
 South Africa,South Africa,0.7920019018029351,cf_mean,so2
 South Georgia and the South Sandwich Islands,South Georgia and the South Sandwich Islands,0.02433971531338864,cf_mean,so2
@@ -1896,7 +1896,7 @@ South Sudan,South Sudan,1.0155069711925064,cf_mean,so2
 Spain,Spain,0.6570491081054904,cf_mean,so2
 Spratly Islands,,,cf_mean,so2
 Sri Lanka,Sri Lanka,0.15077417650762825,cf_mean,so2
-Sudan,Sudan,0.9828500315834533,cf_mean,so2
+Sudan,Sudan,1.0153687336294026,cf_mean,so2
 Suriname,Suriname,0.6476148918685529,cf_mean,so2
 Svalbard and Jan Mayen Islands,Svalbard and Jan Mayen Islands,0.44399536505626447,cf_mean,so2
 Swaziland,Swaziland,0.5771332654795874,cf_mean,so2
@@ -1913,29 +1913,29 @@ Tokelau,,,cf_mean,so2
 Tonga,Tonga,0.01118273842190221,cf_mean,so2
 Trinidad and Tobago,Trinidad and Tobago,0.21708597412827588,cf_mean,so2
 Tromelin Island,,,cf_mean,so2
-Tunisia,Tunisia,0.5733505115995156,cf_mean,so2
+Tunisia,Tunisia,0.5735567340691314,cf_mean,so2
 Turkey,Turkey,1.1263236507715884,cf_mean,so2
 Turkmenistan,Turkmenistan,2.2416647134855934,cf_mean,so2
-Turks and Caicos islands,Turks and Caicos islands,0.20259420209968268,cf_mean,so2
+Turks and Caicos islands,Turks and Caicos islands,0.2025949044721697,cf_mean,so2
 Tuvalu,Tuvalu,0.01934265413440455,cf_mean,so2
 U.K. of Great Britain and Northern Ireland,U.K. of Great Britain and Northern Ireland,0.9171569127966089,cf_mean,so2
-Uganda,Uganda,0.9351950951554442,cf_mean,so2
+Uganda,Uganda,0.9359292643481963,cf_mean,so2
 Ukraine,Ukraine,1.5270202443032848,cf_mean,so2
 United Arab Emirates,United Arab Emirates,1.2665734199486796,cf_mean,so2
-United Republic of Tanzania,United Republic of Tanzania,0.8057578269188079,cf_mean,so2
+United Republic of Tanzania,United Republic of Tanzania,0.8065301399816146,cf_mean,so2
 United States Virgin Islands,United States Virgin Islands,0.162746497330178,cf_mean,so2
-United States of America,United States of America,1.6595488342817695,cf_mean,so2
+United States of America,United States of America,1.6631111337144036,cf_mean,so2
 Uruguay,Uruguay,0.3674509087582553,cf_mean,so2
-Uzbekistan,Uzbekistan,2.26434933474795,cf_mean,so2
+Uzbekistan,Uzbekistan,2.2645172390489705,cf_mean,so2
 Vanuatu,Vanuatu,0.04280750854142006,cf_mean,so2
 Venezuela,Venezuela,0.5696375908887834,cf_mean,so2
 Viet Nam,Viet Nam,0.6475417843590412,cf_mean,so2
 Wake Island,,,cf_mean,so2
 Wallis and Futuna,Wallis and Futuna,0.012177509181856797,cf_mean,so2
 West Bank,West Bank,1.3295972211558513,cf_mean,so2
-West Bank,West Bank,1.3283343348567593,cf_mean,so2
+West Bank,West Bank,1.3309981642350215,cf_mean,so2
 Western Sahara,Western Sahara,0.39745884950649046,cf_mean,so2
-Yemen,Yemen,0.6670347843953816,cf_mean,so2
+Yemen,Yemen,0.6837621155626089,cf_mean,so2
 Zambia,Zambia,1.543209196318694,cf_mean,so2
 Zimbabwe,Zimbabwe,0.9442116570922164,cf_mean,so2
 Abyei,Abyei,1.1147005290100451,cf_median,so2
@@ -1943,7 +1943,7 @@ Afghanistan,Afghanistan,2.334591486248249,cf_median,so2
 Aksai Chin,Aksai Chin,3.9006605954339295,cf_median,so2
 Albania,Albania,1.2427538379390426,cf_median,so2
 Algeria,Algeria,0.5837253063159956,cf_median,so2
-American Samoa,American Samoa,0.007758615345232898,cf_median,so2
+American Samoa,American Samoa,0.007758615345232899,cf_median,so2
 Andorra,Andorra,1.5268767847516815,cf_median,so2
 Angola,Angola,0.8973476907150605,cf_median,so2
 Anguilla,Anguilla,0.1630029435044853,cf_median,so2
@@ -2050,7 +2050,7 @@ Hala'ib triangle,Hala'ib triangle,0.816604512790443,cf_median,so2
 Heard Island and McDonald Islands,Heard Island and McDonald Islands,0.03245508688687421,cf_median,so2
 Holy See,,,cf_median,so2
 Honduras,Honduras,0.21094874721752543,cf_median,so2
-Hong Kong,Hong Kong,0.6868630135315259,cf_median,so2
+Hong Kong,Hong Kong,0.686863013531526,cf_median,so2
 Howland Island,,,cf_median,so2
 Hungary,Hungary,2.342297913571356,cf_median,so2
 Iceland,Iceland,0.7572992380085865,cf_median,so2
@@ -2088,7 +2088,7 @@ Liechtenstein,Liechtenstein,2.4968072796323493,cf_median,so2
 Lithuania,Lithuania,2.4389431636239167,cf_median,so2
 Luxembourg,Luxembourg,2.771728441791388,cf_median,so2
 Ma'tan al-Sarra,Ma'tan al-Sarra,0.8587324113591531,cf_median,so2
-Macau,Macau,0.6868630135315259,cf_median,so2
+Macau,Macau,0.686863013531526,cf_median,so2
 Madagascar,Madagascar,0.573929863804454,cf_median,so2
 Madeira Islands,Madeira Islands,0.21564716014017887,cf_median,so2
 Malawi,Malawi,1.5987694072483056,cf_median,so2
@@ -2133,11 +2133,11 @@ Palau,Palau,0.13542132229833764,cf_median,so2
 Palmyra Atoll,,,cf_median,so2
 Panama,Panama,0.20511441815074738,cf_median,so2
 Papua New Guinea,Papua New Guinea,0.2669263199946683,cf_median,so2
-Paracel Islands,Paracel Islands,0.468072193549223,cf_median,so2
+Paracel Islands,Paracel Islands,0.4680721935492231,cf_median,so2
 Paraguay,Paraguay,0.8845668099649293,cf_median,so2
 Peru,Peru,1.622942466903866,cf_median,so2
 Philippines,Philippines,0.20859455299916352,cf_median,so2
-Pitcairn,Pitcairn,0.01875199618191873,cf_median,so2
+Pitcairn,Pitcairn,0.018751996181918733,cf_median,so2
 Poland,Poland,2.8155726671393673,cf_median,so2
 Portugal,Portugal,0.4360043780328355,cf_median,so2
 Puerto Rico,Puerto Rico,0.14837147714297974,cf_median,so2
@@ -2156,7 +2156,7 @@ Samoa,Samoa,0.007758615345232899,cf_median,so2
 San Marino,San Marino,1.93008706311633,cf_median,so2
 Sao Tome and Principe,Sao Tome and Principe,0.6115557768657904,cf_median,so2
 Saudi Arabia,Saudi Arabia,1.4829924958038687,cf_median,so2
-Scarborough Reef,Scarborough Reef,0.3438187074593554,cf_median,so2
+Scarborough Reef,Scarborough Reef,0.34381870745935544,cf_median,so2
 Senegal,Senegal,0.3860847823686796,cf_median,so2
 Senkaku Islands,,,cf_median,so2
 Serbia,Serbia,2.2561734510466693,cf_median,so2
@@ -2219,22 +2219,22 @@ Abyei,Abyei,0.0,cf_std,so2
 Afghanistan,Afghanistan,0.8952404900319157,cf_std,so2
 Aksai Chin,Aksai Chin,0.5835561185380915,cf_std,so2
 Albania,Albania,0.5399970345164447,cf_std,so2
-Algeria,Algeria,0.13293686665862586,cf_std,so2
-American Samoa,American Samoa,0.0,cf_std,so2
+Algeria,Algeria,0.15059843766865957,cf_std,so2
+American Samoa,American Samoa,8.673617379884035e-19,cf_std,so2
 Andorra,Andorra,2.220446049250313e-16,cf_std,so2
 Angola,Angola,0.22953569560381212,cf_std,so2
 Anguilla,Anguilla,0.0,cf_std,so2
-Antarctica,Antarctica,0.0020642030764942785,cf_std,so2
+Antarctica,Antarctica,0.004565522813848752,cf_std,so2
 Antigua and Barbuda,Antigua and Barbuda,0.0,cf_std,so2
-Argentina,Argentina,0.3047799145148214,cf_std,so2
+Argentina,Argentina,0.33303977861358003,cf_std,so2
 Armenia,Armenia,0.1428673083672271,cf_std,so2
 Aruba,Aruba,0.009649595723255869,cf_std,so2
 Arunachal Pradesh,Arunachal Pradesh,0.21197228363885512,cf_std,so2
 Ashmore and Cartier Islands,,,cf_std,so2
-Australia,Australia,0.3184810838433589,cf_std,so2
+Australia,Australia,0.395454282824812,cf_std,so2
 Austria,Austria,0.28443780669142726,cf_std,so2
 Azerbaijan,Azerbaijan,0.37092641340837623,cf_std,so2
-Azores Islands,Azores Islands,0.01150053738838517,cf_std,so2
+Azores Islands,Azores Islands,0.013339698787978266,cf_std,so2
 Bahamas,Bahamas,0.0686993190862468,cf_std,so2
 Bahrain,Bahrain,2.220446049250313e-16,cf_std,so2
 Baker Island,,,cf_std,so2
@@ -2248,7 +2248,7 @@ Benin,Benin,0.061304409371137146,cf_std,so2
 Bermuda,Bermuda,0.0,cf_std,so2
 Bhutan,Bhutan,0.44982732890106475,cf_std,so2
 Bird Island,,,cf_std,so2
-Bolivia,Bolivia,0.6810625024985403,cf_std,so2
+Bolivia,Bolivia,0.7017394781006459,cf_std,so2
 Bosnia and Herzegovina,Bosnia and Herzegovina,0.25389706400546896,cf_std,so2
 Botswana,Botswana,0.4207368776476528,cf_std,so2
 Bouvet Island,,,cf_std,so2
@@ -2257,17 +2257,17 @@ British Indian Ocean Territory,,,cf_std,so2
 British Virgin Islands,British Virgin Islands,2.7755575615628914e-17,cf_std,so2
 Brunei Darussalam,Brunei Darussalam,0.006769426591132706,cf_std,so2
 Bulgaria,Bulgaria,0.39461514471517234,cf_std,so2
-Burkina Faso,Burkina Faso,0.10343798940538033,cf_std,so2
+Burkina Faso,Burkina Faso,0.10426351438515918,cf_std,so2
 Burundi,Burundi,0.026151557680658247,cf_std,so2
 Cambodia,Cambodia,0.030886399373657197,cf_std,so2
-Cameroon,Cameroon,0.1887413133003393,cf_std,so2
+Cameroon,Cameroon,0.308010727594389,cf_std,so2
 Canada,Canada,1.4236837663289608,cf_std,so2
 Cape Verde,Cape Verde,0.007605129004150332,cf_std,so2
 Cayman Islands,Cayman Islands,0.0,cf_std,so2
 Central African Republic,Central African Republic,0.31493769701406576,cf_std,so2
-Chad,Chad,1.602806026388287,cf_std,so2
-Chile,Chile,0.9708649074196167,cf_std,so2
-China,China,1.05306075706147,cf_std,so2
+Chad,Chad,1.9265445663742622,cf_std,so2
+Chile,Chile,0.976927167873178,cf_std,so2
+China,China,1.270114885459167,cf_std,so2
 China/India,China/India,0.34191295338654465,cf_std,so2
 Christmas Island,Christmas Island,0.0,cf_std,so2
 Clipperton Island,,,cf_std,so2
@@ -2289,12 +2289,12 @@ Djibouti,Djibouti,0.0041452289709269854,cf_std,so2
 Dominica,Dominica,0.0,cf_std,so2
 Dominican Republic,Dominican Republic,0.018235929759425416,cf_std,so2
 Ecuador,Ecuador,0.3474931539189256,cf_std,so2
-Egypt,Egypt,0.6475520052950284,cf_std,so2
-El Salvador,El Salvador,0.0012610387810336515,cf_std,so2
+Egypt,Egypt,0.9401145972378757,cf_std,so2
+El Salvador,El Salvador,0.0038301713417300087,cf_std,so2
 Equatorial Guinea,Equatorial Guinea,0.12859057689155193,cf_std,so2
-Eritrea,Eritrea,0.043759589017734885,cf_std,so2
+Eritrea,Eritrea,0.046146085607443564,cf_std,so2
 Estonia,Estonia,0.3000985571399607,cf_std,so2
-Ethiopia,Ethiopia,0.11431610113428248,cf_std,so2
+Ethiopia,Ethiopia,0.17707797276151452,cf_std,so2
 Europa Island,Europa Island,0.0,cf_std,so2
 Falkland Islands (Malvinas),Falkland Islands (Malvinas),0.05107017787790789,cf_std,so2
 Faroe Islands,Faroe Islands,0.015037167562967349,cf_std,so2
@@ -2302,17 +2302,17 @@ Fiji,Fiji,0.0009374590114306768,cf_std,so2
 Finland,Finland,0.4781536427498915,cf_std,so2
 France,France,0.4801150975573616,cf_std,so2
 French Guiana,French Guiana,0.21435976990021566,cf_std,so2
-French Polynesia,French Polynesia,0.0010642538768094426,cf_std,so2
-French Southern and Antarctic Territories,French Southern and Antarctic Territories,0.00038093453652497477,cf_std,so2
+French Polynesia,French Polynesia,0.001685597385120406,cf_std,so2
+French Southern and Antarctic Territories,French Southern and Antarctic Territories,0.00043952609978616423,cf_std,so2
 Gabon,Gabon,0.2590091221747828,cf_std,so2
 Gambia,Gambia,0.05744555643149994,cf_std,so2
 Gaza Strip,Gaza Strip,0.0,cf_std,so2
 Georgia,Georgia,0.3059842292018371,cf_std,so2
 Germany,Germany,1.036244610681501,cf_std,so2
-Ghana,Ghana,0.03082045650885376,cf_std,so2
+Ghana,Ghana,0.031079663190952463,cf_std,so2
 Gibraltar,,,cf_std,so2
 Glorioso Island,,,cf_std,so2
-Greece,Greece,0.3674929359199098,cf_std,so2
+Greece,Greece,0.3712505691241439,cf_std,so2
 Greenland,Greenland,1.0822618315436145,cf_std,so2
 Grenada,Grenada,0.0,cf_std,so2
 Guadeloupe,Guadeloupe,0.0007081841059316912,cf_std,so2
@@ -2323,7 +2323,7 @@ Guinea,Guinea,0.08801527206993204,cf_std,so2
 Guinea-Bissau,Guinea-Bissau,0.11449612530741501,cf_std,so2
 Guyana,Guyana,0.3278360112195845,cf_std,so2
 Haiti,Haiti,0.023255544434292126,cf_std,so2
-Hala'ib triangle,Hala'ib triangle,0.018048256734058597,cf_std,so2
+Hala'ib triangle,Hala'ib triangle,0.01862447075376962,cf_std,so2
 Heard Island and McDonald Islands,Heard Island and McDonald Islands,0.00027764672146710366,cf_std,so2
 Holy See,,,cf_std,so2
 Honduras,Honduras,0.015391232506609988,cf_std,so2
@@ -2332,10 +2332,10 @@ Howland Island,,,cf_std,so2
 Hungary,Hungary,0.32914293648569604,cf_std,so2
 Iceland,Iceland,0.21818499222388202,cf_std,so2
 Ilemi triangle,Ilemi triangle,0.026117078853675833,cf_std,so2
-India,India,0.608046702213013,cf_std,so2
-Indonesia,Indonesia,0.16034623772276957,cf_std,so2
-Iran  (Islamic Republic of),Iran  (Islamic Republic of),0.3571849269863737,cf_std,so2
-Iraq,Iraq,0.15860783400722953,cf_std,so2
+India,India,0.6451611327137772,cf_std,so2
+Indonesia,Indonesia,0.1902801404283037,cf_std,so2
+Iran  (Islamic Republic of),Iran  (Islamic Republic of),0.3784259235305458,cf_std,so2
+Iraq,Iraq,0.1600059207909247,cf_std,so2
 Ireland,Ireland,0.3824320886403879,cf_std,so2
 Isle of Man,Isle of Man,0.0,cf_std,so2
 Israel,Israel,1.8595065459533877,cf_std,so2
@@ -2348,8 +2348,8 @@ Jersey,Jersey,0.0,cf_std,so2
 Johnston Atoll,Johnston Atoll,0.0,cf_std,so2
 Jordan,Jordan,1.8399686967267603,cf_std,so2
 Juan de Nova Island,,,cf_std,so2
-Kazakhstan,Kazakhstan,0.8912812558566848,cf_std,so2
-Kenya,Kenya,0.25176497882976007,cf_std,so2
+Kazakhstan,Kazakhstan,0.9247302713398692,cf_std,so2
+Kenya,Kenya,0.26002239488940765,cf_std,so2
 Kingman Reef,Kingman Reef,0.0010473651621879109,cf_std,so2
 Kiribati,Kiribati,0.0068157640029896365,cf_std,so2
 Kuril islands,Kuril islands,0.34911425818521374,cf_std,so2
@@ -2358,9 +2358,9 @@ Kyrgyzstan,Kyrgyzstan,0.9659828742148803,cf_std,so2
 Lao People's Democratic Republic,Lao People's Democratic Republic,0.14710504042830544,cf_std,so2
 Latvia,Latvia,0.14263285006297396,cf_std,so2
 Lebanon,Lebanon,0.0,cf_std,so2
-Lesotho,Lesotho,0.18443189009956595,cf_std,so2
+Lesotho,Lesotho,0.2034869787618826,cf_std,so2
 Liberia,Liberia,0.10619831868734035,cf_std,so2
-Libya,Libya,0.0812604360391108,cf_std,so2
+Libya,Libya,0.08179756134394685,cf_std,so2
 Liechtenstein,Liechtenstein,4.440892098500626e-16,cf_std,so2
 Lithuania,Lithuania,0.09477452489517199,cf_std,so2
 Luxembourg,Luxembourg,0.0,cf_std,so2
@@ -2369,26 +2369,26 @@ Macau,Macau,0.0,cf_std,so2
 Madagascar,Madagascar,0.20541423041773565,cf_std,so2
 Madeira Islands,Madeira Islands,0.0,cf_std,so2
 Malawi,Malawi,0.3546798484495839,cf_std,so2
-Malaysia,Malaysia,0.11037922213782844,cf_std,so2
+Malaysia,Malaysia,0.12331507875536933,cf_std,so2
 Maldives,Maldives,0.001018757679116664,cf_std,so2
-Mali,Mali,1.3976460159508652,cf_std,so2
+Mali,Mali,1.6081546020804016,cf_std,so2
 Malta,Malta,0.0,cf_std,so2
 Marshall Islands,Marshall Islands,0.0023881090305966014,cf_std,so2
 Martinique,Martinique,0.0,cf_std,so2
-Mauritania,Mauritania,0.7252255998359339,cf_std,so2
+Mauritania,Mauritania,0.8190613654124912,cf_std,so2
 Mauritius,Mauritius,0.016204711302794873,cf_std,so2
 Mayotte,Mayotte,0.0,cf_std,so2
 Mexico,Mexico,0.11432746809659589,cf_std,so2
-Micronesia (Federated States of),Micronesia (Federated States of),0.004993316013611913,cf_std,so2
+Micronesia (Federated States of),Micronesia (Federated States of),0.00567911601836293,cf_std,so2
 Midway Island,,,cf_std,so2
-"Moldova, Republic of","Moldova, Republic of",0.3161502101206605,cf_std,so2
+"Moldova, Republic of","Moldova, Republic of",0.3257024598928122,cf_std,so2
 Monaco,,,cf_std,so2
-Mongolia,Mongolia,0.48827504238351604,cf_std,so2
+Mongolia,Mongolia,0.6237389050543667,cf_std,so2
 Montenegro,Montenegro,0.44878811694345166,cf_std,so2
 Montserrat,Montserrat,0.0,cf_std,so2
-Morocco,Morocco,0.05420207112608465,cf_std,so2
+Morocco,Morocco,0.055031119876775426,cf_std,so2
 Mozambique,Mozambique,0.3441102725367494,cf_std,so2
-Myanmar,Myanmar,0.28683082612800687,cf_std,so2
+Myanmar,Myanmar,0.2903862507905093,cf_std,so2
 Namibia,Namibia,1.0850307600334859,cf_std,so2
 Nauru,,,cf_std,so2
 Navassa Island,,,cf_std,so2
@@ -2398,17 +2398,17 @@ Netherlands Antilles,Netherlands Antilles,2.7755575615628914e-17,cf_std,so2
 New Caledonia,New Caledonia,0.005620111818933586,cf_std,so2
 New Zealand,New Zealand,0.2037722131211796,cf_std,so2
 Nicaragua,Nicaragua,0.034129417032299623,cf_std,so2
-Niger,Niger,1.5067898320616948,cf_std,so2
-Nigeria,Nigeria,0.4436064869979769,cf_std,so2
+Niger,Niger,1.80056873396704,cf_std,so2
+Nigeria,Nigeria,1.1271053517895475,cf_std,so2
 Niue,Niue,2.8010034835809077e-05,cf_std,so2
 Norfolk Island,,,cf_std,so2
 Northern Mariana Islands,Northern Mariana Islands,0.0028115739230687616,cf_std,so2
 Norway,Norway,1.2056212645078683,cf_std,so2
-Oman,Oman,0.1694028264919573,cf_std,so2
+Oman,Oman,0.19524357612894547,cf_std,so2
 Pakistan,Pakistan,1.6417259489916274,cf_std,so2
-Palau,Palau,0.000902309815691912,cf_std,so2
+Palau,Palau,0.0012793140746823074,cf_std,so2
 Palmyra Atoll,,,cf_std,so2
-Panama,Panama,0.03044652848617459,cf_std,so2
+Panama,Panama,0.034261961175104085,cf_std,so2
 Papua New Guinea,Papua New Guinea,0.07765815816713849,cf_std,so2
 Paracel Islands,Paracel Islands,0.0,cf_std,so2
 Paraguay,Paraguay,0.11675781422191407,cf_std,so2
@@ -2431,8 +2431,8 @@ Saint Pierre et Miquelon,Saint Pierre et Miquelon,0.6012567439293612,cf_std,so2
 Saint Vincent and the Grenadines,Saint Vincent and the Grenadines,0.004420196596026586,cf_std,so2
 Samoa,Samoa,0.0006089054592035651,cf_std,so2
 San Marino,San Marino,0.0,cf_std,so2
-Sao Tome and Principe,Sao Tome and Principe,0.004526041563950873,cf_std,so2
-Saudi Arabia,Saudi Arabia,1.5608305496403965,cf_std,so2
+Sao Tome and Principe,Sao Tome and Principe,0.006023293941175372,cf_std,so2
+Saudi Arabia,Saudi Arabia,1.6960595359115849,cf_std,so2
 Scarborough Reef,Scarborough Reef,0.0,cf_std,so2
 Senegal,Senegal,0.23517537630528293,cf_std,so2
 Senkaku Islands,,,cf_std,so2
@@ -2442,7 +2442,7 @@ Sierra Leone,Sierra Leone,0.10322270659489806,cf_std,so2
 Singapore,Singapore,1.1102230246251565e-16,cf_std,so2
 Slovakia,Slovakia,0.32007156906828516,cf_std,so2
 Slovenia,Slovenia,0.46746833650920533,cf_std,so2
-Solomon Islands,Solomon Islands,0.019856738082279047,cf_std,so2
+Solomon Islands,Solomon Islands,0.0220866891963116,cf_std,so2
 Somalia,Somalia,0.7219619611929515,cf_std,so2
 South Africa,South Africa,0.5026031394556039,cf_std,so2
 South Georgia and the South Sandwich Islands,South Georgia and the South Sandwich Islands,0.001816497230760276,cf_std,so2
@@ -2450,7 +2450,7 @@ South Sudan,South Sudan,0.3298836080192369,cf_std,so2
 Spain,Spain,0.303761913863383,cf_std,so2
 Spratly Islands,,,cf_std,so2
 Sri Lanka,Sri Lanka,0.011095966906135084,cf_std,so2
-Sudan,Sudan,0.5879247059679844,cf_std,so2
+Sudan,Sudan,0.7052573882851931,cf_std,so2
 Suriname,Suriname,0.1827927041312748,cf_std,so2
 Svalbard and Jan Mayen Islands,Svalbard and Jan Mayen Islands,0.5395878185481326,cf_std,so2
 Swaziland,Swaziland,0.010252147562419205,cf_std,so2
@@ -2467,28 +2467,28 @@ Tokelau,,,cf_std,so2
 Tonga,Tonga,0.0008727051080570729,cf_std,so2
 Trinidad and Tobago,Trinidad and Tobago,0.007377507362726446,cf_std,so2
 Tromelin Island,,,cf_std,so2
-Tunisia,Tunisia,0.053605657903284046,cf_std,so2
+Tunisia,Tunisia,0.054369282898088955,cf_std,so2
 Turkey,Turkey,0.4824311454764457,cf_std,so2
 Turkmenistan,Turkmenistan,0.7125944859501421,cf_std,so2
-Turks and Caicos islands,Turks and Caicos islands,0.00011281721431737342,cf_std,so2
+Turks and Caicos islands,Turks and Caicos islands,0.00011496888468596849,cf_std,so2
 Tuvalu,Tuvalu,0.0007288423365023042,cf_std,so2
 U.K. of Great Britain and Northern Ireland,U.K. of Great Britain and Northern Ireland,0.40417787131403826,cf_std,so2
-Uganda,Uganda,0.09687280057399829,cf_std,so2
+Uganda,Uganda,0.09937486220895089,cf_std,so2
 Ukraine,Ukraine,0.6064030722814671,cf_std,so2
 United Arab Emirates,United Arab Emirates,0.4634608080730905,cf_std,so2
-United Republic of Tanzania,United Republic of Tanzania,0.16646238723591295,cf_std,so2
+United Republic of Tanzania,United Republic of Tanzania,0.1699459169902486,cf_std,so2
 United States Virgin Islands,United States Virgin Islands,0.0006212969043258432,cf_std,so2
-United States of America,United States of America,1.0788294715694333,cf_std,so2
+United States of America,United States of America,1.095172168860347,cf_std,so2
 Uruguay,Uruguay,0.06798271017517611,cf_std,so2
-Uzbekistan,Uzbekistan,0.6816578302832728,cf_std,so2
+Uzbekistan,Uzbekistan,0.6823269509820442,cf_std,so2
 Vanuatu,Vanuatu,0.015676859488185958,cf_std,so2
 Venezuela,Venezuela,0.32063578947389254,cf_std,so2
 Viet Nam,Viet Nam,0.2154891244888273,cf_std,so2
 Wake Island,,,cf_std,so2
 Wallis and Futuna,Wallis and Futuna,0.0005211951744351653,cf_std,so2
 West Bank,West Bank,0.004947991581945577,cf_std,so2
-West Bank,West Bank,0.017389101058170837,cf_std,so2
+West Bank,West Bank,0.032616789597875374,cf_std,so2
 Western Sahara,Western Sahara,0.05891188239870395,cf_std,so2
-Yemen,Yemen,0.2377335500676414,cf_std,so2
+Yemen,Yemen,0.3224939553473836,cf_std,so2
 Zambia,Zambia,0.5796052617522043,cf_std,so2
 Zimbabwe,Zimbabwe,0.18402523392599016,cf_std,so2
