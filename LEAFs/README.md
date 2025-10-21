@@ -2,10 +2,10 @@
 This folder contains all LEAFs generated currently for SBTN Land v2. They are organized into soil quality indicators folder: SOC, soil erosion, and (terrestrial) acidification. 
 
 ## Formats available
-LEAFs are available in rasters at their respective original resolution in a zip file. For country, sub.country and ecoregions averages, csv tables and geopackages are availalbe for each indicator. Country averages are also available, but should only be selected as last resort as they provide low representation.
+LEAFs are available in rasters at their respective original resolution in a zip file. For country, sub.country and ecoregions averages, csv tables and geopackages are available for each indicator. Country averages are also available, but should only be selected as last resort as they provide low representation.
 
-Geopackages are organized in two layers: a "geometry_layer", which cointains all geometries as the name indicates, and a soil quality layer, which are specific to each indicator and geographic level of granularity. LEAFs are organized as follow:
-| Soil Quality Indicator | Geographic Granulairity | Geopackage LEAF Layer | 
+Geopackages are organized in two layers: a "geometry_layer", which contains all geometries as the name indicates, and a soil quality layer, which are specific to each indicator and geographic level of granularity. LEAFs are organized as follow:
+| Soil Quality Indicator | Geographic Granularity | Geopackage LEAF Layer | 
 |:---|:---:|:---:|
 |SOC|country|soc_leaf_country|
 |SOC|subcountry|soc_leaf_subcountry|
@@ -42,8 +42,8 @@ Soil Erosion LEAFs represent the estimated erosion in one year per hectare (ton 
 ### Terrestrial Acidification
 Terrestrial Acidification LEAFs are given for 3 acidifying gases $(NO_x, NH_3, SO_x)$, and are also available in raster at XX km resolution, as well as the 3 different geographic level. 
 
-In this case, companies need to match the appropiate LEAF for each gas depending on which area of the world is being emmitted.
+In this case, companies need to match the appropriate LEAF for each gas depending on which area of the world is being emitted.
 
-These LEAFs represented the potential acidification of the soil for a given gases emmited in a given region when compared to $SO_2$ global average, expressed as $kg SO_2-eq./kg$. 
+These LEAFs represented the potential acidification of the soil for a given gases emitted in a given region when compared to $SO_2$ global average, expressed as $kg SO_2-eq./kg$. 
 
-Lightweight documentation on how these are genearted is provided in [TerrAcidification_Documentation](../documentation/TerrAcidification_Documentation.md)
+Lightweight documentation on how these are generated is provided in [TerrAcidification_Documentation](../documentation/TerrAcidification_Documentation.md)
