@@ -1,5 +1,5 @@
 # Soil Erosion Documentation
-Soil Erosion LEAFs are factors that estimate the annual rate of soil loss (t soil/year) for different land uses and land management practices. Despite the existence of other models, due to global applicability and data sources, they are currently based on the Revised Universal Soil Loss Equation (RUSLE, **INSERT CITATION HERE**). Guidance on how to apply LEAFs to different land uses has been covered in detail on SBTN Land's AGILED document [link](https://sciencebasedtargetsnetwork.org/wp-content/uploads/2025/04/SBTN-Land-Accounting-Guidelines-Draft-for-Public-Consultation.pdf).
+Soil Erosion LEAFs are factors that estimate the annual rate of soil loss (t soil/year) for different land uses and land management practices. Despite the existence of other models, due to global applicability and data sources, they are currently based on the Revised Universal Soil Loss Equation (RUSLE, **INSERT CITATION HERE**). Guidance on how to apply LEAFs to different land uses has been covered in detail on SBTN Land's AGILE document [link](https://sciencebasedtargetsnetwork.org/wp-content/uploads/2025/04/SBTN-Land-Accounting-Guidelines-Draft-for-Public-Consultation.pdf).
 
 LEAFs are available in [`LEAFs/soil_erosion`](../LEAFs) in csv format and shapefile for ecoregions, countries and subcountries. Native resolution (25km) raster files can be found in **XXX - Replace when we figure this out**. How to generate new LEAFs can be found on the notebook [New Leafs Soil Erosion Example](../examples/New_LEAFs_Soil_Erosion_Example.ipynb).
 
@@ -15,7 +15,7 @@ Where,
 - *$C$*: Ground cover and tillage factor [ ]
 - *$P$*: Erosion protection factor [ ]
 
-The variables can then be divided in soil and weather ($R$, $K_{st}$, and $LS$), and crop and land management relaed ($C$ and $P$). As soil and weather remain constant independent of the land use and land management option, a single $R\cdot K_{st}\cdot LS$ raster layer has been generated and used as a base to simplify future calculations. $C$ is then adjusted depending on crops and tillage factor, while $P$ has been assumed as 1, a common assumption on LCA characterization factor generation (**CITATION CITATION HERE**).
+The variables can then be divided in soil and weather ($R$, $K_{st}$, and $LS$), and crop and land management related ($C$ and $P$). As soil and weather remain constant independent of the land use and land management option, a single $R\cdot K_{st}\cdot LS$ raster layer has been generated and used as a base to simplify future calculations. $C$ is then adjusted depending on crops and tillage factor, while $P$ has been assumed as 1, a common assumption on LCA characterization factor generation (**CITATION CITATION HERE**).
 
 ## Step 1 - Data Gathering and Processing
 ### Soil and Weather
@@ -86,7 +86,7 @@ Each land use was mapped to a C-Factor from both tables according to FAO commodi
 After assigning C-Factors to each commodity, a C-Factor raster was created for each by simply assigning that value for each pixel where the commodity can be produced. This factors can **BE OBTAINED HERE WHEN WE DECIDE WHERE TO UPLOAD THEM**
 
 #### C-Factors - Land Management: Tillage, Residue Management and Cover Crops
-According to Panagos et al. (2015), C-Factors for crops can be further dissagregted using the following equations:
+According to Panagos et al. (2015), C-Factors for crops can be further disaggregated using the following equations:
 
 $C_{arable} = C_{crop} \times C_{mgmt}$
 
@@ -94,7 +94,7 @@ Where $C_{mgmg}$ represents the C-Factor of land management options including ti
 
 $C_{mgmt} = C_{tillage} \times C_{residues} \times C_{cover}$
 
-For **tillage**, a value of 1, 0.35, or 0.25 is assigned respectively to convetional tillage, reduced/conservation tillage, and No-Till practices.
+For **tillage**, a value of 1, 0.35, or 0.25 is assigned respectively to conventional tillage, reduced/conservation tillage, and No-Till practices.
 
 For **residue management**, it can be calculated as:
 
@@ -116,6 +116,6 @@ No other data harmonization was needed.
 ## Step 3 - LEAFs Calculations
 After preparing and harmonizing the RLSK and the C-Factor crop layers, soil erosion rates for each commodity are calculated simply as the multiplication of both. The baseline scenario assumes that no soil erosion reducing practices, as conservative tillage or leaving crop residues on field, are implemented. 
 
-To calculate other land management options, as well as combination of those, the baseline soil erosion rates are simply mutiplied by the corresponding $C_{mgmt}$.
+To calculate other land management options, as well as combination of those, the baseline soil erosion rates are simply multiplied by the corresponding $C_{mgmt}$.
 
 ## Step 4 - LEAFs Averages for Ecoregions, Countries and Subcountries
