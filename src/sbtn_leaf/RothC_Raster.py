@@ -625,7 +625,7 @@ def _load_crop_data(lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str]
 
     return lu_raster, evap, pc, irr, pr, fym
 
-def _load_forest_data(lu_fp: str, age_fp: str, evap_fp: str):
+def _load_forest_data(lu_fp: str, evap_fp: str, age_fp: str):
     # 1) Land-use (mask where class == 1)
     lu_raster = rxr.open_rasterio(lu_fp, masked=True).squeeze()   # (y, x)
     lu_mask = (lu_raster == 1)  
@@ -749,7 +749,19 @@ def run_RothC_crops(crop_name: str, commodity_type: str, practices_string_id: st
 
 
 # Forest version
-def run_RothC_forest(forest_type: str,  weather_type: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, age_fp: str, evap_fp: str, practices_string_id: Optional[str]=None, TP_Type = "IPCC", save_CO2 = False):
+def run_RothC_forest(
+    forest_type: str,
+    weather_type: str,
+    n_years: int,
+    save_folder: str,
+    data_description: str,
+    lu_fp: str,
+    evap_fp: str,
+    age_fp: str,
+    practices_string_id: Optional[str] = None,
+    TP_Type="IPCC",
+    save_CO2=False,
+):
     # Loads environmental data:
     print("Loading environmental data...")
     tmp, rain, soc0, iom, clay, sand = _load_environmental_data(lu_fp)
