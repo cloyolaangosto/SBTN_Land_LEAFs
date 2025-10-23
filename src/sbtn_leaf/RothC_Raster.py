@@ -274,9 +274,9 @@ def _raster_rothc_annual_results(
     depth: float,
     commodity_type: str,
     soc0_nodatavalue: float,
-    forest_type: Optional[str],
-    weather_type: Optional[str],
-    TP_Type: Optional[str],
+    forest_type: Optional[str] = None,
+    weather_type: Optional[str] = None,
+    TP_Type: Optional[str] = None,
     trm_handler: Optional[TRMHandler],
     progress_desc: str = "RothC months",
 ) -> Tuple[np.ndarray, np.ndarray]:
@@ -295,10 +295,13 @@ def _raster_rothc_annual_results(
         dpm_rpm = 1
     else: # forest type
         dpm_rpm = 0.25
+        # initialize c_inp
+        c_inp = cropcalcs.get_forest_litter_rate_fromda(c_inp[t], forest_type, weather_type, TP_Type)
 
     # Initialize c_inp and fym if no input given
     c_inp = c_inp if c_inp is not None else np.zeros_like(tmp)
     fym = fym if fym is not None else np.zeros_like(tmp)
+
 
     # Initialize pools
     with np.errstate(invalid="ignore"):
@@ -396,9 +399,9 @@ def raster_rothc_annual_results_1yrloop(
     irr: Optional[np.ndarray] = None,
     c_inp: Optional[np.ndarray] = None,
     fym: Optional[np.ndarray] = None,
-    forest_type: Optional[str],
-    weather_type: Optional[str],
-    TP_Type: Optional[str],
+    forest_type: Optional[str]= None,
+    weather_type: Optional[str]= None,
+    TP_Type: Optional[str]= None,
     depth: float = 15,
     soc0_nodatavalue: float = -32768.0,
 ) -> Tuple[np.ndarray, np.ndarray]:
@@ -436,6 +439,9 @@ def raster_rothc_annual_results_1yrloop(
         commodity_type=commodity_type,
         soc0_nodatavalue=soc0_nodatavalue,
         trm_handler=None,
+        forest_type = forest_type,
+        weather_type = weather_type,
+        TP_Type = TP_Type,
     )
 
 
@@ -489,6 +495,9 @@ def raster_rothc_ReducedTillage_annual_results_1yrloop(
         commodity_type=commodity_type,
         soc0_nodatavalue=soc0_nodatavalue,
         trm_handler=RMF_TRM,
+        forest_type=None,
+        weather_type=None,
+        TP_Type=None
     )
 
 
@@ -616,12 +625,12 @@ def _load_crop_data(lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str]
 
     return lu_raster, evap, pc, irr, pr, fym
 
-def _load_forest_data(lu_fp: str, pr_fp: str, evap_fp: str):
+def _load_forest_data(lu_fp: str, age_fp: str, evap_fp: str):
     # 1) Land-use (mask where class == 1)
     lu_raster = rxr.open_rasterio(lu_fp, masked=True).squeeze()   # (y, x)
     lu_mask = (lu_raster == 1)  
     
-    # Opens evap and pc, and process it
+    # Opens evap and and process it
     evap = rxr.open_rasterio(evap_fp, masked=True)  # (12-band: Jan–Dec)
     evap  = evap.rename({"band": "time"})
     evap = evap.where(lu_mask).fillna(0)
@@ -632,20 +641,24 @@ def _load_forest_data(lu_fp: str, pr_fp: str, evap_fp: str):
     pc = pc.assign_coords(time=np.arange(1, 13))
     pc.name = "plant_cover"
     # Write spatial metadata so pc lines up with lu/evap
-    pc = pc.rio.write_crs(lu.rio.crs)
-    pc = pc.rio.write_transform(lu.rio.transform())
+    pc = pc.rio.write_crs(lu_raster.rio.crs)
+    pc = pc.rio.write_transform(lu_raster.rio.transform())
+
+    # open age
+    age = rxr.open_rasterio(age_fp, masked=True)
+    age = age.where(lu_mask).fillna(0)
     
     # Creates a monthly residue data array from annual litter raster
-    litter_annual = rxr.open_rasterio(pr_fp, masked=True).squeeze()  # single-band (y,x)
-    # create 12 monthly slices equal to 1/12 of the annual value
-    pr = xr.concat([litter_annual / 12.0] * 12, dim="time")
-    pr = pr.assign_coords(time=np.arange(1, 13))
-    pr = pr.where(lu_mask).fillna(0)
-    # ensure spatial metadata matches land-use raster
-    pr = pr.rio.write_crs(lu_raster.rio.crs)
-    pr = pr.rio.write_transform(lu_raster.rio.transform())
+    # litter_annual = rxr.open_rasterio(pr_fp, masked=True).squeeze()  # single-band (y,x)
+    # # create 12 monthly slices equal to 1/12 of the annual value
+    # pr = xr.concat([litter_annual / 12.0] * 12, dim="time")
+    # pr = pr.assign_coords(time=np.arange(1, 13))
+    # pr = pr.where(lu_mask).fillna(0)
+    # # ensure spatial metadata matches land-use raster
+    # pr = pr.rio.write_crs(lu_raster.rio.crs)
+    # pr = pr.rio.write_transform(lu_raster.rio.transform())
 
-    return lu_raster, evap, pc, pr
+    return lu_raster, evap, pc, age
 
 def run_RothC_crops(crop_name: str, commodity_type: str, practices_string_id: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str] = None, pr_fp: Optional[str] = None, fym_fp: Optional[str] = None, red_till = False, save_CO2 = False):
     # Loads environmental data:
@@ -736,19 +749,19 @@ def run_RothC_crops(crop_name: str, commodity_type: str, practices_string_id: st
 
 
 # Forest version
-def run_RothC_forest(forest_type: str,  weather_type: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, litter_fp: str, evap_fp: str, practices_string_id: Optional[str]=None, TP_Type = "IPCC", save_CO2 = False):
+def run_RothC_forest(forest_type: str,  weather_type: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, age_fp: str, evap_fp: str, practices_string_id: Optional[str]=None, TP_Type = "IPCC", save_CO2 = False):
     # Loads environmental data:
     print("Loading environmental data...")
     tmp, rain, soc0, iom, clay, sand = _load_environmental_data(lu_fp)
 
     # Prepares crop data
-    print("Loading crop data...")
-    lu_raster, evap, pc, litter = _load_forest_data(lu_fp, evap_fp, litter_fp)
+    print("Loading forest data...")
+    lu_raster, evap, pc, age = _load_forest_data(lu_fp, evap_fp, age_fp)
     
     # Convert to values
-    clay_a, soc0_a, iom_a, sand_a = np.asarray(clay.values), np.asarray(soc0.values), np.asarray(iom.values), np.asarray(sand.values)
+    clay_a, soc0_a, iom_a = np.asarray(clay.values), np.asarray(soc0.values), np.asarray(iom.values)
     tmp_a, rain_a, evap_a = np.asarray(tmp.values), np.asarray(rain.values), np.asarray(evap.values)
-    pc_a, litter_a= np.asarray(pc.values), np.asarray(litter.values)
+    pc_a, age_a= np.asarray(pc.values), np.asarray(age.values)
 
     # Run model
     print("Running RothC...")
@@ -760,7 +773,7 @@ def run_RothC_forest(forest_type: str,  weather_type: str, n_years: int, save_fo
                 rain    = rain_a,
                 evap    = evap_a,
                 pc      = pc_a,
-                c_inp   = litter_a,
+                c_inp   = age_a,
                 commodity_type = "forest",
                 forest_type = forest_type,
                 weather_type = weather_type,
