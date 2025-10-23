@@ -1349,8 +1349,8 @@ def rasterize_shapefile_to_target_raster(gdf: gpd.GeoDataFrame, raster_filepath:
     print("Opening target raster")
     # Open the high-resolution raster
     with rasterio.open(raster_filepath) as src:
-        raster = src.read(band)  # Assumes it's the first band
-        meta = src.meta.copy()         # Copy metadata for potential output.
+        raster = src.read(band)         # Assumes it's the first band
+        meta = src.meta.copy()          # Copy metadata for potential output.
         transform = src.transform
         raster_shape = raster.shape
         no_data_input = src.nodata
