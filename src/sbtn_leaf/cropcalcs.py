@@ -1892,3 +1892,44 @@ def create_monthly_residue_vPipeline(
         dtype="float32",
         nodata=output_nodata,
     )
+
+
+##############################
+#### FOREST CALCULATIONS #####
+##############################
+forest_litter_table = pl.read_excel("../data/forest/forest_residues_IPCC.xlsx")
+def get_forest_litter_rate(da_fp: str, forest_type: str, weather_type: str, TP_Type = "IPCC", year_offset: int = 0, base_year_offset = 6, c_content = 0.37):
+    # Opens the raster and loads the data 
+    with rasterio.open(da_fp) as src:
+        age = src.read(1)
+        src_nd_value = src.nodata
+
+    # Checks if weather type is in the list
+    if weather_type not in forest_litter_table.select(pl.col("IPCC Climate")).to_series().to_list():
+        raise ValueError("Weather type not valid")
+    
+    # Checks if forest type is valid
+    if forest_type not in ["NEEV", "BRDC"]:
+        raise ValueError("Forest type not valid")
+    else:
+        forest_id_mean = "BD_mean" if forest_type == "BRDC" else "NE_mean"
+        forest_id_tp = "BD_TP" if forest_type == "BRDC" else "NE_TP"
+    
+    # Gets maturity litter
+    res_rate = forest_litter_table.filter(pl.col("IPCC Climate") == weather_type)[forest_id_mean].item()
+
+    # Sets transition period. If IPCC route, deafults to 20, if not, depends on weather and forest type
+    if TP_Type == "IPCC":
+        TP = 20
+    else:
+        TP = forest_litter_table.filter(pl.col("IPCC Climate") == weather_type)[forest_id_tp].item()
+
+    # Calculates litter
+    if src_nd_value is None:
+        age_mask = np.isfinite(age)
+    else:
+        age_mask = ~np.isnan(age) if np.isnan(src_nd_value) else (age != src_nd_value)
+
+    litter = np.where(age_mask, np.minimum(res_rate, res_rate/TP * (age + base_year_offset + year_offset)) * c_content, np.nan)
+
+    return litter

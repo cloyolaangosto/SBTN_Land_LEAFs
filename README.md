@@ -46,10 +46,7 @@ To work through the notebooks:
 3. After the run completes, inspect the generated outputs in [`LEAFs/`](LEAFs/) to validate results or share them with your team.
 
 ## Versioning
-The package version is managed from the single source declared in [`pyproject.toml`](pyproject.toml). The `sbtn_leaf`
-package exposes this value at runtime by reading the installed distribution metadata and, during local development,
-falling back to the `pyproject.toml` entry. Update the version in `pyproject.toml` when preparing a release to ensure
-that both the package metadata and the `sbtn_leaf.__version__` attribute report the same number.
+The package version is managed from the single source declared in [`pyproject.toml`](pyproject.toml). The `sbtn_leaf` package exposes this value at runtime by reading the installed distribution metadata and, during local development, falling back to the `pyproject.toml` entry. Update the version in `pyproject.toml` when preparing a release to ensure that both the package metadata and the `sbtn_leaf.__version__` attribute report the same number.
 
 ## Contributing
 We welcome improvements to the data pipelines, documentation, examples, and new LEAFs. To contribute:

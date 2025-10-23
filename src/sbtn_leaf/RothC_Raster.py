@@ -376,7 +376,7 @@ def raster_rothc_annual_results_1yrloop(
     irr: Optional[np.ndarray] = None,
     c_inp: Optional[np.ndarray] = None,
     fym: Optional[np.ndarray] = None,
-    depth: float = 23,
+    depth: float = 15,
     dpm_rpm: float = 1.44,
     soc0_nodatavalue: float = -32768.0,
 ) -> Tuple[np.ndarray, np.ndarray]:
@@ -429,7 +429,7 @@ def raster_rothc_ReducedTillage_annual_results_1yrloop(
     irr: Optional[np.ndarray] = None,
     c_inp: Optional[np.ndarray] = None,
     fym: Optional[np.ndarray] = None,
-    depth: float = 23,
+    depth: float = 15,
     dpm_rpm: float = 1.44,
     soc0_nodatavalue: float = -32768,
 ) -> Tuple[np.ndarray, np.ndarray]:
@@ -517,7 +517,7 @@ def save_annual_results(results_array, reference_raster, n_years, var_name, save
 
 
 # Function to prepare all data
-def load_environmental_data(lu_rp: str):
+def _load_environmental_data(lu_rp: str):
     # Loads data
     tmp = rxr.open_rasterio("../data/soil_weather/uhth_monthly_avg_temp_celsius.tif", masked=True)  # in °C
     rain = rxr.open_rasterio("../data/soil_weather/uhth_monthly_avg_precip.tif", masked=True)
@@ -550,7 +550,7 @@ def load_environmental_data(lu_rp: str):
 
     return tmp, rain, soc0, iom, clay, sand
 
-def load_crop_data(lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str], pr_fp: Optional[str], fym_fp: Optional[str]):
+def _load_crop_data(lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str], pr_fp: Optional[str], fym_fp: Optional[str]):
     # Opens land use data
     lu_raster = rxr.open_rasterio(lu_fp, masked=False).squeeze()
     lu_maks = (lu_raster==1)
@@ -594,14 +594,45 @@ def load_crop_data(lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str],
 
     return lu_raster, evap, pc, irr, pr, fym
 
-def run_RothC(crop_name: str, practices_string_id: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str] = None, pr_fp: Optional[str] = None, fym_fp: Optional[str] = None, red_till = False, save_CO2 = False):
+def _load_forest_data(lu_fp: str, pr_fp: str, evap_fp: str):
+    # 1) Land-use (mask where class == 1)
+    lu_raster = rxr.open_rasterio(lu_fp, masked=True).squeeze()   # (y, x)
+    lu_mask = (lu_raster == 1)  
+    
+    # Opens evap and pc, and process it
+    evap = rxr.open_rasterio(evap_fp, masked=True)  # (12-band: Jan–Dec)
+    evap  = evap.rename({"band": "time"})
+    evap = evap.where(lu_mask).fillna(0)
+
+    # Creates 12-month plant cover: 1 where lu_maks is True, 0 elsewhere 
+    base = lu_mask.astype('float32')
+    pc = xr.concat([base] * 12, dim='time')
+    pc = pc.assign_coords(time=np.arange(1, 13))
+    pc.name = "plant_cover"
+    # Write spatial metadata so pc lines up with lu/evap
+    pc = pc.rio.write_crs(lu.rio.crs)
+    pc = pc.rio.write_transform(lu.rio.transform())
+    
+    # Creates a monthly residue data array from annual litter raster
+    litter_annual = rxr.open_rasterio(pr_fp, masked=True).squeeze()  # single-band (y,x)
+    # create 12 monthly slices equal to 1/12 of the annual value
+    pr = xr.concat([litter_annual / 12.0] * 12, dim="time")
+    pr = pr.assign_coords(time=np.arange(1, 13))
+    pr = pr.where(lu_mask).fillna(0)
+    # ensure spatial metadata matches land-use raster
+    pr = pr.rio.write_crs(lu_raster.rio.crs)
+    pr = pr.rio.write_transform(lu_raster.rio.transform())
+
+    return lu_raster, evap, pc, pr
+
+def run_RothC_crops(crop_name: str, practices_string_id: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str] = None, pr_fp: Optional[str] = None, fym_fp: Optional[str] = None, red_till = False, save_CO2 = False):
     # Loads environmental data:
     print("Loading environmental data...")
-    tmp, rain, soc0, iom, clay, sand = load_environmental_data(lu_fp)
+    tmp, rain, soc0, iom, clay, sand = _load_environmental_data(lu_fp)
 
     # Prepares crop data
     print("Loading crop data...")
-    lu_raster, evap, pc, irr, pr, fym = load_crop_data(lu_fp, evap_fp,  pc_fp, irr_fp, pr_fp, fym_fp)
+    lu_raster, evap, pc, irr, pr, fym = _load_crop_data(lu_fp, evap_fp,  pc_fp, irr_fp, pr_fp, fym_fp)
     
     # Convert to values
     clay_a, soc0_a, iom_a, sand_a = np.asarray(clay.values), np.asarray(soc0.values), np.asarray(iom.values), np.asarray(sand.values)
@@ -678,6 +709,48 @@ def run_RothC(crop_name: str, practices_string_id: str, n_years: int, save_folde
     return SOC_results
 
 
+# Forest version
+def run_RothC_forest(forest_type: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, pr_fp: str, evap_fp: str, practices_string_id: Optional[str]=None, save_CO2 = False):
+    # Loads environmental data:
+    print("Loading environmental data...")
+    tmp, rain, soc0, iom, clay, sand = _load_environmental_data(lu_fp)
+
+    # Prepares crop data
+    print("Loading crop data...")
+    lu_raster, evap, pc, pr = _load_forest_data(lu_fp, evap_fp, pr_fp)
+    
+    # Convert to values
+    clay_a, soc0_a, iom_a, sand_a = np.asarray(clay.values), np.asarray(soc0.values), np.asarray(iom.values), np.asarray(sand.values)
+    tmp_a, rain_a, evap_a = np.asarray(tmp.values), np.asarray(rain.values), np.asarray(evap.values)
+    pc_a, c_a= np.asarray(pc.values), np.asarray(pr.values)
+
+    # Run model
+    print("Running RothC...")
+    SOC_results, CO2_results = raster_rothc_annual_results_1yrloop(
+                n_years = n_years,
+                clay    = clay_a,
+                soc0    = soc0_a,
+                tmp     = tmp_a,
+                rain    = rain_a,
+                evap    = evap_a,
+                pc      = pc_a,
+                c_inp   = c_a,
+                dpm_rpm = 0.25 # 0.25 for forests
+            )
+
+    # Saving results
+    string_save = f"{forest_type}_{practices_string_id}_{n_years}y_SOC.tif"
+    save_path =f"{save_folder}/{string_save}"
+    
+    # SOC
+    save_annual_results(SOC_results, lu_raster, n_years, "SOC", save_path, data_description, 't C/ha', long_name = "Soil Organic Carbon", model_description = "RothC rasterized vectorized")
+
+    if save_CO2:
+        save_annual_results(CO2_results, lu_raster, n_years, "CO2", save_path, data_description, 't CO2/ha', long_name = "CO2", model_description = "RothC rasterized vectorized")
+
+    return SOC_results
+
+
 def run_rothC_sceneraios_from_csv(csv_filepath):
     # 1) Read & cast your CSV exactly as before
     scenarios = (
@@ -697,7 +770,7 @@ def run_rothC_sceneraios_from_csv(csv_filepath):
     #for scenario in tqdm(scenario_list, desc="Running RothC Scenarios", unit="scenario", position=0):
         # tqdm.write(f"Processing scenario: {scenario['practices_string_id']}")
         print(f"Running {scenario['crop_name']} - {scenario['practices_string_id']}")
-        run_RothC(**scenario)
+        run_RothC_crops(**scenario)
         print("\n\n")
 
 ##########################################
