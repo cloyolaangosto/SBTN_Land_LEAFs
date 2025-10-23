@@ -296,7 +296,7 @@ def _raster_rothc_annual_results(
     else: # forest type
         dpm_rpm = 0.25
         # initialize c_inp
-        c_inp = cropcalcs.get_forest_litter_rate_fromda(c_inp[t], forest_type, weather_type, TP_Type)
+        c_inp = cropcalcs.get_forest_litter_rate_fromda(c_inp, forest_type, weather_type, TP_Type)
 
     # Initialize c_inp and fym if no input given
     c_inp = c_inp if c_inp is not None else np.zeros_like(tmp)
