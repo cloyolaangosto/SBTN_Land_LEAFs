@@ -16,6 +16,7 @@ from tqdm import trange
 from tqdm import tqdm
 
 from sbtn_leaf.RothC_Core import RMF_Tmp, RMF_Moist, RMF_PC, RMF_TRM
+import sbtn_leaf.cropcalcs as cropcalcs
 
 # -----------------------------------------------------------------------------
 # FUNCTIONS
@@ -271,8 +272,11 @@ def _raster_rothc_annual_results(
     fym: Optional[np.ndarray],
     sand: Optional[np.ndarray],
     depth: float,
-    dpm_rpm: float,
+    commodity_type: str,
     soc0_nodatavalue: float,
+    forest_type: Optional[str],
+    weather_type: Optional[str],
+    TP_Type: Optional[str],
     trm_handler: Optional[TRMHandler],
     progress_desc: str = "RothC months",
 ) -> Tuple[np.ndarray, np.ndarray]:
@@ -280,6 +284,17 @@ def _raster_rothc_annual_results(
 
     months = n_years * 12
     _, y, x = tmp.shape
+
+    # Assigns dpm_rpm according to commodity type
+    # checks if commodity type is correct
+    if commodity_type not in ["annual_crop", "permanent_crop", "forest", "grassland"]:
+        raise ValueError("Commodity type not valid. Valid types: annual_crop, permanent_crop, forest, grassland")
+    if commodity_type in ["annual_crop", "grassland"]:
+        dpm_rpm = 1.44
+    elif commodity_type == "permanent_crop":
+        dpm_rpm = 1
+    else: # forest type
+        dpm_rpm = 0.25
 
     # Initialize c_inp and fym if no input given
     c_inp = c_inp if c_inp is not None else np.zeros_like(tmp)
@@ -347,6 +362,10 @@ def _raster_rothc_annual_results(
         B2B, B2H = part(lossB)
         H2B, H2H = part(lossH)
 
+        # Calculates litter input if it's forest
+        if commodity_type == "forest":
+            c_inp[t] = cropcalcs.get_forest_litter_rate_fromda(c_inp[t], forest_type, weather_type, TP_Type, year_offset=t)
+
         # Update pools
         DPM = D1 + (dpm_rpm / (dpm_rpm + 1.0)) * c_inp[t] + 0.49 * fym[t]
         RPM = R1 + (1.0 / (dpm_rpm + 1.0)) * c_inp[t] + 0.49 * fym[t]
@@ -373,11 +392,14 @@ def raster_rothc_annual_results_1yrloop(
     rain: np.ndarray,
     evap: np.ndarray,
     pc: np.ndarray,
+    commodity_type: str,
     irr: Optional[np.ndarray] = None,
     c_inp: Optional[np.ndarray] = None,
     fym: Optional[np.ndarray] = None,
+    forest_type: Optional[str],
+    weather_type: Optional[str],
+    TP_Type: Optional[str],
     depth: float = 15,
-    dpm_rpm: float = 1.44,
     soc0_nodatavalue: float = -32768.0,
 ) -> Tuple[np.ndarray, np.ndarray]:
     """
@@ -411,7 +433,7 @@ def raster_rothc_annual_results_1yrloop(
         fym=fym,
         sand=None,
         depth=depth,
-        dpm_rpm=dpm_rpm,
+        commodity_type=commodity_type,
         soc0_nodatavalue=soc0_nodatavalue,
         trm_handler=None,
     )
@@ -426,11 +448,11 @@ def raster_rothc_ReducedTillage_annual_results_1yrloop(
     evap: np.ndarray,
     pc: np.ndarray,
     sand: np.ndarray,
+    commodity_type: str,
     irr: Optional[np.ndarray] = None,
     c_inp: Optional[np.ndarray] = None,
     fym: Optional[np.ndarray] = None,
     depth: float = 15,
-    dpm_rpm: float = 1.44,
     soc0_nodatavalue: float = -32768,
 ) -> Tuple[np.ndarray, np.ndarray]:
     """
@@ -464,7 +486,7 @@ def raster_rothc_ReducedTillage_annual_results_1yrloop(
         fym=fym,
         sand=sand,
         depth=depth,
-        dpm_rpm=dpm_rpm,
+        commodity_type=commodity_type,
         soc0_nodatavalue=soc0_nodatavalue,
         trm_handler=RMF_TRM,
     )
@@ -625,7 +647,7 @@ def _load_forest_data(lu_fp: str, pr_fp: str, evap_fp: str):
 
     return lu_raster, evap, pc, pr
 
-def run_RothC_crops(crop_name: str, practices_string_id: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str] = None, pr_fp: Optional[str] = None, fym_fp: Optional[str] = None, red_till = False, save_CO2 = False):
+def run_RothC_crops(crop_name: str, commodity_type: str, practices_string_id: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str] = None, pr_fp: Optional[str] = None, fym_fp: Optional[str] = None, red_till = False, save_CO2 = False):
     # Loads environmental data:
     print("Loading environmental data...")
     tmp, rain, soc0, iom, clay, sand = _load_environmental_data(lu_fp)
@@ -654,7 +676,8 @@ def run_RothC_crops(crop_name: str, practices_string_id: str, n_years: int, save
                 irr     = irr_a,
                 c_inp   = c_a,
                 fym     = fym_a,
-                sand    = sand_a
+                sand    = sand_a,
+                commodity_type = commodity_type
             )
         else:
             SOC_results, CO2_results = raster_rothc_annual_results_1yrloop(
@@ -667,7 +690,8 @@ def run_RothC_crops(crop_name: str, practices_string_id: str, n_years: int, save
                 pc      = pc_a,
                 irr     = irr_a,
                 c_inp   = c_a,
-                fym     = fym_a
+                fym     = fym_a,
+                commodity_type = commodity_type
             )
     else:
         if red_till:
@@ -681,7 +705,8 @@ def run_RothC_crops(crop_name: str, practices_string_id: str, n_years: int, save
                 pc      = pc_a,
                 c_inp   = c_a,
                 fym     = fym_a,
-                sand    = sand_a
+                sand    = sand_a,
+                commodity_type = commodity_type
             )
         else:
             SOC_results, CO2_results = raster_rothc_annual_results_1yrloop(
@@ -693,7 +718,8 @@ def run_RothC_crops(crop_name: str, practices_string_id: str, n_years: int, save
                 evap    = evap_a,  
                 pc      = pc_a,
                 c_inp   = c_a,
-                fym     = fym_a
+                fym     = fym_a,
+                commodity_type = commodity_type
             )
 
     # Saving results
@@ -710,19 +736,19 @@ def run_RothC_crops(crop_name: str, practices_string_id: str, n_years: int, save
 
 
 # Forest version
-def run_RothC_forest(forest_type: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, pr_fp: str, evap_fp: str, practices_string_id: Optional[str]=None, save_CO2 = False):
+def run_RothC_forest(forest_type: str,  weather_type: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, litter_fp: str, evap_fp: str, practices_string_id: Optional[str]=None, TP_Type = "IPCC", save_CO2 = False):
     # Loads environmental data:
     print("Loading environmental data...")
     tmp, rain, soc0, iom, clay, sand = _load_environmental_data(lu_fp)
 
     # Prepares crop data
     print("Loading crop data...")
-    lu_raster, evap, pc, pr = _load_forest_data(lu_fp, evap_fp, pr_fp)
+    lu_raster, evap, pc, litter = _load_forest_data(lu_fp, evap_fp, litter_fp)
     
     # Convert to values
     clay_a, soc0_a, iom_a, sand_a = np.asarray(clay.values), np.asarray(soc0.values), np.asarray(iom.values), np.asarray(sand.values)
     tmp_a, rain_a, evap_a = np.asarray(tmp.values), np.asarray(rain.values), np.asarray(evap.values)
-    pc_a, c_a= np.asarray(pc.values), np.asarray(pr.values)
+    pc_a, litter_a= np.asarray(pc.values), np.asarray(litter.values)
 
     # Run model
     print("Running RothC...")
@@ -734,8 +760,11 @@ def run_RothC_forest(forest_type: str, n_years: int, save_folder: str, data_desc
                 rain    = rain_a,
                 evap    = evap_a,
                 pc      = pc_a,
-                c_inp   = c_a,
-                dpm_rpm = 0.25 # 0.25 for forests
+                c_inp   = litter_a,
+                commodity_type = "forest",
+                forest_type = forest_type,
+                weather_type = weather_type,
+                TP_Type = TP_Type
             )
 
     # Saving results

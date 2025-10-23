@@ -1933,3 +1933,33 @@ def get_forest_litter_rate(da_fp: str, forest_type: str, weather_type: str, TP_T
     litter = np.where(age_mask, np.minimum(res_rate, res_rate/TP * (age + base_year_offset + year_offset)) * c_content, np.nan)
 
     return litter
+
+def get_forest_litter_rate_fromda(da: np.ndarray, forest_type: str, weather_type: str, TP_Type = "IPCC", year_offset: int = 0, base_year_offset = 6, c_content = 0.37):
+    # this assumes that the da has already been masked properly
+
+    # Checks if weather type is in the list
+    if weather_type not in forest_litter_table.select(pl.col("IPCC Climate")).to_series().to_list():
+        raise ValueError("Weather type not valid")
+    
+    # Checks if forest type is valid
+    if forest_type not in ["NEEV", "BRDC"]:
+        raise ValueError("Forest type not valid")
+    else:
+        forest_id_mean = "BD_mean" if forest_type == "BRDC" else "NE_mean"
+        forest_id_tp = "BD_TP" if forest_type == "BRDC" else "NE_TP"
+    
+    # Gets maturity litter
+    res_rate = forest_litter_table.filter(pl.col("IPCC Climate") == weather_type)[forest_id_mean].item()
+
+    # Sets transition period. If IPCC route, deafults to 20, if not, depends on weather and forest type
+    if TP_Type == "IPCC":
+        TP = 20
+    else:
+        TP = forest_litter_table.filter(pl.col("IPCC Climate") == weather_type)[forest_id_tp].item()
+
+    # Calculates litter
+    valid_mask = ~np.isnan(da)
+
+    litter = np.where(valid_mask, np.minimum(res_rate, res_rate/TP * (da + base_year_offset + year_offset)) * c_content, np.nan)
+
+    return litter
