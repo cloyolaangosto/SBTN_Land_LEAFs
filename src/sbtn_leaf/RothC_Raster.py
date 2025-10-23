@@ -271,6 +271,7 @@ def _raster_rothc_annual_results(
     c_inp: Optional[np.ndarray],
     fym: Optional[np.ndarray],
     sand: Optional[np.ndarray],
+    forest_age:  Optional[np.ndarray],
     depth: float,
     commodity_type: str,
     soc0_nodatavalue: float,
@@ -296,7 +297,7 @@ def _raster_rothc_annual_results(
     else: # forest type
         dpm_rpm = 0.25
         # initialize c_inp
-        c_inp = cropcalcs.get_forest_litter_rate_fromda(c_inp, forest_type, weather_type, TP_Type)
+        c_inp = cropcalcs.get_forest_litter_rate_fromda(forest_age, forest_type, weather_type, TP_Type)
 
     # Initialize c_inp and fym if no input given
     c_inp = c_inp if c_inp is not None else np.zeros_like(tmp)
@@ -367,7 +368,7 @@ def _raster_rothc_annual_results(
 
         # Calculates litter input if it's forest
         if commodity_type == "forest":
-            c_inp[t] = cropcalcs.get_forest_litter_rate_fromda(c_inp[t], forest_type, weather_type, TP_Type, year_offset=t)
+            c_inp[t] = cropcalcs.get_forest_litter_rate_fromda(c_inp, forest_type, weather_type, TP_Type, year_offset=t)
 
         # Update pools
         DPM = D1 + (dpm_rpm / (dpm_rpm + 1.0)) * c_inp[t] + 0.49 * fym[t]
@@ -399,6 +400,7 @@ def raster_rothc_annual_results_1yrloop(
     irr: Optional[np.ndarray] = None,
     c_inp: Optional[np.ndarray] = None,
     fym: Optional[np.ndarray] = None,
+    forest_age: Optional[np.ndarray] = None,
     forest_type: Optional[str]= None,
     weather_type: Optional[str]= None,
     TP_Type: Optional[str]= None,
