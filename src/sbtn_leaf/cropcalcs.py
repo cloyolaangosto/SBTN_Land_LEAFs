@@ -1971,16 +1971,16 @@ def get_forest_litter_monthlyrate_fromda(da: np.ndarray, forest_type: str, weath
 #################################
 grassland_residue_table = pl.read_excel("../data/grasslands/grassland_residues_IPCC.xlsx")
 
-def generate_grassland_residue_map(grass_lu_fp: str = "../data/land_use/lu_Grassland.tif", fao_climate_map: str = "../data/soil_weather/uhth_thermal_climates.tif")-> np.ndarray:
+def generate_grassland_residue_map(grass_lu_fp: str = "../data/land_use/lu_Grassland.tif", fao_climate_map: str = "../data/soil_weather/uhth_thermal_climates.tif", c_content = 0.47)-> np.ndarray:
     # ------- Step 1 - Load maps ----------
     # loading both rasters
     with rasterio.open(grass_lu_fp) as src:
-        lu = src.read()
+        lu = src.read(1)
         lu_nd = src.nodata
 
     with rasterio.open(fao_climate_map) as clim:
-        clim_data = src.read()
-        clim_nd = src.nodata
+        clim_data = clim.read(1)
+        clim_nd = clim.nodata
 
     # Creates a mask for land use
     lu_valid = ~np.isnan(lu) & (lu == 1) & (lu != lu_nd)
@@ -2006,15 +2006,16 @@ def generate_grassland_residue_map(grass_lu_fp: str = "../data/land_use/lu_Grass
 
     # ------- Step 3 - Assign residue values ----------
     # Building the arrays
-    pixel_means = mean_lut[clim_data]
-    pixel_es    = se_lut[clim_data]
+    clim_raster_id = clim_data.astype(int)
+    pixel_means = mean_lut[clim_raster_id]
+    pixel_es    = se_lut[clim_raster_id]
 
-    # Creating the residues including standard error
-    res = np.random.normal(loc=pixel_means, scale=pixel_es)
+    # Creating the residues including standard error. Assumes normal distribution
+    res_pixel = np.random.normal(loc=pixel_means, scale=pixel_es)
 
     # Finally asigning them to pixels
-    out = np.full_like(lu, fill_value=np.nan, dtype='float32')
-    out[grass_clim_valid] = res[grass_clim_valid]
+    grassland_residue = np.full_like(lu, fill_value=np.nan, dtype='float32')
+    grassland_residue[grass_clim_valid] = res_pixel[grass_clim_valid] * c_content
 
-    return out
+    return grassland_residue
 
