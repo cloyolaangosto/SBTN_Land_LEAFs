@@ -301,11 +301,27 @@ def _raster_rothc_annual_results(
             raise ValueError("Missing forest inputs. Specify forest_age, forest_type, weather_type and TP_Type")
 
         # initialize c_inp
-        c_inp = cropcalcs.get_forest_litter_monthlyrate_fromda(forest_age, forest_type, weather_type, TP_Type)
+        c_inp = cropcalcs.get_forest_litter_monthlyrate_fromda(
+            forest_age,
+            forest_type,
+            weather_type,
+            TP_Type,
+        )
+        c_inp = np.squeeze(np.asarray(c_inp))
+        if c_inp.ndim != 2:
+            raise ValueError("Forest litter input must be 2-D after squeezing")
 
     # Initialize c_inp and fym if no input given
-    c_inp = c_inp if c_inp is not None else np.zeros_like(tmp)
+    if commodity_type != "forest":
+        c_inp = c_inp if c_inp is not None else np.zeros_like(tmp)
+    if c_inp is not None:
+        c_inp = np.asarray(c_inp)
     fym = fym if fym is not None else np.zeros_like(tmp)
+    fym = np.asarray(fym)
+    if fym.ndim > 3:
+        fym = np.squeeze(fym)
+    if fym.ndim not in (2, 3):
+        raise ValueError("FYM input must be 2-D or 3-D after squeezing")
 
 
     # Initialize pools
@@ -373,15 +389,23 @@ def _raster_rothc_annual_results(
 
         # Calculates litter input if it's forest
         if commodity_type == "forest":
-            c_inp = cropcalcs.get_forest_litter_monthlyrate_fromda(forest_age, forest_type, weather_type, TP_Type, year_offset=year)
+            c_inp_month = cropcalcs.get_forest_litter_monthlyrate_fromda(
+                forest_age,
+                forest_type,
+                weather_type,
+                TP_Type,
+                year_offset=year,
+            )
+            c_inp_month = np.squeeze(np.asarray(c_inp_month))
+            if c_inp_month.ndim != 2:
+                raise ValueError("Forest litter input must be 2-D after squeezing")
+        else:
+            c_inp_month = c_inp[t]
 
         # Update pools
-        if forest_age is not None:
-            DPM = D1 + (dpm_rpm / (dpm_rpm + 1.0)) * c_inp + 0.49 * fym[t]
-            RPM = R1 + (1.0 / (dpm_rpm + 1.0)) * c_inp + 0.49 * fym[t]
-        else:
-            DPM = D1 + (dpm_rpm / (dpm_rpm + 1.0)) * c_inp[t] + 0.49 * fym[t]
-            RPM = R1 + (1.0 / (dpm_rpm + 1.0)) * c_inp[t] + 0.49 * fym[t]
+        fym_slice = fym if fym.ndim == 2 else fym[t]
+        DPM = D1 + (dpm_rpm / (dpm_rpm + 1.0)) * c_inp_month + 0.49 * fym_slice
+        RPM = R1 + (1.0 / (dpm_rpm + 1.0)) * c_inp_month + 0.49 * fym_slice
         BIO = B1 + D2B + R2B + B2B + H2B
         HUM = H1 + D2H + R2H + B2H + H2H
         SOC = DPM + RPM + BIO + HUM + IOM
@@ -657,7 +681,7 @@ def _load_forest_data(lu_fp: str, evap_fp: str, age_fp: str):
     pc = pc.rio.write_transform(lu_raster.rio.transform())
 
     # open age
-    age = rxr.open_rasterio(age_fp, masked=True)
+    age = rxr.open_rasterio(age_fp, masked=True).squeeze()
     age = age.where(lu_mask).fillna(0)
     
     # Creates a monthly residue data array from annual litter raster
@@ -783,9 +807,18 @@ def run_RothC_forest(
     lu_raster, evap, pc, age = _load_forest_data(lu_fp, evap_fp, age_fp)
     
     # Convert to values
-    clay_a, soc0_a, iom_a = np.asarray(clay.values), np.asarray(soc0.values), np.asarray(iom.values)
-    tmp_a, rain_a, evap_a = np.asarray(tmp.values), np.asarray(rain.values), np.asarray(evap.values)
-    pc_a, age_a= np.asarray(pc.values), np.asarray(age.values)
+    clay_a = np.asarray(clay.values)
+    soc0_a = np.asarray(soc0.values)
+    iom_a = np.asarray(iom.values)
+    tmp_a = np.asarray(tmp.values)
+    rain_a = np.asarray(rain.values)
+    evap_a = np.asarray(evap.values)
+    pc_a = np.asarray(pc.values)
+    age_a = np.asarray(age.values)
+    if age_a.ndim != 2:
+        age_a = np.squeeze(age_a)
+    if age_a.ndim != 2:
+        raise ValueError("Forest age raster must be 2-D after squeezing")
 
     # Run model
     print("Running RothC...")
