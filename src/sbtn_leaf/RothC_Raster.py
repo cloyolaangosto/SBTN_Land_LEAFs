@@ -684,16 +684,6 @@ def _load_forest_data(lu_fp: str, evap_fp: str, age_fp: str):
     # open age
     age = rxr.open_rasterio(age_fp, masked=True).squeeze()
     age = age.where(lu_mask).fillna(0)
-    
-    # Creates a monthly residue data array from annual litter raster
-    # litter_annual = rxr.open_rasterio(pr_fp, masked=True).squeeze()  # single-band (y,x)
-    # # create 12 monthly slices equal to 1/12 of the annual value
-    # pr = xr.concat([litter_annual / 12.0] * 12, dim="time")
-    # pr = pr.assign_coords(time=np.arange(1, 13))
-    # pr = pr.where(lu_mask).fillna(0)
-    # # ensure spatial metadata matches land-use raster
-    # pr = pr.rio.write_crs(lu_raster.rio.crs)
-    # pr = pr.rio.write_transform(lu_raster.rio.transform())
 
     return lu_raster, evap, pc, age
 
