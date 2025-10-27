@@ -375,8 +375,12 @@ def _raster_rothc_annual_results(
             c_inp = cropcalcs.get_forest_litter_monthlyrate_fromda(forest_age, forest_type, weather_type, TP_Type, year_offset=t)
 
         # Update pools
-        DPM = D1 + (dpm_rpm / (dpm_rpm + 1.0)) * c_inp + 0.49 * fym[t]
-        RPM = R1 + (1.0 / (dpm_rpm + 1.0)) * c_inp + 0.49 * fym[t]
+        if forest_age:
+            DPM = D1 + (dpm_rpm / (dpm_rpm + 1.0)) * c_inp + 0.49 * fym[t]
+            RPM = R1 + (1.0 / (dpm_rpm + 1.0)) * c_inp + 0.49 * fym[t]
+        else:
+            DPM = D1 + (dpm_rpm / (dpm_rpm + 1.0)) * c_inp[t] + 0.49 * fym[t]
+            RPM = R1 + (1.0 / (dpm_rpm + 1.0)) * c_inp[t] + 0.49 * fym[t]
         BIO = B1 + D2B + R2B + B2B + H2B
         HUM = H1 + D2H + R2H + B2H + H2H
         SOC = DPM + RPM + BIO + HUM + IOM
