@@ -1965,3 +1965,56 @@ def get_forest_litter_monthlyrate_fromda(da: np.ndarray, forest_type: str, weath
     monthly_litter = litter/12
 
     return monthly_litter
+
+#################################
+#### GRASSLAND CALCULATIONS #####
+#################################
+grassland_residue_table = pl.read_excel("../data/grasslands/grassland_residues_IPCC.xlsx")
+
+def generate_grassland_residue_map(grass_lu_fp: str = "../data/land_use/lu_Grassland.tif", fao_climate_map: str = "../data/soil_weather/uhth_thermal_climates.tif")-> np.ndarray:
+    # ------- Step 1 - Load maps ----------
+    # loading both rasters
+    with rasterio.open(grass_lu_fp) as src:
+        lu = src.read()
+        lu_nd = src.nodata
+
+    with rasterio.open(fao_climate_map) as clim:
+        clim_data = src.read()
+        clim_nd = src.nodata
+
+    # Creates a mask for land use
+    lu_valid = ~np.isnan(lu) & (lu == 1) & (lu != lu_nd)
+
+    # Mask for valud climate data
+    climate_valid = (~np.isnan(clim_data)) & (clim_data != clim_nd)
+
+    # Final mask
+    grass_clim_valid = lu_valid & climate_valid
+    
+    # ------- Step 2 - Build Residue Data for Numpy ----------
+    # Getting the data
+    climate_ids = grassland_residue_table["FAO_ID"].to_numpy().astype("int")
+    means = grassland_residue_table["Residue"].to_numpy().astype("float32")
+    ses = grassland_residue_table["ResXErr"].to_numpy().astype("float32")
+
+    # Building lookup table
+    mean_lut = np.full(13, np.nan, dtype='float32')
+    se_lut = np.full(13, np.nan, dtype='float32')
+
+    mean_lut[climate_ids] = means
+    se_lut[climate_ids] = ses
+
+    # ------- Step 3 - Assign residue values ----------
+    # Building the arrays
+    pixel_means = mean_lut[clim_data]
+    pixel_es    = se_lut[clim_data]
+
+    # Creating the residues including standard error
+    res = np.random.normal(loc=pixel_means, scale=pixel_es)
+
+    # Finally asigning them to pixels
+    out = np.full_like(lu, fill_value=np.nan, dtype='float32')
+    out[grass_clim_valid] = res[grass_clim_valid]
+
+    return out
+
