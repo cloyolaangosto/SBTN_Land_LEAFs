@@ -270,11 +270,11 @@ def _raster_rothc_annual_results(
     irr: Optional[np.ndarray],
     c_inp: Optional[np.ndarray],
     fym: Optional[np.ndarray],
-    sand: Optional[np.ndarray],
-    forest_age:  Optional[np.ndarray],
     depth: float,
     commodity_type: str,
     soc0_nodatavalue: float,
+    sand: Optional[np.ndarray] = None,
+    forest_age:  Optional[np.ndarray] = None,
     forest_type: Optional[str] = None,
     weather_type: Optional[str] = None,
     TP_Type: Optional[str] = None,
@@ -296,8 +296,12 @@ def _raster_rothc_annual_results(
         dpm_rpm = 1
     else: # forest type
         dpm_rpm = 0.25
+        # Checks that all forest inputs are there
+        if forest_age is None or forest_type is None or weather_type is None or TP_Type is None:
+            raise ValueError("Missing forest inputs. Specify forest_age, forest_type, weather_type and TP_Type")
+
         # initialize c_inp
-        c_inp = cropcalcs.get_forest_litter_rate_fromda(forest_age, forest_type, weather_type, TP_Type)
+        c_inp = cropcalcs.get_forest_litter_monthlyrate_fromda(forest_age, forest_type, weather_type, TP_Type)
 
     # Initialize c_inp and fym if no input given
     c_inp = c_inp if c_inp is not None else np.zeros_like(tmp)
@@ -368,11 +372,11 @@ def _raster_rothc_annual_results(
 
         # Calculates litter input if it's forest
         if commodity_type == "forest":
-            c_inp[t] = cropcalcs.get_forest_litter_rate_fromda(c_inp, forest_type, weather_type, TP_Type, year_offset=t)
+            c_inp = cropcalcs.get_forest_litter_monthlyrate_fromda(forest_age, forest_type, weather_type, TP_Type, year_offset=t)
 
         # Update pools
-        DPM = D1 + (dpm_rpm / (dpm_rpm + 1.0)) * c_inp[t] + 0.49 * fym[t]
-        RPM = R1 + (1.0 / (dpm_rpm + 1.0)) * c_inp[t] + 0.49 * fym[t]
+        DPM = D1 + (dpm_rpm / (dpm_rpm + 1.0)) * c_inp + 0.49 * fym[t]
+        RPM = R1 + (1.0 / (dpm_rpm + 1.0)) * c_inp + 0.49 * fym[t]
         BIO = B1 + D2B + R2B + B2B + H2B
         HUM = H1 + D2H + R2H + B2H + H2H
         SOC = DPM + RPM + BIO + HUM + IOM
@@ -444,6 +448,7 @@ def raster_rothc_annual_results_1yrloop(
         forest_type = forest_type,
         weather_type = weather_type,
         TP_Type = TP_Type,
+        forest_age = forest_age
     )
 
 
@@ -787,7 +792,7 @@ def run_RothC_forest(
                 rain    = rain_a,
                 evap    = evap_a,
                 pc      = pc_a,
-                c_inp   = age_a,
+                forest_age=    age_a,
                 commodity_type = "forest",
                 forest_type = forest_type,
                 weather_type = weather_type,

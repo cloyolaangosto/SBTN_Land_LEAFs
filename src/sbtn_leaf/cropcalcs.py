@@ -1934,7 +1934,7 @@ def get_forest_litter_rate(da_fp: str, forest_type: str, weather_type: str, TP_T
 
     return litter
 
-def get_forest_litter_rate_fromda(da: np.ndarray, forest_type: str, weather_type: str, TP_Type = "IPCC", year_offset: int = 0, base_year_offset = 6, c_content = 0.37):
+def get_forest_litter_monthlyrate_fromda(da: np.ndarray, forest_type: str, weather_type: str, TP_Type = "IPCC", year_offset: int = 0, base_year_offset = 6, c_content = 0.37)-> np.ndarray:
     # this assumes that the da has already been masked properly
 
     # Checks if weather type is in the list
@@ -1961,5 +1961,7 @@ def get_forest_litter_rate_fromda(da: np.ndarray, forest_type: str, weather_type
     valid_mask = ~np.isnan(da)
 
     litter = np.where(valid_mask, np.minimum(res_rate, res_rate/TP * (da + base_year_offset + year_offset)) * c_content, np.nan)
+    # build a 12-band array where each month is 1/12 of the annual litter
+    monthly_litter = litter/12
 
-    return litter
+    return monthly_litter
