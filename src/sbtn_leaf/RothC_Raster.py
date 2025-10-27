@@ -360,6 +360,7 @@ def _raster_rothc_annual_results(
         rm_pc = RMF_PC(pc[t])
         rate_m = rm_tmp * rm_moist * rm_pc
 
+        #TRM when sand is given for reduced tillage
         trm_dpm = trm_rpm = trm_bio = trm_hum = 1.0
         if trm_handler is not None:
             if sand is None:
@@ -379,13 +380,13 @@ def _raster_rothc_annual_results(
         total_co2 = (lossD + lossR + lossB + lossH) * resp_frac
 
         # Pool partition
-        def part(arr):
+        def BioHumPartition(arr):
             return arr * (0.46 / (x + 1.0)), arr * (0.54 / (x + 1.0))
 
-        D2B, D2H = part(lossD)
-        R2B, R2H = part(lossR)
-        B2B, B2H = part(lossB)
-        H2B, H2H = part(lossH)
+        D2B, D2H = BioHumPartition(lossD)
+        R2B, R2H = BioHumPartition(lossR)
+        B2B, B2H = BioHumPartition(lossB)
+        H2B, H2H = BioHumPartition(lossH)
 
         # Calculates litter input if it's forest
         if commodity_type == "forest":
