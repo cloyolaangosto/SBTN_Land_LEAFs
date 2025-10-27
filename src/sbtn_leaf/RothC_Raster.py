@@ -334,6 +334,7 @@ def _raster_rothc_annual_results(
 
     for t_abs in trange(months, desc=progress_desc, position=1):
         t = t_abs % 12
+        year = t_abs // 12
 
         wat = rain[t] + irr[t] if irr is not None else rain[t]
 
@@ -372,10 +373,10 @@ def _raster_rothc_annual_results(
 
         # Calculates litter input if it's forest
         if commodity_type == "forest":
-            c_inp = cropcalcs.get_forest_litter_monthlyrate_fromda(forest_age, forest_type, weather_type, TP_Type, year_offset=t)
+            c_inp = cropcalcs.get_forest_litter_monthlyrate_fromda(forest_age, forest_type, weather_type, TP_Type, year_offset=year)
 
         # Update pools
-        if forest_age:
+        if forest_age is not None:
             DPM = D1 + (dpm_rpm / (dpm_rpm + 1.0)) * c_inp + 0.49 * fym[t]
             RPM = R1 + (1.0 / (dpm_rpm + 1.0)) * c_inp + 0.49 * fym[t]
         else:
