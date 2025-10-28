@@ -23,7 +23,7 @@ world_global_hr = gpd.read_file("../data/world_maps/high_res/ne_10m_admin_0_coun
 
 
 # FUNCTIONS
-def preprocess_raster_data_eliminate_nodata(raster_data, nodata_value=None):
+def _preprocess_raster_data_eliminate_nodata(raster_data, nodata_value=None):
     """
     Preprocess raster data to handle invalid and extreme values.
     
@@ -46,7 +46,7 @@ def preprocess_raster_data_eliminate_nodata(raster_data, nodata_value=None):
 
 
 
-def preprocess_raster_data_percentiles(
+def _preprocess_raster_data_percentiles(
     raster_data, 
     nodata_value=None, 
     p_min: Union[int, float] = 1, 
@@ -65,7 +65,7 @@ def preprocess_raster_data_percentiles(
         ndarray: Cleaned raster data array.
     """
     # Eliminate no_data and Inf values
-    raster_data = preprocess_raster_data_eliminate_nodata(raster_data, nodata_value)
+    raster_data = _preprocess_raster_data_eliminate_nodata(raster_data, nodata_value)
     
     # Clip raster data to a reasonable range (e.g., 1st and 99th percentiles)
     finite_data = raster_data[np.isfinite(raster_data)]
@@ -87,7 +87,7 @@ def preprocess_raster_data_eliminate_low_values(raster_data, nodata_value=None, 
         ndarray: Cleaned raster data array.
     """
     # Eliminate no_data and Inf values
-    raster_data = preprocess_raster_data_eliminate_nodata(raster_data, nodata_value)
+    raster_data = _preprocess_raster_data_eliminate_nodata(raster_data, nodata_value)
 
     # Determine minimum value for as threshold if none is given
     if threshold is None:
@@ -260,7 +260,7 @@ def plot_raster_on_world_extremes_cutoff(tif_path, title: str, label_title='Rast
         p_max = 100 - alpha
 
     # Preprocess the raster data
-    raster_data = preprocess_raster_data_percentiles(raster_data, nodata_value, p_min, p_max)
+    raster_data = _preprocess_raster_data_percentiles(raster_data, nodata_value, p_min, p_max)
 
     # Create the plot
     create_plt_choropleth(
@@ -338,7 +338,7 @@ def plot_da_on_world_extremes_cutoff(
     if p_max is None: p_max = 100 - alpha
     
     # 3) run your existing preprocessors
-    raster_data = preprocess_raster_data_percentiles(arr, nodata, p_min, p_max)
+    raster_data = _preprocess_raster_data_percentiles(arr, nodata, p_min, p_max)
     
     # 3.5) Optional - Sets cmap to divergence point 0
     if diverg0:
@@ -475,9 +475,9 @@ def plot_raster_on_world_no_min(tif_path, title: str, label_title = 'Raster Valu
 
     # Preprocess the raster data
     if threshold is None:
-        raster_data = preprocess_raster_data_eliminate_nodata(raster_data, nodata_value=no_data_value)
+        raster_data = _preprocess_raster_data_eliminate_nodata(raster_data, nodata_value=no_data_value)
     else:
-        raster_data = preprocess_raster_data_eliminate_nodata(raster_data, nodata_value=no_data_value, threshold=threshold)
+        raster_data = _preprocess_raster_data_eliminate_nodata(raster_data, nodata_value=no_data_value, threshold=threshold)
 
     # Create the plot
     create_plt_choropleth(raster_data=raster_data, bounds=bounds, title=title, label_title=label_title, quantiles=quantiles, cmap=cmap,
