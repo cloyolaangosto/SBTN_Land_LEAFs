@@ -11,14 +11,16 @@ from rasterio.warp import reproject, Resampling
 from rasterio.transform import from_origin, xy, Affine
 from rasterio.enums import Resampling
 from rasterio.mask import mask
+from rasterio.windows import Window
 import rioxarray
 import tempfile
 from contextlib import nullcontext
-from typing import Optional, Callable, Iterable, Tuple, Dict, List
+from typing import Optional, Callable, Iterable, Tuple, Dict, List, Union
 from shapely.geometry import box
 from shapely.prepared import prep as prep_geom
 from tqdm.auto import tqdm
 from tqdm.contrib.logging import logging_redirect_tqdm
+from pathlib import Path
 
 import os
 
@@ -1235,7 +1237,7 @@ def prep_master_unique(
 
 
 #################
-def process_region(region, raster_input_filepath, cf_name, cf_unit, flow_name, area_type, raster_crs, logger):
+def _process_region(region, raster_input_filepath, cf_name, cf_unit, flow_name, area_type, raster_crs, logger):
     """
     Process a single region: clip the raster to its geometry and compute area-weighted statistics.
     Returns a dictionary with the results (or None if the region is skipped).
@@ -1972,6 +1974,139 @@ def mask_raster1_by_overlap_with_raster2(raster1_path: str, raster2_path: str, o
 
     return masked_data
 
+
+def calculate_average_from_raster_timeseries(files_list: Union[List[str], List[Path]], output_path: str):
+    # Initialize 
+    arrays = []
+    profile = None
+
+    # Goes through each file
+    #for fp in files_list:
+    for fp in tqdm(files_list, desc="Calculating raster series average:", unit="file"):
+        # Reads the raster
+        with rasterio.open(fp) as src:
+            data = src.read(1).astype("float32")
+            nd = src.nodata
+            if nd is not None:
+                data[data == nd] = np.nan
+            arrays.append(data)     # Attache data to array list
+            if profile is None:     # Copy profile 
+                profile = src.profile.copy()
+            else:
+                # basic grid consistency check
+                if (
+                    src.width != profile["width"] or
+                    src.height != profile["height"] or
+                    src.transform != profile["transform"] or
+                    src.crs != profile["crs"]
+                ):
+                    raise ValueError(f"Raster grid mismatch in {fp}")
+
+    # Stack arrays
+    stacked = np.stack(arrays, axis=0)          # shape: (n_files, H, W)
+    
+    # Calculate average through 
+    rasters_avg = np.nanmean(stacked, axis=0)     # shape: (H, W)
+
+    # write output
+    out_profile = profile.copy()
+    out_profile.update(
+        dtype="float32",
+        count=1,
+        nodata=np.nan
+    )
+
+    with rasterio.open(output_path, "w", **out_profile) as dst:
+        dst.write(rasters_avg.astype("float32"), 1)
+
+
+
+def calculate_average_from_raster_timeseries_byblocks(
+    files_list: Union[List[str], List[Path]],
+    output_path: str,
+    blocksize: int = 512,
+    min_valid_years: int = 7,
+):
+    """
+    Blockwise per-pixel average across rasters.
+    - Uses mean normally.
+    - Falls back to median if < min_valid_years valid years.
+    - Tracks how many pixels used the fallback.
+
+    The output stays float32 with NaN as nodata.
+    """
+
+    srcs = [rasterio.open(fp) for fp in files_list]
+    ref = srcs[0]
+    height, width = ref.height, ref.width
+
+    profile = ref.profile.copy()
+    profile.update(dtype="float32", count=1, nodata=np.nan, compress="lzw")
+
+    total_median_pixels = 0
+
+    with rasterio.open(output_path, "w", **profile) as dst:
+        n_rows = int(np.ceil(height / blocksize))
+        n_cols = int(np.ceil(width / blocksize))
+        total_tiles = n_rows * n_cols
+
+        for row_start in tqdm(range(0, height, blocksize),
+                              desc="Processing blocks",
+                              unit="tile",
+                              total=total_tiles):
+            rows = min(blocksize, height - row_start)
+
+            for col_start in range(0, width, blocksize):
+                cols = min(blocksize, width - col_start)
+                win = Window(col_start, row_start, cols, rows)
+
+                # (years, rows, cols)
+                block_stack = np.empty((len(srcs), rows, cols), dtype="float32")
+
+                # read each raster into this block
+                for i, src in enumerate(srcs):
+                    data = src.read(1, window=win).astype("float32")
+                    nd = src.nodata
+                    if nd is not None:
+                        data[data == nd] = np.nan
+                    block_stack[i] = data
+
+                    # (Optional) first block safety check of alignment could go here
+
+                # how many valid (non-NaN) years per pixel
+                valid_counts = np.sum(~np.isnan(block_stack), axis=0).astype("int16")
+
+                # mask of pixels that have at least 1 valid year at all
+                have_any_valid = valid_counts > 0
+
+                # initialize the output block full of NaN
+                out_block = np.full((rows, cols), np.nan, dtype="float32")
+
+                # --- 1. pixels with enough data: mean ---
+                enough_valid_mask = valid_counts >= min_valid_years
+                if np.any(enough_valid_mask):
+                    # compute nanmean only once
+                    mean_block = np.nanmean(block_stack, axis=0).astype("float32")
+                    out_block[enough_valid_mask] = mean_block[enough_valid_mask]
+
+                # --- 2. pixels with some data but not enough: median fallback ---
+                fallback_mask = have_any_valid & (~enough_valid_mask)
+                if np.any(fallback_mask):
+                    median_block = np.nanmedian(block_stack, axis=0).astype("float32")
+                    out_block[fallback_mask] = median_block[fallback_mask]
+                    total_median_pixels += np.count_nonzero(fallback_mask)
+
+                # pixels with no valid years at all remain NaN in out_block
+
+                dst.write(out_block, 1, window=win)
+
+    for s in srcs:
+        s.close()
+
+    print(
+        f"✅ Completed: {total_median_pixels:,} pixels used median "
+        f"instead of mean because they had < {min_valid_years} valid years."
+    )
 
 
 def _get_pixel_center_latitude(raster_path: str, row: int, col: int) -> float:
