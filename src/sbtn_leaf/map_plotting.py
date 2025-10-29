@@ -25,7 +25,8 @@ world_global_hr = gpd.read_file("../data/world_maps/high_res/ne_10m_admin_0_coun
 # FUNCTIONS
 def _preprocess_raster_data_eliminate_nodata(
     raster_data: np.ndarray,
-    nodata_value: Optional[float] = None
+    nodata_value: Optional[float] = None,
+    eliminate_zeros: bool = True
 ) -> np.ndarray:
     """
     Replace nodata (e.g. -32000) and ±inf with np.nan.
@@ -34,6 +35,9 @@ def _preprocess_raster_data_eliminate_nodata(
 
     if nodata_value is not None:
         out[out == nodata_value] = np.nan
+
+    if eliminate_zeros:
+        out[out == 0] = np.nan
 
     # any inf / -inf -> NaN
     out[~np.isfinite(out)] = np.nan
@@ -48,6 +52,7 @@ def _preprocess_raster_data_percentiles(
     p_max: Union[int, float] = 99,
     hard_min: Optional[float] = None,
     hard_max: Optional[float] = None,
+    eliminate_zeros: Optional[bool] = None
 ) -> np.ndarray:
     """
     1. Convert nodata and inf to NaN.
@@ -56,7 +61,7 @@ def _preprocess_raster_data_percentiles(
     """
 
     # Step 1: remove nodata, inf
-    raster_data = _preprocess_raster_data_eliminate_nodata(raster_data, nodata_value)
+    raster_data = _preprocess_raster_data_eliminate_nodata(raster_data, nodata_value, eliminate_zeros)
 
     # Step 2: percentile clipping on finite pixels
     finite_mask = np.isfinite(raster_data)
@@ -74,7 +79,7 @@ def _preprocess_raster_data_percentiles(
     return raster_data
 
 
-def preprocess_raster_data_eliminate_low_values(raster_data, nodata_value=None, threshold = None):
+def _preprocess_raster_data_eliminate_low_values(raster_data, nodata_value=None, threshold = None):
     """
     Preprocess raster data to handle invalid and extreme values.
     
@@ -278,10 +283,11 @@ def plot_raster_on_world_extremes_cutoff(
     region: Optional[str] = None,
     cmap: str = 'viridis',
     n_categories: int = 20,
-    base_shp=None,
+    base_shp=world_global_hr,
     plt_show: bool = True,
     min_val: Optional[float] = None,
     max_val: Optional[float] = None,
+    eliminate_zeros: bool = False
 ):
     """
     Load raster, clip extremes, and plot in its native projection.
@@ -310,6 +316,7 @@ def plot_raster_on_world_extremes_cutoff(
         p_max=p_max,
         hard_min=min_val,
         hard_max=max_val,
+        eliminate_zeros = eliminate_zeros
     )
 
     # Plot
@@ -345,7 +352,8 @@ def plot_da_on_world_extremes_cutoff(
     diverg0 = False,
     n_categories: int = 20,
     base_shp = world_global_hr,
-    plt_show = False
+    plt_show = False,
+    eliminate_zeros = False
 ):
     """
     Plot a single‑band xarray DataArray on a world basemap, with
@@ -394,7 +402,7 @@ def plot_da_on_world_extremes_cutoff(
     if p_max is None: p_max = 100 - alpha
     
     # 3) run your existing preprocessors
-    raster_data = _preprocess_raster_data_percentiles(arr, nodata, p_min, p_max)
+    raster_data = _preprocess_raster_data_percentiles(arr, nodata, p_min, p_max, eliminate_zeros)
     
     # 3.5) Optional - Sets cmap to divergence point 0
     if diverg0:
@@ -1331,32 +1339,79 @@ def plot_raster_data_histogram(values, bins=50, title="Raster Value Histogram", 
     plt.grid(True, linestyle="--", alpha=0.6)
     plt.show()
 
-def plot_raster_histogram(raster_path, band=1, bins=50, title="Raster Value Histogram", xlabel="Value", ylabel="Frequency"):
+def plot_raster_histogram(
+    raster_path,
+    band: int = 1,
+    bins: int = 50,
+    title: str = "Raster Value Histogram",
+    xlabel: str = "Value",
+    ylabel: str = "Frequency",
+    log_scale: bool = False,
+    min_positive: float = 1e-6,
+    mask_zeros: bool = False
+):
     """
-    Plots a histogram of raster values.
+    Plots a histogram of raster values with optional logarithmic scale.
 
-    Parameters:
-    - values (numpy.ndarray): A 1D array of raster values.
-    - bins (int): Number of bins for the histogram.
-    - title (str): Title of the histogram.
-    - xlabel (str): Label for the x-axis.
-    - ylabel (str): Label for the y-axis.
+    Parameters
+    ----------
+    raster_path : str
+        Path to the raster file.
+    band : int
+        Raster band number to read.
+    bins : int
+        Number of bins for the histogram.
+    title : str
+        Title of the histogram.
+    xlabel : str
+        Label for the x-axis.
+    ylabel : str
+        Label for the y-axis.
+    log_scale : bool
+        If True, plot histogram in log10 scale (x-axis).
+    min_positive : float
+        Minimum positive threshold to avoid log(0) if log_scale=True.
     """
-    # Opens data
+
+    # --- 1. Read raster
     with rasterio.open(raster_path) as src:
-        data = src.read(band)
-        nodata_value = src.nodata
+        data = src.read(band).astype("float32")
+        nodata = src.nodata
 
-    # Filters nodata value
-    values_wo_nd = np.where(data != nodata_value, data, np.nan)
-    valid_values = values_wo_nd[~np.isnan(values_wo_nd)]
-    values = valid_values.flatten()
+    # --- 2. Replace nodata with NaN and flatten
+    mask_nodata = (data == nodata) if nodata is not None else np.zeros_like(data, dtype=bool)
+    mask_nan    = np.isnan(data)
+    zero_mask  = data == 0
+    mask        = (mask_nodata | mask_nan | zero_mask) if mask_zeros else (mask_nodata | mask_nan) 
 
-    plt.hist(values, bins=bins, color='blue', alpha=0.7, edgecolor='black')
+    # Extract only the valid pixels
+    valid = data[~mask]
+    
+    #if nodata is not None:
+    #    data[data == nodata] = np.nan
+
+    values = valid[np.isfinite(valid)].flatten()
+
+    # --- 3. Handle log scale
+    if log_scale:
+        # remove non-positive values
+        valid_mask = values > 0
+        n_removed = np.count_nonzero(~valid_mask)
+        if n_removed > 0:
+            print(f"⚠️ Removed {n_removed:,} non-positive values before log-transform.")
+        values = values[valid_mask]
+        # avoid zeros / negatives
+        values = np.log10(np.clip(values, min_positive, None))
+        xlabel = f"log₁₀({xlabel})"
+
+    # --- 4. Plot
+    plt.figure(figsize=(8, 5))
+    plt.hist(values, bins=bins, color='steelblue', alpha=0.75, edgecolor='black')
     plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.grid(True, linestyle="--", alpha=0.6)
+    plt.tight_layout()
     plt.show()
 
 def plot_overlapping_histograms(raster1_path, raster2_path, title, x_label, label1, label2, bins=50, std_dev_filter=0, filter_quantiles=0.0, quantiles_tails = 'both'):
