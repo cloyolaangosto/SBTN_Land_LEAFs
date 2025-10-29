@@ -23,55 +23,54 @@ world_global_hr = gpd.read_file("../data/world_maps/high_res/ne_10m_admin_0_coun
 
 
 # FUNCTIONS
-def _preprocess_raster_data_eliminate_nodata(raster_data, nodata_value=None):
+def _preprocess_raster_data_eliminate_nodata(
+    raster_data: np.ndarray,
+    nodata_value: Optional[float] = None
+) -> np.ndarray:
     """
-    Preprocess raster data to handle invalid and extreme values.
-    
-    Parameters:
-        raster_data (ndarray): The raster data array.
-        nodata_value (float): Value representing no-data in the raster.
-    
-    Returns:
-        ndarray: Cleaned raster data array.
+    Replace nodata (e.g. -32000) and ±inf with np.nan.
     """
-    # Replace no-data values with NaN
+    out = raster_data.astype("float32", copy=True)
+
     if nodata_value is not None:
-        raster_data = np.where(raster_data == nodata_value, np.nan, raster_data)
-    
-    # Replace inf/-inf values with NaN
-    raster_data = np.where(np.isfinite(raster_data), raster_data, np.nan)
-    
-    return raster_data
+        out[out == nodata_value] = np.nan
 
+    # any inf / -inf -> NaN
+    out[~np.isfinite(out)] = np.nan
 
+    return out
 
 
 def _preprocess_raster_data_percentiles(
-    raster_data, 
-    nodata_value=None, 
-    p_min: Union[int, float] = 1, 
-    p_max: Union[int, float] = 99
-):
+    raster_data: np.ndarray,
+    nodata_value: Optional[float] = None,
+    p_min: Union[int, float] = 1,
+    p_max: Union[int, float] = 99,
+    hard_min: Optional[float] = None,
+    hard_max: Optional[float] = None,
+) -> np.ndarray:
     """
-    Preprocess raster data to handle invalid and extreme values.
-    
-    Parameters:
-        raster_data (ndarray): The raster data array.
-        nodata_value (float): Value representing no-data in the raster.
-        p_min (int or float): Lower percentile cutoff.
-        p_max (int or float): Upper percentile cutoff.
-    
-    Returns:
-        ndarray: Cleaned raster data array.
+    1. Convert nodata and inf to NaN.
+    2. Clip to percentiles to reduce extreme spikes.
+    3. Optionally clip to explicit physical bounds (hard_min / hard_max).
     """
-    # Eliminate no_data and Inf values
+
+    # Step 1: remove nodata, inf
     raster_data = _preprocess_raster_data_eliminate_nodata(raster_data, nodata_value)
-    
-    # Clip raster data to a reasonable range (e.g., 1st and 99th percentiles)
-    finite_data = raster_data[np.isfinite(raster_data)]
-    lower, upper = np.percentile(finite_data, [p_min, p_max])  # 1st and 99th percentiles
-    raster_data = np.clip(raster_data, lower, upper)
-    
+
+    # Step 2: percentile clipping on finite pixels
+    finite_mask = np.isfinite(raster_data)
+    finite_vals = raster_data[finite_mask]
+    if finite_vals.size > 0:
+        lower_p, upper_p = np.percentile(finite_vals, [p_min, p_max])
+        raster_data = np.clip(raster_data, lower_p, upper_p)
+
+    # Step 3: optional hard clip (physical plausibility)
+    if hard_min is not None:
+        raster_data = np.where(raster_data < hard_min, hard_min, raster_data)
+    if hard_max is not None:
+        raster_data = np.where(raster_data > hard_max, hard_max, raster_data)
+
     return raster_data
 
 
@@ -100,8 +99,8 @@ def preprocess_raster_data_eliminate_low_values(raster_data, nodata_value=None, 
     return raster_data
 
 
-def create_plt_choropleth(
-    raster_data,
+def _create_plt_choropleth(
+    raster_data: np.ndarray,
     bounds,
     title: str,
     region: str = '',
@@ -113,166 +112,223 @@ def create_plt_choropleth(
     base_shp=None,
     vmin: Optional[float] = None,
     vmax: Optional[float] = None,
-    plt_show = True
+    raster_crs=None,
+    plt_show: bool = True
 ):
     """
-    Plot a raster as a choropleth, with categorical or continuous (optionally diverging) scales.
+    Plot the raster in its native CRS.
+    - NaNs are fully transparent.
+    - base_shp (world boundaries) is reprojected to the raster CRS before overlay.
+    - Axes are labeled as projected coordinates, not "Longitude/Latitude".
     """
-    # 1) Region filter
-    if region and base_shp is not None:
-        mask = (
-            base_shp['NAME'].str.contains(region, case=False, na=False)
-            | base_shp['CONTINENT'].str.contains(region, case=False, na=False)
-        )
-        base_shp = base_shp[mask]
-        if base_shp.empty:
-            raise ValueError(f"Region '{region}' not found in world shapefile.")
 
-    # 2) Detect categorical
+    # 1) Optionally filter base_shp by region (still in its own CRS at this point)
+    shp_to_plot = None
+    if base_shp is not None:
+        shp_to_plot = base_shp
+        if region:
+            mask = (
+                shp_to_plot['NAME'].str.contains(region, case=False, na=False)
+                | shp_to_plot['CONTINENT'].str.contains(region, case=False, na=False)
+            )
+            shp_to_plot = shp_to_plot[mask]
+            if shp_to_plot.empty:
+                raise ValueError(f"Region '{region}' not found in world shapefile.")
+
+    # 2) Determine categorical vs continuous
     valid_mask = np.isfinite(raster_data)
     values = raster_data[valid_mask]
-    unique = np.unique(values)
-    is_categorical = len(unique) <= n_categories
 
-    # Print some basic data from the raster
-    print(f'Raster has {unique.size:,} different values. Min: {values.min():,.2f}. Max: {values.max():,.2f}')
+    if values.size == 0:
+        raise ValueError("Raster is empty or fully NaN after preprocessing.")
 
-    # Prepare colormap and norm
+    unique_vals = np.unique(values)
+    is_categorical = (len(unique_vals) <= n_categories)
+
+    print(
+        f"Raster has {unique_vals.size:,} unique values. "
+        f"Min: {values.min():,.2f}. Max: {values.max():,.2f}"
+    )
+
+    # 3) Build color normalization
     if is_categorical:
-        # Discrete bins around each unique value
-        if len(unique) > 1:
-            diffs = np.diff(unique)
+        # Discrete categories
+        if len(unique_vals) > 1:
+            diffs = np.diff(unique_vals)
             boundaries = np.concatenate([
-                [unique[0] - diffs[0] / 2],
-                (unique[:-1] + unique[1:]) / 2,
-                [unique[-1] + diffs[-1] / 2],
+                [unique_vals[0] - diffs[0] / 2],
+                (unique_vals[:-1] + unique_vals[1:]) / 2,
+                [unique_vals[-1] + diffs[-1] / 2],
             ])
         else:
-            boundaries = [unique[0] - 0.5, unique[0] + 0.5]
+            boundaries = [unique_vals[0] - 0.5, unique_vals[0] + 0.5]
 
-        cmap_obj = ListedColormap(plt.cm.tab20.colors[: len(unique)])
-        norm = BoundaryNorm(boundaries, ncolors=len(unique))
+        cmap_obj = ListedColormap(plt.cm.tab20.colors[: len(unique_vals)])
+        norm = BoundaryNorm(boundaries, ncolors=len(unique_vals))
 
     else:
-        # Continuous data
-        values = raster_data[np.isfinite(raster_data)]
+        # Continuous
         if (vmin is None) and (vmax is None):
-            vmin, vmax = np.min(values), np.max(values)
-        neg = values[values <  0]
-        pos = values[values >  0]
+            vmin = float(np.nanmin(values))
+            vmax = float(np.nanmax(values))
+
+        neg = values[values < 0]
+        pos = values[values > 0]
 
         if quantiles is not None:
             print("Using quantiles")
-            # 1) two‑sided split
-            if len(neg) > 0 and len(pos) > 0:
-                print("2-sided route")
+            if (len(neg) > 0) and (len(pos) > 0):
+                print("2-sided route (quantiles)")
                 edges = np.linspace(vmin, vmax, quantiles + 1)
-
                 n_int = len(edges) - 1
-                # sample the *diverging* cmap at n_int points
-                colors   = plt.get_cmap(cmap)(np.linspace(0, 1, n_int))
+                colors = plt.get_cmap(cmap)(np.linspace(0, 1, n_int))
                 cmap_obj = ListedColormap(colors)
-                norm     = BoundaryNorm(edges, ncolors=n_int)
+                norm = BoundaryNorm(edges, ncolors=n_int)
 
-            # 2) all negative → lower half of diverging cmap
             elif len(pos) == 0:
-                print("All negatives route")
-                cmap_obj = truncate_colormap(cmap, 0.0, 0.5, n=quantiles)
-                norm     = Normalize(vmin=vmin, vmax=0)
+                print("All negatives route (quantiles)")
+                cmap_obj = _truncate_colormap(cmap, 0.0, 0.5, n=quantiles)
+                norm = Normalize(vmin=vmin, vmax=0)
 
-            # 3) all positive → upper half of diverging cmap
-            else:  # len(neg) == 0
-                print("All positives route")
-                cmap_obj = truncate_colormap(cmap, 0.5, 1.0, n=quantiles)
-                norm     = Normalize(vmin=0, vmax=vmax)
+            else:
+                print("All positives route (quantiles)")
+                cmap_obj = _truncate_colormap(cmap, 0.5, 1.0, n=quantiles)
+                norm = Normalize(vmin=0, vmax=vmax)
         else:
             print("Not using quantiles")
-            # continuous scale, whether or not 0 lies inside
-            if (len(pos) > 0) & (len(neg) >0):
-                print("2-sided route")
-                cmap_obj = truncate_colormap(cmap, 0.0, 1.0)
-                norm     = TwoSlopeNorm(vmin=vmin, vcenter=0, vmax=vmax)
+            if (len(pos) > 0) and (len(neg) > 0):
+                print("2-sided route (continuous)")
+                cmap_obj = _truncate_colormap(cmap, 0.0, 1.0)
+                norm = TwoSlopeNorm(vmin=vmin, vcenter=0, vmax=vmax)
             elif len(pos) == 0:
-                print("All negatives route")
-                cmap_obj = truncate_colormap(cmap, 0.0, 0.5)
-                norm     = Normalize(vmin=vmin, vmax=0)
+                print("All negatives route (continuous)")
+                cmap_obj = _truncate_colormap(cmap, 0.0, 0.5)
+                norm = Normalize(vmin=vmin, vmax=0)
             else:
-                print("All positives route")
-                cmap_obj = truncate_colormap(cmap, 0.5, 1.0)
-                norm     = Normalize(vmin=0, vmax=vmax)
+                print("All positives route (continuous)")
+                cmap_obj = _truncate_colormap(cmap, 0.5, 1.0)
+                norm = Normalize(vmin=0, vmax=vmax)
 
-    # 3) Plot
+    # 4) Start figure/axes
     fig, ax = plt.subplots(figsize=figsize)
     extent = [bounds.left, bounds.right, bounds.bottom, bounds.top]
 
     img = ax.imshow(
         raster_data,
         extent=extent,
+        origin="upper",
         cmap=cmap_obj,
         norm=norm,
-        alpha=0.7,
+        # no alpha here; NaN pixels are automatically transparent
     )
 
+    # 5) Plot colorbar
     cbar = fig.colorbar(img, ax=ax, label=label_title)
     if is_categorical:
-        cbar.set_ticks(unique)
-        cbar.set_ticklabels(unique)
+        cbar.set_ticks(unique_vals)
+        cbar.set_ticklabels(unique_vals)
 
-    if base_shp is not None:
-        base_shp.boundary.plot(ax=ax, edgecolor='grey', linewidth=0.5)
+    # 6) Reproject and overlay shapefile in raster CRS
+    if shp_to_plot is not None and raster_crs is not None:
+        try:
+            # Reproject shapefile to raster CRS
+            shp_proj = shp_to_plot.to_crs(raster_crs)
+            shp_proj.boundary.plot(ax=ax, edgecolor='grey', linewidth=0.5)
+        except Exception as e:
+            print("Warning: could not reproject/plot base_shp:", e)
 
+    # 7) Title and axis labels
     ax.set_title(title)
-    ax.set_xlabel('Longitude')
-    ax.set_ylabel('Latitude')
-    
+
+    if raster_crs is not None:
+        # We know this isn't lon/lat, it's the raster's projected space (meters-ish)
+        ax.set_xlabel("Projected X (map units)")
+        ax.set_ylabel("Projected Y (map units)")
+    else:
+        ax.set_xlabel("X")
+        ax.set_ylabel("Y")
+
     if plt_show:
         plt.show()
     else:
         return fig, ax
 
 
-def truncate_colormap(cmap_name, minval=0.0, maxval=1.0, n=256):
+def _truncate_colormap(cmap_name, minval=0.0, maxval=1.0, n=256):
     """
     Return a new colormap sampled from [minval, maxval] of the original.
     """
     base = plt.get_cmap(cmap_name)
     colors = base(np.linspace(minval, maxval, n))
     return LinearSegmentedColormap.from_list(
-        f"{cmap_name}_trunc_{minval:.2f}_{maxval:.2f}", colors, N=n
+        f"{cmap_name}_trunc_{minval:.2f}_{maxval:.2f}",
+        colors,
+        N=n
     )
 
-def plot_raster_on_world_extremes_cutoff(tif_path, title: str, label_title='Raster Values', raster_band = 1, 
-                                         alpha=1, p_min=None, p_max=None, quantiles=None, 
-                                         region: Optional[str] = None, cmap='viridis', n_categories = 20, base_shp = world_global_hr):
+def plot_raster_on_world_extremes_cutoff(
+    tif_path,
+    title: str,
+    label_title: str = 'Raster Values',
+    raster_band: int = 1,
+    perc_cutoff: float = 1,
+    p_min: Optional[float] = None,
+    p_max: Optional[float] = None,
+    quantiles: Optional[int] = None,
+    region: Optional[str] = None,
+    cmap: str = 'viridis',
+    n_categories: int = 20,
+    base_shp=None,
+    plt_show: bool = True,
+    min_val: Optional[float] = None,
+    max_val: Optional[float] = None,
+):
     """
-    Plot a raster file with optional preprocessing and region filtering.
+    Load raster, clip extremes, and plot in its native projection.
+    - Correctly handles nodata (e.g. -32000) by masking to NaN.
+    - Reprojects base_shp (assumed EPSG:4326 or anything else) to raster CRS automatically.
     """
-    # Load the raster data
+
+    # Load the raster data + metadata
     with rasterio.open(tif_path) as src:
-        raster_data = src.read(raster_band)  # Read the first band
+        raster_data = src.read(raster_band).astype("float32")
         bounds = src.bounds
         nodata_value = src.nodata
-    
-    # Calculate percentile cutoffs
+        raster_crs = src.crs  # This is the raster's projection (Interrupted Goode Homolosine here)
+
+    # Establish cutoffs
     if p_min is None:
-        p_min = alpha
+        p_min = perc_cutoff
     if p_max is None:
-        p_max = 100 - alpha
+        p_max = 100 - perc_cutoff
 
-    # Preprocess the raster data
-    raster_data = _preprocess_raster_data_percentiles(raster_data, nodata_value, p_min, p_max)
-
-    # Create the plot
-    create_plt_choropleth(
-        raster_data=raster_data, 
-        bounds=bounds, 
-        title=title, 
-        region=region, 
-        label_title=label_title, 
-        quantiles=quantiles, 
-        cmap=cmap,
-        base_shp=base_shp
+    # Preprocess raster (nodata → NaN, clip extremes, optional hard min/max)
+    raster_data = _preprocess_raster_data_percentiles(
+        raster_data,
+        nodata_value=nodata_value,
+        p_min=p_min,
+        p_max=p_max,
+        hard_min=min_val,
+        hard_max=max_val,
     )
+
+    # Plot
+    fig_ax = _create_plt_choropleth(
+        raster_data=raster_data,
+        bounds=bounds,
+        title=title,
+        region=region,
+        label_title=label_title,
+        quantiles=quantiles,
+        cmap=cmap,
+        n_categories=n_categories,
+        base_shp=base_shp,
+        raster_crs=raster_crs,
+        plt_show=plt_show
+    )
+
+    if not plt_show:
+        return fig_ax
 
 
 def plot_da_on_world_extremes_cutoff(
@@ -350,7 +406,7 @@ def plot_da_on_world_extremes_cutoff(
         vmin = vmax = None  # allow normal behavior
     
     # 4) call your choropleth plotter
-    fig, ax = create_plt_choropleth(
+    fig, ax = _create_plt_choropleth(
         raster_data=raster_data,
         bounds=bounds,
         title=title,
@@ -480,7 +536,7 @@ def plot_raster_on_world_no_min(tif_path, title: str, label_title = 'Raster Valu
         raster_data = _preprocess_raster_data_eliminate_nodata(raster_data, nodata_value=no_data_value, threshold=threshold)
 
     # Create the plot
-    create_plt_choropleth(raster_data=raster_data, bounds=bounds, title=title, label_title=label_title, quantiles=quantiles, cmap=cmap,
+    _create_plt_choropleth(raster_data=raster_data, bounds=bounds, title=title, label_title=label_title, quantiles=quantiles, cmap=cmap,
                            x_size=x_size, y_size=y_size, base_shp=base_shp)
 
     # Show the plot
