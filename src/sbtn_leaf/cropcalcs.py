@@ -9,7 +9,7 @@ import numpy as np
 import xarray as xr
 import os
 
-from typing import Mapping, Optional, Tuple, Dict
+from typing import Mapping, Optional, Tuple, Dict, Union, List, NamedTuple
 
 import geopandas as gpd
 import rasterio
@@ -2018,4 +2018,163 @@ def generate_grassland_residue_map(grass_lu_fp: str = "../data/land_use/lu_Grass
     grassland_residue[grass_clim_valid] = res_pixel[grass_clim_valid] * c_content
 
     return grassland_residue
+
+# -------- Dung Calculations --------------
+class DungBundle(NamedTuple):
+    array: np.ndarray
+    nodata: Optional[int]
+    dtype: str
+    transform: rasterio.Affine
+    crs: rasterio.crs.CRS
+    profile: dict
+    path: str
+
+
+ANIMAL_DENSITY_REGISTRY = {
+    "cattle_other": "../data/grasslands/livestock/grassland_cattle.tif",
+    "cattle_dairy": "../data/grasslands/livestock/grassland_cattle.tif",
+    "goat": "../data/grasslands/livestock/grassland_goat.tif",
+    "sheep": "../data/grasslands/livestock/grassland_sheep.tif"
+}
+
+grassland_dung_regions_raster_fp = "../data/grasslands/livestock/grassland_dung_regions.tif"
+
+dung_data = pl.read_excel("../data/grasslands/Animals_Dung_IPCC.xlsx", sheet_name="C_Excr_Animals_tCpheadpyr")
+raster_id = [1,2,3,4,5,6,7,8,9]
+dung_regions_mean = [
+    "North America",
+    "Western Europe",
+    "Eastern Europe",
+    "Oceania",
+    "LATAM - Mean",
+    "Africa - Mean",
+    "Middle East - Mean",
+    "Asia - Mean",
+    "India - Mean"
+]
+dung_regions_hps = [
+    "North America",
+    "Western Europe",
+    "Eastern Europe",
+    "Oceania",
+    "LATAM - High PS",
+    "Africa - High PS",
+    "Middle East - High PS",
+    "Asia - High PS",
+    "India - High PS"
+]
+dung_regions_lps = [
+    "North America",
+    "Western Europe",
+    "Eastern Europe",
+    "Oceania",
+    "LATAM - Low PS",
+    "Africa - Low PS",
+    "Middle East - Low PS",
+    "Asia - Low PS",
+    "India - Low PS"
+]
+
+dung_mean_names =pl.DataFrame(
+    {"raster_id":  raster_id,
+    "region": dung_regions_mean}
+)
+dung_hps_names =pl.DataFrame(
+    {"raster_id":  raster_id,
+    "region": dung_regions_hps}
+)
+dung_lps_names =pl.DataFrame(
+    {"raster_id":  raster_id,
+    "region": dung_regions_lps}
+)
+
+def calculate_carbon_dung(animals: Union[str, List[str]], dw_productivity: str = "average", consider_uncertainty=False, ):
+    # Check if animal type is valid
+    # normalize input
+    if isinstance(animals, str): #transform into a list if needed
+        animals = [animals]
+    animals = [a.lower() for a in animals] # put everything in lower case
+
+     # validate
+    unknown = [a for a in animals if a not in ANIMAL_DENSITY_REGISTRY]
+    if unknown:
+        raise ValueError(f"Unknown animals: {unknown}. Choose among: {list(ANIMAL_DENSITY_REGISTRY)}")
+    
+    # Checks if developing world pathway is correct
+    dw_pathway = ["average", "high", "low"]
+    if dw_productivity not in dw_pathway:
+        raise ValueError(f"{dw_productivity} not valid. Choose between {dw_pathway}")
+    
+    # Opens dung raster regions
+    with rasterio.open(grassland_dung_regions_raster_fp) as region_src:
+        dung_regions = region_src.read(1, masked = True)
+        dung_reg_nd  = region_src.nodata
+        profile      = region_src.profile
+    
+    # --------- Step 1 - Loading data --------------
+    animals_density: Dict[str, DungBundle] = {}
+    for a in animals:
+        fp = ANIMAL_DENSITY_REGISTRY[a]
+        with rasterio.open(fp) as src:
+            arr = src.read(1)
+            nd  = src.nodata
+            # optional: mask nodata to NaN if you prefer float workflow
+            # if nd is not None and not np.issubdtype(arr.dtype, np.floating):
+            #     arr = arr.astype("float32")
+            # if nd is not None:
+            #     arr = np.where(arr == nd, np.nan, arr)
+
+            animals_density[a] = DungBundle(
+                array=arr,
+                nodata=nd,
+                dtype=str(arr.dtype),
+                transform=src.transform,
+                crs=src.crs,
+                profile=src.profile,
+                path=fp,
+            )
+
+    # --------- Step 2 - calculating dung --------------
+    # Loads matching table:
+    if dw_productivity == "average":
+        dung_scenario_regions = dung_mean_names
+    elif dw_productivity == "high":
+        dung_scenario_regions = dung_hps_names
+    else:  # low productivity
+        dung_scenario_regions = dung_lps_names 
+    
+
+    carbon_out: Dict[str, np.ndarray] = {}
+    for a in animals:
+        # load dung region values for the given scenario
+        dung_region_values = dung_data.filter(pl.col("region").is_in(dung_scenario_regions["region"].to_list())).select("region", a)
+
+        # create a look up table (lut) to link zones to annual c excretion rates
+        lut_df = (dung_scenario_regions.
+                  join(dung_region_values, how="left", on="region").
+                  select("raster_id", a).rename({a: "annual_c_perha"})
+                  )
+        
+        # 2) Dense LUT array indexed by raster_id
+        ids  = lut_df["raster_id"].to_numpy()
+        vals = lut_df["annual_c_perha"].to_numpy()
+        max_id = 9
+        lut = np.full(max_id + 1, np.nan, dtype="float32")
+        lut[ids] = vals.astype("float32")    
+
+        # Valid mask
+        lsu_km2 = animals_density[a].array
+        nd   = animals_density[a].nodata
+        has_animals = (lsu_km2 != nd) & ~np.isnan(lsu_km2)
+
+        # Create the dung values array
+        dung_region_values_array = np.full_like(lsu_km2, fill_value=np.nan, dtype="float32")
+        rid = dung_regions.astype(np.int64)
+        dung_region_values_array[has_animals] = lut[rid]
+
+        # Finally calculate the carbon output
+        animal_carbon = np.where(has_animals, lsu_km2/100 * dung_region_values_array, np.nan) # 100 ha is 1 km2
+        carbon_out[a] = animal_carbon
+
+    return carbon_out
 
