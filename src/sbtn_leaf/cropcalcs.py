@@ -2165,12 +2165,16 @@ def calculate_carbon_dung(animals: Union[str, List[str]], dw_productivity: str =
         # Valid mask
         lsu_km2 = animals_density[a].array
         nd   = animals_density[a].nodata
-        has_animals = (lsu_km2 != nd) & ~np.isnan(lsu_km2)
+        has_animals = (lsu_km2 != nd) & ~np.isnan(lsu_km2) & (lsu_km2 >= 0)
+
+        # Masking regions just in case
+        dung_has_animals = np.where(has_animals, dung_regions, -999)
 
         # Create the dung values array
         dung_region_values_array = np.full_like(lsu_km2, fill_value=np.nan, dtype="float32")
-        rid = dung_regions.astype(np.int64)
-        dung_region_values_array[has_animals] = lut[rid]
+        rid = dung_has_animals.astype(np.int64)
+        keep = has_animals & (rid != dung_reg_nd) & (rid >= 0)
+        dung_region_values_array[has_animals] = lut[rid[keep]]
 
         # Finally calculate the carbon output
         animal_carbon = np.where(has_animals, lsu_km2/100 * dung_region_values_array, np.nan) # 100 ha is 1 km2
