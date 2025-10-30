@@ -840,6 +840,70 @@ def run_RothC_forest(
 
     return SOC_results
 
+def run_RothC_grassland(
+    grassland_type: str,
+    weather_type: str,
+    n_years: int,
+    save_folder: str,
+    data_description: str,
+    lu_fp: str,
+    evap_fp: str,
+    age_fp: str,
+    practices_string_id: Optional[str] = None,
+    TP_Type="IPCC",
+    save_CO2=False,
+):
+    # Loads environmental data:
+    print("Loading environmental data...")
+    tmp, rain, soc0, iom, clay, sand = _load_environmental_data(lu_fp)
+
+    # Prepares crop data
+    print("Loading forest data...")
+    lu_raster, evap, pc, age = _load_forest_data(lu_fp, evap_fp, age_fp)
+    
+    # Convert to values
+    clay_a = np.asarray(clay.values)
+    soc0_a = np.asarray(soc0.values)
+    iom_a = np.asarray(iom.values)
+    tmp_a = np.asarray(tmp.values)
+    rain_a = np.asarray(rain.values)
+    evap_a = np.asarray(evap.values)
+    pc_a = np.asarray(pc.values)
+    age_a = np.asarray(age.values)
+    if age_a.ndim != 2:
+        age_a = np.squeeze(age_a)
+    if age_a.ndim != 2:
+        raise ValueError("Forest age raster must be 2-D after squeezing")
+
+    # Run model
+    print("Running RothC...")
+    SOC_results, CO2_results = raster_rothc_annual_results_1yrloop(
+                n_years = n_years,
+                clay    = clay_a,
+                soc0    = soc0_a,
+                tmp     = tmp_a,
+                rain    = rain_a,
+                evap    = evap_a,
+                pc      = pc_a,
+                forest_age=    age_a,
+                commodity_type = "forest",
+                forest_type = grassland_type,
+                weather_type = weather_type,
+                TP_Type = TP_Type
+            )
+
+    # Saving results
+    string_save = f"{grassland_type}_{practices_string_id}_{n_years}y_SOC.tif"
+    save_path =f"{save_folder}/{string_save}"
+    
+    # SOC
+    save_annual_results(SOC_results, lu_raster, n_years, "SOC", save_path, data_description, 't C/ha', long_name = "Soil Organic Carbon", model_description = "RothC rasterized vectorized")
+
+    if save_CO2:
+        save_annual_results(CO2_results, lu_raster, n_years, "CO2", save_path, data_description, 't CO2/ha', long_name = "CO2", model_description = "RothC rasterized vectorized")
+
+    return SOC_results
+
 
 def run_rothC_sceneraios_from_csv(csv_filepath):
     # 1) Read & cast your CSV exactly as before
