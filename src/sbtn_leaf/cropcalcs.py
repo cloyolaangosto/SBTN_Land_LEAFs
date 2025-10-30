@@ -3,6 +3,7 @@
 
 #### MODULES ####
 from pathlib import Path
+import logging
 import pandas as pd
 import polars as pl
 import numpy as np
@@ -2107,7 +2108,8 @@ def calculate_carbon_dung(animals: Union[str, List[str]], dw_productivity: str =
     
     # Opens dung raster regions
     with rasterio.open(grassland_dung_regions_raster_fp) as region_src:
-        dung_regions = region_src.read(1, masked = True)
+        dung_regions = region_src.read(1, masked=True)
+        valid_regions = ~np.ma.getmaskarray(dung_regions)
         dung_reg_nd  = region_src.nodata
         profile      = region_src.profile
     
@@ -2172,12 +2174,33 @@ def calculate_carbon_dung(animals: Union[str, List[str]], dw_productivity: str =
 
         # Create the dung values array
         dung_region_values_array = np.full_like(lsu_km2, fill_value=np.nan, dtype="float32")
+<<<<<<< HEAD
         rid = dung_has_animals.astype(np.int64)
         keep = has_animals & (rid != dung_reg_nd) & (rid >= 0)
         dung_region_values_array[has_animals] = lut[rid[keep]]
+=======
+        rid = dung_regions.filled(-1).astype(np.int16)
+
+        valid = has_animals & valid_regions
+
+        out_of_bounds = (rid >= 0) & (rid > max_id)
+        if np.any(out_of_bounds):
+            logging.getLogger(__name__).warning(
+                "Encountered dung region ids outside expected range 0-%s; masking %s cells.",
+                max_id,
+                int(out_of_bounds.sum()),
+            )
+            valid = valid & ~out_of_bounds
+
+        dung_region_values_array[valid] = lut[rid[valid]]
+>>>>>>> cbbe13921db904246fa623b31bc6d1212c419538
 
         # Finally calculate the carbon output
-        animal_carbon = np.where(has_animals, lsu_km2/100 * dung_region_values_array, np.nan) # 100 ha is 1 km2
+        animal_carbon = np.where(
+            valid,
+            lsu_km2 / 100 * dung_region_values_array,
+            np.nan,
+        ) # 100 ha is 1 km2
         carbon_out[a] = animal_carbon
 
     return carbon_out
