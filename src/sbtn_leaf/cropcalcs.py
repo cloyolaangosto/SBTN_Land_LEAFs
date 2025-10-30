@@ -2089,7 +2089,7 @@ dung_lps_names =pl.DataFrame(
     "region": dung_regions_lps}
 )
 
-def calculate_carbon_dung(animals: Union[str, List[str]], dw_productivity: str = "average", consider_uncertainty=False, ):
+def calculate_carbon_dung(animals: Union[str, List[str]], dw_productivity: str = "average"):
     # Check if animal type is valid
     # normalize input
     if isinstance(animals, str): #transform into a list if needed
@@ -2174,11 +2174,6 @@ def calculate_carbon_dung(animals: Union[str, List[str]], dw_productivity: str =
 
         # Create the dung values array
         dung_region_values_array = np.full_like(lsu_km2, fill_value=np.nan, dtype="float32")
-<<<<<<< HEAD
-        rid = dung_has_animals.astype(np.int64)
-        keep = has_animals & (rid != dung_reg_nd) & (rid >= 0)
-        dung_region_values_array[has_animals] = lut[rid[keep]]
-=======
         rid = dung_regions.filled(-1).astype(np.int16)
 
         valid = has_animals & valid_regions
@@ -2193,7 +2188,6 @@ def calculate_carbon_dung(animals: Union[str, List[str]], dw_productivity: str =
             valid = valid & ~out_of_bounds
 
         dung_region_values_array[valid] = lut[rid[valid]]
->>>>>>> cbbe13921db904246fa623b31bc6d1212c419538
 
         # Finally calculate the carbon output
         animal_carbon = np.where(
