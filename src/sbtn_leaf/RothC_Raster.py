@@ -686,6 +686,61 @@ def _load_forest_data(lu_fp: str, evap_fp: str, age_fp: str):
     age = age.where(lu_mask).fillna(0)
 
     return lu_raster, evap, pc, age
+    
+def _load_grassland_data(lu_fp: str, evap_fp: str,  pc_fp: str, grassland_type: str, pr_fp: str, fym_fp: List[str], irr_fp: Optional[str] = None):
+    # Opens land use data
+    lu_raster = rxr.open_rasterio(lu_fp, masked=False).squeeze()
+    lu_maks = (lu_raster==1)
+        
+    
+    # Opens evap and pc, and process it
+    evap = rxr.open_rasterio(evap_fp, masked=True)  # (12-band: Jan–Dec)
+    evap  = evap.rename({"band": "time"})
+    evap = evap.where(lu_maks).fillna(0)
+
+    # Plant Cover
+    if grassland_type == "natural":
+        # Creates 12-month plant cover: 1 where lu_maks is True, 0 elsewhere 
+        base = lu_mask.astype('float32')
+        pc = xr.concat([base] * 12, dim='time')
+        pc = pc.assign_coords(time=np.arange(1, 13))
+        pc.name = "plant_cover"
+        # Write spatial metadata so pc lines up with lu/evap
+        pc = pc.rio.write_crs(lu_raster.rio.crs)
+        pc = pc.rio.write_transform(lu_raster.rio.transform())
+    else:   # TODO: managed grassland
+        pc = rxr.open_rasterio(pc_fp, masked=True)
+        pc = pc.rename({"band": "time"})
+        pc = (pc).where(lu_maks)
+        pc = pc.where(lu_maks).fillna(0)
+    
+    # Optional inputs
+    if irr_fp:
+        irr = rxr.open_rasterio(irr_fp, masked=True)  # (12-band: Jan–Dec)
+        irr = irr.rename({'band': 'time'})
+        irr = (irr).where(lu_maks)
+        irr = irr.where(lu_maks).fillna(0)
+    else:
+        irr = (xr.zeros_like(pc)).where(lu_maks)
+
+    if pr_fp:
+        pr = rxr.open_rasterio(pr_fp, masked=True)  # (12-band: Jan–Dec)
+        pr = pr.rename({'band': 'time'})
+        pr = (pr).where(lu_maks)
+        pr = pr.where(lu_maks).fillna(0)
+    else:
+        pr    = (xr.zeros_like(pc)).where(lu_maks)
+    
+    if fym_fp:
+        fym = rxr.open_rasterio(fym_fp, masked=True) # No farmyard manure in this case
+        fym   = fym.rename({'band': 'time'})
+        fym = (fym).where(lu_maks)
+        fym = fym.where(lu_maks).fillna(0)
+    else:
+        fym    = (xr.zeros_like(pc)).where(lu_maks)
+
+
+    return lu_raster, evap, pc, irr, pr, fym
 
 def run_RothC_crops(crop_name: str, commodity_type: str, practices_string_id: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str] = None, pr_fp: Optional[str] = None, fym_fp: Optional[str] = None, red_till = False, save_CO2 = False):
     # Loads environmental data:
@@ -840,18 +895,21 @@ def run_RothC_forest(
 
     return SOC_results
 
+def run_RothC_crops(crop_name: str, commodity_type: str, practices_string_id: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str] = None, pr_fp: Optional[str] = None, fym_fp: Optional[str] = None, red_till = False, save_CO2 = False)
+
 def run_RothC_grassland(
     grassland_type: str,
-    weather_type: str,
     n_years: int,
     save_folder: str,
     data_description: str,
     lu_fp: str,
     evap_fp: str,
-    age_fp: str,
+    pr_fp: str,
+    fym_fp: str,
+    pc_fp: Optional[srt] = None,  # Left for future development of commercial grasslands
+    irr_fp: ptional[srt] = None,  # Left for future development of commercial grasslands
     practices_string_id: Optional[str] = None,
-    TP_Type="IPCC",
-    save_CO2=False,
+    save_CO2=False
 ):
     # Loads environmental data:
     print("Loading environmental data...")
@@ -870,10 +928,7 @@ def run_RothC_grassland(
     evap_a = np.asarray(evap.values)
     pc_a = np.asarray(pc.values)
     age_a = np.asarray(age.values)
-    if age_a.ndim != 2:
-        age_a = np.squeeze(age_a)
-    if age_a.ndim != 2:
-        raise ValueError("Forest age raster must be 2-D after squeezing")
+
 
     # Run model
     print("Running RothC...")

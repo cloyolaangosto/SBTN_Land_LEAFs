@@ -2021,6 +2021,7 @@ def generate_grassland_residue_map(grass_lu_fp: str = "../data/land_use/lu_Grass
     return grassland_residue
 
 # -------- Dung Calculations --------------
+# Class to handle Dung Calculations
 class DungBundle(NamedTuple):
     array: np.ndarray
     nodata: Optional[int]
@@ -2030,6 +2031,22 @@ class DungBundle(NamedTuple):
     profile: dict
     path: str
 
+# Class to store output of dung calculations
+from dataclasses import dataclass
+@dataclass
+class RasterResult:
+    array: np.ndarray
+    profile: dict
+    name: str = ""
+    
+    def write(self, path: str) -> None:
+        prof = self.profile.copy()
+        # Ensure float32 + nodata
+        prof.update(dtype="float32", count=1)
+        with rasterio.open(path, "w", **prof) as dst:
+            dst.write(self.array.astype("float32"), 1)
+            if self.name:
+                dst.set_band_description(1, self.name)
 
 ANIMAL_DENSITY_REGISTRY = {
     "cattle_other": "../data/grasslands/livestock/grassland_cattle.tif",
@@ -2089,7 +2106,7 @@ dung_lps_names =pl.DataFrame(
     "region": dung_regions_lps}
 )
 
-def calculate_carbon_dung(animals: Union[str, List[str]], dw_productivity: str = "average"):
+def calculate_carbon_dung(animals: Union[str, List[str]], cattle_dw_productivity: str = "average"):
     # Check if animal type is valid
     # normalize input
     if isinstance(animals, str): #transform into a list if needed
@@ -2103,8 +2120,8 @@ def calculate_carbon_dung(animals: Union[str, List[str]], dw_productivity: str =
     
     # Checks if developing world pathway is correct
     dw_pathway = ["average", "high", "low"]
-    if dw_productivity not in dw_pathway:
-        raise ValueError(f"{dw_productivity} not valid. Choose between {dw_pathway}")
+    if cattle_dw_productivity not in dw_pathway:
+        raise ValueError(f"{cattle_dw_productivity} not valid. Choose between {dw_pathway}")
     
     # Opens dung raster regions
     with rasterio.open(grassland_dung_regions_raster_fp) as region_src:
@@ -2120,12 +2137,6 @@ def calculate_carbon_dung(animals: Union[str, List[str]], dw_productivity: str =
         with rasterio.open(fp) as src:
             arr = src.read(1)
             nd  = src.nodata
-            # optional: mask nodata to NaN if you prefer float workflow
-            # if nd is not None and not np.issubdtype(arr.dtype, np.floating):
-            #     arr = arr.astype("float32")
-            # if nd is not None:
-            #     arr = np.where(arr == nd, np.nan, arr)
-
             animals_density[a] = DungBundle(
                 array=arr,
                 nodata=nd,
@@ -2138,15 +2149,15 @@ def calculate_carbon_dung(animals: Union[str, List[str]], dw_productivity: str =
 
     # --------- Step 2 - calculating dung --------------
     # Loads matching table:
-    if dw_productivity == "average":
+    if cattle_dw_productivity == "average":
         dung_scenario_regions = dung_mean_names
-    elif dw_productivity == "high":
+    elif cattle_dw_productivity == "high":
         dung_scenario_regions = dung_hps_names
     else:  # low productivity
         dung_scenario_regions = dung_lps_names 
     
 
-    carbon_out: Dict[str, np.ndarray] = {}
+    carbon_out: Dict[str, RasterResult] = {}
     for a in animals:
         # load dung region values for the given scenario
         dung_region_values = dung_data.filter(pl.col("region").is_in(dung_scenario_regions["region"].to_list())).select("region", a)
@@ -2195,7 +2206,20 @@ def calculate_carbon_dung(animals: Union[str, List[str]], dw_productivity: str =
             lsu_km2 / 100 * dung_region_values_array,
             np.nan,
         ) # 100 ha is 1 km2
-        carbon_out[a] = animal_carbon
+        
+        # Storing results in return array
+        out_profile = animals_density[a].profile.copy()
+        out_profile.update(
+            dtype = "float32",
+            nodata = np.nan,
+            count = 1
+        )
+        carbon_out[a] = RasterResult(
+            array = animal_carbon.astype("float32"),
+            profile = out_profile,
+            name = f"{a}_annual_c_t_per_ha"
+        )
 
+    
     return carbon_out
 
