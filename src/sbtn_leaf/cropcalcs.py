@@ -1972,7 +1972,7 @@ def get_forest_litter_monthlyrate_fromda(da: np.ndarray, forest_type: str, weath
 #################################
 grassland_residue_table = pl.read_excel("../data/grasslands/grassland_residues_IPCC.xlsx")
 
-def generate_grassland_residue_map(grass_lu_fp: str = "../data/land_use/lu_Grassland.tif", fao_climate_map: str = "../data/soil_weather/uhth_thermal_climates.tif", c_content = 0.47)-> np.ndarray:
+def generate_grassland_residue_map(grass_lu_fp: str = "../data/land_use/lu_Grassland.tif", fao_climate_map: str = "../data/soil_weather/uhth_thermal_climates.tif", c_content = 0.47, random_runs = 1)-> np.ndarray:
     # ------- Step 1 - Load maps ----------
     # loading both rasters
     with rasterio.open(grass_lu_fp) as src:
@@ -2012,7 +2012,18 @@ def generate_grassland_residue_map(grass_lu_fp: str = "../data/land_use/lu_Grass
     pixel_es    = se_lut[clim_raster_id]
 
     # Creating the residues including standard error. Assumes normal distribution
-    res_pixel = np.random.normal(loc=pixel_means, scale=pixel_es)
+    if int(random_runs) <= 1:
+        # Deterministic: use the mean only (no SE)
+        res_pixel = pixel_means
+    else:
+        # Stochastic: average of random_runs normal draws per pixel
+        n_runs = int(random_runs)
+        draws = np.random.normal(
+            loc=pixel_means,
+            scale=pixel_es,
+            size=(n_runs, *pixel_means.shape)  # Construct an array of n_runs, pixel_means same shape
+        )
+        res_pixel = draws.mean(axis=0)
 
     # Finally asigning them to pixels
     grassland_residue = np.full_like(lu, fill_value=np.nan, dtype='float32')

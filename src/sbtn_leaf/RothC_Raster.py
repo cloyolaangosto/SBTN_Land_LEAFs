@@ -276,6 +276,8 @@ def _raster_rothc_annual_results(
     sand: Optional[np.ndarray] = None,
     forest_age:  Optional[np.ndarray] = None,
     forest_type: Optional[str] = None,
+    grassland_type: Optional[str] = None,
+    grassland_residue_runs: int = 100,
     weather_type: Optional[str] = None,
     TP_Type: Optional[str] = None,
     trm_handler: Optional[TRMHandler],
@@ -292,8 +294,13 @@ def _raster_rothc_annual_results(
         raise ValueError("Commodity type not valid. Valid types: annual_crop, permanent_crop, forest, grassland")
     if commodity_type in ["annual_crop", "grassland"]:
         dpm_rpm = 1.44
+        # Checks if grassland type is valid
+        if grassland_type is not None and grassland_type not in ["natural", "managed"]:
+            raise ValueError("Grassland type not valid. Valid types: natural, managed")
+        
     elif commodity_type == "permanent_crop":
         dpm_rpm = 1
+
     else: # forest type
         dpm_rpm = 0.25
         # Checks that all forest inputs are there
@@ -316,13 +323,13 @@ def _raster_rothc_annual_results(
         c_inp = c_inp if c_inp is not None else np.zeros_like(tmp)
     if c_inp is not None:
         c_inp = np.asarray(c_inp)
+    
     fym = fym if fym is not None else np.zeros_like(tmp)
     fym = np.asarray(fym)
     if fym.ndim > 3:
         fym = np.squeeze(fym)
     if fym.ndim not in (2, 3):
         raise ValueError("FYM input must be 2-D or 3-D after squeezing")
-
 
     # Initialize pools
     with np.errstate(invalid="ignore"):
@@ -388,7 +395,7 @@ def _raster_rothc_annual_results(
         B2B, B2H = BioHumPartition(lossB)
         H2B, H2H = BioHumPartition(lossH)
 
-        # Calculates litter input if it's forest
+        # Calculates carbon residue input if it's forest or grassland
         if commodity_type == "forest":
             c_inp_month = cropcalcs.get_forest_litter_monthlyrate_fromda(
                 forest_age,
@@ -400,6 +407,10 @@ def _raster_rothc_annual_results(
             c_inp_month = np.squeeze(np.asarray(c_inp_month))
             if c_inp_month.ndim != 2:
                 raise ValueError("Forest litter input must be 2-D after squeezing")
+        elif commodity_type == "grassland":
+            c_annual = cropcalcs.generate_grassland_residue_map(grass_lu_fp=pr_fp, random_runs=residue_runs)  # Returns raster for 1 year    
+            pr_monthly = c_annual/12
+            c_inp_month = np.squeeze(np.asarray(pr_monthly))
         else:
             c_inp_month = c_inp[t]
 
@@ -436,6 +447,7 @@ def raster_rothc_annual_results_1yrloop(
     fym: Optional[np.ndarray] = None,
     forest_age: Optional[np.ndarray] = None,
     forest_type: Optional[str]= None,
+    grassland_type: Optional[str]= None,
     weather_type: Optional[str]= None,
     TP_Type: Optional[str]= None,
     depth: float = 15,
@@ -476,6 +488,7 @@ def raster_rothc_annual_results_1yrloop(
         soc0_nodatavalue=soc0_nodatavalue,
         trm_handler=None,
         forest_type = forest_type,
+        grassland_type = grassland_type,
         weather_type = weather_type,
         TP_Type = TP_Type,
         forest_age = forest_age
@@ -687,17 +700,24 @@ def _load_forest_data(lu_fp: str, evap_fp: str, age_fp: str):
 
     return lu_raster, evap, pc, age
     
-def _load_grassland_data(lu_fp: str, evap_fp: str,  pc_fp: str, grassland_type: str, pr_fp: str, fym_fp: List[str], irr_fp: Optional[str] = None):
+def _load_grassland_data(lu_fp: str, evap_fp: str, grassland_type: str, fym_fp: List[str], pc_fp: Optional[str] = None, irr_fp: Optional[str] = None, pr_fp: Optional[str] = None, residue_runs = 100):
     # Opens land use data
     lu_raster = rxr.open_rasterio(lu_fp, masked=False).squeeze()
     lu_maks = (lu_raster==1)
         
-    
     # Opens evap and pc, and process it
     evap = rxr.open_rasterio(evap_fp, masked=True)  # (12-band: Jan–Dec)
     evap  = evap.rename({"band": "time"})
     evap = evap.where(lu_maks).fillna(0)
 
+    # Plant residues
+    if pr_fp is None:  # Calculates plant_residues based on a different raster if given
+        pr_fp = lu_fp
+    pr_annual = cropcalcs.generate_grassland_residue_map(grass_lu_fp=pr_fp, random_runs=residue_runs)  # Returns raster for 1 year    
+    pr_monthly = pr_annual/12
+    pr = (pr_monthly).where(lu_maks)
+    pr = pr.where(lu_maks).fillna(0)
+    
     # Plant Cover
     if grassland_type == "natural":
         # Creates 12-month plant cover: 1 where lu_maks is True, 0 elsewhere 
@@ -714,7 +734,16 @@ def _load_grassland_data(lu_fp: str, evap_fp: str,  pc_fp: str, grassland_type: 
         pc = (pc).where(lu_maks)
         pc = pc.where(lu_maks).fillna(0)
     
-    # Optional inputs
+    # Opens and returns each fym_fp for each animal
+    fym_all = np.zeros_like(lu_maks)
+    for fp in fym_fp:
+        fym_annual = rxr.open_rasterio(fp, masked=True) # No farmyard manure in this case
+        fym_monthly = fym_annual/12
+        fym_all = fym_all + fym_monthly
+        fym = (fym_all).where(lu_maks)
+        fym = fym.where(lu_maks).fillna(0)
+
+    # Optional irrigation input - POTENTIALLY USED ON MANAGED GRASSLANDS
     if irr_fp:
         irr = rxr.open_rasterio(irr_fp, masked=True)  # (12-band: Jan–Dec)
         irr = irr.rename({'band': 'time'})
@@ -723,24 +752,7 @@ def _load_grassland_data(lu_fp: str, evap_fp: str,  pc_fp: str, grassland_type: 
     else:
         irr = (xr.zeros_like(pc)).where(lu_maks)
 
-    if pr_fp:
-        pr = rxr.open_rasterio(pr_fp, masked=True)  # (12-band: Jan–Dec)
-        pr = pr.rename({'band': 'time'})
-        pr = (pr).where(lu_maks)
-        pr = pr.where(lu_maks).fillna(0)
-    else:
-        pr    = (xr.zeros_like(pc)).where(lu_maks)
-    
-    if fym_fp:
-        fym = rxr.open_rasterio(fym_fp, masked=True) # No farmyard manure in this case
-        fym   = fym.rename({'band': 'time'})
-        fym = (fym).where(lu_maks)
-        fym = fym.where(lu_maks).fillna(0)
-    else:
-        fym    = (xr.zeros_like(pc)).where(lu_maks)
-
-
-    return lu_raster, evap, pc, irr, pr, fym
+    return lu_raster, evap, pr, pc, fym, irr
 
 def run_RothC_crops(crop_name: str, commodity_type: str, practices_string_id: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str] = None, pr_fp: Optional[str] = None, fym_fp: Optional[str] = None, red_till = False, save_CO2 = False):
     # Loads environmental data:
@@ -904,11 +916,12 @@ def run_RothC_grassland(
     data_description: str,
     lu_fp: str,
     evap_fp: str,
-    pr_fp: str,
-    fym_fp: str,
-    pc_fp: Optional[srt] = None,  # Left for future development of commercial grasslands
-    irr_fp: ptional[srt] = None,  # Left for future development of commercial grasslands
+    fym_fp_list: List[str],
+    pc_fp: Optional[str] = None,  # Left for future development of commercial grasslands
+    irr_fp: Optional[str] = None,  # Left for future development of commercial grasslands
+    pr_fp: Optional[str] = None,  # Left for future development of commercial grasslands
     practices_string_id: Optional[str] = None,
+    residue_runs = 100,
     save_CO2=False
 ):
     # Loads environmental data:
@@ -917,17 +930,12 @@ def run_RothC_grassland(
 
     # Prepares crop data
     print("Loading forest data...")
-    lu_raster, evap, pc, age = _load_forest_data(lu_fp, evap_fp, age_fp)
+    lu_raster, evap, pr, pc, fym, irr = _load_grassland_data(lu_fp, evap_fp, grassland_type, fym_fp_list, pc_fp, irr_fp, pr_fp, residue_runs)
     
     # Convert to values
-    clay_a = np.asarray(clay.values)
-    soc0_a = np.asarray(soc0.values)
-    iom_a = np.asarray(iom.values)
-    tmp_a = np.asarray(tmp.values)
-    rain_a = np.asarray(rain.values)
-    evap_a = np.asarray(evap.values)
-    pc_a = np.asarray(pc.values)
-    age_a = np.asarray(age.values)
+    clay_a, soc0_a, iom_a, sand_a = np.asarray(clay.values), np.asarray(soc0.values), np.asarray(iom.values), np.asarray(sand.values)
+    tmp_a, rain_a, evap_a = np.asarray(tmp.values), np.asarray(rain.values), np.asarray(evap.values)
+    pc_a, c_a, fym_a, irr_a = np.asarray(pc.values), np.asarray(pr.values), np.asarray(fym.values), np.asarray(irr.values)
 
 
     # Run model
@@ -941,7 +949,7 @@ def run_RothC_grassland(
                 evap    = evap_a,
                 pc      = pc_a,
                 forest_age=    age_a,
-                commodity_type = "forest",
+                commodity_type = "grassland",
                 forest_type = grassland_type,
                 weather_type = weather_type,
                 TP_Type = TP_Type
