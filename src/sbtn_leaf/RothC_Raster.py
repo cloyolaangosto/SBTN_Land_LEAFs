@@ -273,6 +273,7 @@ def _raster_rothc_annual_results(
     depth: float,
     commodity_type: str,
     soc0_nodatavalue: float,
+    grassland_lu_fp: Optional[str] = None,    # For grassland residues calculations
     sand: Optional[np.ndarray] = None,
     forest_age:  Optional[np.ndarray] = None,
     forest_type: Optional[str] = None,
@@ -408,7 +409,7 @@ def _raster_rothc_annual_results(
             if c_inp_month.ndim != 2:
                 raise ValueError("Forest litter input must be 2-D after squeezing")
         elif commodity_type == "grassland":
-            c_annual = cropcalcs.generate_grassland_residue_map(grass_lu_fp=pr_fp, random_runs=residue_runs)  # Returns raster for 1 year    
+            c_annual = cropcalcs.generate_grassland_residue_map(grass_lu_fp=grassland_lu_fp, random_runs=grassland_residue_runs)  # Returns raster for 1 year    
             pr_monthly = c_annual/12
             c_inp_month = np.squeeze(np.asarray(pr_monthly))
         else:
@@ -447,7 +448,9 @@ def raster_rothc_annual_results_1yrloop(
     fym: Optional[np.ndarray] = None,
     forest_age: Optional[np.ndarray] = None,
     forest_type: Optional[str]= None,
+    grassland_lu_fp: Optional[str]= None, 
     grassland_type: Optional[str]= None,
+    grassland_residue_runs: int = 100,
     weather_type: Optional[str]= None,
     TP_Type: Optional[str]= None,
     depth: float = 15,
@@ -488,7 +491,9 @@ def raster_rothc_annual_results_1yrloop(
         soc0_nodatavalue=soc0_nodatavalue,
         trm_handler=None,
         forest_type = forest_type,
+        grassland_lu_fp= grassland_lu_fp,
         grassland_type = grassland_type,
+        grassland_residue_runs = grassland_residue_runs,
         weather_type = weather_type,
         TP_Type = TP_Type,
         forest_age = forest_age
@@ -907,7 +912,6 @@ def run_RothC_forest(
 
     return SOC_results
 
-def run_RothC_crops(crop_name: str, commodity_type: str, practices_string_id: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str] = None, pr_fp: Optional[str] = None, fym_fp: Optional[str] = None, red_till = False, save_CO2 = False)
 
 def run_RothC_grassland(
     grassland_type: str,
@@ -948,11 +952,13 @@ def run_RothC_grassland(
                 rain    = rain_a,
                 evap    = evap_a,
                 pc      = pc_a,
-                forest_age=    age_a,
+                irr     = irr_a,
+                c_inp   = c_a,
+                fym     = fym_a,
                 commodity_type = "grassland",
-                forest_type = grassland_type,
-                weather_type = weather_type,
-                TP_Type = TP_Type
+                grassland_lu_fp=lu_fp,
+                grassland_type = grassland_type,
+                grassland_residue_runs=residue_runs
             )
 
     # Saving results
