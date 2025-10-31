@@ -415,8 +415,12 @@ def _raster_rothc_annual_results(
         else:
             c_inp_month = c_inp[t]
 
-        # Update pools
+        # Harmonize fym
+        if commodity_type == "grassland":
+            fym = fym.squeeze()  # Forces fym to have only spatial dimensions
         fym_slice = fym if fym.ndim == 2 else fym[t]
+
+        # Update pools
         DPM = D1 + (dpm_rpm / (dpm_rpm + 1.0)) * c_inp_month + 0.49 * fym_slice
         RPM = R1 + (1.0 / (dpm_rpm + 1.0)) * c_inp_month + 0.49 * fym_slice
         BIO = B1 + D2B + R2B + B2B + H2B
@@ -708,25 +712,24 @@ def _load_forest_data(lu_fp: str, evap_fp: str, age_fp: str):
 def _load_grassland_data(lu_fp: str, evap_fp: str, grassland_type: str, fym_fp: List[str], pc_fp: Optional[str] = None, irr_fp: Optional[str] = None, pr_fp: Optional[str] = None, residue_runs = 100):
     # Opens land use data
     lu_raster = rxr.open_rasterio(lu_fp, masked=False).squeeze()
-    lu_maks = (lu_raster==1)
+    lu_mask = (lu_raster==1)
         
     # Opens evap and pc, and process it
     evap = rxr.open_rasterio(evap_fp, masked=True)  # (12-band: Jan–Dec)
     evap  = evap.rename({"band": "time"})
-    evap = evap.where(lu_maks).fillna(0)
+    evap = evap.where(lu_mask).fillna(0)
 
     # Plant residues
     if pr_fp is None:  # Calculates plant_residues based on a different raster if given
         pr_fp = lu_fp
     pr_annual = cropcalcs.generate_grassland_residue_map(grass_lu_fp=pr_fp, random_runs=residue_runs)  # Returns raster for 1 year    
     pr_monthly = pr_annual/12
-    pr = (pr_monthly).where(lu_maks)
-    pr = pr.where(lu_maks).fillna(0)
+    pr = np.where(lu_mask, pr_monthly, 0)
     
     # Plant Cover
     if grassland_type == "natural":
         # Creates 12-month plant cover: 1 where lu_maks is True, 0 elsewhere 
-        base = lu_mask.astype('float32')
+        base = lu_mask.astype('int16')
         pc = xr.concat([base] * 12, dim='time')
         pc = pc.assign_coords(time=np.arange(1, 13))
         pc.name = "plant_cover"
@@ -736,26 +739,26 @@ def _load_grassland_data(lu_fp: str, evap_fp: str, grassland_type: str, fym_fp: 
     else:   # TODO: managed grassland
         pc = rxr.open_rasterio(pc_fp, masked=True)
         pc = pc.rename({"band": "time"})
-        pc = (pc).where(lu_maks)
-        pc = pc.where(lu_maks).fillna(0)
+        pc = (pc).where(lu_mask)
+        pc = pc.where(lu_mask).fillna(0)
     
     # Opens and returns each fym_fp for each animal
-    fym_all = np.zeros_like(lu_maks)
+    fym_all = np.zeros_like(lu_mask)
     for fp in fym_fp:
         fym_annual = rxr.open_rasterio(fp, masked=True) # No farmyard manure in this case
         fym_monthly = fym_annual/12
         fym_all = fym_all + fym_monthly
-        fym = (fym_all).where(lu_maks)
-        fym = fym.where(lu_maks).fillna(0)
+        fym = (fym_all).where(lu_mask)
+        fym = fym.where(lu_mask).fillna(0)
 
     # Optional irrigation input - POTENTIALLY USED ON MANAGED GRASSLANDS
     if irr_fp:
         irr = rxr.open_rasterio(irr_fp, masked=True)  # (12-band: Jan–Dec)
         irr = irr.rename({'band': 'time'})
-        irr = (irr).where(lu_maks)
-        irr = irr.where(lu_maks).fillna(0)
+        irr = (irr).where(lu_mask)
+        irr = irr.where(lu_mask).fillna(0)
     else:
-        irr = (xr.zeros_like(pc)).where(lu_maks)
+        irr = (xr.zeros_like(pc)).where(lu_mask)
 
     return lu_raster, evap, pr, pc, fym, irr
 
@@ -933,13 +936,13 @@ def run_RothC_grassland(
     tmp, rain, soc0, iom, clay, sand = _load_environmental_data(lu_fp)
 
     # Prepares crop data
-    print("Loading forest data...")
+    print(f"Loading {grassland_type} grassland data...")
     lu_raster, evap, pr, pc, fym, irr = _load_grassland_data(lu_fp, evap_fp, grassland_type, fym_fp_list, pc_fp, irr_fp, pr_fp, residue_runs)
     
     # Convert to values
     clay_a, soc0_a, iom_a, sand_a = np.asarray(clay.values), np.asarray(soc0.values), np.asarray(iom.values), np.asarray(sand.values)
     tmp_a, rain_a, evap_a = np.asarray(tmp.values), np.asarray(rain.values), np.asarray(evap.values)
-    pc_a, c_a, fym_a, irr_a = np.asarray(pc.values), np.asarray(pr.values), np.asarray(fym.values), np.asarray(irr.values)
+    pc_a, c_a, fym_a, irr_a = np.asarray(pc.values), np.asarray(pr), np.asarray(fym.values), np.asarray(irr.values)
 
 
     # Run model

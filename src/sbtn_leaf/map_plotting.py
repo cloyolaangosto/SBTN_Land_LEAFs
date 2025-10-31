@@ -352,7 +352,6 @@ def plot_da_on_world_extremes_cutoff(
     diverg0 = False,
     n_categories: int = 20,
     base_shp = world_global_hr,
-    plt_show = False,
     eliminate_zeros = False
 ):
     """
@@ -396,13 +395,21 @@ def plot_da_on_world_extremes_cutoff(
                          bottom=miny,
                          right=maxx,
                          top=maxy)
+
+    raster_crs = da.rio.crs
     
     # 2) default percentile cutoffs
     if p_min is None: p_min = alpha
     if p_max is None: p_max = 100 - alpha
     
     # 3) run your existing preprocessors
-    raster_data = _preprocess_raster_data_percentiles(arr, nodata, p_min, p_max, eliminate_zeros)
+    raster_data = _preprocess_raster_data_percentiles(
+        arr,
+        nodata_value=nodata,
+        p_min=p_min,
+        p_max=p_max,
+        eliminate_zeros=eliminate_zeros
+    )
     
     # 3.5) Optional - Sets cmap to divergence point 0
     if diverg0:
@@ -424,9 +431,10 @@ def plot_da_on_world_extremes_cutoff(
         cmap=cmap,
         n_categories=n_categories,
         base_shp=base_shp,
-        vmin = vmin,
-        vmax = vmax,
-        plt_show = plt_show
+        vmin=vmin,
+        vmax=vmax,
+        raster_crs=raster_crs,
+        plt_show=False
     )
 
     return fig, ax
