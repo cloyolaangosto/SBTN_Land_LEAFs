@@ -2071,37 +2071,37 @@ grassland_dung_regions_raster_fp = "../data/grasslands/livestock/grassland_dung_
 dung_data = pl.read_excel("../data/grasslands/Animals_Dung_IPCC.xlsx", sheet_name="C_Excr_Animals_tCpheadpyr")
 raster_id = [1,2,3,4,5,6,7,8,9]
 dung_regions_mean = [
-    "North America",
-    "Western Europe",
+    "India - Mean",
     "Eastern Europe",
-    "Oceania",
-    "LATAM - Mean",
-    "Africa - Mean",
+    "Western Europe",
     "Middle East - Mean",
+    "North America",
+    "LATAM - Mean",
     "Asia - Mean",
-    "India - Mean"
+    "Africa - Mean",
+    "Oceania"  
 ]
 dung_regions_hps = [
-    "North America",
-    "Western Europe",
+    "India - High PS",
     "Eastern Europe",
-    "Oceania",
-    "LATAM - High PS",
-    "Africa - High PS",
+    "Western Europe",
     "Middle East - High PS",
+    "North America",
+    "LATAM - High PS",
     "Asia - High PS",
-    "India - High PS"
+    "Africa - High PS",
+    "Oceania" 
 ]
 dung_regions_lps = [
-    "North America",
-    "Western Europe",
+    "India - Low PS",
     "Eastern Europe",
-    "Oceania",
-    "LATAM - Low PS",
-    "Africa - Low PS",
+    "Western Europe",
     "Middle East - Low PS",
+    "North America",
+    "LATAM - Low PS",
     "Asia - Low PS",
-    "India - Low PS"
+    "Africa - Low PS",
+    "Oceania" 
 ]
 
 dung_mean_names =pl.DataFrame(
