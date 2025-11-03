@@ -3,6 +3,8 @@ import numpy.testing as npt
 import xarray as xr
 import geopandas as gpd
 import polars as pl
+import rasterio
+from rasterio.transform import from_origin
 
 
 _ORIGINAL_READ_FILE = gpd.read_file
@@ -30,16 +32,67 @@ def _safe_read_excel(source, *args, **kwargs):
                 "NE_TP": [20],
             }
         )
+    if isinstance(source, str) and source.endswith("grassland_residues_IPCC.xlsx"):
+        return pl.DataFrame(
+            {
+                "FAO_ID": [1],
+                "Residue": [0.0],
+                "ResXErr": [0.0],
+            }
+        )
+    if isinstance(source, str) and source.endswith("Animals_Dung_IPCC.xlsx"):
+        return pl.DataFrame(
+            {
+                "region": ["Western Europe"],
+                "cattle_other": [0.0],
+                "cattle_dairy": [0.0],
+                "goat": [0.0],
+                "sheep": [0.0],
+            }
+        )
     return _ORIGINAL_READ_EXCEL(source, *args, **kwargs)
 
 
 pl.read_excel = _safe_read_excel
 
+def _write_raster(path, data, *, nodata=None, dtype="float32"):
+    if data.ndim == 2:
+        count = 1
+    elif data.ndim == 3:
+        count = data.shape[0]
+    else:
+        raise ValueError("Raster data must be 2-D or 3-D")
+
+    height, width = data.shape[-2:]
+    transform = from_origin(0, height, 1, 1)
+
+    profile = {
+        "driver": "GTiff",
+        "height": height,
+        "width": width,
+        "count": count,
+        "dtype": dtype,
+        "crs": "EPSG:4326",
+        "transform": transform,
+    }
+    if nodata is not None:
+        profile["nodata"] = nodata
+
+    data_to_write = data.astype(dtype)
+
+    with rasterio.open(path, "w", **profile) as dst:
+        if count == 1:
+            dst.write(data_to_write, 1)
+        else:
+            dst.write(data_to_write)
+
 from sbtn_leaf.RothC_Raster import (
+    _load_forest_data,
     raster_rothc_annual_results_1yrloop,
     raster_rothc_ReducedTillage_annual_results_1yrloop,
     run_RothC_forest,
 )
+import sbtn_leaf.cropcalcs as cropcalcs
 
 
 def test_reduced_tillage_trm_uses_full_soc(monkeypatch):
@@ -289,3 +342,103 @@ def test_run_rothc_forest_handles_single_band_age(monkeypatch, tmp_path):
 
     assert soc.shape == (n_years + 1, y, x)
     assert np.isfinite(soc).all()
+
+
+def test_load_forest_data_preserves_age_nans(tmp_path):
+    y = x = 2
+
+    lu_data = np.array([[1, 0], [1, 1]], dtype=np.float32)
+    evap_data = np.full((12, y, x), 2.0, dtype=np.float32)
+    age_data = np.array([[10.0, 20.0], [-9999.0, 30.0]], dtype=np.float32)
+
+    lu_path = tmp_path / "lu.tif"
+    evap_path = tmp_path / "evap.tif"
+    age_path = tmp_path / "age.tif"
+
+    _write_raster(lu_path, lu_data)
+    _write_raster(evap_path, evap_data)
+    _write_raster(age_path, age_data, nodata=-9999.0)
+
+    _, _, _, age = _load_forest_data(str(lu_path), str(evap_path), str(age_path))
+
+    age_arr = age.values
+    assert age_arr.shape == (y, x)
+    assert age_arr[0, 0] == 10.0
+    assert age_arr[1, 1] == 30.0
+    assert np.isnan(age_arr[0, 1])
+    assert np.isnan(age_arr[1, 0])
+
+
+def test_run_rothc_forest_passes_nan_age_through_litter(monkeypatch, tmp_path):
+    monkeypatch.setattr("sbtn_leaf.RothC_Raster.trange", lambda n, **_: range(n))
+
+    y = x = 2
+    months = 12
+    n_years = 1
+
+    lu_data = np.array([[1, 0], [1, 1]], dtype=np.float32)
+    evap_data = np.full((12, y, x), 2.0, dtype=np.float32)
+    age_data = np.array([[10.0, 20.0], [-9999.0, 30.0]], dtype=np.float32)
+
+    lu_path = tmp_path / "lu.tif"
+    evap_path = tmp_path / "evap.tif"
+    age_path = tmp_path / "age.tif"
+
+    _write_raster(lu_path, lu_data)
+    _write_raster(evap_path, evap_data)
+    _write_raster(age_path, age_data, nodata=-9999.0)
+
+    coords = {"time": np.arange(months), "y": np.arange(y), "x": np.arange(x)}
+    tmp = xr.DataArray(np.full((months, y, x), 12.0, dtype=float), dims=("time", "y", "x"), coords=coords)
+    rain = xr.full_like(tmp, 80.0)
+    evap_env = xr.full_like(tmp, 20.0)
+    pc = xr.full_like(tmp, 1.0)
+    soc0 = xr.DataArray(np.full((y, x), 50.0, dtype=float), dims=("y", "x"))
+    clay = xr.full_like(soc0, 30.0)
+    iom = xr.full_like(soc0, 5.0)
+    sand = xr.full_like(soc0, 40.0)
+
+    monkeypatch.setattr(
+        "sbtn_leaf.RothC_Raster._load_environmental_data",
+        lambda *_: (tmp, rain, soc0, iom, clay, sand),
+    )
+    monkeypatch.setattr("sbtn_leaf.RothC_Raster.save_annual_results", lambda *_, **__: None)
+
+    captured_inputs = []
+    captured_outputs = []
+
+    original_litter = cropcalcs.get_forest_litter_monthlyrate_fromda
+
+    def capture_litter(age_arr, *args, **kwargs):
+        captured_inputs.append(np.copy(age_arr))
+        result = original_litter(age_arr, *args, **kwargs)
+        captured_outputs.append(np.copy(result))
+        return result
+
+    monkeypatch.setattr(
+        "sbtn_leaf.RothC_Raster.cropcalcs.get_forest_litter_monthlyrate_fromda",
+        capture_litter,
+    )
+
+    run_RothC_forest(
+        forest_type="BRDC",
+        weather_type="Temperate",
+        n_years=n_years,
+        save_folder=str(tmp_path),
+        data_description="test",
+        lu_fp=str(lu_path),
+        evap_fp=str(evap_path),
+        age_fp=str(age_path),
+    )
+
+    assert captured_inputs
+    for arr in captured_inputs:
+        assert np.isnan(arr[0, 1])
+        assert np.isnan(arr[1, 0])
+        assert arr[0, 0] == 10.0
+        assert arr[1, 1] == 30.0
+
+    assert captured_outputs
+    for arr in captured_outputs:
+        assert np.isnan(arr[0, 1])
+        assert np.isnan(arr[1, 0])

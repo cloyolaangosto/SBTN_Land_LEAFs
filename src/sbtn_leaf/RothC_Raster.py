@@ -705,7 +705,7 @@ def _load_forest_data(lu_fp: str, evap_fp: str, age_fp: str):
 
     # open age
     age = rxr.open_rasterio(age_fp, masked=True).squeeze()
-    age = age.where(lu_mask).fillna(0)
+    age = age.where(lu_mask)
 
     return lu_raster, evap, pc, age
     
