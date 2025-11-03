@@ -204,100 +204,193 @@ def create_crop_yield_shapefile(
     return yield_shp
 
 
-def create_crop_yield_raster(croplu_grid_raster: str, fao_crop_shp: gpd.GeoDataFrame, spam_crop_raster: str, output_rst_path: str, 
-                             spam_band=1, resampling_method = Resampling.bilinear):
+def _create_crop_yield_raster_core(
+    croplu_grid_raster: str,
+    fao_crop_shp: gpd.GeoDataFrame,
+    spam_crop_raster: str,
+    output_rst_path: str,
+    *,
+    spam_band: int = 1,
+    resampling_method: Resampling = Resampling.bilinear,
+    fao_avg_yield_name: str,
+    fao_yield_ratio_name: str,
+    irr_yield_scaling: Optional[str] = None,
+    all_fp: Optional[str] = None,
+    irr_fp: Optional[str] = None,
+    rf_fp: Optional[str] = None,
+    apply_ecoregion_fill: bool = False,
+):
+    """Shared implementation for the crop yield raster generators."""
 
-    # 1--- ) Opens the master_grid_raster and extracts metadata, transform, crs, and dimensions ---
+    # 1) Open cropland LU raster
     with rasterio.open(croplu_grid_raster) as crop_lu:
-        lu_meta         = crop_lu.meta.copy()  # Gets metadata
-        lu_crs          = crop_lu.crs
-        lu_transform    = crop_lu.transform
-        lu_width        = crop_lu.width
-        lu_height       = crop_lu.height
-        lu_data         = crop_lu.read(1)
+        lu_meta = crop_lu.meta.copy()
+        lu_crs = crop_lu.crs
+        lu_transform = crop_lu.transform
+        lu_height = crop_lu.height
+        lu_width = crop_lu.width
+        lu_data = crop_lu.read(1)
 
-    # Create a land use mask
-    lu_mask =  lu_data == 1
-        
-    # --- 2) Opens the spam_crop_raster ---
+    lu_mask = (lu_data == 1)
+
+    # 2) Reproject SPAM onto LU grid
     with rasterio.open(spam_crop_raster) as spam:
         spam_data = spam.read(spam_band)
-        spam_nodata = spam.nodata
-
-        # prepare empty array for reprojected SPAM with the same dimensions as the land use grid
-        spam_on_lu = np.full(shape=(lu_height, lu_width), fill_value=np.nan, dtype='float32')
-
-        # --- 3) fills the array with the reprojected spam values ---
+        spam_on_lu = np.full((lu_height, lu_width), np.nan, dtype="float32")
         reproject(
-         source=spam_data,
-         destination=spam_on_lu,
-         src_transform=spam.transform,
-         src_crs=spam.crs,
-         src_nodata=spam_nodata,
-         dst_transform=lu_transform,
-         dst_crs=lu_crs,
-         dst_nodata=np.nan,
-         resampling=resampling_method
+            source=spam_data,
+            destination=spam_on_lu,
+            src_transform=spam.transform,
+            src_crs=spam.crs,
+            src_nodata=spam.nodata,
+            dst_transform=lu_transform,
+            dst_crs=lu_crs,
+            dst_nodata=np.nan,
+            resampling=resampling_method,
         )
 
-    # --- 4) Load FAO shapefile, rasterize zones ---
-    fao_yields_gdf = fao_crop_shp
-    fao_yields_gdf = fao_yields_gdf.to_crs(lu_crs)  # Reprojects to land use raster
-    
-    # Checks if the data columns are there 
-    for field in ("avg_yield_1423", "ratio_yield_20_toavg"):
-        if field not in fao_yields_gdf.columns:
-            raise KeyError(f"Shapefile missing '{field}'")
-        
-    # Now rasterizing    
-    fao_yields_gdf = fao_yields_gdf.reset_index(drop=True)  # Eliminates the old index and assigned 0, 1, 2, ...
-    fao_yields_gdf["zone_id"] = fao_yields_gdf.index.astype("int32")  # Creates a zone_ide for the rasterization
-    global_fao_ratio = fao_yields_gdf["ratio_yield_20_toavg"].dropna().mean()  # Calcualtes a global average, disregarding nans
-    fao_yields_gdf["avg_yield_1423"] = fao_yields_gdf["avg_yield_1423"]/1000          # Transform into tons
-    
-    # Rasterizes the shapefile
-    shapes = ((geom, zid) for geom, zid in zip(fao_yields_gdf.geometry, fao_yields_gdf.zone_id))
+    # 3) Rasterize FAO yields & ratios
+    fao_gdf = fao_crop_shp.to_crs(lu_crs).reset_index(drop=True)
+    for field in (fao_avg_yield_name, fao_yield_ratio_name):
+        if field not in fao_gdf.columns:
+            raise KeyError(f"Missing '{field}' in FAO shapefile")
+
+    fao_gdf[fao_avg_yield_name] = fao_gdf[fao_avg_yield_name] / 1000.0
+    global_fao_ratio = fao_gdf[fao_yield_ratio_name].dropna().mean()
+
+    fao_gdf["zone_id"] = fao_gdf.index.astype("int32")
+    shapes = ((geom, zid) for geom, zid in zip(fao_gdf.geometry, fao_gdf.zone_id))
     zone_array = rasterize(
         shapes=shapes,
         out_shape=(lu_height, lu_width),
         transform=lu_transform,
         fill=-1,
-        dtype="int32"
+        dtype="int32",
     )
 
-    # --- 4) Build result, two‐stage fill ---
-    # Creates an array of the same shape as land use
+    fao_yields_array = np.full((lu_height, lu_width), np.nan, dtype="float32")
+    for _, row in fao_gdf.iterrows():
+        zid = int(row["zone_id"])
+        zid_mask = zone_array == zid
+        fao_yields_array[zid_mask] = row[fao_avg_yield_name]
+
+    valid_fao = ~np.isnan(fao_yields_array)
+
+    all_fp_on_lu: Optional[np.ndarray] = None
+    avg_wat: Optional[float] = None
+    scaling_mode: Optional[str] = None
+
+    if irr_yield_scaling is not None:
+        scaling_mode = irr_yield_scaling.lower()
+        if scaling_mode not in {"irr", "rf"}:
+            raise ValueError("irr_yield_scaling must be either 'irr' or 'rf'")
+        if any(p is None for p in (all_fp, irr_fp, rf_fp)):
+            raise ValueError("Need all_fp, irr_fp and rf_fp for irrigation scaling")
+
+        all_fp_on_lu = resample_to_match_noSaving(all_fp, croplu_grid_raster, dst_nodata=np.nan)
+        irr_fp_on_lu = resample_to_match_noSaving(irr_fp, croplu_grid_raster, dst_nodata=np.nan)
+        rf_fp_on_lu = resample_to_match_noSaving(rf_fp, croplu_grid_raster, dst_nodata=np.nan)
+
+        irr_ratios, rf_ratios = calculate_SPAM_yield_modifiers(all_fp_on_lu, irr_fp_on_lu, rf_fp_on_lu)
+        watering_ratio = irr_ratios if scaling_mode == "irr" else rf_ratios
+
+        valid_wat = ~np.isnan(watering_ratio)
+        avg_wat = np.nanmean(watering_ratio)
+
+        scaled = np.where(valid_wat, fao_yields_array * watering_ratio, np.nan)
+        scaled = fillnodata(scaled, mask=np.isnan(scaled), max_search_distance=1, smoothing_iterations=2)
+        scaled = np.where(
+            np.isnan(scaled) & valid_fao,
+            fao_yields_array * avg_wat,
+            scaled,
+        )
+        fao_yields_array = scaled
+
+    # 4) Build result: SPAM first, then FAO, then SPAM fallback
     result = np.full((lu_height, lu_width), np.nan, dtype="float32")
-    
-    for _, row in fao_yields_gdf.iterrows():
-        zid       = row["zone_id"]
-        ratio     = row["ratio_yield_20_toavg"]
-        avg_yield = row["avg_yield_1423"]/1000  # Dividing by a 1,000 to transform to tonnes
 
-        mask_zone       = zone_array == zid  # Creates a mask for each zone id
-        spam_scaled     = spam_on_lu * ratio  # Calculates the scaled yield
-        
-        # Assigns spam values for areas that have a spam value
-        mask_spam_valid = mask_zone & ~np.isnan(spam_scaled)  # Creates a mask for values for each zone id that is not empty on the spam raster
-        result[mask_spam_valid] = spam_scaled[mask_spam_valid]  # Assings into the results raster the value of the spam zone
-        
-        # Assigns fao values when spam doesn't 
-        mask_need_avg          = mask_zone & np.isnan(result)  # Creates a mask for the mask zone where the results is empty
-        result[mask_need_avg]   = avg_yield  # Assigns the average yield for the empty pixels
+    for _, row in fao_gdf.iterrows():
+        zid = int(row["zone_id"])
+        ratio = row[fao_yield_ratio_name]
+        zid_mask = zone_array == zid
+        spam_scaled = spam_on_lu * ratio
+        valid_mask = zid_mask & ~np.isnan(spam_scaled)
+        result[valid_mask] = spam_scaled[valid_mask]
 
-    # There could be pixels where FAO had no values, but SPAM had them
-    mask_spam_fallback = (~np.isnan(spam_on_lu)) & np.isnan(result) & lu_mask
-    result[mask_spam_fallback] = spam_on_lu[mask_spam_fallback] * global_fao_ratio
-    
-    # Mask out where there's no land use
+        mask_need_avg = zid_mask & np.isnan(result)
+        result[mask_need_avg] = fao_yields_array[mask_need_avg]
+
+    if all_fp_on_lu is not None:
+        label = "irrigation"
+        if scaling_mode == "rf":
+            label = "rainfed"
+        print(f"  → Applying {label} scaling to all‐SPAM yields…")
+        mask_all = lu_mask & np.isnan(result) & ~np.isnan(all_fp_on_lu)
+        result[mask_all] = all_fp_on_lu[mask_all] * avg_wat
+
+    mask_fao = lu_mask & np.isnan(result) & valid_fao
+    result[mask_fao] = fao_yields_array[mask_fao]
+
+    mask_spam = (~np.isnan(spam_on_lu)) & np.isnan(result) & lu_mask
+    result[mask_spam] = spam_on_lu[mask_spam] * global_fao_ratio
+
+    if apply_ecoregion_fill:
+        ecoregion_avg, biome_avg, zone_array, biome_name_map = calculate_average_yield_by_ecoregion_and_biome(
+            result, croplu_grid_raster
+        )
+
+        remaining = lu_mask & np.isnan(result)
+        if np.any(remaining):
+            ys, xs = np.where(remaining)
+            for y, x in zip(ys, xs):
+                zid = int(zone_array[y, x])
+                if zid in ecoregion_avg:
+                    result[y, x] = ecoregion_avg[zid]
+                else:
+                    biome = biome_name_map.get(zid)
+                    if isinstance(biome, str):
+                        result[y, x] = biome_avg.get(biome, global_fao_ratio)
+                    else:
+                        result[y, x] = global_fao_ratio
+
+        remaining = lu_mask & np.isnan(result)
+        if np.any(remaining):
+            valid = ~np.isnan(result)
+            dist, (iy, ix) = ndimage.distance_transform_edt(
+                ~valid, return_distances=True, return_indices=True
+            )
+            filled = result[iy, ix]
+            result[remaining] = filled[remaining]
+
     result[~lu_mask] = np.nan
 
-    # --- 5) Write out ---
     lu_meta.update(dtype="float32", count=1, nodata=np.nan)
     with rasterio.open(output_rst_path, "w", **lu_meta) as dst:
         dst.write(result, 1)
 
     print(f"Yield raster written to {output_rst_path}")
+
+
+def create_crop_yield_raster(
+    croplu_grid_raster: str,
+    fao_crop_shp: gpd.GeoDataFrame,
+    spam_crop_raster: str,
+    output_rst_path: str,
+    spam_band: int = 1,
+    resampling_method: Resampling = Resampling.bilinear,
+):
+    """Create a crop yield raster without irrigation scaling."""
+
+    _create_crop_yield_raster_core(
+        croplu_grid_raster,
+        fao_crop_shp,
+        spam_crop_raster,
+        output_rst_path,
+        spam_band=spam_band,
+        resampling_method=resampling_method,
+        fao_avg_yield_name="avg_yield_1423",
+        fao_yield_ratio_name="ratio_yield_20_toavg",
+    )
 
 
 def create_crop_yield_raster_withIrrigationPracticeScaling(
@@ -311,168 +404,37 @@ def create_crop_yield_raster_withIrrigationPracticeScaling(
     all_fp: Optional[str] = None,
     irr_fp: Optional[str] = None,
     rf_fp: Optional[str] = None,
-    fao_avg_yield_name: str = "avg_yield", 
-    fao_yield_ratio_name: str = "yld_ratio"
+    fao_avg_yield_name: str = "avg_yield",
+    fao_yield_ratio_name: str = "yld_ratio",
+    apply_ecoregion_fill: bool = True,
 ):
+    """Create a crop yield raster with optional irrigation/rainfed scaling.
+
+    Parameters
+    ----------
+    irr_yield_scaling:
+        Either ``"irr"`` or ``"rf"`` to select irrigated or rainfed scaling. ``None``
+        preserves the FAO averages.
+    apply_ecoregion_fill:
+        When ``True`` (the default), use ecoregion and biome averages to fill any
+        remaining nodata pixels, matching the historical pipeline behaviour.
     """
-    Create a crop yield raster by combining SPAM data with FAO shapefile yields,
-    optionally applying irrigation/rainfed scaling to FAO averages.
-    """
-    # 1) Open cropland LU raster
-    with rasterio.open(croplu_grid_raster) as crop_lu:
-        lu_meta      = crop_lu.meta.copy()
-        lu_crs       = crop_lu.crs
-        lu_transform = crop_lu.transform
-        lu_height    = crop_lu.height
-        lu_width     = crop_lu.width
-        lu_data      = crop_lu.read(1)
 
-    lu_mask = (lu_data == 1)
-
-    # 2) Reproject SPAM onto LU grid
-    with rasterio.open(spam_crop_raster) as spam:
-        spam_data   = spam.read(spam_band)
-        spam_on_lu  = np.full((lu_height, lu_width), np.nan, dtype="float32")
-        reproject(
-            source=spam_data,
-            destination=spam_on_lu,
-            src_transform=spam.transform,
-            src_crs=spam.crs,
-            src_nodata=spam.nodata,
-            dst_transform=lu_transform,
-            dst_crs=lu_crs,
-            dst_nodata=np.nan,
-            resampling=resampling_method
-        )
-
-    # 3) Rasterize FAO yields & ratios
-    fao_gdf = fao_crop_shp.to_crs(lu_crs).reset_index(drop=True)
-    for field in (fao_avg_yield_name, fao_yield_ratio_name):
-        if field not in fao_gdf.columns:
-            raise KeyError(f"Missing '{field}' in FAO shapefile")
-
-    # convert avg_yield to tons
-    fao_gdf[fao_avg_yield_name] = fao_gdf[fao_avg_yield_name] / 1000.0
-    global_fao_ratio = fao_gdf[fao_yield_ratio_name].dropna().mean()
-
-    fao_gdf["zone_id"] = fao_gdf.index.astype("int32")
-    shapes = ((geom, zid) for geom, zid in zip(fao_gdf.geometry, fao_gdf.zone_id))
-    zone_array = rasterize(
-        shapes=shapes,
-        out_shape=(lu_height, lu_width),
-        transform=lu_transform,
-        fill=-1,
-        dtype="int32"
+    _create_crop_yield_raster_core(
+        croplu_grid_raster,
+        fao_crop_shp,
+        spam_crop_raster,
+        output_rst_path,
+        spam_band=spam_band,
+        resampling_method=resampling_method,
+        fao_avg_yield_name=fao_avg_yield_name,
+        fao_yield_ratio_name=fao_yield_ratio_name,
+        irr_yield_scaling=irr_yield_scaling,
+        all_fp=all_fp,
+        irr_fp=irr_fp,
+        rf_fp=rf_fp,
+        apply_ecoregion_fill=apply_ecoregion_fill,
     )
-
-    # build per-zone FAO arrays
-    fao_yields_array = np.full((lu_height, lu_width), np.nan, dtype="float32")
-    fao_ratios_array = np.full((lu_height, lu_width), np.nan, dtype="float32")
-    for _, row in fao_gdf.iterrows():
-        zid = int(row["zone_id"])
-        zid_mask = (zone_array == zid)
-        fao_yields_array[zid_mask] = row[fao_avg_yield_name]
-        fao_ratios_array[zid_mask] = row[fao_yield_ratio_name]
-
-    valid_fao = ~np.isnan(fao_yields_array)
-
-    # --- Optional: apply irrigation/rainfed scaling to FAO yields ---
-    if irr_yield_scaling is not None:
-        if any(p is None for p in (all_fp, irr_fp, rf_fp)):
-            raise ValueError("Need all_fp, irr_fp and rf_fp for irrigation scaling")
-
-        # resample modifiers
-        all_fp_on_lu = resample_to_match_noSaving(all_fp, croplu_grid_raster, dst_nodata = np.nan)
-        irr_fp_on_lu = resample_to_match_noSaving(irr_fp,croplu_grid_raster, dst_nodata = np.nan)
-        rf_fp_on_lu  = resample_to_match_noSaving(rf_fp, croplu_grid_raster,dst_nodata = np.nan)
-
-        # compute ratios
-        irr_ratios, rf_ratios = calculate_SPAM_yield_modifiers(all_fp_on_lu, irr_fp_on_lu, rf_fp_on_lu)
-        watering_ratio = irr_ratios if irr_yield_scaling == 'irr' else rf_ratios
-
-        valid_wat = ~np.isnan(watering_ratio)
-        avg_wat   = np.nanmean(watering_ratio)
-
-        # scale FAO yields
-        scaled = np.where(valid_wat, fao_yields_array * watering_ratio, np.nan)
-        scaled = fillnodata(scaled, mask=np.isnan(scaled), max_search_distance=1, smoothing_iterations=2)
-        scaled = np.where(np.isnan(scaled) & valid_fao,
-                          fao_yields_array * avg_wat,
-                          scaled)
-        fao_yields_array = scaled
-
-    # 4) Build result: SPAM first, then FAO, then SPAM‐fallback
-    result = np.full((lu_height, lu_width), np.nan, dtype="float32")
-
-    # a) per-zone SPAM scaling
-    for _, row in fao_gdf.iterrows():
-        zid   = int(row["zone_id"])
-        zid_mask  = (zone_array == zid)
-        ratio = row[fao_yield_ratio_name]
-        spam_scaled = spam_on_lu * ratio
-        valid_mask = zid_mask & ~np.isnan(spam_scaled)
-        result[valid_mask] = spam_scaled[valid_mask]
-
-    # a.5) all‐SPAM irrigation scaling (only if requested)
-    if irr_yield_scaling is not None:
-        print("  → Applying irrigation scaling to all‐SPAM yields…")
-        mask_all = (
-            lu_mask
-            & np.isnan(result)                       # still empty
-            & ~np.isnan(all_fp_on_lu)                # has an “all” spam value
-        )
-        result[mask_all] = all_fp_on_lu[mask_all] * avg_wat
-
-    # b) FAO fill for remaining
-    mask_fao = lu_mask & np.isnan(result) & valid_fao
-    result[mask_fao] = fao_yields_array[mask_fao]
-
-    # c) SPAM fallback
-    mask_spam = (~np.isnan(spam_on_lu)) & np.isnan(result) & lu_mask
-    result[mask_spam] = spam_on_lu[mask_spam] * global_fao_ratio
-
-    # compute region & biome averages
-    ecoregion_avg, biome_avg, zone_array, biome_name_map = \
-        calculate_average_yield_by_ecoregion_and_biome(
-            result, croplu_grid_raster
-        )
-
-    # d) assign per-pixel ecoregion or biome average for remaining holes
-    remaining = lu_mask & np.isnan(result)
-    if np.any(remaining):
-        ys, xs = np.where(remaining)
-        for y, x in zip(ys, xs):
-            zid = int(zone_array[y, x])
-            if zid in ecoregion_avg:
-                result[y, x] = ecoregion_avg[zid]
-            else:
-                biome = biome_name_map.get(zid)
-                # Ensure biome is a string before using as key
-                if isinstance(biome, str):
-                    result[y, x] = biome_avg.get(biome, global_fao_ratio)
-                else:
-                    result[y, x] = global_fao_ratio
-
-    # e) final hole fill by nearest neighbor
-    remaining = lu_mask & np.isnan(result)
-    if np.any(remaining):
-        valid = ~np.isnan(result)
-        dist, (iy, ix) = ndimage.distance_transform_edt(
-            ~valid, return_distances=True, return_indices=True
-        )
-        filled = result[iy, ix]
-        result[remaining] = filled[remaining]
-
-
-    # mask non‐cropland
-    result[~lu_mask] = np.nan
-
-    # 5) write out
-    lu_meta.update(dtype="float32", count=1, nodata=np.nan)
-    with rasterio.open(output_rst_path, "w", **lu_meta) as dst:
-        dst.write(result, 1)
-
-    print(f"Yield raster written to {output_rst_path}")
 
 
 def calculate_SPAM_yield_modifiers(
@@ -1561,170 +1523,27 @@ def create_crop_yield_raster_withIrrigationPracticeScaling_vPipeline(
     all_fp: Optional[str] = None,
     irr_fp: Optional[str] = None,
     rf_fp: Optional[str] = None,
-    fao_avg_yield_name: str = "avg_yield", 
-    fao_yield_ratio_name: str = "yld_ratio"
+    fao_avg_yield_name: str = "avg_yield",
+    fao_yield_ratio_name: str = "yld_ratio",
+    apply_ecoregion_fill: bool = True,
 ):
-    """
-    Create a crop yield raster by combining SPAM data with FAO shapefile yields,
-    optionally applying irrigation/rainfed scaling to FAO averages.
-    """
-    # 1) Open cropland LU raster
-    with rasterio.open(croplu_grid_raster) as crop_lu:
-        lu_meta      = crop_lu.meta.copy()
-        lu_crs       = crop_lu.crs
-        lu_transform = crop_lu.transform
-        lu_height    = crop_lu.height
-        lu_width     = crop_lu.width
-        lu_data      = crop_lu.read(1)
+    """Pipeline wrapper around :func:`create_crop_yield_raster_withIrrigationPracticeScaling`."""
 
-    lu_mask = (lu_data == 1)
-
-    # 2) Reproject SPAM onto LU grid
-    with rasterio.open(spam_crop_raster) as spam:
-        spam_data   = spam.read(spam_band)
-        spam_on_lu  = np.full((lu_height, lu_width), np.nan, dtype="float32")
-        reproject(
-            source=spam_data,
-            destination=spam_on_lu,
-            src_transform=spam.transform,
-            src_crs=spam.crs,
-            src_nodata=spam.nodata,
-            dst_transform=lu_transform,
-            dst_crs=lu_crs,
-            dst_nodata=np.nan,
-            resampling=resampling_method
-        )
-
-    # 3) Rasterize FAO yields & ratios
-    fao_gdf = fao_crop_shp.to_crs(lu_crs).reset_index(drop=True)
-    for field in (fao_avg_yield_name, fao_yield_ratio_name):
-        if field not in fao_gdf.columns:
-            raise KeyError(f"Missing '{field}' in FAO shapefile")
-
-    # convert avg_yield to tons
-    fao_gdf[fao_avg_yield_name] = fao_gdf[fao_avg_yield_name] / 1000.0
-    global_fao_ratio = fao_gdf[fao_yield_ratio_name].dropna().mean()
-
-    fao_gdf["zone_id"] = fao_gdf.index.astype("int32")
-    shapes = ((geom, zid) for geom, zid in zip(fao_gdf.geometry, fao_gdf.zone_id))
-    zone_array = rasterize(
-        shapes=shapes,
-        out_shape=(lu_height, lu_width),
-        transform=lu_transform,
-        fill=-1,
-        dtype="int32"
+    _create_crop_yield_raster_core(
+        croplu_grid_raster,
+        fao_crop_shp,
+        spam_crop_raster,
+        output_rst_path,
+        spam_band=spam_band,
+        resampling_method=resampling_method,
+        fao_avg_yield_name=fao_avg_yield_name,
+        fao_yield_ratio_name=fao_yield_ratio_name,
+        irr_yield_scaling=irr_yield_scaling,
+        all_fp=all_fp,
+        irr_fp=irr_fp,
+        rf_fp=rf_fp,
+        apply_ecoregion_fill=apply_ecoregion_fill,
     )
-
-    # build per-zone FAO arrays
-    fao_yields_array = np.full((lu_height, lu_width), np.nan, dtype="float32")
-    fao_ratios_array = np.full((lu_height, lu_width), np.nan, dtype="float32")
-    for _, row in fao_gdf.iterrows():
-        zid = int(row["zone_id"])
-        zid_mask = (zone_array == zid)
-        fao_yields_array[zid_mask] = row[fao_avg_yield_name]
-        fao_ratios_array[zid_mask] = row[fao_yield_ratio_name]
-
-    valid_fao = ~np.isnan(fao_yields_array)
-
-    # --- Optional: apply irrigation/rainfed scaling to FAO yields ---
-    if irr_yield_scaling is not None:
-        if any(p is None for p in (all_fp, irr_fp, rf_fp)):
-            raise ValueError("Need all_fp, irr_fp and rf_fp for irrigation scaling")
-
-        # resample modifiers
-        all_fp_on_lu = resample_to_match_noSaving(all_fp, croplu_grid_raster, dst_nodata = np.nan)
-        irr_fp_on_lu = resample_to_match_noSaving(irr_fp,croplu_grid_raster, dst_nodata = np.nan)
-        rf_fp_on_lu  = resample_to_match_noSaving(rf_fp, croplu_grid_raster,dst_nodata = np.nan)
-
-        # compute ratios
-        irr_ratios, rf_ratios = calculate_SPAM_yield_modifiers(all_fp_on_lu, irr_fp_on_lu, rf_fp_on_lu)
-        watering_ratio = irr_ratios if irr_yield_scaling == 'irr' else rf_ratios
-
-        valid_wat = ~np.isnan(watering_ratio)
-        avg_wat   = np.nanmean(watering_ratio)
-
-        # scale FAO yields
-        scaled = np.where(valid_wat, fao_yields_array * watering_ratio, np.nan)
-        scaled = fillnodata(scaled, mask=np.isnan(scaled), max_search_distance=1, smoothing_iterations=2)
-        scaled = np.where(np.isnan(scaled) & valid_fao,
-                          fao_yields_array * avg_wat,
-                          scaled)
-        fao_yields_array = scaled
-
-    # 4) Build result: SPAM first, then FAO, then SPAM‐fallback
-    result = np.full((lu_height, lu_width), np.nan, dtype="float32")
-
-    # a) per-zone SPAM scaling
-    for _, row in fao_gdf.iterrows():
-        zid   = int(row["zone_id"])
-        zid_mask  = (zone_array == zid)
-        ratio = row[fao_yield_ratio_name]
-        spam_scaled = spam_on_lu * ratio
-        valid_mask = zid_mask & ~np.isnan(spam_scaled)
-        result[valid_mask] = spam_scaled[valid_mask]
-
-    # a.5) all‐SPAM irrigation scaling (only if requested)
-    if irr_yield_scaling is not None:
-        irrigation_scaling_type = "irrigation" if irr_yield_scaling == "irr" else "rainfed"
-        print(f"  → Applying {irrigation_scaling_type} scaling to all‐SPAM yields…")
-        mask_all = (
-            lu_mask
-            & np.isnan(result)                       # still empty
-            & ~np.isnan(all_fp_on_lu)                # has an “all” spam value
-        )
-        result[mask_all] = all_fp_on_lu[mask_all] * avg_wat
-
-    # b) FAO fill for remaining
-    mask_fao = lu_mask & np.isnan(result) & valid_fao
-    result[mask_fao] = fao_yields_array[mask_fao]
-
-    # c) SPAM fallback
-    mask_spam = (~np.isnan(spam_on_lu)) & np.isnan(result) & lu_mask
-    result[mask_spam] = spam_on_lu[mask_spam] * global_fao_ratio
-
-    # compute region & biome averages
-    ecoregion_avg, biome_avg, zone_array, biome_name_map = \
-        calculate_average_yield_by_ecoregion_and_biome(
-            result, croplu_grid_raster
-        )
-
-
-    # d) assign per-pixel ecoregion or biome average for remaining holes
-    remaining = lu_mask & np.isnan(result)
-    if np.any(remaining):
-        ys, xs = np.where(remaining)
-        for y, x in zip(ys, xs):
-            zid = int(zone_array[y, x])
-            if zid in ecoregion_avg:
-                result[y, x] = ecoregion_avg[zid]
-            else:
-                biome = biome_name_map.get(zid)
-                # Ensure biome is a string before using as key
-                if isinstance(biome, str):
-                    result[y, x] = biome_avg.get(biome, global_fao_ratio)
-                else:
-                    result[y, x] = global_fao_ratio
-
-    # e) final hole fill by nearest neighbor
-    remaining = lu_mask & np.isnan(result)
-    if np.any(remaining):
-        valid = ~np.isnan(result)
-        dist, (iy, ix) = ndimage.distance_transform_edt(
-            ~valid, return_distances=True, return_indices=True
-        )
-        filled = result[iy, ix]
-        result[remaining] = filled[remaining]
-
-
-    # mask non‐cropland
-    result[~lu_mask] = np.nan
-
-    # 5) write out
-    lu_meta.update(dtype="float32", count=1, nodata=np.nan)
-    with rasterio.open(output_rst_path, "w", **lu_meta) as dst:
-        dst.write(result, 1)
-
-    print(f"Yield raster written to {output_rst_path}")
 
 
 def create_monthly_residue_vPipeline(
