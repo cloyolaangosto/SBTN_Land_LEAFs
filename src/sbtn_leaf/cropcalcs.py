@@ -1899,7 +1899,7 @@ def create_monthly_residue_vPipeline(
 #### FOREST CALCULATIONS #####
 ##############################
 forest_litter_table = pl.read_excel("../data/forest/forest_residues_IPCC.xlsx")
-def get_forest_litter_rate(da_fp: str, forest_type: str, weather_type: str, TP_Type = "IPCC", year_offset: int = 0, base_year_offset = 6, c_content = 0.37):
+def get_forest_litter_rate(da_fp: str, forest_type: str, weather_type: str, TP_Type = "IPCC", year_offset: int = 0, base_year_offset = 6):
     # Opens the raster and loads the data 
     with rasterio.open(da_fp) as src:
         age = src.read(1)
@@ -1931,7 +1931,7 @@ def get_forest_litter_rate(da_fp: str, forest_type: str, weather_type: str, TP_T
     else:
         age_mask = ~np.isnan(age) if np.isnan(src_nd_value) else (age != src_nd_value)
 
-    litter = np.where(age_mask, np.minimum(res_rate, res_rate/TP * (age + base_year_offset + year_offset)) * c_content, np.nan)
+    litter = np.where(age_mask, np.minimum(res_rate, res_rate/TP * (age + base_year_offset + year_offset)), np.nan)
 
     return litter
 
