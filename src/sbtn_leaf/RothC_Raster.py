@@ -12,8 +12,7 @@ from rasterio.enums import Resampling
 import numpy as np
 from typing import Callable, List, Optional, Tuple
 import polars as pl
-from tqdm import trange
-from tqdm import tqdm
+from tqdm.auto import trange, tqdm
 
 from sbtn_leaf.RothC_Core import RMF_Tmp, RMF_Moist, RMF_PC, RMF_TRM
 import sbtn_leaf.cropcalcs as cropcalcs
@@ -283,6 +282,7 @@ def _raster_rothc_annual_results(
     TP_Type: Optional[str] = None,
     trm_handler: Optional[TRMHandler],
     progress_desc: str = "RothC months",
+    progress_position: Optional[int] = None,
 ) -> Tuple[np.ndarray, np.ndarray]:
     """Shared implementation for baseline and reduced tillage raster RothC runs."""
 
@@ -356,7 +356,9 @@ def _raster_rothc_annual_results(
     dt = 1.0 / 12.0
     sand_has_time_dim = sand is not None and sand.ndim == 3
 
-    for t_abs in trange(months, desc=progress_desc, position=1):
+    position = 0 if progress_position is None else progress_position
+
+    for t_abs in trange(months, desc=progress_desc, position=position):
         t = t_abs % 12
         year = t_abs // 12
 
