@@ -66,9 +66,17 @@ def RMF_Tmp(temp: float):
     temp < -5 → 0.0, else 47.91/(exp(106.06/(temp+18.27))+1).
     """
     tmp = np.asarray(temp, dtype=float)
-    rmf = 47.91 / (np.exp(106.06 / (tmp + 18.27)) + 1.0)
-    # zero out below -5
-    return np.where(tmp < -5.0, 0.0, rmf)
+
+    # Pre-fill the result with zeros so temperatures below -5 °C do not reach
+    # the exponential (which would otherwise receive values close to -18.27).
+    rmf = np.zeros_like(tmp, dtype=float)
+
+    mask = tmp >= -5.0
+    if np.any(mask):
+        tmp_masked = tmp[mask]
+        rmf[mask] = 47.91 / (np.exp(106.06 / (tmp_masked + 18.27)) + 1.0)
+
+    return rmf.item() if rmf.ndim == 0 else rmf
 
 def RMF_Moist(rain, evap, clay, depth, pc, swc):
     """Moisture modifying factor and updated soil water content
