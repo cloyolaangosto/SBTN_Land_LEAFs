@@ -39,12 +39,22 @@ import sbtn_leaf.map_plotting as mp
 ### DATA ###
 ############
 # FAO shapefiles paths
-country_shp = gpd.read_file("../data/CountryLayers/Country_Level0/g2015_2014_0.shp")
-subcountry_shp= gpd.read_file("../data/CountryLayers/SubCountry_Level1/g2015_2014_1.shp")
+try:
+    country_shp = gpd.read_file("../data/CountryLayers/Country_Level0/g2015_2014_0.shp")
+except Exception:  # pragma: no cover - optional GIS dependency
+    country_shp = gpd.GeoDataFrame()
+
+try:
+    subcountry_shp = gpd.read_file("../data/CountryLayers/SubCountry_Level1/g2015_2014_1.shp")
+except Exception:  # pragma: no cover - optional GIS dependency
+    subcountry_shp = gpd.GeoDataFrame()
 
 # ecoregions - One map with all ecoregions
 er_2017_fp = "../data/ecoregions2017/ecoregions2017.shp"
-er_2017_shp = gpd.read_file(er_2017_fp)
+try:
+    er_2017_shp = gpd.read_file(er_2017_fp)
+except Exception:  # pragma: no cover - optional GIS dependency
+    er_2017_shp = gpd.GeoDataFrame()
 
 
 ###############
