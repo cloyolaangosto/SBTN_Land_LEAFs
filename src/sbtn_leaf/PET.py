@@ -104,7 +104,7 @@ def _normalize_landuse_mask(mask: np.ndarray, *, expected_shape: Tuple[int, int]
     mask_array = np.asarray(mask)
     if mask_array.shape != expected_shape:
         raise ValueError(
-            "landuse_mask must match the raster dimensions "
+            "landuse_mask must match raster dimensions "
             f"{expected_shape}; got {mask_array.shape}."
         )
 

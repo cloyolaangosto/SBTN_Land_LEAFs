@@ -268,6 +268,56 @@ def onemonth_step_rothc(
     new_pools = decomp(12.0, pools, rate_m, clay, c_inp, fym, dpm_rpm)
     return new_pools, new_swc
 
+
+def _advance_months(
+    pools: CarbonPools,
+    clay: float,
+    depth: float,
+    tmp_series: np.ndarray,
+    rain_series: np.ndarray,
+    evap_series: np.ndarray,
+    pc_series: np.ndarray,
+    dpm_rpm: float,
+    c_series: np.ndarray,
+    f_series: np.ndarray,
+    swc: float,
+):
+    """Yield monthly SOC/CO₂ and SWC updates while advancing ``pools``.
+
+    Each iteration yields ``(pools, soc, co2, swc)`` where ``pools`` is the
+    updated :class:`CarbonPools` instance after the step, ``soc`` and ``co2``
+    correspond to the end-of-month totals, and ``swc`` is the soil water
+    content carried into the next step.
+    """
+
+    # Sanity check: all driver series must align in length
+    n_months = len(tmp_series)
+    if not (
+        len(rain_series) == len(evap_series) == len(pc_series)
+        == len(c_series) == len(f_series) == n_months
+    ):
+        raise ValueError("Driver series must share the same length")
+
+    swc_next = swc
+    for (temp, rain, evap, cover, c_inp, fym) in zip(
+        tmp_series, rain_series, evap_series, pc_series, c_series, f_series
+    ):
+        prev_co2 = pools.CO2
+        pools, swc_next = onemonth_step_rothc(
+            pools,
+            clay,
+            depth,
+            temp,
+            rain,
+            evap,
+            int(cover),
+            dpm_rpm,
+            c_inp,
+            fym,
+            swc_next,
+        )
+        yield pools, pools.SOC, pools.CO2 - prev_co2, swc_next
+
 # -----------------------------------------------------------------------------
 # Equilibrium spin-up logging (formerly run_equilibrium)
 # -----------------------------------------------------------------------------
@@ -311,8 +361,14 @@ def run_equilibrium(
     if f12 is None:
         f12 = np.zeros_like(tmp12, dtype=float)
 
+    tmp12 = np.asarray(tmp12, dtype=float)
+    rain12 = np.asarray(rain12, dtype=float)
+    evap12 = np.asarray(evap12, dtype=float)
+    pc12 = np.asarray(pc12, dtype=int)
+    c12 = np.asarray(c12, dtype=float)
+    f12 = np.asarray(f12, dtype=float)
+
     swc = 0.0
-    prev_soc = pools.SOC
 
     # logs: list of cycles × 12
     soc_monthly_log = []
@@ -322,33 +378,39 @@ def run_equilibrium(
 
     # Loop cycles; 'cycle' index auto-updates each iteration
     for cycle in range(max_cycles):
-        # Store SOC at beginning of cycle for convergence check
         prev_soc = pools.SOC
+
         # Prepare containers for this cycle
-        monthly_soc = np.empty(12, dtype=float)
-        monthly_co2 = np.empty(12, dtype=float)
+        monthly_soc = np.empty_like(tmp12, dtype=float)
+        monthly_co2 = np.empty_like(tmp12, dtype=float)
         swc_cycle = swc
 
-        # Run 12-month loop
-        for k in range(12):
-            # Track CO2 before step
-            prev_co2 = pools.CO2
-            pools, swc_cycle = onemonth_step_rothc(
-                pools, clay, depth,
-                tmp12[k], rain12[k], evap12[k], int(pc12[k]),
-                dpm_rpm, c12[k], f12[k], swc_cycle
+        # Run 12-month loop via the shared helper
+        for idx, (pools, soc_val, co2_val, swc_cycle) in enumerate(
+            _advance_months(
+                pools,
+                clay,
+                depth,
+                tmp12,
+                rain12,
+                evap12,
+                pc12,
+                dpm_rpm,
+                c12,
+                f12,
+                swc_cycle,
             )
-            # Log end-of-month SOC and CO2 emitted that month
-            monthly_soc[k] = pools.SOC
-            monthly_co2[k] = pools.CO2 - prev_co2
+        ):
+            monthly_soc[idx] = soc_val
+            monthly_co2[idx] = co2_val
 
         # Annual metrics for this cycle
         annual_soc = monthly_soc[-1]          # December SOC
         annual_co2 = monthly_co2.sum()        # sum of monthly CO2
 
         # Append logs
-        soc_monthly_log.append(monthly_soc)
-        co2_monthly_log.append(monthly_co2)
+        soc_monthly_log.append(monthly_soc.copy())
+        co2_monthly_log.append(monthly_co2.copy())
         soc_annual_log.append(annual_soc)
         co2_annual_log.append(annual_co2)
 
@@ -417,15 +479,23 @@ def run_simulation(
     months = n_years * 12
     soc_monthly = np.empty(months, dtype=float)
     co2_monthly = np.empty(months, dtype=float)
-    for t in range(months):
-        prev_co2 = pools.CO2
-        pools, swc = onemonth_step_rothc(
-            pools, clay, depth,
-            tmp[t], rain[t], evap[t], int(pc[t]),
-            dpm_rpm, c_inp[t], fym[t], swc
+    for idx, (pools, soc_val, co2_val, swc) in enumerate(
+        _advance_months(
+            pools,
+            clay,
+            depth,
+            tmp[:months],
+            rain[:months],
+            evap[:months],
+            pc[:months],
+            dpm_rpm,
+            c_inp[:months],
+            fym[:months],
+            swc,
         )
-        soc_monthly[t] = pools.SOC
-        co2_monthly[t] = pools.CO2 - prev_co2
+    ):
+        soc_monthly[idx] = soc_val
+        co2_monthly[idx] = co2_val
     soc_annual = soc_monthly[11::12]
     co2_annual = co2_monthly.reshape(n_years, 12).sum(axis=1)
     
