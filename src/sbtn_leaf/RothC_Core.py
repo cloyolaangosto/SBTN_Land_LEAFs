@@ -158,6 +158,39 @@ def RMF_TRM(sand, SOC):
 
 
 # -----------------------------------------------------------------------------
+# Shared helpers
+# -----------------------------------------------------------------------------
+def _partition_to_bio_hum(x, value):
+    """Split decomposed carbon into BIO and HUM pools.
+
+    Parameters
+    ----------
+    x : float or np.ndarray
+        The respiration-to-humus partition ratio derived from clay content.
+    value : float or np.ndarray
+        The amount of carbon available for partitioning.
+
+    Returns
+    -------
+    Tuple[float, float] or Tuple[np.ndarray, np.ndarray]
+        Carbon allocated to the BIO and HUM pools respectively.
+    """
+
+    x_arr = np.asarray(x, dtype=float)
+    value_arr = np.asarray(value, dtype=float)
+    partition = 1.0 / (x_arr + 1.0)
+
+    to_bio = value_arr * 0.46 * partition
+    to_hum = value_arr * 0.54 * partition
+
+    if np.isscalar(value):
+        to_bio = float(np.asarray(to_bio))
+        to_hum = float(np.asarray(to_hum))
+
+    return to_bio, to_hum
+
+
+# -----------------------------------------------------------------------------
 # Decomposition step with CO2 emission calculation
 # -----------------------------------------------------------------------------
 def decomp(
@@ -206,11 +239,10 @@ def decomp(
     )
 
     # remaining partition to BIO/HUM
-    def BIO_HUM_part(val): return val * (0.46 / (x + 1)), val * (0.54 / (x + 1))
-    DPM_BIO, DPM_HUM = BIO_HUM_part(losses['DPM'])
-    RPM_BIO, RPM_HUM = BIO_HUM_part(losses['RPM'])
-    BIO_BIO, BIO_HUM = BIO_HUM_part(losses['BIO'])
-    HUM_BIO, HUM_HUM = BIO_HUM_part(losses['HUM'])
+    DPM_BIO, DPM_HUM = _partition_to_bio_hum(x, losses['DPM'])
+    RPM_BIO, RPM_HUM = _partition_to_bio_hum(x, losses['RPM'])
+    BIO_BIO, BIO_HUM = _partition_to_bio_hum(x, losses['BIO'])
+    HUM_BIO, HUM_HUM = _partition_to_bio_hum(x, losses['HUM'])
 
     # assemble new pools before adding external Carbon inputs
     new_DPM = DPM_1

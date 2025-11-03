@@ -14,7 +14,7 @@ from typing import Callable, List, Optional, Tuple
 import polars as pl
 from tqdm.auto import trange, tqdm
 
-from sbtn_leaf.RothC_Core import RMF_Tmp, RMF_Moist, RMF_PC, RMF_TRM
+from sbtn_leaf.RothC_Core import RMF_Tmp, RMF_Moist, RMF_PC, RMF_TRM, _partition_to_bio_hum
 import sbtn_leaf.cropcalcs as cropcalcs
 
 # -----------------------------------------------------------------------------
@@ -390,13 +390,10 @@ def _raster_rothc_annual_results(
         total_co2 = (lossD + lossR + lossB + lossH) * resp_frac
 
         # Pool partition
-        def BioHumPartition(arr):
-            return arr * (0.46 / (x + 1.0)), arr * (0.54 / (x + 1.0))
-
-        D2B, D2H = BioHumPartition(lossD)
-        R2B, R2H = BioHumPartition(lossR)
-        B2B, B2H = BioHumPartition(lossB)
-        H2B, H2H = BioHumPartition(lossH)
+        D2B, D2H = _partition_to_bio_hum(x, lossD)
+        R2B, R2H = _partition_to_bio_hum(x, lossR)
+        B2B, B2H = _partition_to_bio_hum(x, lossB)
+        H2B, H2H = _partition_to_bio_hum(x, lossH)
 
         # Calculates carbon residue input if it's forest or grassland
         if commodity_type == "forest":
