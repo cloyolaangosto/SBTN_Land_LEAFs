@@ -1899,7 +1899,7 @@ def create_monthly_residue_vPipeline(
 #### FOREST CALCULATIONS #####
 ##############################
 forest_litter_table = pl.read_excel("../data/forest/forest_residues_IPCC.xlsx")
-def get_forest_litter_rate(da_fp: str, forest_type: str, weather_type: str, TP_Type = "IPCC", year_offset: int = 0, base_year_offset = 6):
+def get_forest_litter_rate(da_fp: str, forest_type: str, weather_type: str, TP_IPCC_bool = False, year_offset: int = 0, base_year_offset = 6):
     # Opens the raster and loads the data 
     with rasterio.open(da_fp) as src:
         age = src.read(1)
@@ -1920,7 +1920,7 @@ def get_forest_litter_rate(da_fp: str, forest_type: str, weather_type: str, TP_T
     res_rate = forest_litter_table.filter(pl.col("IPCC Climate") == weather_type)[forest_id_mean].item()
 
     # Sets transition period. If IPCC route, deafults to 20, if not, depends on weather and forest type
-    if TP_Type == "IPCC":
+    if TP_IPCC_bool:
         TP = 20
     else:
         TP = forest_litter_table.filter(pl.col("IPCC Climate") == weather_type)[forest_id_tp].item()
@@ -1935,7 +1935,7 @@ def get_forest_litter_rate(da_fp: str, forest_type: str, weather_type: str, TP_T
 
     return litter
 
-def get_forest_litter_monthlyrate_fromda(da: np.ndarray, forest_type: str, weather_type: str, TP_Type = "IPCC", year_offset: int = 0, base_year_offset = 6)-> np.ndarray:
+def get_forest_litter_monthlyrate_fromda(da: np.ndarray, forest_type: str, weather_type: str, TP_IPCC_bool = False, year_offset: int = 0, base_year_offset = 6)-> np.ndarray:
     # this assumes that the da has already been masked properly
 
     # Checks if weather type is in the list
@@ -1953,7 +1953,7 @@ def get_forest_litter_monthlyrate_fromda(da: np.ndarray, forest_type: str, weath
     res_rate = forest_litter_table.filter(pl.col("IPCC Climate") == weather_type)[forest_id_mean].item()
 
     # Sets transition period. If IPCC route, deafults to 20, if not, depends on weather and forest type
-    if TP_Type == "IPCC":
+    if TP_IPCC_bool:
         TP = 20
     else:
         TP = forest_litter_table.filter(pl.col("IPCC Climate") == weather_type)[forest_id_tp].item()
