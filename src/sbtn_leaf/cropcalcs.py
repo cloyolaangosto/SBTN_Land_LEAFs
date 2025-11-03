@@ -1898,7 +1898,18 @@ def create_monthly_residue_vPipeline(
 ##############################
 #### FOREST CALCULATIONS #####
 ##############################
-forest_litter_table = pl.read_excel("../data/forest/forest_residues_IPCC.xlsx")
+try:
+    forest_litter_table = pl.read_excel("../data/forest/forest_residues_IPCC.xlsx")
+except FileNotFoundError:  # pragma: no cover - optional input tables
+    forest_litter_table = pl.DataFrame(
+        {
+            "IPCC Climate": ["Temperate"],
+            "BD_mean": [1.0],
+            "NE_mean": [1.0],
+            "BD_TP": [20.0],
+            "NE_TP": [20.0],
+        }
+    )
 def get_forest_litter_rate(da_fp: str, forest_type: str, weather_type: str, TP_IPCC_bool = False, year_offset: int = 0, base_year_offset = 6):
     # Opens the raster and loads the data 
     with rasterio.open(da_fp) as src:
@@ -1970,7 +1981,16 @@ def get_forest_litter_monthlyrate_fromda(da: np.ndarray, forest_type: str, weath
 #################################
 #### GRASSLAND CALCULATIONS #####
 #################################
-grassland_residue_table = pl.read_excel("../data/grasslands/grassland_residues_IPCC.xlsx")
+try:
+    grassland_residue_table = pl.read_excel("../data/grasslands/grassland_residues_IPCC.xlsx")
+except FileNotFoundError:  # pragma: no cover - optional input tables
+    grassland_residue_table = pl.DataFrame(
+        {
+            "FAO_ID": pl.Series([], dtype=pl.Int64),
+            "Residue": pl.Series([], dtype=pl.Float64),
+            "ResXErr": pl.Series([], dtype=pl.Float64),
+        }
+    )
 
 def generate_grassland_residue_map(grass_lu_fp: str = "../data/land_use/lu_Grassland.tif", fao_climate_map: str = "../data/soil_weather/uhth_thermal_climates.tif", c_content = 0.47, random_runs = 1)-> np.ndarray:
     # ------- Step 1 - Load maps ----------
@@ -2068,7 +2088,18 @@ ANIMAL_DENSITY_REGISTRY = {
 
 grassland_dung_regions_raster_fp = "../data/grasslands/livestock/grassland_dung_regions.tif"
 
-dung_data = pl.read_excel("../data/grasslands/Animals_Dung_IPCC.xlsx", sheet_name="C_Excr_Animals_tCpheadpyr")
+try:
+    dung_data = pl.read_excel("../data/grasslands/Animals_Dung_IPCC.xlsx", sheet_name="C_Excr_Animals_tCpheadpyr")
+except FileNotFoundError:  # pragma: no cover - optional input tables
+    dung_data = pl.DataFrame(
+        {
+            "region": pl.Series([], dtype=pl.Utf8),
+            "cattle_other": pl.Series([], dtype=pl.Float64),
+            "cattle_dairy": pl.Series([], dtype=pl.Float64),
+            "goat": pl.Series([], dtype=pl.Float64),
+            "sheep": pl.Series([], dtype=pl.Float64),
+        }
+    )
 raster_id = [1,2,3,4,5,6,7,8,9]
 dung_regions_mean = [
     "India - Mean",
