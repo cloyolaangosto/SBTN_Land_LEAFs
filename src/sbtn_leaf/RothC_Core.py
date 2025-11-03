@@ -66,16 +66,20 @@ def RMF_Tmp(temp: float):
     temp < -5 → 0.0, else 47.91/(exp(106.06/(temp+18.27))+1).
     """
     tmp = np.asarray(temp, dtype=float)
-
-    # Pre-fill the result with zeros so temperatures below -5 °C do not reach
-    # the exponential (which would otherwise receive values close to -18.27).
-    rmf = np.zeros_like(tmp, dtype=float)
-
+ 
+    # Build a denominator that is only finite for temperatures that should
+    # contribute to the exponential term.  For values below -5 °C we substitute
+    # ``np.inf`` so the exponential receives an argument of zero (exp(0) == 1)
+    # instead of overflowing on the ~(-18.27) singularity.
     mask = tmp >= -5.0
-    if np.any(mask):
-        tmp_masked = tmp[mask]
-        rmf[mask] = 47.91 / (np.exp(106.06 / (tmp_masked + 18.27)) + 1.0)
+    safe_denominator = np.where(mask, tmp + 18.27, np.inf)
 
+    with np.errstate(over="ignore"):
+        rmf = 47.91 / (np.exp(106.06 / safe_denominator) + 1.0)
+
+    # Zero out temperatures below the threshold and normalise scalars for
+    # backwards compatibility with historical behaviour.
+    rmf = np.where(mask, rmf, 0.0)
     return rmf.item() if rmf.ndim == 0 else rmf
 
 def RMF_Moist(rain, evap, clay, depth, pc, swc):
