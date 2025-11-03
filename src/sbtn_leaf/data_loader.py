@@ -9,21 +9,25 @@ data.
 This module centralises the logic for locating those files, loads them on
 demand, and caches the parsed ``polars`` objects.  Callers can request a
 fresh clone of each table whenever needed or pass the tables around
-explicitly for tests.
+explicitly for tests.  The consolidated ``_cached_table`` helper coordinates
+file discovery, parsing, and cloning so each loader follows the same
+pipeline while preserving ``functools.lru_cache`` semantics.
 """
 
 from __future__ import annotations
 
-from functools import lru_cache
+from functools import lru_cache, partial
 from pathlib import Path
 import calendar
-from typing import Dict, Iterable, Mapping, Tuple
+from typing import Callable, Dict, Iterable, Mapping, Tuple, TypeVar
 
 import geopandas as gpd
 import polars as pl
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = REPO_ROOT / "data"
+
+TableT = TypeVar("TableT")
 
 
 def _ensure_exists(path: Path, *, description: str) -> Path:
@@ -34,40 +38,54 @@ def _ensure_exists(path: Path, *, description: str) -> Path:
     return path
 
 
-@lru_cache(maxsize=None)
-def _load_crop_coefficients_table() -> pl.DataFrame:
-    """Read the crop coefficient CSV from disk."""
+def _cached_table(
+    path_factory: Callable[[], Path],
+    reader: Callable[[Path], TableT],
+    *,
+    description: str,
+    clone_method: str,
+) -> Tuple[Callable[[], TableT], Callable[[], TableT]]:
+    """Construct cached loader/getter pair for tabular resources.
 
-    path = _ensure_exists(
-        DATA_DIR / "crops" / "K_Crop_Data.csv",
-        description="crop coefficient lookup table",
-    )
+    The returned loader lazily reads from ``path_factory`` on first use while the
+    getter clones the cached object each time to protect callers from accidental
+    mutation.
+    """
 
-    return pl.read_csv(path)
+    @lru_cache(maxsize=None)
+    def load() -> TableT:
+        path = _ensure_exists(path_factory(), description=description)
+        return reader(path)
 
+    def get() -> TableT:
+        table = load()
+        return getattr(table, clone_method)()
 
-def get_crop_coefficients_table() -> pl.DataFrame:
-    """Return a cached copy of the crop coefficient table."""
-
-    return _load_crop_coefficients_table().clone()
-
-
-@lru_cache(maxsize=None)
-def _load_absolute_day_table() -> pl.DataFrame:
-    """Read the absolute day lookup table from disk."""
-
-    path = _ensure_exists(
-        DATA_DIR / "crops" / "AbsoluteDayTable.csv",
-        description="absolute day lookup table",
-    )
-
-    return pl.read_csv(path)
+    return load, get
 
 
-def get_absolute_day_table() -> pl.DataFrame:
-    """Return a cached copy of the absolute day lookup table."""
+_load_crop_coefficients_table, get_crop_coefficients_table = _cached_table(
+    lambda: DATA_DIR / "crops" / "K_Crop_Data.csv",
+    pl.read_csv,
+    description="crop coefficient lookup table",
+    clone_method="clone",
+)
+_load_crop_coefficients_table.__doc__ = "Read the crop coefficient CSV from disk."
+get_crop_coefficients_table.__doc__ = (
+    "Return a cached copy of the crop coefficient table."
+)
 
-    return _load_absolute_day_table().clone()
+
+_load_absolute_day_table, get_absolute_day_table = _cached_table(
+    lambda: DATA_DIR / "crops" / "AbsoluteDayTable.csv",
+    pl.read_csv,
+    description="absolute day lookup table",
+    clone_method="clone",
+)
+_load_absolute_day_table.__doc__ = "Read the absolute day lookup table from disk."
+get_absolute_day_table.__doc__ = (
+    "Return a cached copy of the absolute day lookup table."
+)
 
 
 @lru_cache(maxsize=None)
@@ -88,130 +106,95 @@ def get_days_in_month_table(year: int = 2023) -> pl.DataFrame:
     return _build_days_in_month_table(year).clone()
 
 
-@lru_cache(maxsize=None)
-def _load_crop_naming_index_table() -> pl.DataFrame:
-    """Read the crop naming index CSV from disk."""
-
-    path = _ensure_exists(
-        DATA_DIR / "crops" / "crop_naming_index.csv",
-        description="crop naming index table",
-    )
-
-    return pl.read_csv(path)
-
-
-def get_crop_naming_index_table() -> pl.DataFrame:
-    """Return a cached copy of the crop naming index table."""
-
-    return _load_crop_naming_index_table().clone()
+_load_crop_naming_index_table, get_crop_naming_index_table = _cached_table(
+    lambda: DATA_DIR / "crops" / "crop_naming_index.csv",
+    pl.read_csv,
+    description="crop naming index table",
+    clone_method="clone",
+)
+_load_crop_naming_index_table.__doc__ = "Read the crop naming index CSV from disk."
+get_crop_naming_index_table.__doc__ = (
+    "Return a cached copy of the crop naming index table."
+)
 
 
-@lru_cache(maxsize=None)
-def _load_fao_statistics_table() -> pl.DataFrame:
-    """Read the FAO production statistics CSV from disk."""
-
-    path = _ensure_exists(
-        DATA_DIR / "crops" / "Production_Crops_Livestock_E_All_Data.csv",
-        description="FAO production statistics table",
-    )
-
-    return pl.read_csv(path)
-
-
-def get_fao_statistics_table() -> pl.DataFrame:
-    """Return a cached copy of the FAO production statistics table."""
-
-    return _load_fao_statistics_table().clone()
+_load_fao_statistics_table, get_fao_statistics_table = _cached_table(
+    lambda: DATA_DIR / "crops" / "Production_Crops_Livestock_E_All_Data.csv",
+    pl.read_csv,
+    description="FAO production statistics table",
+    clone_method="clone",
+)
+_load_fao_statistics_table.__doc__ = "Read the FAO production statistics CSV from disk."
+get_fao_statistics_table.__doc__ = (
+    "Return a cached copy of the FAO production statistics table."
+)
 
 
-@lru_cache(maxsize=None)
-def _load_fao_crop_yields_table() -> pl.DataFrame:
-    """Read the FAO crop yields CSV from disk."""
-
-    path = _ensure_exists(
-        DATA_DIR / "crops" / "fao_crop_yields_1423.csv",
-        description="FAO crop yields table",
-    )
-
-    return pl.read_csv(path, separator=";")
-
-
-def get_fao_crop_yields_table() -> pl.DataFrame:
-    """Return a cached copy of the FAO crop yields table."""
-
-    return _load_fao_crop_yields_table().clone()
+_load_fao_crop_yields_table, get_fao_crop_yields_table = _cached_table(
+    lambda: DATA_DIR / "crops" / "fao_crop_yields_1423.csv",
+    partial(pl.read_csv, separator=";"),
+    description="FAO crop yields table",
+    clone_method="clone",
+)
+_load_fao_crop_yields_table.__doc__ = "Read the FAO crop yields CSV from disk."
+get_fao_crop_yields_table.__doc__ = (
+    "Return a cached copy of the FAO crop yields table."
+)
 
 
-@lru_cache(maxsize=None)
-def _load_country_boundaries() -> gpd.GeoDataFrame:
-    """Read the country boundary shapefile from disk."""
-
-    path = _ensure_exists(
-        DATA_DIR / "CountryLayers" / "Country_Level0" / "g2015_2014_0.shp",
-        description="country boundary shapefile",
-    )
-
-    return gpd.read_file(path)
-
-
-def get_country_boundaries() -> gpd.GeoDataFrame:
-    """Return a cached copy of the country boundary shapefile."""
-
-    return _load_country_boundaries().copy()
+_load_country_boundaries, get_country_boundaries = _cached_table(
+    lambda: DATA_DIR
+    / "CountryLayers"
+    / "Country_Level0"
+    / "g2015_2014_0.shp",
+    gpd.read_file,
+    description="country boundary shapefile",
+    clone_method="copy",
+)
+_load_country_boundaries.__doc__ = "Read the country boundary shapefile from disk."
+get_country_boundaries.__doc__ = (
+    "Return a cached copy of the country boundary shapefile."
+)
 
 
-@lru_cache(maxsize=None)
-def _load_ecoregions_shapefile() -> gpd.GeoDataFrame:
-    """Read the ecoregions shapefile from disk."""
-
-    path = _ensure_exists(
-        DATA_DIR / "Ecoregions2017" / "Ecoregions2017.shp",
-        description="ecoregions shapefile",
-    )
-
-    return gpd.read_file(path)
-
-
-def get_ecoregions_shapefile() -> gpd.GeoDataFrame:
-    """Return a cached copy of the ecoregions shapefile."""
-
-    return _load_ecoregions_shapefile().copy()
+_load_ecoregions_shapefile, get_ecoregions_shapefile = _cached_table(
+    lambda: DATA_DIR / "Ecoregions2017" / "Ecoregions2017.shp",
+    gpd.read_file,
+    description="ecoregions shapefile",
+    clone_method="copy",
+)
+_load_ecoregions_shapefile.__doc__ = "Read the ecoregions shapefile from disk."
+get_ecoregions_shapefile.__doc__ = (
+    "Return a cached copy of the ecoregions shapefile."
+)
 
 
-@lru_cache(maxsize=None)
-def _load_crop_ag_residue_table() -> pl.DataFrame:
-    """Read the crop above-ground residue Excel sheet from disk."""
-
-    path = _ensure_exists(
-        DATA_DIR / "crops" / "crop_residue_data.xlsx",
-        description="crop residue workbook",
-    )
-
-    return pl.read_excel(path, sheet_name="crop_ABG_Res")
-
-
-def get_crop_ag_residue_table() -> pl.DataFrame:
-    """Return a cached copy of the crop above-ground residue table."""
-
-    return _load_crop_ag_residue_table().clone()
+_load_crop_ag_residue_table, get_crop_ag_residue_table = _cached_table(
+    lambda: DATA_DIR / "crops" / "crop_residue_data.xlsx",
+    partial(pl.read_excel, sheet_name="crop_ABG_Res"),
+    description="crop residue workbook",
+    clone_method="clone",
+)
+_load_crop_ag_residue_table.__doc__ = (
+    "Read the crop above-ground residue Excel sheet from disk."
+)
+get_crop_ag_residue_table.__doc__ = (
+    "Return a cached copy of the crop above-ground residue table."
+)
 
 
-@lru_cache(maxsize=None)
-def _load_crop_residue_ratio_table() -> pl.DataFrame:
-    """Read the crop residue ratio Excel sheet from disk."""
-
-    path = _ensure_exists(
-        DATA_DIR / "crops" / "crop_residue_data.xlsx",
-        description="crop residue workbook",
-    )
-
-    return pl.read_excel(path, sheet_name="crop_res_ratios")
-
-
-def get_crop_residue_ratio_table() -> pl.DataFrame:
-    """Return a cached copy of the crop residue ratio table."""
-
-    return _load_crop_residue_ratio_table().clone()
+_load_crop_residue_ratio_table, get_crop_residue_ratio_table = _cached_table(
+    lambda: DATA_DIR / "crops" / "crop_residue_data.xlsx",
+    partial(pl.read_excel, sheet_name="crop_res_ratios"),
+    description="crop residue workbook",
+    clone_method="clone",
+)
+_load_crop_residue_ratio_table.__doc__ = (
+    "Read the crop residue ratio Excel sheet from disk."
+)
+get_crop_residue_ratio_table.__doc__ = (
+    "Return a cached copy of the crop residue ratio table."
+)
 
 
 THERMAL_CLIMATE_ROWS = [
