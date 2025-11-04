@@ -4,11 +4,13 @@
 #### MODULES ####
 from pathlib import Path
 import logging
+import os
+from functools import lru_cache
+
+import numpy as np
 import pandas as pd
 import polars as pl
-import numpy as np
 import xarray as xr
-import os
 
 from typing import Mapping, Optional, Tuple, Dict, Union, List, NamedTuple
 
@@ -41,9 +43,30 @@ from rasterio.fill import fillnodata
 from scipy import ndimage
 
 
+def _default_data_dir() -> Path:
+    """Return the default data directory relative to the repository root."""
+
+    return Path(__file__).resolve().parents[2] / "data"
+
+
+def _get_data_dir() -> Path:
+    """Resolve the directory that contains the shared input datasets."""
+
+    env_override = os.environ.get("SBTN_LEAF_DATA_DIR")
+    if env_override:
+        return Path(env_override)
+    return _default_data_dir()
+
+
+def _data_path(*relative: str) -> Path:
+    """Build an absolute path inside the shared data directory."""
+
+    return _get_data_dir().joinpath(*relative)
+
+
 ##### DATA ####
-rain_monthly_fp = "../data/soil_weather/uhth_monthly_avg_precip.tif"
-uhth_climates_fp = "../data/soil_weather/uhth_thermal_climates.tif"
+rain_monthly_fp = _data_path("soil_weather", "uhth_monthly_avg_precip.tif")
+uhth_climates_fp = _data_path("soil_weather", "uhth_thermal_climates.tif")
 
 
 #### FUNCTIONS ####
@@ -1057,6 +1080,66 @@ def compute_residue_raster(
 
     return residue_da
 
+def _distribute_residue_monthly(
+    crop: str,
+    climate_ids: np.ndarray,
+    residue: np.ndarray,
+    *,
+    output_nodata: float,
+    climate_zone_lookup: Optional[Mapping[int, str]],
+    crop_table: Optional[pl.DataFrame],
+    climate_nodata: Optional[float],
+) -> np.ndarray:
+    """Return a (12, y, x) monthly residue cube using climate-specific Kc curves."""
+
+    if climate_ids.shape != residue.shape:
+        raise ValueError(
+            "Climate-ID raster and residue raster must share the same shape; "
+            f"got {climate_ids.shape} and {residue.shape}."
+        )
+
+    climate_lookup = _resolve_climate_lookup(climate_zone_lookup)
+    crop_table = _resolve_crop_table(crop_table)
+
+    out = np.full((12, *residue.shape), fill_value=output_nodata, dtype="float32")
+
+    if climate_nodata is None or np.isnan(climate_nodata):
+        valid_mask = ~np.isnan(climate_ids)
+    else:
+        valid_mask = climate_ids != climate_nodata
+
+    if not np.any(valid_mask):
+        return out
+
+    valid_ids = climate_ids[valid_mask].astype(int)
+    unique_ids = np.unique(valid_ids)
+
+    for cid in unique_ids:
+        group = climate_lookup.get(cid)
+        if group is None:
+            continue
+
+        kc_df = monthly_KC_curve(
+            crop,
+            group,
+            crop_table=crop_table,
+        ).select(["Month", "Kc"])
+        k_vals = np.array(kc_df["Kc"].to_list(), dtype=float)
+        total = k_vals.sum()
+        if total <= 0:
+            continue
+        k_frac = k_vals / total
+
+        rows, cols = np.where((climate_ids == cid) & valid_mask)
+        if rows.size == 0:
+            continue
+
+        pr_vals = residue[rows, cols]
+        out[:, rows, cols] = k_frac[:, None] * pr_vals[None, :]
+
+    return out
+
+
 def compute_monthly_residue_raster(
     crop: str,
     climate_raster_path: str,
@@ -1089,66 +1172,39 @@ def compute_monthly_residue_raster(
     xr.DataArray
         3D DataArray dims=('month','y','x') of monthly residue (t C/ha).
     """
-    # 1. Load & squeeze the climate IDs
     clim = rxr.open_rasterio(climate_raster_path, masked=False)
     if "band" in clim.dims:
         clim = clim.isel(band=0)
-    ids = clim.values  # now strictly 2D (y,x)
-    y, x = clim.coords["y"], clim.coords["x"]
+    ids = clim.values
+    climate_nodata = clim.rio.nodata
 
-    # 2. Squeeze the plant-residue to 2D, always taking the first band if there are multiples
-    pr_da = plant_residue
-    if "band" in pr_da.dims:
-        pr_da = pr_da.isel(band=0)
-    if pr_da.ndim != 2:
-        raise ValueError(f"Expected plant_residue to be 2D after squeezing, got {pr_da.shape}")
-    pr = pr_da.values
+    if "band" in plant_residue.dims:
+        plant_residue = plant_residue.isel(band=0)
+    if plant_residue.ndim != 2:
+        raise ValueError(
+            "Expected plant_residue to be 2D after squeezing, "
+            f"got {plant_residue.shape}"
+        )
 
-    # 2. Prepare output array
-    n_months = 12
-    y, x = pr_da.coords["y"], pr_da.coords["x"]
-    out = np.full((n_months, y.size, x.size),
-                  fill_value=output_nodata,
-                  dtype="float32")
+    monthly = _distribute_residue_monthly(
+        crop,
+        ids,
+        plant_residue.values,
+        output_nodata=output_nodata,
+        climate_zone_lookup=climate_zone_lookup,
+        crop_table=crop_table,
+        climate_nodata=climate_nodata,
+    )
 
-    # 3. Loop over climate IDs
-    climate_lookup = _resolve_climate_lookup(climate_zone_lookup)
-    crop_table = _resolve_crop_table(crop_table)
-
-    unique_ids = np.unique(ids[~np.isnan(ids)]).astype(int)
-    for cid in unique_ids:
-        group = climate_lookup.get(cid)
-        if group is None:
-            continue
-
-        # 3a. K‐curve fraction
-        kc_df = monthly_KC_curve(
-            crop,
-            group,
-            crop_table=crop_table,
-        ).select(["Month", "Kc"])
-        k_vals = np.array(kc_df["Kc"].to_list(), dtype=float)
-        k_frac = k_vals / k_vals.sum()
-
-        # 3b. Pixel positions for this ID
-        rows, cols = np.where(ids == cid)  # now ids is 2D
-
-        # 3c. Annual residue values at those pixels
-        pr_vals = pr[rows, cols]  # now works, pr is 2D
-
-        # 3d. Assign monthly: shape (12, Npix)
-        out[:, rows, cols] = k_frac[:, None] * pr_vals[None, :]
-
-    # 4. Wrap as xarray and set metadata
     da = xr.DataArray(
-        out,
+        monthly,
         dims=("month", "y", "x"),
         coords={
-            "month": np.arange(1, n_months+1),
-            "y": y,
-            "x": x
+            "month": np.arange(1, 13),
+            "y": clim.coords["y"],
+            "x": clim.coords["x"],
         },
-        name=f"{crop}_residue_monthly"
+        name=f"{crop}_residue_monthly",
     ).astype("float32")
 
     da = da.rio.write_crs(clim.rio.crs)
@@ -1156,7 +1212,6 @@ def compute_monthly_residue_raster(
     da = da.rio.write_nodata(output_nodata)
     da = da.rio.set_spatial_dims(x_dim="x", y_dim="y")
 
-    # 5. Optionally save as a 12-band GeoTIFF
     da.rio.to_raster(save_path)
 
 
@@ -1191,66 +1246,40 @@ def compute_monthly_residue_raster_fromAnnualRaster(
     xr.DataArray
         3D DataArray dims=('month','y','x') of monthly residue (t C/ha).
     """
-    # 1. Load & squeeze the climate IDs
     clim = rxr.open_rasterio(climate_raster_path, masked=False)
     if "band" in clim.dims:
         clim = clim.isel(band=0)
-    ids = clim.values  # now strictly 2D (y,x)
-    y, x = clim.coords["y"], clim.coords["x"]
+    ids = clim.values
+    climate_nodata = clim.rio.nodata
 
-    # 2. Squeeze the plant-residue to 2D, always taking the first band if there are multiples
     pr_da = rxr.open_rasterio(plant_residue, masked=True)
     if "band" in pr_da.dims:
         pr_da = pr_da.isel(band=0)
     if pr_da.ndim != 2:
-        raise ValueError(f"Expected plant_residue to be 2D after squeezing, got {pr_da.shape}")
-    pr = pr_da.values
+        raise ValueError(
+            "Expected plant_residue to be 2D after squeezing, "
+            f"got {pr_da.shape}"
+        )
 
-    # 2. Prepare output array
-    n_months = 12
-    y, x = pr_da.coords["y"], pr_da.coords["x"]
-    out = np.full((n_months, y.size, x.size),
-                  fill_value=output_nodata,
-                  dtype="float32")
+    monthly = _distribute_residue_monthly(
+        crop,
+        ids,
+        pr_da.values,
+        output_nodata=output_nodata,
+        climate_zone_lookup=climate_zone_lookup,
+        crop_table=crop_table,
+        climate_nodata=climate_nodata,
+    )
 
-    # 3. Loop over climate IDs
-    climate_lookup = _resolve_climate_lookup(climate_zone_lookup)
-    crop_table = _resolve_crop_table(crop_table)
-
-    unique_ids = np.unique(ids[~np.isnan(ids)]).astype(int)
-    for cid in unique_ids:
-        group = climate_lookup.get(cid)
-        if group is None:
-            continue
-
-        # 3a. K‐curve fraction
-        kc_df = monthly_KC_curve(
-            crop,
-            group,
-            crop_table=crop_table,
-        ).select(["Month", "Kc"])
-        k_vals = np.array(kc_df["Kc"].to_list(), dtype=float)
-        k_frac = k_vals / k_vals.sum()
-
-        # 3b. Pixel positions for this ID
-        rows, cols = np.where(ids == cid)  # now ids is 2D
-
-        # 3c. Annual residue values at those pixels
-        pr_vals = pr[rows, cols]  # now works, pr is 2D
-
-        # 3d. Assign monthly: shape (12, Npix)
-        out[:, rows, cols] = k_frac[:, None] * pr_vals[None, :]
-
-    # 4. Wrap as xarray and set metadata
     da = xr.DataArray(
-        out,
+        monthly,
         dims=("month", "y", "x"),
         coords={
-            "month": np.arange(1, n_months+1),
-            "y": y,
-            "x": x
+            "month": np.arange(1, 13),
+            "y": pr_da.coords["y"],
+            "x": pr_da.coords["x"],
         },
-        name=f"{crop}_residue_monthly"
+        name=f"{crop}_residue_monthly",
     ).astype("float32")
 
     da = da.rio.write_crs(clim.rio.crs)
@@ -1258,7 +1287,6 @@ def compute_monthly_residue_raster_fromAnnualRaster(
     da = da.rio.write_nodata(output_nodata)
     da = da.rio.set_spatial_dims(x_dim="x", y_dim="y")
 
-    # 5. Optionally save as a 12-band GeoTIFF
     da.rio.to_raster(save_path)
 
 
@@ -1658,55 +1686,28 @@ def create_monthly_residue_vPipeline(
     ##############################
     ### Distributing per month ###
     ##############################
-    
-    # Prepare output array
-    n_months = 12
-    y, x = shape
-    out = np.full((n_months, y, x),
-                  fill_value=output_nodata,
-                  dtype="float32")
 
-
-    # 1. Load & squeeze the climate IDs
     clim = rxr.open_rasterio(climate_raster_path, masked=False)
     if "band" in clim.dims:
         clim = clim.isel(band=0)
-    ids = clim.values  # now strictly 2D (y,x)
+    ids = clim.values
+    climate_nodata = clim.rio.nodata
 
-    # 3. Loop over climate IDs
-    climate_lookup = _resolve_climate_lookup(climate_zone_lookup)
-    crop_table = _resolve_crop_table(crop_table)
+    monthly = _distribute_residue_monthly(
+        crop,
+        ids,
+        Res,
+        output_nodata=output_nodata,
+        climate_zone_lookup=climate_zone_lookup,
+        crop_table=crop_table,
+        climate_nodata=climate_nodata,
+    )
 
-    unique_ids = np.unique(ids[~np.isnan(ids)]).astype(int)
-    for cid in unique_ids:
-        group = climate_lookup.get(cid)
-        if group is None:
-            continue
-
-        # 3a. K‐curve fraction
-        kc_df = monthly_KC_curve(
-            crop,
-            group,
-            crop_table=crop_table,
-        ).select(["Month", "Kc"])
-        k_vals = np.array(kc_df["Kc"].to_list(), dtype=float)
-        k_frac = k_vals / k_vals.sum()
-
-        # 3b. Pixel positions for this ID
-        rows, cols = np.where(ids == cid)  # now ids is 2D
-
-        # 3c. Annual residue values at those pixels
-        pr_vals = Res[rows, cols]  # now works, pr is 2D
-
-        # 3d. Assign monthly: shape (12, Npix)
-        out[:, rows, cols] = k_frac[:, None] * pr_vals[None, :]
-
-    # 4. Wrap as xarray and set metadata
     da = xr.DataArray(
-        out,
+        monthly,
         dims=("month", "y", "x"),
         coords={
-            "month": np.arange(1, n_months+1),
+            "month": np.arange(1, 13),
             "y":   clim.coords["y"],
             "x":   clim.coords["x"],
         },
@@ -1813,25 +1814,55 @@ def get_forest_litter_monthlyrate_fromda(da: np.ndarray, forest_type: str, weath
 #################################
 #### GRASSLAND CALCULATIONS #####
 #################################
-try:
-    grassland_residue_table = pl.read_excel("../data/grasslands/grassland_residues_IPCC.xlsx")
-except FileNotFoundError:  # pragma: no cover - optional input tables
-    grassland_residue_table = pl.DataFrame(
-        {
-            "FAO_ID": pl.Series([], dtype=pl.Int64),
-            "Residue": pl.Series([], dtype=pl.Float64),
-            "ResXErr": pl.Series([], dtype=pl.Float64),
-        }
-    )
+@lru_cache(maxsize=1)
+def _load_grassland_residue_table() -> pl.DataFrame:
+    """Load the IPCC grassland residue table from disk."""
 
-def generate_grassland_residue_map(grass_lu_fp: str = "../data/land_use/lu_Grassland.tif", fao_climate_map: str = "../data/soil_weather/uhth_thermal_climates.tif", c_content = 0.47, random_runs = 1)-> np.ndarray:
+    table_path = _data_path("grasslands", "grassland_residues_IPCC.xlsx")
+    try:
+        return pl.read_excel(table_path)
+    except FileNotFoundError as exc:  # pragma: no cover - optional input tables
+        raise FileNotFoundError(
+            "Grassland residue lookup table not found."
+            " Set `SBTN_LEAF_DATA_DIR` or provide explicit file paths."
+            f" Expected location: {table_path}"
+        ) from exc
+
+
+def _resolve_optional_path(path: Optional[Union[str, Path]], *default: str) -> Path:
+    """Return a resolved path, falling back to the shared data directory."""
+
+    if path is None:
+        return _data_path(*default)
+
+    candidate = Path(path)
+    if candidate.exists():
+        return candidate
+
+    default_path = _data_path(*default)
+    logging.getLogger(__name__).debug(
+        "Falling back to default data path %s for missing input %s", default_path, path
+    )
+    return default_path
+
+
+def generate_grassland_residue_map(
+    grass_lu_fp: Optional[Union[str, Path]] = None,
+    fao_climate_map: Optional[Union[str, Path]] = None,
+    c_content: float = 0.47,
+    random_runs: int = 1,
+) -> np.ndarray:
     # ------- Step 1 - Load maps ----------
     # loading both rasters
-    with rasterio.open(grass_lu_fp) as src:
+    grassland_path = _resolve_optional_path(grass_lu_fp, "land_use", "lu_Grassland.tif")
+    with rasterio.open(grassland_path) as src:
         lu = src.read(1)
         lu_nd = src.nodata
 
-    with rasterio.open(fao_climate_map) as clim:
+    climate_path = _resolve_optional_path(
+        fao_climate_map, "soil_weather", "uhth_thermal_climates.tif"
+    )
+    with rasterio.open(climate_path) as clim:
         clim_data = clim.read(1)
         clim_nd = clim.nodata
 
@@ -1846,6 +1877,7 @@ def generate_grassland_residue_map(grass_lu_fp: str = "../data/land_use/lu_Grass
     
     # ------- Step 2 - Build Residue Data for Numpy ----------
     # Getting the data
+    grassland_residue_table = _load_grassland_residue_table()
     climate_ids = grassland_residue_table["FAO_ID"].to_numpy().astype("int")
     means = grassland_residue_table["Residue"].to_numpy().astype("float32")
     ses = grassland_residue_table["ResXErr"].to_numpy().astype("float32")
@@ -1912,26 +1944,32 @@ class RasterResult:
                 dst.set_band_description(1, self.name)
 
 ANIMAL_DENSITY_REGISTRY = {
-    "cattle_other": "../data/grasslands/livestock/grassland_cattle.tif",
-    "cattle_dairy": "../data/grasslands/livestock/grassland_cattle.tif",
-    "goat": "../data/grasslands/livestock/grassland_goat.tif",
-    "sheep": "../data/grasslands/livestock/grassland_sheep.tif"
+    "cattle_other": _data_path("grasslands", "livestock", "grassland_cattle.tif"),
+    "cattle_dairy": _data_path("grasslands", "livestock", "grassland_cattle.tif"),
+    "goat": _data_path("grasslands", "livestock", "grassland_goat.tif"),
+    "sheep": _data_path("grasslands", "livestock", "grassland_sheep.tif"),
 }
 
-grassland_dung_regions_raster_fp = "../data/grasslands/livestock/grassland_dung_regions.tif"
+grassland_dung_regions_raster_fp = _data_path(
+    "grasslands", "livestock", "grassland_dung_regions.tif"
+)
 
-try:
-    dung_data = pl.read_excel("../data/grasslands/Animals_Dung_IPCC.xlsx", sheet_name="C_Excr_Animals_tCpheadpyr")
-except FileNotFoundError:  # pragma: no cover - optional input tables
-    dung_data = pl.DataFrame(
-        {
-            "region": pl.Series([], dtype=pl.Utf8),
-            "cattle_other": pl.Series([], dtype=pl.Float64),
-            "cattle_dairy": pl.Series([], dtype=pl.Float64),
-            "goat": pl.Series([], dtype=pl.Float64),
-            "sheep": pl.Series([], dtype=pl.Float64),
-        }
-    )
+
+@lru_cache(maxsize=1)
+def _load_dung_data() -> pl.DataFrame:
+    """Load the dung deposition lookup table."""
+
+    dung_path = _data_path("grasslands", "Animals_Dung_IPCC.xlsx")
+    try:
+        return pl.read_excel(
+            dung_path, sheet_name="C_Excr_Animals_tCpheadpyr"
+        )
+    except FileNotFoundError as exc:  # pragma: no cover - optional input tables
+        raise FileNotFoundError(
+            "Dung excretion lookup table not found."
+            " Set `SBTN_LEAF_DATA_DIR` or provide explicit file paths."
+            f" Expected location: {dung_path}"
+        ) from exc
 raster_id = [1,2,3,4,5,6,7,8,9]
 dung_regions_mean = [
     "India - Mean",
@@ -2003,9 +2041,10 @@ def calculate_carbon_dung(animals: Union[str, List[str]], cattle_dw_productivity
         valid_regions = ~np.ma.getmaskarray(dung_regions)
         dung_reg_nd  = region_src.nodata
         profile      = region_src.profile
-    
+
     # --------- Step 1 - Loading data --------------
     animals_density: Dict[str, DungBundle] = {}
+    dung_data = _load_dung_data()
     for a in animals:
         fp = ANIMAL_DENSITY_REGISTRY[a]
         with rasterio.open(fp) as src:
@@ -2034,7 +2073,9 @@ def calculate_carbon_dung(animals: Union[str, List[str]], cattle_dw_productivity
     carbon_out: Dict[str, RasterResult] = {}
     for a in animals:
         # load dung region values for the given scenario
-        dung_region_values = dung_data.filter(pl.col("region").is_in(dung_scenario_regions["region"].to_list())).select("region", a)
+        dung_region_values = dung_data.filter(
+            pl.col("region").is_in(dung_scenario_regions["region"].to_list())
+        ).select("region", a)
 
         # create a look up table (lut) to link zones to annual c excretion rates
         lut_df = (dung_scenario_regions.
