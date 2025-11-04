@@ -15,14 +15,15 @@ import rioxarray
 import rasterio
 from rasterio.enums import Resampling
 from rasterio.coords import BoundingBox
-from typing import Optional, Union
+from typing import Dict, Optional, Union
 
 # World shapefile (loaded lazily)
-_WORLD_GLOBAL_LR_PATH = "../data/world_maps/low_res/ne_110m_admin_0_countries.shp"
-_WORLD_GLOBAL_HR_PATH = "../data/world_maps/high_res/ne_10m_admin_0_countries.shp"
+_WORLD_MAP_PATHS = {
+    "lr": "../data/world_maps/low_res/ne_110m_admin_0_countries.shp",
+    "hr": "../data/world_maps/high_res/ne_10m_admin_0_countries.shp",
+}
 
-_world_global_lr_cache: Optional[gpd.GeoDataFrame] = None
-_world_global_hr_cache: Optional[gpd.GeoDataFrame] = None
+_world_map_cache: Dict[str, gpd.GeoDataFrame] = {}
 
 
 def _safe_read_file(path: str) -> gpd.GeoDataFrame:
@@ -32,18 +33,44 @@ def _safe_read_file(path: str) -> gpd.GeoDataFrame:
         return gpd.GeoDataFrame()
 
 
-def _get_world_global_lr() -> gpd.GeoDataFrame:
-    global _world_global_lr_cache
-    if _world_global_lr_cache is None:
-        _world_global_lr_cache = _safe_read_file(_WORLD_GLOBAL_LR_PATH)
-    return _world_global_lr_cache
+def _get_world_map(resolution: str = "hr") -> gpd.GeoDataFrame:
+    """Return a cached world basemap for the requested ``resolution``.
+
+    Parameters
+    ----------
+    resolution:
+        Key identifying the desired basemap resolution. ``"hr"`` (high
+        resolution) remains the default to keep existing behaviour. ``"lr"``
+        (low resolution) is also available out of the box.
+
+    Notes
+    -----
+    Advanced callers can pre-load their own basemap and register it with
+    :func:`_register_world_map` to avoid redundant disk reads when plotting
+    repeatedly.
+    """
+
+    resolution_key = resolution.lower()
+    try:
+        shapefile_path = _WORLD_MAP_PATHS[resolution_key]
+    except KeyError as exc:  # pragma: no cover - defensive guard
+        raise ValueError(f"Unknown world map resolution: {resolution!r}") from exc
+
+    if resolution_key not in _world_map_cache:
+        _world_map_cache[resolution_key] = _safe_read_file(shapefile_path)
+
+    return _world_map_cache[resolution_key]
 
 
-def _get_world_global_hr() -> gpd.GeoDataFrame:
-    global _world_global_hr_cache
-    if _world_global_hr_cache is None:
-        _world_global_hr_cache = _safe_read_file(_WORLD_GLOBAL_HR_PATH)
-    return _world_global_hr_cache
+def _register_world_map(resolution: str, basemap: gpd.GeoDataFrame) -> None:
+    """Register ``basemap`` for ``resolution`` to reuse without disk I/O.
+
+    This is primarily intended for advanced and performance-sensitive callers
+    that want to supply a custom GeoDataFrame (perhaps already filtered) before
+    invoking the plotting utilities in this module.
+    """
+
+    _world_map_cache[resolution.lower()] = basemap
 
 
 # FUNCTIONS
@@ -320,7 +347,7 @@ def plot_raster_on_world_extremes_cutoff(
     """
 
     if base_shp is None:
-        base_shp = _get_world_global_hr()
+        base_shp = _get_world_map()
 
     # Load the raster data + metadata
     with rasterio.open(tif_path) as src:
@@ -409,7 +436,7 @@ def plot_da_on_world_extremes_cutoff(
         World map for context.
     """
     if base_shp is None:
-        base_shp = _get_world_global_hr()
+        base_shp = _get_world_map()
 
     # 1) extract the raw numpy array + metadata
     if 'band' in da.dims:
@@ -486,7 +513,7 @@ def plot_all_raster_bands(
     Each subplot gets its own colorbar and uses categorical logic if there are <= n_categories unique values.
     """
     if base_shp is None:
-        base_shp = _get_world_global_hr()
+        base_shp = _get_world_map()
 
     # 1) Load the raster and metadata
     with rasterio.open(tif_path) as src:
@@ -581,7 +608,7 @@ def plot_raster_on_world_no_min(
     base_shp: Optional[gpd.GeoDataFrame] = None,
 ):
     if base_shp is None:
-        base_shp = _get_world_global_hr()
+        base_shp = _get_world_map()
 
     # Load the raster data
     with rasterio.open(tif_path) as src:
@@ -622,7 +649,7 @@ def plot_static_shapefile_on_world(shapefile, color_variable_name: str,title="Sh
 
     # Create the plot
     fig, ax = plt.subplots(figsize=(12, 8))
-    _get_world_global_hr().plot(ax=ax, color="lightgrey", edgecolor="black")  # Plot the world map
+    _get_world_map().plot(ax=ax, color="lightgrey", edgecolor="black")  # Plot the world map
 
     gdf = shapefile
 
@@ -705,7 +732,7 @@ def plotly_shapefile_continuous(shapefile, category_column, title=None, subtitle
     # Ensure CRS compatibility
     print('Ensuring same projection is used')
     gdf = gdf.to_crs("EPSG:4326")
-    world = _get_world_global_hr().to_crs("EPSG:4326")
+    world = _get_world_map().to_crs("EPSG:4326")
 
     # Ensure only one transformation is applied.
     if log_scale and n_quantile is not None:
@@ -884,7 +911,7 @@ def plotly_shapefile_categorical(shapefile: gpd.GeoDataFrame, categorical_variab
     # Ensure CRS compatibility
     print('Ensuring same projection is used')
     gdf = gdf.to_crs("EPSG:4326")
-    world = _get_world_global_hr().to_crs("EPSG:4326")
+    world = _get_world_map().to_crs("EPSG:4326")
 
     print('Converting to geojson')
     fig = px.choropleth_map(
