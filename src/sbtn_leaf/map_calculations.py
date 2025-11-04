@@ -38,23 +38,50 @@ import sbtn_leaf.map_plotting as mp
 ############
 ### DATA ###
 ############
-# FAO shapefiles paths
-try:
-    country_shp = gpd.read_file("../data/CountryLayers/Country_Level0/g2015_2014_0.shp")
-except Exception:  # pragma: no cover - optional GIS dependency
-    country_shp = gpd.GeoDataFrame()
 
-try:
-    subcountry_shp = gpd.read_file("../data/CountryLayers/SubCountry_Level1/g2015_2014_1.shp")
-except Exception:  # pragma: no cover - optional GIS dependency
-    subcountry_shp = gpd.GeoDataFrame()
+_COUNTRY_SHP_PATH = "../data/CountryLayers/Country_Level0/g2015_2014_0.shp"
+_SUBCOUNTRY_SHP_PATH = "../data/CountryLayers/SubCountry_Level1/g2015_2014_1.shp"
+_ER_2017_SHP_PATH = "../data/ecoregions2017/ecoregions2017.shp"
 
-# ecoregions - One map with all ecoregions
-er_2017_fp = "../data/ecoregions2017/ecoregions2017.shp"
-try:
-    er_2017_shp = gpd.read_file(er_2017_fp)
-except Exception:  # pragma: no cover - optional GIS dependency
-    er_2017_shp = gpd.GeoDataFrame()
+_country_shp_cache: Optional[gpd.GeoDataFrame] = None
+_subcountry_shp_cache: Optional[gpd.GeoDataFrame] = None
+_er_2017_shp_cache: Optional[gpd.GeoDataFrame] = None
+
+
+def _safe_read_file(path: str) -> gpd.GeoDataFrame:
+    """Return a GeoDataFrame from *path*, or an empty one if reading fails."""
+
+    try:
+        return gpd.read_file(path)
+    except Exception:  # pragma: no cover - optional GIS dependency
+        return gpd.GeoDataFrame()
+
+
+def _get_country_shp() -> gpd.GeoDataFrame:
+    """Lazy loader for the FAO country-level shapefile."""
+
+    global _country_shp_cache
+    if _country_shp_cache is None:
+        _country_shp_cache = _safe_read_file(_COUNTRY_SHP_PATH)
+    return _country_shp_cache
+
+
+def _get_subcountry_shp() -> gpd.GeoDataFrame:
+    """Lazy loader for the FAO subcountry-level shapefile."""
+
+    global _subcountry_shp_cache
+    if _subcountry_shp_cache is None:
+        _subcountry_shp_cache = _safe_read_file(_SUBCOUNTRY_SHP_PATH)
+    return _subcountry_shp_cache
+
+
+def _get_er_2017_shp() -> gpd.GeoDataFrame:
+    """Lazy loader for the 2017 ecoregions shapefile."""
+
+    global _er_2017_shp_cache
+    if _er_2017_shp_cache is None:
+        _er_2017_shp_cache = _safe_read_file(_ER_2017_SHP_PATH)
+    return _er_2017_shp_cache
 
 
 ###############
@@ -98,13 +125,22 @@ build_logger.setLevel(logging.DEBUG)
 ### FUNCTIONS ###
 #################
 
-def calculate_area_weighted_cfs_from_shp_with_std_and_median(cf_shp: gpd.GeoDataFrame, value_column: str, brd_shp: gpd.GeoDataFrame = er_2017_shp, brdr_name: str = "ECO_NAME", calculated_variable_name='area_weighted_cf', return_invalid=False, skip_brd_chck=False):
+def calculate_area_weighted_cfs_from_shp_with_std_and_median(
+    cf_shp: gpd.GeoDataFrame,
+    value_column: str,
+    brd_shp: Optional[gpd.GeoDataFrame] = None,
+    brdr_name: str = "ECO_NAME",
+    calculated_variable_name: str = "area_weighted_cf",
+    return_invalid: bool = False,
+    skip_brd_chck: bool = False,
+):
     """
     Calculate area-weighted characterization factors for a given border shapefile (ecoregion global shapefile by default), as well as its standard deviation, and median for each unit. It returns a DataFrame with the results and shapefile with the new characterization factors and related statistics.
 
     Parameters:
         cf_shp (GeoDataFrame): GeoDataFrame containing polygons and values.
-        brd_shp (GeoDataFrame): GeoDataFrame containing ecoregions and their shapes. Default: er_2017_shp (global ecoregion shapefile)
+        brd_shp (GeoDataFrame): GeoDataFrame containing ecoregions and their shapes.
+            Defaults to the lazily loaded 2017 ecoregion shapefile.
         value_column (str): The column name in cf_shp that holds the values to be weighted.
         calculated_variable_name (str): Name of the calculated value. Default: area_weighted_cf
 
@@ -129,6 +165,9 @@ def calculate_area_weighted_cfs_from_shp_with_std_and_median(cf_shp: gpd.GeoData
     cf_shp, cf_shp_invalid = _filter_invalid_latitudes(cf_shp)    
 
     # Drop missing geometries, fixing invalid geometries for brd_shp
+    if brd_shp is None:
+        brd_shp = _get_er_2017_shp()
+
     if skip_brd_chck:
         shape_logger.info("Skipping brd_shp check.")
     else:
@@ -203,7 +242,18 @@ def calculate_area_weighted_cfs_from_shp_with_std_and_median(cf_shp: gpd.GeoData
         return result_df, brd_shp_result
 
 
-def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_filepath: str, cf_name: str, cf_unit: str, flow_name: str, area_type: str, run_test = False, ):
+def calculate_area_weighted_cfs_from_raster_with_std_and_median(
+    raster_input_filepath: str,
+    cf_name: str,
+    cf_unit: str,
+    flow_name: str,
+    area_type: str,
+    run_test: bool = False,
+    *,
+    er_gdf: Optional[gpd.GeoDataFrame] = None,
+    country_gdf: Optional[gpd.GeoDataFrame] = None,
+    subcountry_gdf: Optional[gpd.GeoDataFrame] = None,
+):
     """
     Calculate area-weighted characterization factors (CFs) from a raster file, including the mean, standard deviation, and median, for specified geographic regions (ecoregion, country, or subcountry).
 
@@ -220,8 +270,11 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
     area_type : str
         Type of geographic area to calculate CFs for. Valid values are "ecoregion", "country", or "subcountry".
     run_test : bool, optional
-        If True, the function will only process the first 5 geometries in the shapefile for testing purposes. 
+        If True, the function will only process the first 5 geometries in the shapefile for testing purposes.
         Default is False.
+    er_gdf, country_gdf, subcountry_gdf : geopandas.GeoDataFrame, optional
+        Overrides for the ecoregion, country, or subcountry shapefiles to use instead of the
+        lazily loaded defaults. Useful for testing.
 
     Returns
     --------
@@ -234,7 +287,8 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
     
     Notes
     ------
-    - The function assumes that global variables `er_2017_shp`, `country_shp`, and `subcountry_shp` are defined and contain the shapefiles for ecoregions, Countries, and Subcountries, respectively.
+    - The function uses lazily loaded shapefiles via `_get_er_2017_shp()`, `_get_country_shp()`,
+      and `_get_subcountry_shp()` when explicit GeoDataFrames are not supplied.
     - The raster file must have a defined coordinate reference system (CRS) that matches the CRS of the shapefile.
     - The function calculates area-weighted statistics using the pixel dimensions of the raster in the projected CRS.
     - If no valid data is found for a region, that region is skipped.
@@ -254,13 +308,13 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
         raster_logger.info("Need to define area type. Valid values are ecoregion, country, or subcountry")
         return
 
-    # Determine which shapefile to use (assume these globals are defined: er_shp, country_shp, subcountry_shp)
+    # Determine which shapefile to use (fall back to lazily loaded datasets)
     if area_type == "ecoregion":
-        shp = er_2017_shp 
+        shp = er_gdf if er_gdf is not None else _get_er_2017_shp()
     elif area_type == "country":
-        shp = country_shp
+        shp = country_gdf if country_gdf is not None else _get_country_shp()
     else:
-        shp = subcountry_shp
+        shp = subcountry_gdf if subcountry_gdf is not None else _get_subcountry_shp()
 
     #Testing only goes through the first 5 geometries
     if run_test:
@@ -405,7 +459,13 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median(raster_input_fil
     return final_results
 
 
-def run_diagnostic(cf_shp, value_column:str, brd_shp: gpd.GeoDataFrame = er_2017_shp):
+def run_diagnostic(
+    cf_shp,
+    value_column: str,
+    brd_shp: Optional[gpd.GeoDataFrame] = None,
+):
+    if brd_shp is None:
+        brd_shp = _get_er_2017_shp()
     # Checking missing geometries
     shape_logger.info(
         "Missing geometries in cf_shp: %s", cf_shp.geometry.isna().sum()
@@ -480,9 +540,9 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
     q_high: float = 0.99,
     std_thresh: float = 3.0,
     # Globals for shapes expected as in your original function:
-    er_gdf: gpd.GeoDataFrame = er_2017_shp,
-    country_gdf: gpd.GeoDataFrame = country_shp,
-    subcountry_gdf: gpd.GeoDataFrame = subcountry_shp,
+    er_gdf: Optional[gpd.GeoDataFrame] = None,
+    country_gdf: Optional[gpd.GeoDataFrame] = None,
+    subcountry_gdf: Optional[gpd.GeoDataFrame] = None,
     raster_logger=raster_logger,
     suppress_logging: bool = False,
 ):
@@ -518,13 +578,19 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
 
     # Select region GeoDataFrame
     if area_type == "ecoregion":
-        if er_gdf is None: raise ValueError("er_gdf must be provided for area_type='ecoregion'.")
+        er_gdf = er_gdf if er_gdf is not None else _get_er_2017_shp()
+        if er_gdf is None:
+            raise ValueError("er_gdf must be provided for area_type='ecoregion'.")
         shp = er_gdf.copy()
     elif area_type == "country":
-        if country_gdf is None: raise ValueError("country_gdf must be provided for area_type='country'.")
+        country_gdf = country_gdf if country_gdf is not None else _get_country_shp()
+        if country_gdf is None:
+            raise ValueError("country_gdf must be provided for area_type='country'.")
         shp = country_gdf.copy()
     else:
-        if subcountry_gdf is None: raise ValueError("subcountry_gdf must be provided for area_type='subcountry'.")
+        subcountry_gdf = subcountry_gdf if subcountry_gdf is not None else _get_subcountry_shp()
+        if subcountry_gdf is None:
+            raise ValueError("subcountry_gdf must be provided for area_type='subcountry'.")
         shp = subcountry_gdf.copy()
 
     if run_test:

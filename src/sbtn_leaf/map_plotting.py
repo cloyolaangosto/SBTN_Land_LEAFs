@@ -17,13 +17,33 @@ from rasterio.enums import Resampling
 from rasterio.coords import BoundingBox
 from typing import Optional, Union
 
-# World shapefile (loaded outside the function)
-try:
-    world_global_lr = gpd.read_file("../data/world_maps/low_res/ne_110m_admin_0_countries.shp")
-    world_global_hr = gpd.read_file("../data/world_maps/high_res/ne_10m_admin_0_countries.shp")
-except Exception:  # pragma: no cover - optional dependency for plotting
-    world_global_lr = gpd.GeoDataFrame()
-    world_global_hr = gpd.GeoDataFrame()
+# World shapefile (loaded lazily)
+_WORLD_GLOBAL_LR_PATH = "../data/world_maps/low_res/ne_110m_admin_0_countries.shp"
+_WORLD_GLOBAL_HR_PATH = "../data/world_maps/high_res/ne_10m_admin_0_countries.shp"
+
+_world_global_lr_cache: Optional[gpd.GeoDataFrame] = None
+_world_global_hr_cache: Optional[gpd.GeoDataFrame] = None
+
+
+def _safe_read_file(path: str) -> gpd.GeoDataFrame:
+    try:
+        return gpd.read_file(path)
+    except Exception:  # pragma: no cover - optional dependency for plotting
+        return gpd.GeoDataFrame()
+
+
+def _get_world_global_lr() -> gpd.GeoDataFrame:
+    global _world_global_lr_cache
+    if _world_global_lr_cache is None:
+        _world_global_lr_cache = _safe_read_file(_WORLD_GLOBAL_LR_PATH)
+    return _world_global_lr_cache
+
+
+def _get_world_global_hr() -> gpd.GeoDataFrame:
+    global _world_global_hr_cache
+    if _world_global_hr_cache is None:
+        _world_global_hr_cache = _safe_read_file(_WORLD_GLOBAL_HR_PATH)
+    return _world_global_hr_cache
 
 
 # FUNCTIONS
@@ -287,7 +307,7 @@ def plot_raster_on_world_extremes_cutoff(
     region: Optional[str] = None,
     cmap: str = 'viridis',
     n_categories: int = 20,
-    base_shp=world_global_hr,
+    base_shp: Optional[gpd.GeoDataFrame] = None,
     plt_show: bool = True,
     min_val: Optional[float] = None,
     max_val: Optional[float] = None,
@@ -298,6 +318,9 @@ def plot_raster_on_world_extremes_cutoff(
     - Correctly handles nodata (e.g. -32000) by masking to NaN.
     - Reprojects base_shp (assumed EPSG:4326 or anything else) to raster CRS automatically.
     """
+
+    if base_shp is None:
+        base_shp = _get_world_global_hr()
 
     # Load the raster data + metadata
     with rasterio.open(tif_path) as src:
@@ -355,7 +378,7 @@ def plot_da_on_world_extremes_cutoff(
     cmap: str = 'viridis',
     diverg0 = False,
     n_categories: int = 20,
-    base_shp = world_global_hr,
+    base_shp: Optional[gpd.GeoDataFrame] = None,
     eliminate_zeros = False
 ):
     """
@@ -385,6 +408,9 @@ def plot_da_on_world_extremes_cutoff(
     base_shp : GeoDataFrame
         World map for context.
     """
+    if base_shp is None:
+        base_shp = _get_world_global_hr()
+
     # 1) extract the raw numpy array + metadata
     if 'band' in da.dims:
         arr = da.isel(band=band or 0).values.astype(float)
@@ -451,7 +477,7 @@ def plot_all_raster_bands(
     cmap: str = "viridis",
     quantiles: Optional[int] = None,
     n_categories: int = 20,
-    base_shp = world_global_hr,
+    base_shp: Optional[gpd.GeoDataFrame] = None,
     x_size: float = 14,
     y_size: float = 8
 ):
@@ -459,6 +485,9 @@ def plot_all_raster_bands(
     Plot every band of a multi-band raster in a grid (up to max_cols per row).
     Each subplot gets its own colorbar and uses categorical logic if there are <= n_categories unique values.
     """
+    if base_shp is None:
+        base_shp = _get_world_global_hr()
+
     # 1) Load the raster and metadata
     with rasterio.open(tif_path) as src:
         bands  = src.read()         # shape: (count, height, width)
@@ -539,7 +568,21 @@ def plot_all_raster_bands(
     plt.show()
 
 
-def plot_raster_on_world_no_min(tif_path, title: str, label_title = 'Raster Values', no_data_value = None, threshold = None, quantiles = None, cmap='viridis', x_size = 14, y_size = 8, base_shp = world_global_hr):
+def plot_raster_on_world_no_min(
+    tif_path,
+    title: str,
+    label_title='Raster Values',
+    no_data_value=None,
+    threshold=None,
+    quantiles=None,
+    cmap='viridis',
+    x_size=14,
+    y_size=8,
+    base_shp: Optional[gpd.GeoDataFrame] = None,
+):
+    if base_shp is None:
+        base_shp = _get_world_global_hr()
+
     # Load the raster data
     with rasterio.open(tif_path) as src:
         raster_data = src.read(1)  # Read the first band
@@ -579,7 +622,7 @@ def plot_static_shapefile_on_world(shapefile, color_variable_name: str,title="Sh
 
     # Create the plot
     fig, ax = plt.subplots(figsize=(12, 8))
-    world_global_hr.plot(ax=ax, color="lightgrey", edgecolor="black")  # Plot the world map
+    _get_world_global_hr().plot(ax=ax, color="lightgrey", edgecolor="black")  # Plot the world map
 
     gdf = shapefile
 
@@ -662,7 +705,7 @@ def plotly_shapefile_continuous(shapefile, category_column, title=None, subtitle
     # Ensure CRS compatibility
     print('Ensuring same projection is used')
     gdf = gdf.to_crs("EPSG:4326")
-    world = world_global_hr.to_crs("EPSG:4326")
+    world = _get_world_global_hr().to_crs("EPSG:4326")
 
     # Ensure only one transformation is applied.
     if log_scale and n_quantile is not None:
@@ -841,7 +884,7 @@ def plotly_shapefile_categorical(shapefile: gpd.GeoDataFrame, categorical_variab
     # Ensure CRS compatibility
     print('Ensuring same projection is used')
     gdf = gdf.to_crs("EPSG:4326")
-    world = world_global_hr.to_crs("EPSG:4326")
+    world = _get_world_global_hr().to_crs("EPSG:4326")
 
     print('Converting to geojson')
     fig = px.choropleth_map(
