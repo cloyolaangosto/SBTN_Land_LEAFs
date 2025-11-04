@@ -15,7 +15,7 @@ from rasterio.windows import Window
 import rioxarray
 import tempfile
 from contextlib import nullcontext
-from typing import Optional, Callable, Iterable, Tuple, Dict, List, Union
+from typing import Optional, Callable, Iterable, Tuple, Dict, List, Union, Sequence
 from shapely.geometry import box
 from shapely.prepared import prep as prep_geom
 from tqdm.auto import tqdm
@@ -1695,195 +1695,156 @@ def create_binary_mask(input_path, output_path, binary_value = 1, band=1, src_no
     return binary
 
 
-def resample_to_match(src_path, target_path, output_path,
-                      resampling_method=Resampling.nearest,
-                      src_nodata=None, dst_nodata=None):
-    """
-    Resamples the source raster (src_path) so that it matches the resolution,
-    extent, and geotransform of the target raster (target_path). During resampling,
-    specified no_data values are excluded from interpolation.
+def resample_raster_to_match(
+    src_path: str,
+    target_path: str,
+    *,
+    bands: Optional[Union[int, Sequence[int]]] = None,
+    output_path: Optional[str] = None,
+    resampling_method: Resampling = Resampling.nearest,
+    src_nodata: Optional[float] = None,
+    dst_nodata: Optional[float] = None,
+) -> Optional[np.ndarray]:
+    """Resample ``src_path`` onto the grid of ``target_path``."""
 
-    Parameters:
-        src_path (str): File path of the source raster that needs to be resampled.
-        target_path (str): File path of the target raster whose grid we want the source to match.
-        output_path (str): File path to save the resampled source raster.
-        resampling_method: Rasterio resampling method (e.g., Resampling.nearest, Resampling.bilinear).
-                           Default is Resampling.nearest.
-        src_nodata (optional): Value to treat as no_data in the source raster.
-                               If not provided, the function uses the source raster's nodata.
-        dst_nodata (optional): Value to use as no_data in the destination raster.
-                               If not provided, the function uses src_nodata.
-    
-    Returns:
-        None. The resampled raster is written to output_path.
-    
-    Explanation:
-        - The function reads the target raster’s transform, width, height, and CRS.
-        - It then opens the source raster and reads its data.
-        - If src_nodata is not provided, it is taken from the source raster's metadata.
-        - Similarly, if dst_nodata is not provided, it is set equal to src_nodata.
-        - The reproject function is then used to resample the source data onto the target grid,
-          while ignoring (excluding) source pixels that equal src_nodata.
-        - The resulting output is written with the specified destination nodata value.
-    """
-    # Open the target raster to get its grid parameters.
     with rasterio.open(target_path) as target:
         target_transform = target.transform
         target_width = target.width
         target_height = target.height
         target_crs = target.crs
 
-    # Open the source raster.
+    arrays: List[np.ndarray] = []
+
     with rasterio.open(src_path) as src:
-        # Read the first band of the source raster.
-        src_data = src.read(1)
-        src_transform = src.transform
-        src_crs = src.crs
+        if bands is None:
+            band_indices = list(range(1, src.count + 1))
+        elif isinstance(bands, int):
+            band_indices = [bands]
+        else:
+            band_indices = [int(b) for b in bands]
 
-        # Determine the source no_data value: use provided or the one in the file.
-        if src_nodata is None:
-            src_nodata = src.nodata
+        if not band_indices:
+            raise ValueError("No bands specified for resampling.")
 
-        # If destination no_data is not provided, set it equal to src_nodata.
-        if dst_nodata is None:
-            dst_nodata = src_nodata
+        for band_index in band_indices:
+            if band_index < 1 or band_index > src.count:
+                raise ValueError(
+                    f"Band index {band_index} out of range for dataset with {src.count} bands."
+                )
 
-        # Prepare an empty array for the resampled data.
-        resampled_data = np.empty((target_height, target_width), dtype=src_data.dtype)
+        resolved_src_nodata = src_nodata if src_nodata is not None else src.nodata
+        resolved_dst_nodata = dst_nodata if dst_nodata is not None else resolved_src_nodata
 
-        # Perform the resampling with reproject.
-        reproject(
-            source=src_data,
-            destination=resampled_data,
-            src_transform=src_transform,
-            src_crs=src_crs,
-            dst_transform=target_transform,
-            dst_crs=target_crs,
-            resampling=resampling_method,
-            src_nodata=src_nodata,  # Exclude these values from interpolation
-            dst_nodata=dst_nodata
-        )
-
-        # Copy and update metadata for the output raster.
-        meta = src.meta.copy()
-        meta.update({
-            'crs': target_crs,
-            'transform': target_transform,
-            'width': target_width,
-            'height': target_height,
-            'nodata': dst_nodata
-        })
-
-    # Write the resampled raster to disk.
-    with rasterio.open(output_path, 'w', **meta) as dst:
-        dst.write(resampled_data, 1)
-
-
-def resample_to_match_multiband(src_path: str,
-                                target_path: str,
-                                output_path: str,
-                                resampling_method=Resampling.nearest):
-    """
-    Resample every band in src_path to the grid of target_path and
-    write out a single multi‐band GeoTIFF at output_path.
-    """
-    # --- 1) Read & stash metadata ---
-    with rasterio.open(src_path) as src, rasterio.open(target_path) as tgt:
-        # source parameters
-        src_count     = src.count
-        src_nodata    = src.nodata
-        src_dtype     = src.dtypes[0]
-        src_crs       = src.crs
-        src_transform = src.transform
-
-        # target parameters & base profile
-        tgt_crs       = tgt.crs
-        tgt_transform = tgt.transform
-        tgt_width     = tgt.width
-        tgt_height    = tgt.height
-        profile       = tgt.meta.copy()
-
-    # update profile to match source bands & nodata
-    profile.update({
-        "count":  src_count,
-        "nodata": src_nodata,
-        "dtype":  src_dtype,
-    })
-
-    # --- 2) Re‐open src for reading and dst for writing ---
-    with rasterio.open(src_path) as src, rasterio.open(output_path, "w", **profile) as dst:
-        for b in range(1, src_count + 1):
-            src_band = src.read(b)
-            out_band = np.empty((tgt_height, tgt_width), dtype=src_dtype)
-
-            reproject(
-                source=src_band,
-                destination=out_band,
-                src_transform=src_transform,
-                src_crs=src_crs,
-                dst_transform=tgt_transform,
-                dst_crs=tgt_crs,
-                resampling=resampling_method,
-                src_nodata=src_nodata,
-                dst_nodata=src_nodata
+        for band_index in band_indices:
+            src_data = src.read(band_index)
+            destination = (
+                np.full((target_height, target_width), resolved_dst_nodata, dtype=src_data.dtype)
+                if resolved_dst_nodata is not None
+                else np.empty((target_height, target_width), dtype=src_data.dtype)
             )
 
-            dst.write(out_band, b)
+            reproject(
+                source=src_data,
+                destination=destination,
+                src_transform=src.transform,
+                src_crs=src.crs,
+                dst_transform=target_transform,
+                dst_crs=target_crs,
+                resampling=resampling_method,
+                src_nodata=resolved_src_nodata,
+                dst_nodata=resolved_dst_nodata,
+            )
+
+            arrays.append(destination)
+
+    if output_path:
+        dtype = np.result_type(*[arr.dtype for arr in arrays])
+        profile = {
+            "driver": "GTiff",
+            "height": target_height,
+            "width": target_width,
+            "count": len(arrays),
+            "dtype": np.dtype(dtype).name,
+            "crs": target_crs,
+            "transform": target_transform,
+            "nodata": resolved_dst_nodata,
+        }
+
+        with rasterio.open(output_path, "w", **profile) as dst:
+            for idx, arr in enumerate(arrays, start=1):
+                dst.write(arr.astype(dtype), idx)
+
+        return None
+
+    if len(arrays) == 1:
+        return arrays[0]
+
+    return np.stack(arrays, axis=0)
+
+
+def resample_to_match(
+    src_path,
+    target_path,
+    output_path,
+    resampling_method=Resampling.nearest,
+    src_nodata=None,
+    dst_nodata=None,
+):
+    """Backward compatible wrapper around :func:`resample_raster_to_match`."""
+
+    resample_raster_to_match(
+        src_path,
+        target_path,
+        bands=1,
+        output_path=output_path,
+        resampling_method=resampling_method,
+        src_nodata=src_nodata,
+        dst_nodata=dst_nodata,
+    )
+
+
+def resample_to_match_multiband(
+    src_path: str,
+    target_path: str,
+    output_path: str,
+    resampling_method=Resampling.nearest,
+    src_nodata: Optional[float] = None,
+    dst_nodata: Optional[float] = None,
+):
+    """Resample all bands via :func:`resample_raster_to_match`."""
+
+    resample_raster_to_match(
+        src_path,
+        target_path,
+        bands=None,
+        output_path=output_path,
+        resampling_method=resampling_method,
+        src_nodata=src_nodata,
+        dst_nodata=dst_nodata,
+    )
 
 
 def resample_to_match_noSaving(
     src_path: str,
     target_path: str,
     resampling_method=Resampling.nearest,
-    dst_nodata: Optional[float] = None
+    dst_nodata: Optional[float] = None,
+    src_nodata: Optional[float] = None,
 ) -> np.ndarray:
-    """
-    Resample `src_path` onto the grid of `target_path` and return the array.
+    """Return the resampled array using :func:`resample_raster_to_match`."""
 
-    Parameters:
-        src_path (str):        Source raster file.
-        target_path (str):     Reference raster whose grid (CRS, transform, shape) to match.
-        resampling_method:     One of rasterio.enums.Resampling.* (default: nearest).
-        dst_nodata (float):    Nodata value to write into the resampled array;
-                               if None, uses the source raster’s nodata.
-
-    Returns:
-        np.ndarray: 2D array of resampled data, dtype float32, with `dst_nodata` where no data.
-    """
-
-
-    # Load the target grid
-    with rasterio.open(target_path) as tgt:
-        tgt_transform = tgt.transform
-        tgt_width     = tgt.width
-        tgt_height    = tgt.height
-        tgt_crs       = tgt.crs
-
-    # Load the source band
-    with rasterio.open(src_path) as src:
-        src_data     = src.read(1).astype("float32")
-        src_transform= src.transform
-        src_crs      = src.crs
-        src_nodata   = src.nodata
-        dst_nodata   = dst_nodata if dst_nodata is not None else src_nodata
-
-    # Prepare destination array as float32
-    resampled = np.full((tgt_height, tgt_width), dst_nodata, dtype="float32")
-
-    # Run reprojection/resampling
-    reproject(
-        source=src_data,
-        destination=resampled,
-        src_transform=src_transform,
-        src_crs=src_crs,
+    result = resample_raster_to_match(
+        src_path,
+        target_path,
+        bands=1,
+        output_path=None,
+        resampling_method=resampling_method,
         src_nodata=src_nodata,
-        dst_transform=tgt_transform,
-        dst_crs=tgt_crs,
         dst_nodata=dst_nodata,
-        resampling=resampling_method
     )
 
-    return resampled
+    assert isinstance(result, np.ndarray)
+    return result
 
 
 def subtract_rasters_union(raster1_path, raster2_path, output_path, band=1, output_nodata=None, resampling_method=Resampling.nearest):
@@ -2025,11 +1986,11 @@ def mask_raster1_by_overlap_with_raster2(raster1_path: str, raster2_path: str, o
             # If CRS, transform, or shape mismatch, resample raster2 to match raster1
             if src1.crs != src2.crs or src1.transform != src2.transform or src1.shape != src2.shape:
                 tmp_resampled = tempfile.NamedTemporaryFile(suffix=".tif", delete=False).name
-                resample_to_match(
-                    src_path=raster2_path,
-                    target_path=raster1_path,
+                resample_raster_to_match(
+                    raster2_path,
+                    raster1_path,
                     output_path=tmp_resampled,
-                    resampling_method=Resampling.nearest
+                    resampling_method=Resampling.nearest,
                 )
                 with rasterio.open(tmp_resampled) as r2_resampled:
                     data2 = r2_resampled.read(1)
