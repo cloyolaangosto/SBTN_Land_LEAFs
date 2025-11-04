@@ -1134,11 +1134,11 @@ def _distribute_residue_monthly(
         pd_abs_day =  abs_day_table.filter(pl.col("Date")==plant_date).select("Day_Num")
 
         # Calculates harvest date
-        cycle_days = crop_clim_data.select(pl.sum_horizontal(pl.col(".*_days$")).alias("total_cycle_days")).item()
+        cycle_days = crop_clim_data.select(pl.sum_horizontal("Initial_days", "Dev_days", "Mid_days", "Late_days").alias("total_cycle_days")).item()
         end_abs_day = ((pd_abs_day + cycle_days - 1) % 365) + 1  # back to 1..365
 
         # Gets harvest month
-        harvest_month = abs_day_table.filter(pl.col("Day_Num") == end_abs_day).select("Month").item()
+        harvest_month = abs_day_table.filter(pl.col("Day_Num") == end_abs_day).select(pl.col("Month")).item()
         hm_0index = harvest_month - 1
 
         # Create a fraction output
