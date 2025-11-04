@@ -69,7 +69,7 @@ surface area.  The curated groups are:
   - :func:`rasterize_shapefile_to_target_raster`
   - :func:`calculate_polygon_means_from_raster`
   - :func:`multiply_rasters`, :func:`create_binary_mask`
-  - :func:`resample_to_match`, :func:`resample_to_match_multiband`, :func:`resample_to_match_noSaving`
+  - :func:`resample_raster_to_match`, :func:`resample_to_match`, :func:`resample_to_match_multiband`, :func:`resample_to_match_noSaving`
   - :func:`subtract_rasters_union`
   - :func:`mask_raster1_by_overlap_with_raster2`
   - :func:`calculate_average_from_raster_timeseries`
@@ -195,6 +195,7 @@ from .map_calculations import (
     mask_raster1_by_overlap_with_raster2,
     multiply_rasters,
     rasterize_shapefile_to_target_raster,
+    resample_raster_to_match,
     resample_to_match,
     resample_to_match_multiband,
     resample_to_match_noSaving,
@@ -325,6 +326,7 @@ _MAP_CALCULATIONS_EXPORTS = [
     "mask_raster1_by_overlap_with_raster2",
     "multiply_rasters",
     "rasterize_shapefile_to_target_raster",
+    "resample_raster_to_match",
     "resample_to_match",
     "resample_to_match_multiband",
     "resample_to_match_noSaving",

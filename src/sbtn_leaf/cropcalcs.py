@@ -15,7 +15,7 @@ from typing import Mapping, Optional, Tuple, Dict, Union, List, NamedTuple
 import geopandas as gpd
 import rasterio
 from rasterio.features import rasterize
-from rasterio.warp import reproject, Resampling
+from rasterio.warp import reproject
 import rioxarray as rxr
 
 from sbtn_leaf.PET import monthly_KC_curve, calculate_crop_based_PET_raster_vPipeline
@@ -30,9 +30,10 @@ from sbtn_leaf.data_loader import (
     get_country_boundaries,
     get_thermal_climate_tables,
 )
-from sbtn_leaf.map_calculations import resample_to_match_noSaving
+from sbtn_leaf.map_calculations import resample_raster_to_match
 
 
+# ``Resampling`` is re-exported for backwards compatibility in this module.
 from rasterio.enums import Resampling
 
 
@@ -287,9 +288,21 @@ def _create_crop_yield_raster_core(
         if any(p is None for p in (all_fp, irr_fp, rf_fp)):
             raise ValueError("Need all_fp, irr_fp and rf_fp for irrigation scaling")
 
-        all_fp_on_lu = resample_to_match_noSaving(all_fp, croplu_grid_raster, dst_nodata=np.nan)
-        irr_fp_on_lu = resample_to_match_noSaving(irr_fp, croplu_grid_raster, dst_nodata=np.nan)
-        rf_fp_on_lu = resample_to_match_noSaving(rf_fp, croplu_grid_raster, dst_nodata=np.nan)
+        all_fp_on_lu = resample_raster_to_match(
+            all_fp,
+            croplu_grid_raster,
+            dst_nodata=np.nan,
+        )
+        irr_fp_on_lu = resample_raster_to_match(
+            irr_fp,
+            croplu_grid_raster,
+            dst_nodata=np.nan,
+        )
+        rf_fp_on_lu = resample_raster_to_match(
+            rf_fp,
+            croplu_grid_raster,
+            dst_nodata=np.nan,
+        )
 
         irr_ratios, rf_ratios = calculate_SPAM_yield_modifiers(all_fp_on_lu, irr_fp_on_lu, rf_fp_on_lu)
         watering_ratio = irr_ratios if scaling_mode == "irr" else rf_ratios
