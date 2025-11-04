@@ -15,7 +15,8 @@ import rioxarray
 import rasterio
 from rasterio.enums import Resampling
 from rasterio.coords import BoundingBox
-from typing import Dict, Optional, Union
+from pathlib import Path
+from typing import Dict, Optional, Tuple, Union, Any
 
 # World shapefile (loaded lazily)
 _WORLD_MAP_PATHS = {
@@ -153,6 +154,110 @@ def _preprocess_raster_data_eliminate_low_values(raster_data, nodata_value=None,
     raster_data = np.where(finite_data <= threshold, np.nan, finite_data)
     
     return raster_data
+
+
+def _prepare_raster_plot_input(
+    source: Union[str, Path, xr.DataArray],
+    *,
+    raster_band: int = 1,
+    band: Optional[int] = None,
+    perc_cutoff: Optional[float] = None,
+    p_min: Optional[float] = None,
+    p_max: Optional[float] = None,
+    hard_min: Optional[float] = None,
+    hard_max: Optional[float] = None,
+    eliminate_zeros: bool = False,
+) -> Tuple[np.ndarray, BoundingBox, Optional[float], Any, Dict[str, Optional[float]]]:
+    """Normalise raster-like inputs for plotting.
+
+    Parameters
+    ----------
+    source:
+        Either a path to a raster on disk or an :class:`xarray.DataArray`.
+    raster_band:
+        Band to read when ``source`` is a file path. 1-indexed to match
+        :mod:`rasterio` conventions.
+    band:
+        Band to select when ``source`` is a DataArray with a ``"band"``
+        dimension. Ignored otherwise.
+    perc_cutoff:
+        Symmetric percentile cutoff used when ``p_min``/``p_max`` are not
+        provided. Mirrors the legacy ``perc_cutoff``/``alpha`` parameters.
+    p_min, p_max:
+        Explicit percentile cut-offs. When omitted they default to
+        ``(perc_cutoff, 100 - perc_cutoff)`` if ``perc_cutoff`` is supplied,
+        or ``(1, 99)`` otherwise.
+    hard_min, hard_max:
+        Optional hard clipping bounds applied after percentile trimming.
+    eliminate_zeros:
+        Whether zeros should be treated as nodata values during pre-processing.
+
+    Returns
+    -------
+    tuple
+        ``(array, bounds, nodata, crs, options)`` where ``array`` is the
+        processed ``float32`` raster ready for plotting, ``bounds`` is a
+        :class:`rasterio.coords.BoundingBox`, ``nodata`` holds the nodata
+        marker (if any), ``crs`` is the raster CRS, and ``options`` contains
+        the resolved percentile configuration used by the helper.
+    """
+
+    resolved_p_min = p_min
+    resolved_p_max = p_max
+
+    if resolved_p_min is None or resolved_p_max is None:
+        default_cutoff = perc_cutoff if perc_cutoff is not None else 1.0
+        if resolved_p_min is None:
+            resolved_p_min = default_cutoff
+        if resolved_p_max is None:
+            resolved_p_max = 100 - default_cutoff
+
+    if isinstance(source, (str, Path)):
+        with rasterio.open(source) as src:
+            data = src.read(raster_band).astype("float32", copy=False)
+            bounds = src.bounds
+            nodata = src.nodata
+            crs = src.crs
+    elif isinstance(source, xr.DataArray):
+        if "band" in source.dims:
+            band_index = band if band is not None else 0
+            arr = source.isel(band=band_index)
+        else:
+            arr = source
+
+        data = arr.values.astype("float32", copy=False)
+        if hasattr(arr, "rio"):
+            nodata = arr.rio.nodata
+            minx, miny, maxx, maxy = arr.rio.bounds()
+            bounds = BoundingBox(left=minx, bottom=miny, right=maxx, top=maxy)
+            crs = arr.rio.crs
+        else:  # pragma: no cover - defensive guard for unexpected input
+            nodata = None
+            bounds = BoundingBox(left=0.0, bottom=0.0, right=float(data.shape[1]), top=float(data.shape[0]))
+            crs = None
+    else:  # pragma: no cover - defensive guard
+        raise TypeError(
+            "source must be a path or xarray.DataArray"
+        )
+
+    processed = _preprocess_raster_data_percentiles(
+        data,
+        nodata_value=nodata,
+        p_min=resolved_p_min,
+        p_max=resolved_p_max,
+        hard_min=hard_min,
+        hard_max=hard_max,
+        eliminate_zeros=eliminate_zeros,
+    )
+
+    options = {
+        "p_min": resolved_p_min,
+        "p_max": resolved_p_max,
+        "hard_min": hard_min,
+        "hard_max": hard_max,
+    }
+
+    return processed, bounds, nodata, crs, options
 
 
 def _create_plt_choropleth(
@@ -323,22 +428,25 @@ def _truncate_colormap(cmap_name, minval=0.0, maxval=1.0, n=256):
     )
 
 def plot_raster_on_world_extremes_cutoff(
-    tif_path,
+    raster: Union[str, Path, xr.DataArray],
     title: str,
     label_title: str = 'Raster Values',
     raster_band: int = 1,
-    perc_cutoff: float = 1,
+    band: Optional[int] = None,
+    perc_cutoff: Optional[float] = 1,
     p_min: Optional[float] = None,
     p_max: Optional[float] = None,
     quantiles: Optional[int] = None,
     region: Optional[str] = None,
     cmap: str = 'viridis',
+    divergence_center: Optional[float] = None,
     n_categories: int = 20,
     base_shp: Optional[gpd.GeoDataFrame] = None,
     plt_show: bool = True,
     min_val: Optional[float] = None,
     max_val: Optional[float] = None,
-    eliminate_zeros: bool = False
+    eliminate_zeros: bool = False,
+    diverg0: Optional[bool] = None,
 ):
     """
     Load raster, clip extremes, and plot in its native projection.
@@ -349,31 +457,37 @@ def plot_raster_on_world_extremes_cutoff(
     if base_shp is None:
         base_shp = _get_world_map()
 
-    # Load the raster data + metadata
-    with rasterio.open(tif_path) as src:
-        raster_data = src.read(raster_band).astype("float32")
-        bounds = src.bounds
-        nodata_value = src.nodata
-        raster_crs = src.crs  # This is the raster's projection (Interrupted Goode Homolosine here)
-
-    # Establish cutoffs
-    if p_min is None:
-        p_min = perc_cutoff
-    if p_max is None:
-        p_max = 100 - perc_cutoff
-
-    # Preprocess raster (nodata → NaN, clip extremes, optional hard min/max)
-    raster_data = _preprocess_raster_data_percentiles(
-        raster_data,
-        nodata_value=nodata_value,
+    raster_data, bounds, _, raster_crs, _ = _prepare_raster_plot_input(
+        raster,
+        raster_band=raster_band,
+        band=band,
+        perc_cutoff=perc_cutoff,
         p_min=p_min,
         p_max=p_max,
         hard_min=min_val,
         hard_max=max_val,
-        eliminate_zeros = eliminate_zeros
+        eliminate_zeros=eliminate_zeros,
     )
 
-    # Plot
+    resolved_divergence = divergence_center
+    if diverg0 is not None:
+        if divergence_center is not None and diverg0:
+            raise ValueError("Specify either 'divergence_center' or 'diverg0', not both.")
+        if diverg0:
+            resolved_divergence = 0.0
+        elif divergence_center is None:
+            resolved_divergence = None
+
+    vmin = vmax = None
+    if resolved_divergence is not None:
+        valid = raster_data[np.isfinite(raster_data)]
+        if valid.size:
+            max_dev = np.max(np.abs(valid - resolved_divergence))
+            vmin = resolved_divergence - max_dev
+            vmax = resolved_divergence + max_dev
+        else:
+            vmin = vmax = resolved_divergence
+
     fig_ax = _create_plt_choropleth(
         raster_data=raster_data,
         bounds=bounds,
@@ -384,6 +498,8 @@ def plot_raster_on_world_extremes_cutoff(
         cmap=cmap,
         n_categories=n_categories,
         base_shp=base_shp,
+        vmin=vmin,
+        vmax=vmax,
         raster_crs=raster_crs,
         plt_show=plt_show
     )
@@ -403,98 +519,34 @@ def plot_da_on_world_extremes_cutoff(
     quantiles: Optional[int] = None,
     region: Optional[str] = None,
     cmap: str = 'viridis',
-    diverg0 = False,
+    diverg0: bool = False,
     n_categories: int = 20,
     base_shp: Optional[gpd.GeoDataFrame] = None,
-    eliminate_zeros = False
+    eliminate_zeros: bool = False
 ):
+    """Backward compatible wrapper delegating to
+    :func:`plot_raster_on_world_extremes_cutoff`.
     """
-    Plot a single‑band xarray DataArray on a world basemap, with
-    percentile cutoff pre‑processing and optional region filter.
-    
-    Parameters
-    ----------
-    da : xarray.DataArray
-        A 2D or 3D DataArray with a 'band' dimension (or already 2D).
-    title : str
-        Plot title.
-    band : int, optional
-        If `da` is 3D, which band index to plot (0‑based). Otherwise ignored.
-    p_min, p_max : float, optional
-        Percentile cutoff (1–99). If None, defaults to (α, 100–α).
-    alpha : float
-        “alpha” used to default p_min/p_max when they are None.
-    quantiles : int, optional
-        Number of quantile bins (for color breaks).
-    region : str, optional
-        Country or continent name to zoom into.
-    cmap : str
-        Matplotlib colormap name.
-    n_categories : int
-        Max unique values to treat as categorical.
-    base_shp : GeoDataFrame
-        World map for context.
-    """
-    if base_shp is None:
-        base_shp = _get_world_map()
 
-    # 1) extract the raw numpy array + metadata
-    if 'band' in da.dims:
-        arr = da.isel(band=band or 0).values.astype(float)
-    else:
-        arr = da.values.astype(float)
-    
-    nodata = da.rio.nodata
-    raw_bounds = da.rio.bounds()
-
-    minx, miny, maxx, maxy = raw_bounds
-    bounds = BoundingBox(left=minx,
-                         bottom=miny,
-                         right=maxx,
-                         top=maxy)
-
-    raster_crs = da.rio.crs
-    
-    # 2) default percentile cutoffs
-    if p_min is None: p_min = alpha
-    if p_max is None: p_max = 100 - alpha
-    
-    # 3) run your existing preprocessors
-    raster_data = _preprocess_raster_data_percentiles(
-        arr,
-        nodata_value=nodata,
+    result = plot_raster_on_world_extremes_cutoff(
+        da,
+        title,
+        label_title=label_title,
+        band=band,
+        perc_cutoff=alpha,
         p_min=p_min,
         p_max=p_max,
-        eliminate_zeros=eliminate_zeros
-    )
-    
-    # 3.5) Optional - Sets cmap to divergence point 0
-    if diverg0:
-        valid_data = raster_data[np.isfinite(raster_data)]
-        max_abs = np.max(np.abs(valid_data))
-        vmin, vmax = -max_abs, max_abs
-        cmap = cmap  # or any diverging cmap you prefer
-    else:
-        vmin = vmax = None  # allow normal behavior
-    
-    # 4) call your choropleth plotter
-    fig, ax = _create_plt_choropleth(
-        raster_data=raster_data,
-        bounds=bounds,
-        title=title,
-        region=region,
-        label_title=label_title,
         quantiles=quantiles,
+        region=region,
         cmap=cmap,
+        divergence_center=0.0 if diverg0 else None,
         n_categories=n_categories,
         base_shp=base_shp,
-        vmin=vmin,
-        vmax=vmax,
-        raster_crs=raster_crs,
-        plt_show=False
+        plt_show=False,
+        eliminate_zeros=eliminate_zeros,
     )
 
-    return fig, ax
+    return result
 
 
 def plot_all_raster_bands(
