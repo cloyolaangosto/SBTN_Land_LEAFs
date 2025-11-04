@@ -31,6 +31,7 @@ from sbtn_leaf.data_loader import (
     get_fao_statistics_table,
     get_country_boundaries,
     get_thermal_climate_tables,
+    get_absolute_day_table
 )
 from sbtn_leaf.map_calculations import resample_raster_to_match
 
@@ -67,12 +68,12 @@ def _data_path(*relative: str) -> Path:
 ##### DATA ####
 rain_monthly_fp = _data_path("soil_weather", "uhth_monthly_avg_precip.tif")
 uhth_climates_fp = _data_path("soil_weather", "uhth_thermal_climates.tif")
-
+crop_types      = ["annual", "permanent"]
 
 #### FUNCTIONS ####
 
 
-def _resolve_crop_table(crop_table: Optional[pl.DataFrame] = None) -> pl.DataFrame:
+def _resolve_crop_coefficient_table(crop_table: Optional[pl.DataFrame] = None) -> pl.DataFrame:
     """Return the provided crop coefficient table or the shared cached copy."""
 
     if crop_table is not None:
@@ -131,6 +132,12 @@ def _get_crop_residue_ratio_table() -> pl.DataFrame:
     """Fetch the cached crop residue ratio table."""
 
     return get_crop_residue_ratio_table()
+
+
+def _get_absolute_day_table()-> pl.DataFrame:
+    """Fetch the cached cached copy of the absolute day lookup table."""
+
+    return get_absolute_day_table()
 
 
 # Backwards compatibility: expose lazy proxies for legacy imports expecting
@@ -880,7 +887,7 @@ def create_plant_cover_monthly_curve(
     crop_table: Optional[pl.DataFrame] = None,
 ):
     # Check the crops exists
-    crop_table = _resolve_crop_table(crop_table)
+    crop_table = _resolve_crop_coefficient_table(crop_table)
 
     if crop not in crop_table['Crop'].unique():
         raise ValueError(f"Crop '{crop}' not found in K_Crops table.")
@@ -984,7 +991,7 @@ def create_plant_cover_monthly_raster(
                    fill_value=output_nodata,
                    dtype=np.uint8)
 
-    crop_table = _resolve_crop_table(crop_table)
+    crop_table = _resolve_crop_coefficient_table(crop_table)
     climate_lookup = _resolve_climate_lookup(climate_zone_lookup)
 
     # 4. Loop over each unique climate ID
@@ -1082,12 +1089,13 @@ def compute_residue_raster(
 
 def _distribute_residue_monthly(
     crop: str,
+    crop_type: str,
     climate_ids: np.ndarray,
     residue: np.ndarray,
     *,
     output_nodata: float,
     climate_zone_lookup: Optional[Mapping[int, str]],
-    crop_table: Optional[pl.DataFrame],
+    crop_coeff_table: Optional[pl.DataFrame] = None,
     climate_nodata: Optional[float],
 ) -> np.ndarray:
     """Return a (12, y, x) monthly residue cube using climate-specific Kc curves."""
@@ -1099,7 +1107,8 @@ def _distribute_residue_monthly(
         )
 
     climate_lookup = _resolve_climate_lookup(climate_zone_lookup)
-    crop_table = _resolve_crop_table(crop_table)
+    crop_coeff_table = _resolve_crop_coefficient_table(crop_coeff_table)
+    abs_day_table = _get_absolute_day_table()
 
     out = np.full((12, *residue.shape), fill_value=output_nodata, dtype="float32")
 
@@ -1112,36 +1121,56 @@ def _distribute_residue_monthly(
         return out
 
     valid_ids = climate_ids[valid_mask].astype(int)
-    unique_ids = np.unique(valid_ids)
+    unique_clim_ids = np.unique(valid_ids)
 
-    for cid in unique_ids:
-        group = climate_lookup.get(cid)
-        if group is None:
+    for clim_id in unique_clim_ids:
+        clim_group = climate_lookup.get(clim_id)
+        if clim_group is None:
             continue
 
-        kc_df = monthly_KC_curve(
-            crop,
-            group,
-            crop_table=crop_table,
-        ).select(["Month", "Kc"])
-        k_vals = np.array(kc_df["Kc"].to_list(), dtype=float)
-        total = k_vals.sum()
-        if total <= 0:
-            continue
-        k_frac = k_vals / total
+        # Get the needed data row
+        crop_clim_data = crop_coeff_table.filter((pl.col("Crop")==crop) & (pl.col("Climate_Zone")==clim_group))
+        plant_date = crop_clim_data.select("Planting_Greenup_Date").item()
+        pd_abs_day =  abs_day_table.filter(pl.col("Date")==plant_date).select("Day_Num")
 
-        rows, cols = np.where((climate_ids == cid) & valid_mask)
+        # Calculates harvest date
+        cycle_days = crop_clim_data.select(pl.sum_horizontal(pl.col(".*_days$")).alias("total_cycle_days")).item()
+        end_abs_day = ((pd_abs_day + cycle_days - 1) % 365) + 1  # back to 1..365
+
+        # Gets harvest month
+        harvest_month = abs_day_table.filter(pl.col("Day_Num") == end_abs_day).select("Month").item()
+        hm_0index = harvest_month - 1
+
+        # Create a fraction output
+        month_frac = np.zeros(shape=(12,), dtype="float32")
+        # Now 2 routes
+        if crop_type == "annual":
+            res_months = np.arange(hm_0index - 3, hm_0index, 1) % 12  # %12 is to standardize into 0-11 months
+            
+            # now assigining fractions into months:
+            month_frac[hm_0index] = 0.5
+            month_frac[res_months] = 0.5/3
+        else:  # Permanent crops
+            res_months = np.arange(hm_0index - 4, hm_0index, 1) % 12  # %12 is to standardize into 0-11 months
+
+            # now assigining fractions into months:
+            month_frac[hm_0index] = 0.7
+            month_frac[res_months] = 0.3/4
+
+        print(month_frac)
+        rows, cols = np.where((climate_ids == clim_id) & valid_mask)
         if rows.size == 0:
             continue
 
         pr_vals = residue[rows, cols]
-        out[:, rows, cols] = k_frac[:, None] * pr_vals[None, :]
+        out[:, rows, cols] = month_frac[:, None] * pr_vals[None, :]
 
     return out
 
 
 def compute_monthly_residue_raster(
     crop: str,
+    crop_type: str,
     climate_raster_path: str,
     plant_residue: xr.DataArray,
     save_path: str,
@@ -1188,11 +1217,11 @@ def compute_monthly_residue_raster(
 
     monthly = _distribute_residue_monthly(
         crop,
+        crop_type,
         ids,
         plant_residue.values,
         output_nodata=output_nodata,
         climate_zone_lookup=climate_zone_lookup,
-        crop_table=crop_table,
         climate_nodata=climate_nodata,
     )
 
@@ -1217,6 +1246,7 @@ def compute_monthly_residue_raster(
 
 def compute_monthly_residue_raster_fromAnnualRaster(
     crop: str,
+    crop_type: str,
     plant_residue: str,
     save_path: str,
     climate_raster_path: str = uhth_climates_fp,
@@ -1263,11 +1293,11 @@ def compute_monthly_residue_raster_fromAnnualRaster(
 
     monthly = _distribute_residue_monthly(
         crop,
+        crop_type,
         ids,
         pr_da.values,
         output_nodata=output_nodata,
         climate_zone_lookup=climate_zone_lookup,
-        crop_table=crop_table,
         climate_nodata=climate_nodata,
     )
 
@@ -1365,6 +1395,7 @@ def calculate_irrigation_fromTif(rain_fp, evap_fp, out_path: str):
 ############################################
 def prepare_crop_data(
     crop_name: str,
+    crop_type: str,
     crop_practice_string: str,
     lu_data_path: str,
     spam_crop_raster: str,
@@ -1375,6 +1406,9 @@ def prepare_crop_data(
     spam_rf_fp: str,
     all_new_files=False,
 ):
+    # Check if crop_type is valid
+    if crop_type not in crop_types:
+        raise ValueError(f"Crop type {crop_type} not valid. Choose between {crop_types}")
 
     # Output saving string bases
     output_crop_based = f"{output_data_folder}/{crop_name}"
@@ -1449,7 +1483,7 @@ def prepare_crop_data(
     plant_residue_output_path = f"{output_practice_based}_residues_monthly.tif"
     if all_new_files or not os.path.exists(plant_residue_output_path):
         print("Creating plant residue raster...")
-        create_monthly_residue_vPipeline(crop_name, yield_raster_path=yield_output_path, output_path=plant_residue_output_path)
+        create_monthly_residue_vPipeline(crop_name, crop_type, yield_raster_path=yield_output_path, output_path=plant_residue_output_path)
     else:
         print("Plant Residues raster already exists — skipping computation.")
 
@@ -1589,6 +1623,7 @@ def create_crop_yield_raster_withIrrigationPracticeScaling_vPipeline(
 
 def create_monthly_residue_vPipeline(
     crop: str,
+    crop_type: str,
     yield_raster_path: str,
     output_path: str,
     output_nodata = np.nan,
@@ -1596,7 +1631,7 @@ def create_monthly_residue_vPipeline(
     C_Content: float = 0.40,
     *,
     climate_zone_lookup: Optional[Mapping[int, str]] = None,
-    crop_table: Optional[pl.DataFrame] = None,
+    crop_names_table: Optional[pl.DataFrame] = None,
 ):
     """
     Read a single‐band yield raster, choose one residue‐calculation path globally:
@@ -1621,12 +1656,12 @@ def create_monthly_residue_vPipeline(
     yld_arr = np.where(valid, yields, np.nan)
 
     # 2) Map user crop → IPCC crop key
-    crop_table = _get_crop_naming_index_table()
+    crop_names_table = _get_crop_naming_index_table()
     res_table = _get_crop_residue_ratio_table()
     ag_table = _get_crop_ag_residue_table()
 
     ipcc_crop = (
-        crop_table
+        crop_names_table
         .filter(pl.col("Crops") == crop)
         .select("IPCC_Crop")
         .to_series()
@@ -1695,11 +1730,11 @@ def create_monthly_residue_vPipeline(
 
     monthly = _distribute_residue_monthly(
         crop,
+        crop_type,
         ids,
         Res,
         output_nodata=output_nodata,
         climate_zone_lookup=climate_zone_lookup,
-        crop_table=crop_table,
         climate_nodata=climate_nodata,
     )
 

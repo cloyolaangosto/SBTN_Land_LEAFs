@@ -143,7 +143,7 @@ To adapt the location based PET to each crop, it needs to be multiplied by the c
 
 ![Source: Allen et al. (1998)](support_files/K_Curve_example.png)  Source: Allen et al. (1998)
 
-$K_c$ values $K_{c, ini}$, $K_{c, mid}$, $K_{c, lat}$ as well as the duration of each period are defined for each crop per thermal zone in Table 5 of Morais, Teixeria & Domingos (2019) supplementary materials.
+$K_c$ values $K_{c, ini}$, $K_{c, mid}$, $K_{c, lat}$ as well as the duration of each period are defined for each crop per thermal zone in Table 5 of Morais, Teixeria & Domingos (2019) supplementary materials. An extended table can be found on [Appendix VI of Chapagain, A.K. & Hoekstra, A.Y., 2004](https://www.waterfootprint.org/resources/appendix/Report16Vol2.pdf)
 
 ## Step 2 - Data Harmonization
 Once all data has been downloaded and inputs calculated, everything needs to be brought into the same base map format, including projection and resolution, for GIS calculations. For the LEAFs available in this repository, UHTH zones from Morais, Teixeria & Domingos (2019) have been used as the base layer.

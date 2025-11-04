@@ -1,4 +1,4 @@
-﻿Climate_Zone,Crop,K_ini,K_mid,K_Late,Initial_days,Dev_Days,Mid_Days,Late_days,Planting_Greenup_Date,Soil_Cover_Period,SCP_Starts,SCP_End
+﻿Climate_Zone,Crop,K_ini,K_mid,K_Late,Initial_days,Dev_days,Mid_days,Late_days,Planting_Greenup_Date,Soil_Cover_Period,SCP_Starts,SCP_End
 Tropics,Apple,0.6,0.95,0.75,60,90,120,95,15-Jan,All year,1,12
 Tropics,Banana,1,1.2,1.1,120,60,180,5,1-Feb,All year,1,12
 Tropics,Barley,0.3,1.15,0.25,15,25,50,30,15-May,May-Sep,5,9

@@ -333,7 +333,7 @@ def create_KC_Curve(
     # Retrieve data for the specified crop and climate
     crop_data = crop_table.filter((pl.col('Crop') == crop) & (pl.col('Climate_Zone') == climate))
     # print("Crop data retrieved:")
-    # print(crop_data)
+    # print(crop_data.columns)
 
     # Stage dataframe for 365 days
     Kc_df = pl.DataFrame({
@@ -357,8 +357,8 @@ def create_KC_Curve(
         pl.col('Date') == crop_data['Planting_Greenup_Date']).select('Day_Num').item()
     planting_day_num_end = planting_day_num_start
     initial_stage_duration = int(crop_data['Initial_days'][0])
-    dev_stage_duration = int(crop_data['Dev_Days'][0])
-    mid_stage_duration = int(crop_data['Mid_Days'][0])
+    dev_stage_duration = int(crop_data['Dev_days'][0])
+    mid_stage_duration = int(crop_data['Mid_days'][0])
     late_stage_duration = int(crop_data['Late_days'][0])
 
     def _stage_end(start_day: int, duration: int) -> int:
@@ -835,8 +835,8 @@ def calculate_crop_based_PET_raster_optimized(
     landuse_raster_path: str,
     output_monthly_path: str,
     output_annual_path: str,
-    pet_base_raster_path: str = "SOC_Data_Processing/uhth_pet_locationonly.tif",
-    thermal_zone_raster_path: str = "SOC_Data_Processing/uhth_thermal_climates.tif",
+    pet_base_raster_path: str = "../data/soil_weather/uhth_pet_locationonly.tif",
+    thermal_zone_raster_path: str = "../data/soil_weather/uhth_thermal_climates.tif",
     *,
     crop_table: Optional[pl.DataFrame] = None,
     abs_date_table: Optional[pl.DataFrame] = None,
@@ -867,8 +867,8 @@ def calculate_crop_based_PET_raster_vPipeline(
     crop_name: str,
     landuse_array: np.ndarray,
     output_monthly_path: str,
-    pet_base_raster_path: str = "data/soil_weather/uhth_pet_locationonly.tif",
-    thermal_zone_raster_path: str = "data/soil_weather/uhth_thermal_climates.tif",
+    pet_base_raster_path: str = "../data/soil_weather/uhth_pet_locationonly.tif",
+    thermal_zone_raster_path: str = "../data/soil_weather/uhth_thermal_climates.tif",
     *,
     crop_table: Optional[pl.DataFrame] = None,
     abs_date_table: Optional[pl.DataFrame] = None,
