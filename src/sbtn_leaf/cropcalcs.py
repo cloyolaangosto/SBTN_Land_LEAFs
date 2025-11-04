@@ -1080,6 +1080,66 @@ def compute_residue_raster(
 
     return residue_da
 
+def _distribute_residue_monthly(
+    crop: str,
+    climate_ids: np.ndarray,
+    residue: np.ndarray,
+    *,
+    output_nodata: float,
+    climate_zone_lookup: Optional[Mapping[int, str]],
+    crop_table: Optional[pl.DataFrame],
+    climate_nodata: Optional[float],
+) -> np.ndarray:
+    """Return a (12, y, x) monthly residue cube using climate-specific Kc curves."""
+
+    if climate_ids.shape != residue.shape:
+        raise ValueError(
+            "Climate-ID raster and residue raster must share the same shape; "
+            f"got {climate_ids.shape} and {residue.shape}."
+        )
+
+    climate_lookup = _resolve_climate_lookup(climate_zone_lookup)
+    crop_table = _resolve_crop_table(crop_table)
+
+    out = np.full((12, *residue.shape), fill_value=output_nodata, dtype="float32")
+
+    if climate_nodata is None or np.isnan(climate_nodata):
+        valid_mask = ~np.isnan(climate_ids)
+    else:
+        valid_mask = climate_ids != climate_nodata
+
+    if not np.any(valid_mask):
+        return out
+
+    valid_ids = climate_ids[valid_mask].astype(int)
+    unique_ids = np.unique(valid_ids)
+
+    for cid in unique_ids:
+        group = climate_lookup.get(cid)
+        if group is None:
+            continue
+
+        kc_df = monthly_KC_curve(
+            crop,
+            group,
+            crop_table=crop_table,
+        ).select(["Month", "Kc"])
+        k_vals = np.array(kc_df["Kc"].to_list(), dtype=float)
+        total = k_vals.sum()
+        if total <= 0:
+            continue
+        k_frac = k_vals / total
+
+        rows, cols = np.where((climate_ids == cid) & valid_mask)
+        if rows.size == 0:
+            continue
+
+        pr_vals = residue[rows, cols]
+        out[:, rows, cols] = k_frac[:, None] * pr_vals[None, :]
+
+    return out
+
+
 def compute_monthly_residue_raster(
     crop: str,
     climate_raster_path: str,
@@ -1112,66 +1172,39 @@ def compute_monthly_residue_raster(
     xr.DataArray
         3D DataArray dims=('month','y','x') of monthly residue (t C/ha).
     """
-    # 1. Load & squeeze the climate IDs
     clim = rxr.open_rasterio(climate_raster_path, masked=False)
     if "band" in clim.dims:
         clim = clim.isel(band=0)
-    ids = clim.values  # now strictly 2D (y,x)
-    y, x = clim.coords["y"], clim.coords["x"]
+    ids = clim.values
+    climate_nodata = clim.rio.nodata
 
-    # 2. Squeeze the plant-residue to 2D, always taking the first band if there are multiples
-    pr_da = plant_residue
-    if "band" in pr_da.dims:
-        pr_da = pr_da.isel(band=0)
-    if pr_da.ndim != 2:
-        raise ValueError(f"Expected plant_residue to be 2D after squeezing, got {pr_da.shape}")
-    pr = pr_da.values
+    if "band" in plant_residue.dims:
+        plant_residue = plant_residue.isel(band=0)
+    if plant_residue.ndim != 2:
+        raise ValueError(
+            "Expected plant_residue to be 2D after squeezing, "
+            f"got {plant_residue.shape}"
+        )
 
-    # 2. Prepare output array
-    n_months = 12
-    y, x = pr_da.coords["y"], pr_da.coords["x"]
-    out = np.full((n_months, y.size, x.size),
-                  fill_value=output_nodata,
-                  dtype="float32")
+    monthly = _distribute_residue_monthly(
+        crop,
+        ids,
+        plant_residue.values,
+        output_nodata=output_nodata,
+        climate_zone_lookup=climate_zone_lookup,
+        crop_table=crop_table,
+        climate_nodata=climate_nodata,
+    )
 
-    # 3. Loop over climate IDs
-    climate_lookup = _resolve_climate_lookup(climate_zone_lookup)
-    crop_table = _resolve_crop_table(crop_table)
-
-    unique_ids = np.unique(ids[~np.isnan(ids)]).astype(int)
-    for cid in unique_ids:
-        group = climate_lookup.get(cid)
-        if group is None:
-            continue
-
-        # 3a. K‐curve fraction
-        kc_df = monthly_KC_curve(
-            crop,
-            group,
-            crop_table=crop_table,
-        ).select(["Month", "Kc"])
-        k_vals = np.array(kc_df["Kc"].to_list(), dtype=float)
-        k_frac = k_vals / k_vals.sum()
-
-        # 3b. Pixel positions for this ID
-        rows, cols = np.where(ids == cid)  # now ids is 2D
-
-        # 3c. Annual residue values at those pixels
-        pr_vals = pr[rows, cols]  # now works, pr is 2D
-
-        # 3d. Assign monthly: shape (12, Npix)
-        out[:, rows, cols] = k_frac[:, None] * pr_vals[None, :]
-
-    # 4. Wrap as xarray and set metadata
     da = xr.DataArray(
-        out,
+        monthly,
         dims=("month", "y", "x"),
         coords={
-            "month": np.arange(1, n_months+1),
-            "y": y,
-            "x": x
+            "month": np.arange(1, 13),
+            "y": clim.coords["y"],
+            "x": clim.coords["x"],
         },
-        name=f"{crop}_residue_monthly"
+        name=f"{crop}_residue_monthly",
     ).astype("float32")
 
     da = da.rio.write_crs(clim.rio.crs)
@@ -1179,7 +1212,6 @@ def compute_monthly_residue_raster(
     da = da.rio.write_nodata(output_nodata)
     da = da.rio.set_spatial_dims(x_dim="x", y_dim="y")
 
-    # 5. Optionally save as a 12-band GeoTIFF
     da.rio.to_raster(save_path)
 
 
@@ -1214,66 +1246,40 @@ def compute_monthly_residue_raster_fromAnnualRaster(
     xr.DataArray
         3D DataArray dims=('month','y','x') of monthly residue (t C/ha).
     """
-    # 1. Load & squeeze the climate IDs
     clim = rxr.open_rasterio(climate_raster_path, masked=False)
     if "band" in clim.dims:
         clim = clim.isel(band=0)
-    ids = clim.values  # now strictly 2D (y,x)
-    y, x = clim.coords["y"], clim.coords["x"]
+    ids = clim.values
+    climate_nodata = clim.rio.nodata
 
-    # 2. Squeeze the plant-residue to 2D, always taking the first band if there are multiples
     pr_da = rxr.open_rasterio(plant_residue, masked=True)
     if "band" in pr_da.dims:
         pr_da = pr_da.isel(band=0)
     if pr_da.ndim != 2:
-        raise ValueError(f"Expected plant_residue to be 2D after squeezing, got {pr_da.shape}")
-    pr = pr_da.values
+        raise ValueError(
+            "Expected plant_residue to be 2D after squeezing, "
+            f"got {pr_da.shape}"
+        )
 
-    # 2. Prepare output array
-    n_months = 12
-    y, x = pr_da.coords["y"], pr_da.coords["x"]
-    out = np.full((n_months, y.size, x.size),
-                  fill_value=output_nodata,
-                  dtype="float32")
+    monthly = _distribute_residue_monthly(
+        crop,
+        ids,
+        pr_da.values,
+        output_nodata=output_nodata,
+        climate_zone_lookup=climate_zone_lookup,
+        crop_table=crop_table,
+        climate_nodata=climate_nodata,
+    )
 
-    # 3. Loop over climate IDs
-    climate_lookup = _resolve_climate_lookup(climate_zone_lookup)
-    crop_table = _resolve_crop_table(crop_table)
-
-    unique_ids = np.unique(ids[~np.isnan(ids)]).astype(int)
-    for cid in unique_ids:
-        group = climate_lookup.get(cid)
-        if group is None:
-            continue
-
-        # 3a. K‐curve fraction
-        kc_df = monthly_KC_curve(
-            crop,
-            group,
-            crop_table=crop_table,
-        ).select(["Month", "Kc"])
-        k_vals = np.array(kc_df["Kc"].to_list(), dtype=float)
-        k_frac = k_vals / k_vals.sum()
-
-        # 3b. Pixel positions for this ID
-        rows, cols = np.where(ids == cid)  # now ids is 2D
-
-        # 3c. Annual residue values at those pixels
-        pr_vals = pr[rows, cols]  # now works, pr is 2D
-
-        # 3d. Assign monthly: shape (12, Npix)
-        out[:, rows, cols] = k_frac[:, None] * pr_vals[None, :]
-
-    # 4. Wrap as xarray and set metadata
     da = xr.DataArray(
-        out,
+        monthly,
         dims=("month", "y", "x"),
         coords={
-            "month": np.arange(1, n_months+1),
-            "y": y,
-            "x": x
+            "month": np.arange(1, 13),
+            "y": pr_da.coords["y"],
+            "x": pr_da.coords["x"],
         },
-        name=f"{crop}_residue_monthly"
+        name=f"{crop}_residue_monthly",
     ).astype("float32")
 
     da = da.rio.write_crs(clim.rio.crs)
@@ -1281,7 +1287,6 @@ def compute_monthly_residue_raster_fromAnnualRaster(
     da = da.rio.write_nodata(output_nodata)
     da = da.rio.set_spatial_dims(x_dim="x", y_dim="y")
 
-    # 5. Optionally save as a 12-band GeoTIFF
     da.rio.to_raster(save_path)
 
 
@@ -1681,55 +1686,28 @@ def create_monthly_residue_vPipeline(
     ##############################
     ### Distributing per month ###
     ##############################
-    
-    # Prepare output array
-    n_months = 12
-    y, x = shape
-    out = np.full((n_months, y, x),
-                  fill_value=output_nodata,
-                  dtype="float32")
 
-
-    # 1. Load & squeeze the climate IDs
     clim = rxr.open_rasterio(climate_raster_path, masked=False)
     if "band" in clim.dims:
         clim = clim.isel(band=0)
-    ids = clim.values  # now strictly 2D (y,x)
+    ids = clim.values
+    climate_nodata = clim.rio.nodata
 
-    # 3. Loop over climate IDs
-    climate_lookup = _resolve_climate_lookup(climate_zone_lookup)
-    crop_table = _resolve_crop_table(crop_table)
+    monthly = _distribute_residue_monthly(
+        crop,
+        ids,
+        Res,
+        output_nodata=output_nodata,
+        climate_zone_lookup=climate_zone_lookup,
+        crop_table=crop_table,
+        climate_nodata=climate_nodata,
+    )
 
-    unique_ids = np.unique(ids[~np.isnan(ids)]).astype(int)
-    for cid in unique_ids:
-        group = climate_lookup.get(cid)
-        if group is None:
-            continue
-
-        # 3a. K‐curve fraction
-        kc_df = monthly_KC_curve(
-            crop,
-            group,
-            crop_table=crop_table,
-        ).select(["Month", "Kc"])
-        k_vals = np.array(kc_df["Kc"].to_list(), dtype=float)
-        k_frac = k_vals / k_vals.sum()
-
-        # 3b. Pixel positions for this ID
-        rows, cols = np.where(ids == cid)  # now ids is 2D
-
-        # 3c. Annual residue values at those pixels
-        pr_vals = Res[rows, cols]  # now works, pr is 2D
-
-        # 3d. Assign monthly: shape (12, Npix)
-        out[:, rows, cols] = k_frac[:, None] * pr_vals[None, :]
-
-    # 4. Wrap as xarray and set metadata
     da = xr.DataArray(
-        out,
+        monthly,
         dims=("month", "y", "x"),
         coords={
-            "month": np.arange(1, n_months+1),
+            "month": np.arange(1, 13),
             "y":   clim.coords["y"],
             "x":   clim.coords["x"],
         },
