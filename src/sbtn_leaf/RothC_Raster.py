@@ -16,6 +16,7 @@ from tqdm.auto import trange, tqdm
 
 from sbtn_leaf.RothC_Core import RMF_Tmp, RMF_Moist, RMF_PC, RMF_TRM, _partition_to_bio_hum
 import sbtn_leaf.cropcalcs as cropcalcs
+from sbtn_leaf.paths import data_path
 
 # -----------------------------------------------------------------------------
 # FUNCTIONS
@@ -610,11 +611,26 @@ def save_annual_results(results_array, reference_raster, n_years, var_name, save
 # Function to prepare all data
 def _load_environmental_data(lu_rp: str):
     # Loads data
-    tmp = rxr.open_rasterio("../data/soil_weather/uhth_monthly_avg_temp_celsius.tif", masked=True)  # in °C
-    rain = rxr.open_rasterio("../data/soil_weather/uhth_monthly_avg_precip.tif", masked=True)
-    clay = rxr.open_rasterio("../data/soil_weather/uhth_clay_15-30cm_mean_perc.tif", masked=False).squeeze()
-    soc0 = rxr.open_rasterio("../data/soil_weather/uhth_soc_0-30cm_mean.tif", masked=False).squeeze()
-    sand = rxr.open_rasterio("../data/soil_weather/uhth_sand_15-30cm_mean_perc.tif", masked=False).squeeze()
+    tmp = rxr.open_rasterio(
+        data_path("soil_weather", "uhth_monthly_avg_temp_celsius.tif"),
+        masked=True,
+    )  # in °C
+    rain = rxr.open_rasterio(
+        data_path("soil_weather", "uhth_monthly_avg_precip.tif"),
+        masked=True,
+    )
+    clay = rxr.open_rasterio(
+        data_path("soil_weather", "uhth_clay_15-30cm_mean_perc.tif"),
+        masked=False,
+    ).squeeze()
+    soc0 = rxr.open_rasterio(
+        data_path("soil_weather", "uhth_soc_0-30cm_mean.tif"),
+        masked=False,
+    ).squeeze()
+    sand = rxr.open_rasterio(
+        data_path("soil_weather", "uhth_sand_15-30cm_mean_perc.tif"),
+        masked=False,
+    ).squeeze()
     lu_raster = rxr.open_rasterio(lu_rp, masked=False).squeeze()
 
     # Creates IOM
