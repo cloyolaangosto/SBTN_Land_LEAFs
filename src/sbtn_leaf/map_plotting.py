@@ -19,9 +19,11 @@ from pathlib import Path
 from typing import Dict, Optional, Tuple, Union, Any
 
 # World shapefile (loaded lazily)
+from sbtn_leaf.paths import data_path
+
 _WORLD_MAP_PATHS = {
-    "lr": "../data/world_maps/low_res/ne_110m_admin_0_countries.shp",
-    "hr": "../data/world_maps/high_res/ne_10m_admin_0_countries.shp",
+    "lr": data_path("world_maps", "low_res", "ne_110m_admin_0_countries.shp"),
+    "hr": data_path("world_maps", "high_res", "ne_10m_admin_0_countries.shp"),
 }
 
 _world_map_cache: Dict[str, gpd.GeoDataFrame] = {}
