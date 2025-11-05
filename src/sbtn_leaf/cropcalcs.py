@@ -1131,7 +1131,13 @@ def _distribute_residue_monthly(
         # Get the needed data row
         crop_clim_data = crop_coeff_table.filter((pl.col("Crop")==crop) & (pl.col("Climate_Zone")==clim_group))
         plant_date = crop_clim_data.select("Planting_Greenup_Date").item()
-        pd_abs_day =  abs_day_table.filter(pl.col("Date")==plant_date).select("Day_Num")
+        pd_abs_day = (
+            abs_day_table
+            .filter(pl.col("Date") == plant_date)
+            .select("Day_Num")
+            .to_series()
+            .item()
+        )
 
         # Calculates harvest date
         cycle_days = crop_clim_data.select(pl.sum_horizontal("Initial_days", "Dev_days", "Mid_days", "Late_days").alias("total_cycle_days")).item()
@@ -1157,7 +1163,6 @@ def _distribute_residue_monthly(
             month_frac[hm_0index] = 0.7
             month_frac[res_months] = 0.3/4
 
-        print(month_frac)
         rows, cols = np.where((climate_ids == clim_id) & valid_mask)
         if rows.size == 0:
             continue
