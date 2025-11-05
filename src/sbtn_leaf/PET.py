@@ -380,11 +380,6 @@ def create_KC_Curve(
     Late_day_start = Mid_day_end + 1
     Late_day_end = _stage_end(Late_day_start, late_stage_duration)
 
-    if Late_day_end > 365:
-        raise ValueError(
-            "Crop phenology configuration extends beyond the 365-day calendar."
-        )
-
     # Correct absolute day numbers if they're above 365
     Initial_cday_start = correct_abs_date(Initial_day_start)
     Initial_cday_end = correct_abs_date(Initial_day_end)
@@ -401,8 +396,8 @@ def create_KC_Curve(
         pl.when(pl.col('Stage') == 'Planting').then(planting_day_num_end).when(pl.col('Stage') == 'Initial').then(Initial_cday_end).when(pl.col('Stage') == 'Development').then(Development_cday_end).when(pl.col('Stage') == 'Mid').then(Mid_cday_end).otherwise(Late_cday_end).alias('End_Day'),
     )
 
-    # print("Stages dates:")
-    # print(KC_Dates)
+    #print("Stages dates:")
+    #print(KC_Dates)
     
     # Filling Kc values
     # print("Assigning Kc values to stages")
@@ -539,8 +534,8 @@ def _build_monthly_kc_vectors(
     crop_table: pl.DataFrame,
     abs_table: pl.DataFrame,
     *,
-    tqdm_desc: Optional[str] = "Precomputing Kc curves for group",
-    log_template: Optional[str] = "Precomputing Kc curve for group: {group}",
+    tqdm_desc: Optional[str] = "    Precomputing Kc curves for group",
+    log_template: Optional[str] = "    Precomputing Kc curve for group: {group}",
 ):
     """Return a mapping of zone group names to monthly Kc vectors.
 
