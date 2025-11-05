@@ -525,8 +525,8 @@ def calculate_SPAM_yield_modifiers(
         where=(all_mask & rf_mask)
     )
 
-    print(f"Average irrigated ratio: {np.nanmean(irr_ratios)}")
-    print(f"Average rainfed ratio: {np.nanmean(rf_ratios)}")
+    print(f"Average irrigated ratio: {np.nanmean(irr_ratios).2f}")
+    print(f"Average rainfed ratio: {np.nanmean(rf_ratios).2f}")
 
     # Step 5 - Optional, Save as GeoTiff
     if save_ratios:
@@ -901,7 +901,7 @@ def create_plant_cover_monthly_curve(
     pc_ends = crop_table.filter((pl.col('Crop') == crop) & (pl.col('Climate_Zone') == climate)).select('SCP_End').item()
 
     # Create a DataFrame for the plant cover curve
-    plant_cover_curve = pl.DataFrame(
+    plant_cover_array = pl.DataFrame(
         {
             "Month": list(range(1, 13)),
             "Plant_Cover": [0] * 12
@@ -909,11 +909,11 @@ def create_plant_cover_monthly_curve(
     )
 
     # Fill the plant cover curve based on start and end dates
-    plant_cover_curve = plant_cover_curve.with_columns(
+    plant_cover_array = plant_cover_array.with_columns(
         pl.when((pl.col('Month')>=pc_starts), (pl.col('Month')<=pc_ends)).then(1).otherwise(0).alias('Plant_Cover')
     )
 
-    return plant_cover_curve
+    return plant_cover_array
 
 
 def write_multiband_tif(
@@ -1000,7 +1000,8 @@ def create_plant_cover_monthly_raster(
     for cid in unique_ids:
         group = climate_lookup.get(cid)
         if group is None:
-            continue  # or raise
+            continue
+        
         # Get the 12-month vector (0/1) from your existing function
         pc_df = create_plant_cover_monthly_curve(crop, group, crop_table=crop_table)
         pc_vec = np.array(pc_df.select("Plant_Cover").to_series())  # shape (12,)
@@ -1496,16 +1497,22 @@ def prepare_crop_data(
     print(f"All data created for {crop_name}, {crop_practice_string}!!!")
 
 
-def prepare_crop_scenarios(csv_filepath: str):
+def prepare_crop_scenarios(csv_filepath: str, override_params: dict | None = None):
     # Load scenarios
     csv = pl.read_csv(csv_filepath)
     scenarios = csv.to_dicts()
 
     # Run scenarions
     for scenario in scenarios:
+        scenario = scenario.copy()
+
+        # Apply overrides if given
+        if override_params is not None:
+            scenario.update(override_params)
+
         print(f"Preparing data for {scenario['crop_name']}, {scenario['crop_practice_string']}")
         prepare_crop_data(**scenario)
-        print(f"Next!\n\n")
+        print(f"Next!\n")
 
 
 

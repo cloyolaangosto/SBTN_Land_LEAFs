@@ -293,6 +293,8 @@ def _raster_rothc_annual_results(
     # checks if commodity type is correct
     if commodity_type not in ["annual_crop", "permanent_crop", "forest", "grassland"]:
         raise ValueError("Commodity type not valid. Valid types: annual_crop, permanent_crop, forest, grassland")
+    
+    # Assins dpm_rpm factor and other values if needed
     if commodity_type in ["annual_crop", "grassland"]:
         dpm_rpm = 1.44
         # Checks if grassland type is valid
@@ -1112,7 +1114,7 @@ def run_RothC_grassland(
     )
 
 
-def run_rothC_sceneraios_from_csv(csv_filepath):
+def run_rothC_scenarios_from_csv(csv_filepath):
     # 1) Read & cast your CSV exactly as before
     scenarios = (
         pl.read_csv(csv_filepath, null_values=["", "None"])
