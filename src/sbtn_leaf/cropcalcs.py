@@ -261,13 +261,14 @@ def _create_crop_yield_raster_core(
         lu_height = crop_lu.height
         lu_width = crop_lu.width
         lu_data = crop_lu.read(1)
+        lu_nodata = crop_lu.nodata
 
-    lu_mask = (lu_data == 1)
+    lu_mask = (lu_data == 1) & (lu_data != lu_nodata) & (~np.isnan(lu_data))
 
     # 2) Reproject SPAM onto LU grid
     with rasterio.open(spam_crop_raster) as spam:
         spam_data = spam.read(spam_band)
-        spam_on_lu = np.full((lu_height, lu_width), np.nan, dtype="float32")
+        spam_on_lu = np.full((lu_height, lu_width), np.nan, dtype="float32")  # Creates emtpy array with nans to be filled 
         reproject(
             source=spam_data,
             destination=spam_on_lu,
@@ -286,9 +287,10 @@ def _create_crop_yield_raster_core(
         if field not in fao_gdf.columns:
             raise KeyError(f"Missing '{field}' in FAO shapefile")
 
-    fao_gdf[fao_avg_yield_name] = fao_gdf[fao_avg_yield_name] / 1000.0
+    fao_gdf[fao_avg_yield_name] = fao_gdf[fao_avg_yield_name] / 1000.0  # kg to ton
     global_fao_ratio = fao_gdf[fao_yield_ratio_name].dropna().mean()
 
+    # Creates a raster of FAO zones
     fao_gdf["zone_id"] = fao_gdf.index.astype("int32")
     shapes = ((geom, zid) for geom, zid in zip(fao_gdf.geometry, fao_gdf.zone_id))
     zone_array = rasterize(
@@ -299,6 +301,7 @@ def _create_crop_yield_raster_core(
         dtype="int32",
     )
 
+    # Creates empty fao yields array and fill it 
     fao_yields_array = np.full((lu_height, lu_width), np.nan, dtype="float32")
     for _, row in fao_gdf.iterrows():
         zid = int(row["zone_id"])
@@ -307,6 +310,7 @@ def _create_crop_yield_raster_core(
 
     valid_fao = ~np.isnan(fao_yields_array)
 
+    # Goes through SPAM noq
     all_fp_on_lu: Optional[np.ndarray] = None
     avg_wat: Optional[float] = None
     scaling_mode: Optional[str] = None
@@ -315,7 +319,7 @@ def _create_crop_yield_raster_core(
         scaling_mode = irr_yield_scaling.lower()
         if scaling_mode not in {"irr", "rf"}:
             raise ValueError("irr_yield_scaling must be either 'irr' or 'rf'")
-        if any(p is None for p in (all_fp, irr_fp, rf_fp)):
+        if any(path is None for path in (all_fp, irr_fp, rf_fp)):
             raise ValueError("Need all_fp, irr_fp and rf_fp for irrigation scaling")
 
         all_fp_on_lu = resample_raster_to_match(
@@ -342,7 +346,7 @@ def _create_crop_yield_raster_core(
 
         scaled = np.where(valid_wat, fao_yields_array * watering_ratio, np.nan)
         scaled = fillnodata(scaled, mask=np.isnan(scaled), max_search_distance=1, smoothing_iterations=2)
-        scaled = np.where(
+        scaled = np.where(  # Assign fao scaled yields to places where SPAM is invalid and FAO is valid
             np.isnan(scaled) & valid_fao,
             fao_yields_array * avg_wat,
             scaled,
@@ -364,9 +368,7 @@ def _create_crop_yield_raster_core(
         result[mask_need_avg] = fao_yields_array[mask_need_avg]
 
     if all_fp_on_lu is not None:
-        label = "irrigation"
-        if scaling_mode == "rf":
-            label = "rainfed"
+        label = "rainfed" if scaling_mode == "rf" else "irrigation"
         print(f"  → Applying {label} scaling to all‐SPAM yields…")
         mask_all = lu_mask & np.isnan(result) & ~np.isnan(all_fp_on_lu)
         result[mask_all] = all_fp_on_lu[mask_all] * avg_wat
@@ -508,8 +510,7 @@ def calculate_SPAM_yield_modifiers(
 
     # Step 4 - Fills ratios array where both mask are true
     # pre‑fill result with NaNs
-    irr_ratios = np.full_like(all_yields, np.nan, dtype=float)
-    rf_ratios  = np.full_like(all_yields, np.nan, dtype=float)
+
     # only divide where both the overall and irrigation/rainfed masks are True
     np.divide(
         irr_yields,
@@ -1439,7 +1440,7 @@ def prepare_crop_data(
             output_monthly_path = pet_monthly_output_path
         )
     else:
-        print("PET raster already exists — skipping computation.")
+        print("PET raster already exists. Skipping...")
 
     # Step 1.2 - Irrigation
     irr_monthly_output_path = f"{output_crop_based}_irr_monthly.tif"
@@ -1454,9 +1455,9 @@ def prepare_crop_data(
 
     # Step 2 - Calculate yields
     # preparing fao yield shapefile
-    crop_table = _get_crop_naming_index_table()
-    fao_crop_name = crop_table.filter(pl.col("Crops")== crop_name).select(pl.col("FAO_Crop")).item()
-    print(f"Creating {fao_crop_name} shapefile...")
+    crop_names_table = _get_crop_naming_index_table()
+    fao_crop_name = crop_names_table.filter(pl.col("Crops")== crop_name).select(pl.col("FAO_Crop")).item()
+    print(f"Creating {fao_crop_name} helper shapefile...")
     fao_yield_shp = create_crop_yield_shapefile(fao_crop_name)
 
     # Create irrigation adjusted yields
