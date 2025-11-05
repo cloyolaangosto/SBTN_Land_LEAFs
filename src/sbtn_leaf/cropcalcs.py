@@ -525,8 +525,11 @@ def calculate_SPAM_yield_modifiers(
         where=(all_mask & rf_mask)
     )
 
-    print(f"Average irrigated ratio: {np.nanmean(irr_ratios).2f}")
-    print(f"Average rainfed ratio: {np.nanmean(rf_ratios).2f}")
+    # compute means safely and print using str.format to avoid f-string parsing issues
+    avg_irr = np.nanmean(irr_ratios)
+    avg_rf = np.nanmean(rf_ratios)
+    print("Average irrigated ratio: {:.2f}".format(avg_irr))
+    print("Average rainfed ratio: {:.2f}".format(avg_rf))
 
     # Step 5 - Optional, Save as GeoTiff
     if save_ratios:
