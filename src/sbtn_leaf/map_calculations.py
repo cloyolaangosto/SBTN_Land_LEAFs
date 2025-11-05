@@ -34,14 +34,15 @@ import pandas as pd
 
 # My modules
 import sbtn_leaf.map_plotting as mp
+from sbtn_leaf.paths import data_path
 
 ############
 ### DATA ###
 ############
 
-_COUNTRY_SHP_PATH = "../data/CountryLayers/Country_Level0/g2015_2014_0.shp"
-_SUBCOUNTRY_SHP_PATH = "../data/CountryLayers/SubCountry_Level1/g2015_2014_1.shp"
-_ER_2017_SHP_PATH = "../data/ecoregions2017/ecoregions2017.shp"
+_COUNTRY_SHP_PATH = data_path("CountryLayers", "Country_Level0", "g2015_2014_0.shp")
+_SUBCOUNTRY_SHP_PATH = data_path("CountryLayers", "SubCountry_Level1", "g2015_2014_1.shp")
+_ER_2017_SHP_PATH = data_path("ecoregions2017", "ecoregions2017.shp")
 
 _country_shp_cache: Optional[gpd.GeoDataFrame] = None
 _subcountry_shp_cache: Optional[gpd.GeoDataFrame] = None

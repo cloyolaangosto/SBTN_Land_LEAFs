@@ -33,6 +33,7 @@ from sbtn_leaf.data_loader import (
     get_thermal_climate_tables,
     get_absolute_day_table
 )
+from sbtn_leaf.paths import data_path
 from sbtn_leaf.map_calculations import resample_raster_to_match
 
 
@@ -1411,45 +1412,47 @@ def prepare_crop_data(
     spam_all_fp: str,
     spam_irr_fp: str,
     spam_rf_fp: str,
-    all_new_files=False,
+    all_new_files: bool = False,
 ):
     # Check if crop_type is valid
     if crop_type not in crop_types:
         raise ValueError(f"Crop type {crop_type} not valid. Choose between {crop_types}")
 
     # Output saving string bases
-    output_crop_based = f"{output_data_folder}/{crop_name}"
-    output_practice_based = f"{output_crop_based}_{crop_practice_string}"
+    output_base = Path(output_data_folder)
+    output_crop_based = output_base / crop_name
+    output_practice_based = output_base / f"{crop_name}_{crop_practice_string}"
 
     # Step 0 - rasterize input path
-    lu_bin_output = f"{output_practice_based}_lu.tif"
-    if all_new_files or not os.path.exists(lu_bin_output):
+    lu_bin_output = output_practice_based.parent / f"{output_practice_based.name}_lu.tif"
+    if all_new_files or not lu_bin_output.exists():
         print("Creating lu raster...")
-        lu_array = binarize_raster_pipeline(lu_data_path, lu_bin_output)
+        lu_array = binarize_raster_pipeline(lu_data_path, str(lu_bin_output))
     else:
         print("Land use binary raster already exist. Skipping...")
         lu_array = rxr.open_rasterio(lu_bin_output, masked=False).squeeze()
 
     # Step 1 - Prepare PET and irrigation
     # Step 1.1 - PET
-    pet_monthly_output_path = f"{output_crop_based}_pet_monthly.tif"
-    if all_new_files or not os.path.exists(pet_monthly_output_path):
-        print("Creating PET raster...")    
+    pet_monthly_output_path = output_crop_based.parent / f"{output_crop_based.name}_pet_monthly.tif"
+    if all_new_files or not pet_monthly_output_path.exists():
+        print("Creating PET raster...")
         monthly_pet = calculate_crop_based_PET_raster_vPipeline(
             crop_name=crop_name,
             landuse_array=lu_array,
-            output_monthly_path = pet_monthly_output_path
+            output_monthly_path=str(pet_monthly_output_path)
         )
     else:
         print("PET raster already exists. Skipping...")
+        monthly_pet = rxr.open_rasterio(pet_monthly_output_path, masked=True).values
 
     # Step 1.2 - Irrigation
-    irr_monthly_output_path = f"{output_crop_based}_irr_monthly.tif"
-    if all_new_files or not os.path.exists(irr_monthly_output_path):
+    irr_monthly_output_path = output_crop_based.parent / f"{output_crop_based.name}_irr_monthly.tif"
+    if all_new_files or not irr_monthly_output_path.exists():
         print("Creating irrigation raster...")
         irr = calculate_irrigation_vPipeline(
             evap=monthly_pet,
-            output_path=irr_monthly_output_path
+            output_path=str(irr_monthly_output_path)
         )
     else:
         print("Irrigation raster already exists — skipping computation.")
@@ -1462,14 +1465,14 @@ def prepare_crop_data(
     fao_yield_shp = create_crop_yield_shapefile(fao_crop_name)
 
     # Create irrigation adjusted yields
-    yield_output_path = f"{output_practice_based}_yield.tif"
-    if all_new_files or not os.path.exists(yield_output_path):
+    yield_output_path = output_practice_based.parent / f"{output_practice_based.name}_yield.tif"
+    if all_new_files or not yield_output_path.exists():
         print("Creating yield raster...")
         create_crop_yield_raster_withIrrigationPracticeScaling_vPipeline(
-            croplu_grid_raster=lu_bin_output,
+            croplu_grid_raster=str(lu_bin_output),
             fao_crop_shp=fao_yield_shp,
             spam_crop_raster=spam_crop_raster,
-            output_rst_path=yield_output_path,
+            output_rst_path=str(yield_output_path),
             irr_yield_scaling=irr_yield_scaling,
             all_fp = spam_all_fp,
             irr_fp = spam_irr_fp,
@@ -1479,18 +1482,23 @@ def prepare_crop_data(
         print("Yields raster already exists — skipping computation.")
 
     # Step 3 - Create plant cover raster
-    plantcover_output_path = f"{output_crop_based}_pc_monthly.tif"
-    if all_new_files or not os.path.exists(plantcover_output_path):
+    plantcover_output_path = output_crop_based.parent / f"{output_crop_based.name}_pc_monthly.tif"
+    if all_new_files or not plantcover_output_path.exists():
         print("Creating plant cover raster...")
-        create_plant_cover_monthly_raster(crop_name, plantcover_output_path)
+        create_plant_cover_monthly_raster(crop_name, str(plantcover_output_path))
     else:
         print("Plant Cover raster already exists — skipping computation.")
 
     # Step 4 - Create plant residue raster
-    plant_residue_output_path = f"{output_practice_based}_residues_monthly.tif"
-    if all_new_files or not os.path.exists(plant_residue_output_path):
+    plant_residue_output_path = output_practice_based.parent / f"{output_practice_based.name}_residues_monthly.tif"
+    if all_new_files or not plant_residue_output_path.exists():
         print("Creating plant residue raster...")
-        create_monthly_residue_vPipeline(crop_name, crop_type, yield_raster_path=yield_output_path, output_path=plant_residue_output_path)
+        create_monthly_residue_vPipeline(
+            crop_name,
+            crop_type,
+            yield_raster_path=str(yield_output_path),
+            output_path=str(plant_residue_output_path),
+        )
     else:
         print("Plant Residues raster already exists — skipping computation.")
 
@@ -1780,7 +1788,7 @@ def create_monthly_residue_vPipeline(
 #### FOREST CALCULATIONS #####
 ##############################
 try:
-    forest_litter_table = pl.read_excel("../data/forest/forest_residues_IPCC.xlsx")
+    forest_litter_table = pl.read_excel(data_path("forest", "forest_residues_IPCC.xlsx"))
 except FileNotFoundError:  # pragma: no cover - optional input tables
     forest_litter_table = pl.DataFrame(
         {

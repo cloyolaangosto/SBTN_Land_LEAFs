@@ -31,13 +31,20 @@ The following part of the code tries to automatize this calculations for annual 
 #### Modules ####
 import math  # For mathematical operations
 from calendar import monthrange  # For getting the number of days in a month
-from typing import Any, Dict, Iterable, Mapping, Optional, Tuple
+from pathlib import Path
+from typing import Any, Dict, Iterable, Mapping, Optional, Tuple, Union
 
-import polars as pl  # For data manipulation and analysis
 import numpy as np  # For numerical operations and array handling
 import rasterio  # For raster data handling
 from rasterio.warp import reproject, Resampling  # For raster reprojection and resampling
 from tqdm import tqdm  # For progress bar
+
+import polars as pl  # For data manipulation and analysis
+
+from sbtn_leaf.paths import data_path
+
+_DEFAULT_PET_BASE_RASTER_PATH = data_path("soil_weather", "uhth_pet_locationonly.tif")
+_DEFAULT_THERMAL_ZONE_RASTER_PATH = data_path("soil_weather", "uhth_thermal_climates.tif")
 
 from sbtn_leaf.data_loader import (
     get_absolute_day_table,
@@ -115,10 +122,10 @@ def _normalize_landuse_mask(mask: np.ndarray, *, expected_shape: Tuple[int, int]
 
 
 def _load_pet_inputs(
-    pet_base_raster_path: str,
-    thermal_zone_raster_path: str,
+    pet_base_raster_path: Union[str, Path],
+    thermal_zone_raster_path: Union[str, Path],
     *,
-    landuse_raster_path: Optional[str] = None,
+    landuse_raster_path: Optional[Union[str, Path]] = None,
     landuse_mask: Optional[np.ndarray] = None,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, Dict[str, Any]]:
     """Load the PET base, thermal zones, and land-use mask arrays.
@@ -765,8 +772,8 @@ def calculate_crop_based_PET_raster(
     output_annual_path: Optional[str] = None,
     landuse_raster_path: Optional[str] = None,
     landuse_mask: Optional[np.ndarray] = None,
-    pet_base_raster_path: str = "SOC_Data_Processing/uhth_pet_locationonly.tif",
-    thermal_zone_raster_path: str = "SOC_Data_Processing/uhth_thermal_climates.tif",
+    pet_base_raster_path: Union[str, Path] = _DEFAULT_PET_BASE_RASTER_PATH,
+    thermal_zone_raster_path: Union[str, Path] = _DEFAULT_THERMAL_ZONE_RASTER_PATH,
     crop_table: Optional[pl.DataFrame] = None,
     abs_date_table: Optional[pl.DataFrame] = None,
     zone_ids_by_group: Optional[Mapping[str, Iterable[int]]] = None,
@@ -835,8 +842,8 @@ def calculate_crop_based_PET_raster_optimized(
     landuse_raster_path: str,
     output_monthly_path: str,
     output_annual_path: str,
-    pet_base_raster_path: str = "../data/soil_weather/uhth_pet_locationonly.tif",
-    thermal_zone_raster_path: str = "../data/soil_weather/uhth_thermal_climates.tif",
+    pet_base_raster_path: Union[str, Path] = _DEFAULT_PET_BASE_RASTER_PATH,
+    thermal_zone_raster_path: Union[str, Path] = _DEFAULT_THERMAL_ZONE_RASTER_PATH,
     *,
     crop_table: Optional[pl.DataFrame] = None,
     abs_date_table: Optional[pl.DataFrame] = None,
@@ -867,8 +874,8 @@ def calculate_crop_based_PET_raster_vPipeline(
     crop_name: str,
     landuse_array: np.ndarray,
     output_monthly_path: str,
-    pet_base_raster_path: str = "../data/soil_weather/uhth_pet_locationonly.tif",
-    thermal_zone_raster_path: str = "../data/soil_weather/uhth_thermal_climates.tif",
+    pet_base_raster_path: Union[str, Path] = _DEFAULT_PET_BASE_RASTER_PATH,
+    thermal_zone_raster_path: Union[str, Path] = _DEFAULT_THERMAL_ZONE_RASTER_PATH,
     *,
     crop_table: Optional[pl.DataFrame] = None,
     abs_date_table: Optional[pl.DataFrame] = None,
