@@ -855,10 +855,11 @@ def _load_grassland_data(
         pc = pc.rio.write_crs(lu_raster.rio.crs)
         pc = pc.rio.write_transform(lu_raster.rio.transform())
     else:   # TODO: managed grassland
-        pc = rxr.open_rasterio(_as_path(pc_fp), masked=True)
-        pc = pc.rename({"band": "time"})
-        pc = (pc).where(lu_mask)
-        pc = pc.where(lu_mask).fillna(0)
+        raise ValueError("Managed grasslands not yet implemented")
+        # pc = rxr.open_rasterio(_as_path(pc_fp), masked=True)
+        # pc = pc.rename({"band": "time"})
+        # pc = (pc).where(lu_mask)
+        # pc = pc.where(lu_mask).fillna(0)
     
     # Opens and returns each fym_fp for each animal
     fym_all = np.zeros_like(lu_mask)
@@ -1163,10 +1164,10 @@ def run_RothC_grassland(
     lu_fp: PathLike,
     evap_fp: PathLike,
     fym_fp_list: list[PathLike],
-    pc_fp: Optional[PathLike] = None,  # Left for future development of commercial grasslands
+    pc_fp: Optional[PathLike] = None,   # Left for future development of commercial grasslands
     irr_fp: Optional[PathLike] = None,  # Left for future development of commercial grasslands
-    pr_fp: Optional[PathLike] = None,  # Left for future development of commercial grasslands
-    practices_string_id: Optional[str] = None,
+    pr_fp: Optional[PathLike] = None,   # Left for future development of commercial grasslands
+    string_id: Optional[str] = None,
     residue_runs = 100,
     save_CO2: bool = False,
     env_path_overrides: Optional[Dict[str, PathLike]] = None,
@@ -1243,7 +1244,7 @@ def run_RothC_grassland(
         n_years=n_years,
         save_folder=save_folder,
         data_description=data_description,
-        result_basename=f"{grassland_type}_{practices_string_id}_{n_years}y_SOC.tif",
+        result_basename=f"{grassland_type}_{string_id}_{2016+n_years}y_SOC.tif",
         loader=_grassland_loader,
         loader_kwargs={
             "evap_fp": evap_fp,
@@ -1266,7 +1267,7 @@ def run_RothC_grassland(
     )
 
 
-def run_rothC_scenarios_from_csv(csv_filepath: PathLike):
+def run_rothC_crop_scenarios_from_csv(csv_filepath: PathLike):
     # 1) Read & cast your CSV exactly as before
     scenarios = (
         pl.read_csv(_resolve_csv_path(csv_filepath), null_values=["", "None"])
@@ -1282,10 +1283,26 @@ def run_rothC_scenarios_from_csv(csv_filepath: PathLike):
 
     # 3) Iterate with tqdm
     for scenario in scenario_list:
-    #for scenario in tqdm(scenario_list, desc="Running RothC Scenarios", unit="scenario", position=0):
-        # tqdm.write(f"Processing scenario: {scenario['practices_string_id']}")
         print(f"Running {scenario['crop_name']} - {scenario['practices_string_id']}")
         run_RothC_crops(**scenario)
+        print("\n\n")
+
+def run_rothC_grassland_scenarios_from_csv(csv_filepath: PathLike):
+    # 1) Read & cast your CSV exactly as before
+    scenarios = (
+        pl.read_csv(_resolve_csv_path(csv_filepath), null_values=["", "None"])
+        .with_columns([
+            pl.col("n_years").cast(pl.Int64)
+        ])
+    )
+
+    # 2) Turn into a list of dicts once (so we know the total count)
+    scenario_list = scenarios.to_dicts()
+
+    # 3) Iterate with tqdm
+    for scenario in scenario_list:
+        print(f"Running {scenario['grassland_type']} - {scenario['string_id']}")
+        run_RothC_grassland(**scenario)
         print("\n\n")
 
 ##########################################

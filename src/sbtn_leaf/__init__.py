@@ -132,7 +132,7 @@ from .RothC_Raster import (
     run_RothC_crops,
     run_RothC_forest,
     run_RothC_grassland,
-    run_rothC_scenarios_from_csv,
+    run_rothC_crop_scenarios_from_csv,
     save_annual_results,
     stack_time_series,
     write_multiband_tif,
