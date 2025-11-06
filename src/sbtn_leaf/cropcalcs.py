@@ -20,7 +20,7 @@ from rasterio.features import rasterize
 from rasterio.warp import reproject
 import rioxarray as rxr
 
-from sbtn_leaf.PET import monthly_KC_curve, calculate_crop_based_PET_raster_vPipeline
+from sbtn_leaf.PET import crop_monthly_KC_curve, calculate_crop_based_PET_raster_vPipeline
 from sbtn_leaf.data_loader import (
     get_crop_coefficients_table,
     get_crop_ag_residue_table,

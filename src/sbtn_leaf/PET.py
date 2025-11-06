@@ -32,7 +32,7 @@ The following part of the code tries to automatize this calculations for annual 
 import math  # For mathematical operations
 from calendar import monthrange  # For getting the number of days in a month
 from pathlib import Path
-from typing import Any, Dict, Iterable, Mapping, Optional, Tuple, Union
+from typing import Any, Dict, Iterable, Mapping, Optional, Tuple, Union, Literal
 
 import numpy as np  # For numerical operations and array handling
 import rasterio  # For raster data handling
@@ -321,7 +321,7 @@ def correct_abs_date(num_day:int):
     
     return num_day
 
-def create_KC_Curve(
+def create_crop_daily_KC_Curve(
     crop: str,
     climate: str,
     *,
@@ -499,14 +499,14 @@ def create_KC_Curve(
     
     return Kc_df
 
-def monthly_KC_curve(
+def crop_monthly_KC_curve(
     crop: str,
     climate: str,
     *,
     crop_table: Optional[pl.DataFrame] = None,
     abs_date_table: Optional[pl.DataFrame] = None,
 ):
-    daily_Kc_curve = create_KC_Curve(
+    daily_Kc_curve = create_crop_daily_KC_Curve(
         crop,
         climate,
         crop_table=crop_table,
@@ -563,7 +563,7 @@ def _build_monthly_kc_vectors(
     for group in tqdm(unique_groups, desc=tqdm_desc):
         if log_template:
             print(log_template.format(group=group))
-        kc_df = monthly_KC_curve(
+        kc_df = crop_monthly_KC_curve(
             crop_name,
             group,
             crop_table=crop_table,
@@ -629,7 +629,7 @@ def calculate_PET_crop_based(
     days_table = _resolve_days_in_month_table(days_in_month_table, year=year)
 
     # Create Kc curve for the specified crop and climate zone
-    Kc_curve = create_KC_Curve(
+    Kc_curve = create_crop_daily_KC_Curve(
         crop,
         climate_zone,
         crop_table=crop_table,
@@ -894,3 +894,181 @@ def calculate_crop_based_PET_raster_vPipeline(
     )
 
     return pet_monthly
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Kc CURVES FROM WATER FOOTPRINT THERMAL CLASSES (Table 3.2)
+# ──────────────────────────────────────────────────────────────────────────────
+# We expose two public builders:
+#   - create_kc_curve_grassland_thermal(thermal_climate, month_anchor=1)
+#   - create_kc_curve_forest_thermal(forest_type, thermal_climate, month_anchor=1)
+# Both return a Polars DataFrame with columns: Month (1..12), Kc (float)
+
+# ----------------------------------------
+# Thermal-class and their parameter maps
+# ----------------------------------------
+
+ThermalClass = Literal[
+    "Tropics",
+    "Subtropics summer rainfall",
+    "Subtropics winter rainfall",
+    "Oceanic temperate",
+    "Sub-continental temperate",
+    "Continental temperate",
+    "Oceanic boreal",
+    "Sub-continental boreal",
+    "Continental boreal",
+    "Polar/Arctic",
+]
+
+# Grassland: Kc triplet + phenology (leaf-on/off) by thermal class
+_ROTATED_GRASSLAND_PARAMS: Dict[ThermalClass, Dict[str, float | int]] = {
+    "Tropics":                      {"kc_ini":0.70, "kc_mid":1.05, "kc_end":0.85, "leaf_on":1, "leaf_off":12},
+    "Subtropics summer rainfall":   {"kc_ini":0.70, "kc_mid":1.00, "kc_end":0.85, "leaf_on":4, "leaf_off":10},
+    "Subtropics winter rainfall":   {"kc_ini":0.70, "kc_mid":1.00, "kc_end":0.85, "leaf_on":10, "leaf_off":4},
+    "Oceanic temperate":            {"kc_ini":0.70, "kc_mid":0.98, "kc_end":0.85, "leaf_on":4, "leaf_off":10},
+    "Sub-continental temperate":    {"kc_ini":0.70, "kc_mid":0.98, "kc_end":0.85, "leaf_on":4, "leaf_off":9},
+    "Continental temperate":        {"kc_ini":0.70, "kc_mid":0.96, "kc_end":0.85, "leaf_on":5, "leaf_off":9},
+    "Oceanic boreal":               {"kc_ini":0.70, "kc_mid":0.92, "kc_end":0.84, "leaf_on":6, "leaf_off":8},
+    "Sub-continental boreal":       {"kc_ini":0.70, "kc_mid":0.92, "kc_end":0.84, "leaf_on":6, "leaf_off":8},
+    "Continental boreal":           {"kc_ini":0.70, "kc_mid":0.90, "kc_end":0.83, "leaf_on":6, "leaf_off":8},
+    "Polar/Arctic":                 {"kc_ini":0.68, "kc_mid":0.85, "kc_end":0.80, "leaf_on":7, "leaf_off":8},
+}
+
+_EXTENSIVE_GRASSLAND_PARAMS: Dict[ThermalClass, Dict[str, float | int]] = {
+    "Tropics":                      {"kc_ini":0.70, "kc_mid":1.05, "kc_end":0.85, "leaf_on":1, "leaf_off":12},
+    "Subtropics summer rainfall":   {"kc_ini":0.70, "kc_mid":1.00, "kc_end":0.85, "leaf_on":4, "leaf_off":10},
+    "Subtropics winter rainfall":   {"kc_ini":0.70, "kc_mid":1.00, "kc_end":0.85, "leaf_on":10, "leaf_off":4},
+    "Oceanic temperate":            {"kc_ini":0.70, "kc_mid":0.98, "kc_end":0.85, "leaf_on":4, "leaf_off":10},
+    "Sub-continental temperate":    {"kc_ini":0.70, "kc_mid":0.98, "kc_end":0.85, "leaf_on":4, "leaf_off":9},
+    "Continental temperate":        {"kc_ini":0.70, "kc_mid":0.96, "kc_end":0.85, "leaf_on":5, "leaf_off":9},
+    "Oceanic boreal":               {"kc_ini":0.70, "kc_mid":0.92, "kc_end":0.84, "leaf_on":6, "leaf_off":8},
+    "Sub-continental boreal":       {"kc_ini":0.70, "kc_mid":0.92, "kc_end":0.84, "leaf_on":6, "leaf_off":8},
+    "Continental boreal":           {"kc_ini":0.70, "kc_mid":0.90, "kc_end":0.83, "leaf_on":6, "leaf_off":8},
+    "Polar/Arctic":                 {"kc_ini":0.68, "kc_mid":0.85, "kc_end":0.80, "leaf_on":7, "leaf_off":8},
+}
+
+# Forest – evergreen: Kc triplet + fixed stage lengths (gentle seasonality) by thermal class
+_EVERGREEN_PARAMS: Dict[ThermalClass, Dict[str, float | int]] = {
+    "Tropics":                      {"kc_ini":0.95, "kc_mid":1.10, "kc_end":1.00, "L_ini":80,  "L_dev":80,  "L_mid":125, "L_late":80},
+    "Subtropics summer rainfall":   {"kc_ini":0.95, "kc_mid":1.07, "kc_end":1.00, "L_ini":85,  "L_dev":85,  "L_mid":110, "L_late":85},
+    "Subtropics winter rainfall":   {"kc_ini":0.95, "kc_mid":1.07, "kc_end":1.00, "L_ini":85,  "L_dev":85,  "L_mid":110, "L_late":85},
+    "Oceanic temperate":            {"kc_ini":0.95, "kc_mid":1.05, "kc_end":1.00, "L_ini":90,  "L_dev":90,  "L_mid":95,  "L_late":90},
+    "Sub-continental temperate":    {"kc_ini":0.95, "kc_mid":1.04, "kc_end":0.99, "L_ini":90,  "L_dev":90,  "L_mid":95,  "L_late":90},
+    "Continental temperate":        {"kc_ini":0.95, "kc_mid":1.03, "kc_end":0.98, "L_ini":95,  "L_dev":85,  "L_mid":95,  "L_late":90},
+    "Oceanic boreal":               {"kc_ini":0.93, "kc_mid":1.00, "kc_end":0.96, "L_ini":95,  "L_dev":80,  "L_mid":110, "L_late":80},
+    "Sub-continental boreal":       {"kc_ini":0.92, "kc_mid":0.99, "kc_end":0.95, "L_ini":100, "L_dev":70,  "L_mid":125, "L_late":70},
+    "Continental boreal":           {"kc_ini":0.90, "kc_mid":0.98, "kc_end":0.94, "L_ini":110, "L_dev":60,  "L_mid":125, "L_late":70},
+    "Polar/Arctic":                 {"kc_ini":0.88, "kc_mid":0.95, "kc_end":0.92, "L_ini":120, "L_dev":40,  "L_mid":145, "L_late":60},
+}
+
+# Forest – deciduous: Kc triplet + phenology window by thermal class
+_DECIDUOUS_PARAMS: Dict[ThermalClass, Dict[str, float | int]] = {
+    "Tropics":                      {"kc_ini":0.60, "kc_mid":1.05, "kc_end":0.70, "leaf_on":3, "leaf_off":11},
+    "Subtropics summer rainfall":   {"kc_ini":0.55, "kc_mid":1.10, "kc_end":0.65, "leaf_on":4, "leaf_off":10},
+    "Subtropics winter rainfall":   {"kc_ini":0.55, "kc_mid":1.08, "kc_end":0.65, "leaf_on":10,"leaf_off":4},
+    "Oceanic temperate":            {"kc_ini":0.50, "kc_mid":1.10, "kc_end":0.60, "leaf_on":4, "leaf_off":10},
+    "Sub-continental temperate":    {"kc_ini":0.48, "kc_mid":1.08, "kc_end":0.58, "leaf_on":4, "leaf_off":9},
+    "Continental temperate":        {"kc_ini":0.45, "kc_mid":1.06, "kc_end":0.56, "leaf_on":5, "leaf_off":9},
+    "Oceanic boreal":               {"kc_ini":0.42, "kc_mid":1.00, "kc_end":0.52, "leaf_on":6, "leaf_off":8},
+    "Sub-continental boreal":       {"kc_ini":0.40, "kc_mid":0.98, "kc_end":0.50, "leaf_on":6, "leaf_off":8},
+    "Continental boreal":           {"kc_ini":0.38, "kc_mid":0.96, "kc_end":0.48, "leaf_on":6, "leaf_off":8},
+    "Polar/Arctic":                 {"kc_ini":0.35, "kc_mid":0.90, "kc_end":0.45, "leaf_on":7, "leaf_off":8},
+}
+
+
+# --------------------------
+# Core helpers
+# --------------------------
+def _construct_monthly_kc_forest_grass(
+    *,
+    kc_ini: float,
+    kc_mid: float,
+    kc_end: float,
+    L_ini: int,
+    L_dev: int,
+    L_mid: int,
+    L_late: int,
+    month_anchor: int = 1,
+) -> pl.DataFrame:
+    """Build a 365-day Kc curve (FAO single-Kc; linear stage transitions) and average by month."""
+    tot = L_ini + L_dev + L_mid + L_late
+    if tot != 365:
+        raise ValueError(f"Stage lengths must sum to 365, got {tot}")
+
+    ini = np.full(L_ini, kc_ini, float)
+    dev = np.linspace(kc_ini, kc_mid, num=L_dev, endpoint=True) if L_dev else np.array([], float)
+    mid = np.full(L_mid, kc_mid, float)
+    late = np.linspace(kc_mid, kc_end, num=L_late, endpoint=True) if L_late else np.array([], float)
+    kc_daily = np.concatenate([ini, dev, mid, late])
+
+    mdays = np.array([31,28,31,30,31,30,31,31,30,31,30,31], int)
+    shift = (month_anchor - 1) % 12
+    mdays_rot = np.concatenate([mdays[shift:], mdays[:shift]])
+
+    pos = 0
+    monthly = []
+    for d in mdays_rot:
+        monthly.append(kc_daily[pos:pos+d].mean())
+        pos += d
+
+    monthly_back = np.concatenate([monthly[-shift:], monthly[:-shift]]) if shift else np.array(monthly)
+    return pl.DataFrame({"Month": np.arange(1, 13), "Kc": monthly_back})
+
+
+def _leaf_on_stage_lengths(leaf_on_start_month: int, leaf_off_start_month: int) -> Dict[str, int]:
+    """Translate a leaf-on window into FAO-style stage lengths (days). Non-leap year."""
+    mdays = np.array([31,28,31,30,31,30,31,31,30,31,30,31], int)
+    months = np.arange(12)
+    m0, m1 = (leaf_on_start_month - 1) % 12, (leaf_off_start_month - 1) % 12
+    if m0 <= m1:
+        mask = (months >= m0) & (months <= m1)
+    else:  # wraps year end
+        mask = (months >= m0) | (months <= m1)
+    on_days = mdays[mask].sum()
+    off_days = 365 - on_days
+    L_dev = max(15, int(0.20 * on_days))
+    L_mid = max(45, int(0.60 * on_days))
+    L_late = on_days - (L_dev + L_mid)
+    L_ini = off_days
+    return {"L_ini": L_ini, "L_dev": L_dev, "L_mid": L_mid, "L_late": L_late}
+
+# --------------------------
+# Public builders
+# --------------------------
+def create_kc_curve_grassland_thermal(
+    thermal_climate: ThermalClass,
+    *,
+    month_anchor: int = 1,
+) -> pl.DataFrame:
+    """Monthly Kc for grassland using only the Water Footprint thermal climate class."""
+    p = _GRASSLAND_PARAMS[thermal_climate]
+    stages = _leaf_on_stage_lengths(p["leaf_on"], p["leaf_off"])
+    return _construct_monthly_kc_forest_grass(
+        kc_ini=p["kc_ini"], kc_mid=p["kc_mid"], kc_end=p["kc_end"],
+        L_ini=stages["L_ini"], L_dev=stages["L_dev"], L_mid=stages["L_mid"], L_late=stages["L_late"],
+        month_anchor=month_anchor,
+    )
+
+def create_kc_curve_forest_thermal(
+    forest_type: Literal["evergreen","deciduous"],
+    thermal_climate: ThermalClass,
+    *,
+    month_anchor: int = 1,
+) -> pl.DataFrame:
+    """Monthly Kc for forests (evergreen/deciduous) keyed only by the thermal climate class."""
+    if forest_type == "evergreen":
+        p = _EVERGREEN_PARAMS[thermal_climate]
+        return _construct_monthly_kc_forest_grass(
+            kc_ini=p["kc_ini"], kc_mid=p["kc_mid"], kc_end=p["kc_end"],
+            L_ini=p["L_ini"], L_dev=p["L_dev"], L_mid=p["L_mid"], L_late=p["L_late"],
+            month_anchor=month_anchor,
+        )
+    # deciduous
+    p = _DECIDUOUS_PARAMS[thermal_climate]
+    stages = _leaf_on_stage_lengths(p["leaf_on"], p["leaf_off"])
+    return _construct_monthly_kc_forest_grass(
+        kc_ini=p["kc_ini"], kc_mid=p["kc_mid"], kc_end=p["kc_end"],
+        L_ini=stages["L_ini"], L_dev=stages["L_dev"], L_mid=stages["L_mid"], L_late=stages["L_late"],
+        month_anchor=month_anchor,
+    )

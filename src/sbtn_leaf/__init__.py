@@ -104,8 +104,8 @@ from .PET import (
     calculate_PET_location_based,
     calculate_crop_based_PET_raster_optimized,
     calculate_crop_based_PET_raster_vPipeline,
-    create_KC_Curve,
-    monthly_KC_curve,
+    create_crop_daily_KC_Curve,
+    crop_monthly_KC_curve,
 )
 from .RothC_Core import (
     CarbonPools,

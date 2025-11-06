@@ -12,8 +12,8 @@ from sbtn_leaf.PET import (
     calculate_crop_based_PET_raster_vPipeline,
     calculate_PET_crop_based,
     calculate_PET_location_based,
-    create_KC_Curve,
-    monthly_KC_curve,
+    create_crop_daily_KC_Curve,
+    crop_monthly_KC_curve,
 )
 
 
@@ -78,7 +78,7 @@ def test_create_kc_curve_respects_stage_lengths_without_rollover():
         }
     )
 
-    kc_curve = create_KC_Curve(
+    kc_curve = create_crop_daily_KC_Curve(
         "TestCrop",
         "TestZone",
         crop_table=crop_table,
@@ -430,7 +430,7 @@ def test_raster_pet_paths_share_kc_vectors(tmp_path):
         tqdm_desc=None,
         log_template=None,
     )
-    expected_curve = monthly_KC_curve(
+    expected_curve = crop_monthly_KC_curve(
         "TestCrop",
         "TestClimate",
         crop_table=crop_table,
