@@ -4,7 +4,6 @@
 #### MODULES ####
 from pathlib import Path
 import logging
-import os
 from functools import lru_cache
 
 import numpy as np
@@ -44,31 +43,9 @@ from rasterio.enums import Resampling
 from rasterio.fill import fillnodata
 from scipy import ndimage
 
-
-def _default_data_dir() -> Path:
-    """Return the default data directory relative to the repository root."""
-
-    return Path(__file__).resolve().parents[2] / "data"
-
-
-def _get_data_dir() -> Path:
-    """Resolve the directory that contains the shared input datasets."""
-
-    env_override = os.environ.get("SBTN_LEAF_DATA_DIR")
-    if env_override:
-        return Path(env_override)
-    return _default_data_dir()
-
-
-def _data_path(*relative: str) -> Path:
-    """Build an absolute path inside the shared data directory."""
-
-    return _get_data_dir().joinpath(*relative)
-
-
 ##### DATA ####
-rain_monthly_fp = _data_path("soil_weather", "uhth_monthly_avg_precip.tif")
-uhth_climates_fp = _data_path("soil_weather", "uhth_thermal_climates.tif")
+rain_monthly_fp = data_path("soil_weather", "uhth_monthly_avg_precip.tif")
+uhth_climates_fp = data_path("soil_weather", "uhth_thermal_climates.tif")
 crop_types      = ["annual", "permanent"]
 
 #### FUNCTIONS ####
@@ -1877,14 +1854,13 @@ def get_forest_litter_monthlyrate_fromda(da: np.ndarray, forest_type: str, weath
 def _load_grassland_residue_table() -> pl.DataFrame:
     """Load the IPCC grassland residue table from disk."""
 
-    table_path = _data_path("grasslands", "grassland_residues_IPCC.xlsx")
+    table_path = data_path("grasslands", "grassland_residues_IPCC.xlsx")
     try:
         return pl.read_excel(table_path)
     except FileNotFoundError as exc:  # pragma: no cover - optional input tables
         raise FileNotFoundError(
-            "Grassland residue lookup table not found."
-            " Set `SBTN_LEAF_DATA_DIR` or provide explicit file paths."
-            f" Expected location: {table_path}"
+            "Grassland residue lookup table not found at"
+            f" {table_path}. Provide an explicit file path or override the input."
         ) from exc
 
 
@@ -1892,13 +1868,13 @@ def _resolve_optional_path(path: Optional[Union[str, Path]], *default: str) -> P
     """Return a resolved path, falling back to the shared data directory."""
 
     if path is None:
-        return _data_path(*default)
+        return data_path(*default)
 
     candidate = Path(path)
     if candidate.exists():
         return candidate
 
-    default_path = _data_path(*default)
+    default_path = data_path(*default)
     logging.getLogger(__name__).debug(
         "Falling back to default data path %s for missing input %s", default_path, path
     )
@@ -2026,13 +2002,13 @@ class RasterResult:
                 dst.set_band_description(1, self.name)
 
 ANIMAL_DENSITY_REGISTRY = {
-    "cattle_other": _data_path("grasslands", "livestock", "grassland_cattle.tif"),
-    "cattle_dairy": _data_path("grasslands", "livestock", "grassland_cattle.tif"),
-    "goat": _data_path("grasslands", "livestock", "grassland_goat.tif"),
-    "sheep": _data_path("grasslands", "livestock", "grassland_sheep.tif"),
+    "cattle_other": data_path("grasslands", "livestock", "grassland_cattle.tif"),
+    "cattle_dairy": data_path("grasslands", "livestock", "grassland_cattle.tif"),
+    "goat": data_path("grasslands", "livestock", "grassland_goat.tif"),
+    "sheep": data_path("grasslands", "livestock", "grassland_sheep.tif"),
 }
 
-grassland_dung_regions_raster_fp = _data_path(
+grassland_dung_regions_raster_fp = data_path(
     "grasslands", "livestock", "grassland_dung_regions.tif"
 )
 
@@ -2041,16 +2017,15 @@ grassland_dung_regions_raster_fp = _data_path(
 def _load_dung_data() -> pl.DataFrame:
     """Load the dung deposition lookup table."""
 
-    dung_path = _data_path("grasslands", "Animals_Dung_IPCC.xlsx")
+    dung_path = data_path("grasslands", "Animals_Dung_IPCC.xlsx")
     try:
         return pl.read_excel(
             dung_path, sheet_name="C_Excr_Animals_tCpheadpyr"
         )
     except FileNotFoundError as exc:  # pragma: no cover - optional input tables
         raise FileNotFoundError(
-            "Dung excretion lookup table not found."
-            " Set `SBTN_LEAF_DATA_DIR` or provide explicit file paths."
-            f" Expected location: {dung_path}"
+            "Dung excretion lookup table not found at"
+            f" {dung_path}. Provide an explicit file path or override the input."
         ) from exc
 raster_id = [1,2,3,4,5,6,7,8,9]
 dung_regions_mean = [

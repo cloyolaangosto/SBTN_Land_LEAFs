@@ -19,22 +19,65 @@ from sbtn_leaf.RothC_Core import RMF_Tmp, RMF_Moist, RMF_PC, RMF_TRM, _partition
 import sbtn_leaf.cropcalcs as cropcalcs
 from sbtn_leaf.paths import data_path
 
+PathLike = Union[str, Path]
+
+
+def _as_path(value: PathLike) -> Path:
+    """Return ``value`` as a :class:`~pathlib.Path` instance."""
+
+    return value if isinstance(value, Path) else Path(value)
+
+
+def _resolve_optional_path(
+    candidate: Optional[PathLike], *default: PathLike
+) -> Path:
+    """Return ``candidate`` coerced to :class:`Path` or fall back to ``data_path``.
+
+    Parameters
+    ----------
+    candidate:
+        Optional path override supplied by the caller.
+    default:
+        Path segments pointing to the default dataset beneath the repository
+        ``data`` directory.  When ``candidate`` is :data:`None`,
+        :func:`sbtn_leaf.paths.data_path` is invoked with these segments to
+        produce the resolved location.
+    """
+
+    if candidate is None:
+        return data_path(*default)
+    return _as_path(candidate)
+
+
+def _resolve_csv_path(path: PathLike) -> Path:
+    """Resolve a CSV path, falling back to :func:`data_path` when needed."""
+
+    candidate = _as_path(path)
+    if candidate.exists():
+        return candidate
+
+    data_candidate = data_path(candidate)
+    if data_candidate.exists():
+        return data_candidate
+
+    return candidate
+
 # -----------------------------------------------------------------------------
 # FUNCTIONS
 # -----------------------------------------------------------------------------
-def load_single_band(path: str) -> xr.DataArray:
+def load_single_band(path: PathLike) -> xr.DataArray:
     """
     Load a single-band raster as an xarray DataArray with spatial coords.
     """
-    da = rxr.open_rasterio(path, masked=True).squeeze()
+    da = rxr.open_rasterio(_as_path(path), masked=True).squeeze()
     
     return da
 
-def load_multiband(path: str) -> xr.DataArray:
+def load_multiband(path: PathLike) -> xr.DataArray:
     """
     Load a multi-band raster (e.g., 12 bands) as xarray DataArray with 'band' dimension.
     """
-    da = rxr.open_rasterio(path, masked=True)
+    da = rxr.open_rasterio(_as_path(path), masked=True)
     da = da.rename({'band': 'time'})
     
     return da
@@ -116,7 +159,7 @@ def build_pc_mask(
 
 def write_single_band_tif(
     data: xr.DataArray,
-    out_path: str,
+    out_path: PathLike,
     template: xr.DataArray
 ) -> None:
     """
@@ -124,7 +167,7 @@ def write_single_band_tif(
     """
     meta = template.rio.profile.copy()
     meta.update(count=1, dtype='float32')
-    with rasterio.open(out_path, 'w', **meta) as dst:
+    with rasterio.open(_as_path(out_path), 'w', **meta) as dst:
         dst.write(
             data.values.astype('float32'),
             1
@@ -133,7 +176,7 @@ def write_single_band_tif(
 
 def write_multiband_tif(
     data: xr.DataArray,
-    out_path: str,
+    out_path: PathLike,
     template: xr.DataArray
 ) -> None:
     """
@@ -141,7 +184,7 @@ def write_multiband_tif(
     """
     meta = template.rio.profile.copy()
     meta.update(count=data.sizes['time'], dtype='float32')
-    with rasterio.open(out_path, 'w', **meta) as dst:
+    with rasterio.open(_as_path(out_path), 'w', **meta) as dst:
         for i in range(data.sizes['time']):
             dst.write(data.isel(time=i).astype('float32').values, i+1)
 
@@ -274,7 +317,7 @@ def _raster_rothc_annual_results(
     depth: float,
     commodity_type: str,
     soc0_nodatavalue: float,
-    grassland_lu_fp: Optional[Union[str, Path]] = None,    # For grassland residues calculations
+    grassland_lu_fp: Optional[PathLike] = None,    # For grassland residues calculations
     sand: Optional[np.ndarray] = None,
     forest_age:  Optional[np.ndarray] = None,
     forest_type: Optional[str] = None,
@@ -455,7 +498,7 @@ def raster_rothc_annual_results_1yrloop(
     fym: Optional[np.ndarray] = None,
     forest_age: Optional[np.ndarray] = None,
     forest_type: Optional[str]= None,
-    grassland_lu_fp: Optional[Union[str, Path]]= None, 
+    grassland_lu_fp: Optional[PathLike] = None,
     grassland_type: Optional[str]= None,
     grassland_residue_runs: int = 100,
     weather_type: Optional[str]= None,
@@ -568,7 +611,17 @@ def raster_rothc_ReducedTillage_annual_results_1yrloop(
 # -----------------------------------------------------------------------------
 
 # Function to save annual results
-def save_annual_results(results_array, reference_raster, n_years, var_name, save_path, data_description: str, units: str='t C/ha', long_name: str = "Soil Organic Carbon", model_description: str = "RothC rasterized vectorized"):
+def save_annual_results(
+    results_array,
+    reference_raster,
+    n_years,
+    var_name,
+    save_path: PathLike,
+    data_description: str,
+    units: str = 't C/ha',
+    long_name: str = "Soil Organic Carbon",
+    model_description: str = "RothC rasterized vectorized",
+):
     
     years = np.arange(1, n_years+1+1) # To include year 0
     
@@ -606,33 +659,61 @@ def save_annual_results(results_array, reference_raster, n_years, var_name, save
     })
 
     # 4. Export to GeoTIFF with tags        
-    data_array.rio.to_raster(save_path)
+    data_array.rio.to_raster(_as_path(save_path))
 
 
 # Function to prepare all data
-def _load_environmental_data(lu_rp: str):
+def _load_environmental_data(
+    lu_rp: PathLike,
+    *,
+    tmp_fp: Optional[PathLike] = None,
+    rain_fp: Optional[PathLike] = None,
+    clay_fp: Optional[PathLike] = None,
+    soc0_fp: Optional[PathLike] = None,
+    sand_fp: Optional[PathLike] = None,
+):
     # Loads data
     tmp = rxr.open_rasterio(
-        data_path("soil_weather", "uhth_monthly_avg_temp_celsius.tif"),
+        _resolve_optional_path(
+            tmp_fp,
+            "soil_weather",
+            "uhth_monthly_avg_temp_celsius.tif",
+        ),
         masked=True,
     )  # in °C
     rain = rxr.open_rasterio(
-        data_path("soil_weather", "uhth_monthly_avg_precip.tif"),
+        _resolve_optional_path(
+            rain_fp,
+            "soil_weather",
+            "uhth_monthly_avg_precip.tif",
+        ),
         masked=True,
     )
     clay = rxr.open_rasterio(
-        data_path("soil_weather", "uhth_clay_15-30cm_mean_perc.tif"),
+        _resolve_optional_path(
+            clay_fp,
+            "soil_weather",
+            "uhth_clay_15-30cm_mean_perc.tif",
+        ),
         masked=False,
     ).squeeze()
     soc0 = rxr.open_rasterio(
-        data_path("soil_weather", "uhth_soc_0-30cm_mean.tif"),
+        _resolve_optional_path(
+            soc0_fp,
+            "soil_weather",
+            "uhth_soc_0-30cm_mean.tif",
+        ),
         masked=False,
     ).squeeze()
     sand = rxr.open_rasterio(
-        data_path("soil_weather", "uhth_sand_15-30cm_mean_perc.tif"),
+        _resolve_optional_path(
+            sand_fp,
+            "soil_weather",
+            "uhth_sand_15-30cm_mean_perc.tif",
+        ),
         masked=False,
     ).squeeze()
-    lu_raster = rxr.open_rasterio(lu_rp, masked=False).squeeze()
+    lu_raster = rxr.open_rasterio(_as_path(lu_rp), masked=False).squeeze()
 
     # Creates IOM
     iom = 0.049 * soc0**1.139
@@ -658,25 +739,32 @@ def _load_environmental_data(lu_rp: str):
 
     return tmp, rain, soc0, iom, clay, sand
 
-def _load_crop_data(lu_fp: Union[str, Path], evap_fp: Union[str, Path],  pc_fp: Union[str, Path], irr_fp: Optional[Union[str, Path]], pr_fp: Optional[Union[str, Path]], fym_fp: Optional[Union[str, Path]]):
+def _load_crop_data(
+    lu_fp: PathLike,
+    evap_fp: PathLike,
+    pc_fp: PathLike,
+    irr_fp: Optional[PathLike],
+    pr_fp: Optional[PathLike],
+    fym_fp: Optional[PathLike],
+):
     # Opens land use data
-    lu_raster = rxr.open_rasterio(lu_fp, masked=False).squeeze()
+    lu_raster = rxr.open_rasterio(_as_path(lu_fp), masked=False).squeeze()
     lu_maks = (lu_raster==1)
         
     
     # Opens evap and pc, and process it
-    evap = rxr.open_rasterio(evap_fp, masked=True)  # (12-band: Jan–Dec)
+    evap = rxr.open_rasterio(_as_path(evap_fp), masked=True)  # (12-band: Jan–Dec)
     evap  = evap.rename({"band": "time"})
     evap = evap.where(lu_maks).fillna(0)
 
-    pc = rxr.open_rasterio(pc_fp, masked=True)
+    pc = rxr.open_rasterio(_as_path(pc_fp), masked=True)
     pc    = pc.rename({"band": "time"})
     pc = (pc).where(lu_maks)
     pc = pc.where(lu_maks).fillna(0)
     
     # Optional inputs
     if irr_fp:
-        irr = rxr.open_rasterio(irr_fp, masked=True)  # (12-band: Jan–Dec)
+        irr = rxr.open_rasterio(_as_path(irr_fp), masked=True)  # (12-band: Jan–Dec)
         irr = irr.rename({'band': 'time'})
         irr = (irr).where(lu_maks)
         irr = irr.where(lu_maks).fillna(0)
@@ -684,7 +772,7 @@ def _load_crop_data(lu_fp: Union[str, Path], evap_fp: Union[str, Path],  pc_fp: 
         irr = (xr.zeros_like(pc)).where(lu_maks)
 
     if pr_fp:
-        pr = rxr.open_rasterio(pr_fp, masked=True)  # (12-band: Jan–Dec)
+        pr = rxr.open_rasterio(_as_path(pr_fp), masked=True)  # (12-band: Jan–Dec)
         pr = pr.rename({'band': 'time'})
         pr = (pr).where(lu_maks)
         pr = pr.where(lu_maks).fillna(0)
@@ -692,7 +780,7 @@ def _load_crop_data(lu_fp: Union[str, Path], evap_fp: Union[str, Path],  pc_fp: 
         pr    = (xr.zeros_like(pc)).where(lu_maks)
     
     if fym_fp:
-        fym = rxr.open_rasterio(fym_fp, masked=True) # No farmyard manure in this case
+        fym = rxr.open_rasterio(_as_path(fym_fp), masked=True) # No farmyard manure in this case
         fym   = fym.rename({'band': 'time'})
         fym = (fym).where(lu_maks)
         fym = fym.where(lu_maks).fillna(0)
@@ -702,13 +790,13 @@ def _load_crop_data(lu_fp: Union[str, Path], evap_fp: Union[str, Path],  pc_fp: 
 
     return lu_raster, evap, pc, irr, pr, fym
 
-def _load_forest_data(lu_fp: Union[str, Path], evap_fp: Union[str, Path], age_fp: Union[str, Path]):
+def _load_forest_data(lu_fp: PathLike, evap_fp: PathLike, age_fp: PathLike):
     # 1) Land-use (mask where class == 1)
-    lu_raster = rxr.open_rasterio(lu_fp, masked=True).squeeze()   # (y, x)
+    lu_raster = rxr.open_rasterio(_as_path(lu_fp), masked=True).squeeze()   # (y, x)
     lu_mask = (lu_raster == 1)  
     
     # Opens evap and and process it
-    evap = rxr.open_rasterio(evap_fp, masked=True)  # (12-band: Jan–Dec)
+    evap = rxr.open_rasterio(_as_path(evap_fp), masked=True)  # (12-band: Jan–Dec)
     evap  = evap.rename({"band": "time"})
     evap = evap.where(lu_mask).fillna(0)
 
@@ -722,25 +810,37 @@ def _load_forest_data(lu_fp: Union[str, Path], evap_fp: Union[str, Path], age_fp
     pc = pc.rio.write_transform(lu_raster.rio.transform())
 
     # open age
-    age = rxr.open_rasterio(age_fp, masked=True).squeeze()
+    age = rxr.open_rasterio(_as_path(age_fp), masked=True).squeeze()
     age = age.where(lu_mask)
 
     return lu_raster, evap, pc, age
     
-def _load_grassland_data(lu_fp: Union[str, Path], evap_fp: Union[str, Path], grassland_type: str, fym_fp: list[str | Path], pc_fp: Optional[Union[str, Path]] = None, irr_fp: Optional[Union[str, Path]] = None, pr_fp: Optional[Union[str, Path]] = None, residue_runs = 100):
+def _load_grassland_data(
+    lu_fp: PathLike,
+    evap_fp: PathLike,
+    grassland_type: str,
+    fym_fp: list[PathLike],
+    pc_fp: Optional[PathLike] = None,
+    irr_fp: Optional[PathLike] = None,
+    pr_fp: Optional[PathLike] = None,
+    residue_runs: int = 100,
+):
     # Opens land use data
-    lu_raster = rxr.open_rasterio(lu_fp, masked=False).squeeze()
+    lu_raster = rxr.open_rasterio(_as_path(lu_fp), masked=False).squeeze()
     lu_mask = (lu_raster==1)
 
     # Opens evap and pc, and process it
-    evap = rxr.open_rasterio(evap_fp, masked=True)  # (12-band: Jan–Dec)
+    evap = rxr.open_rasterio(_as_path(evap_fp), masked=True)  # (12-band: Jan–Dec)
     evap  = evap.rename({"band": "time"})
     evap = evap.where(lu_mask).fillna(0)
 
     # Plant residues
     if pr_fp is None:  # Calculates plant_residues based on a different raster if given
         pr_fp = lu_fp
-    pr_annual = cropcalcs.generate_grassland_residue_map(grass_lu_fp=pr_fp, random_runs=residue_runs)  # Returns raster for 1 year    
+    pr_annual = cropcalcs.generate_grassland_residue_map(
+        grass_lu_fp=_as_path(pr_fp),
+        random_runs=residue_runs,
+    )  # Returns raster for 1 year
     pr_monthly = pr_annual/12
     pr = np.where(lu_mask, pr_monthly, 0)
     
@@ -755,7 +855,7 @@ def _load_grassland_data(lu_fp: Union[str, Path], evap_fp: Union[str, Path], gra
         pc = pc.rio.write_crs(lu_raster.rio.crs)
         pc = pc.rio.write_transform(lu_raster.rio.transform())
     else:   # TODO: managed grassland
-        pc = rxr.open_rasterio(pc_fp, masked=True)
+        pc = rxr.open_rasterio(_as_path(pc_fp), masked=True)
         pc = pc.rename({"band": "time"})
         pc = (pc).where(lu_mask)
         pc = pc.where(lu_mask).fillna(0)
@@ -763,7 +863,7 @@ def _load_grassland_data(lu_fp: Union[str, Path], evap_fp: Union[str, Path], gra
     # Opens and returns each fym_fp for each animal
     fym_all = np.zeros_like(lu_mask)
     for fp in fym_fp:
-        fym_annual = rxr.open_rasterio(fp, masked=True) # No farmyard manure in this case
+        fym_annual = rxr.open_rasterio(_as_path(fp), masked=True) # No farmyard manure in this case
         fym_monthly = fym_annual/12
         fym_all = fym_all + fym_monthly
         fym = (fym_all).where(lu_mask)
@@ -771,7 +871,7 @@ def _load_grassland_data(lu_fp: Union[str, Path], evap_fp: Union[str, Path], gra
 
     # Optional irrigation input - POTENTIALLY USED ON MANAGED GRASSLANDS
     if irr_fp:
-        irr = rxr.open_rasterio(irr_fp, masked=True)  # (12-band: Jan–Dec)
+        irr = rxr.open_rasterio(_as_path(irr_fp), masked=True)  # (12-band: Jan–Dec)
         irr = irr.rename({'band': 'time'})
         irr = (irr).where(lu_mask)
         irr = irr.where(lu_mask).fillna(0)
@@ -783,9 +883,9 @@ def _load_grassland_data(lu_fp: Union[str, Path], evap_fp: Union[str, Path], gra
 
 def _run_rothc_scenario(
     *,
-    lu_fp: Union[str, Path],
+    lu_fp: PathLike,
     n_years: int,
-    save_folder: str,
+    save_folder: PathLike,
     data_description: str,
     result_basename: str,
     loader: Callable[..., Tuple[xr.DataArray, Dict[str, Any]]],
@@ -794,6 +894,7 @@ def _run_rothc_scenario(
     runner_kwargs: Optional[Dict[str, Any]] = None,
     loader_message: Optional[str] = None,
     save_CO2: bool = False,
+    env_overrides: Optional[Dict[str, PathLike]] = None,
 ):
     """Shared workflow for RothC scenario execution and persistence."""
 
@@ -801,7 +902,9 @@ def _run_rothc_scenario(
     runner_kwargs = runner_kwargs or {}
 
     print("Loading environmental data...")
-    tmp, rain, soc0, iom, clay, sand = _load_environmental_data(lu_fp)
+    tmp, rain, soc0, iom, clay, sand = _load_environmental_data(
+        lu_fp, **(env_overrides or {})
+    )
 
     env_arrays = {
         "tmp": np.asarray(tmp.values),
@@ -814,7 +917,7 @@ def _run_rothc_scenario(
 
     if loader_message:
         print(loader_message)
-    lu_raster, scenario_inputs = loader(lu_fp=lu_fp, **loader_kwargs)
+    lu_raster, scenario_inputs = loader(lu_fp=_as_path(lu_fp), **loader_kwargs)
 
     print("Running RothC...")
 
@@ -830,7 +933,7 @@ def _run_rothc_scenario(
     else:
         SOC_results, CO2_results = results, None
 
-    save_path = f"{save_folder}/{result_basename}"
+    save_path = _as_path(save_folder) / result_basename
 
     save_annual_results(
         SOC_results,
@@ -860,7 +963,23 @@ def _run_rothc_scenario(
     return SOC_results
 
 
-def run_RothC_crops(crop_name: str, commodity_type: str, practices_string_id: str, n_years: int, save_folder: str, data_description: str, lu_fp: Union[str, Path], evap_fp: Union[str, Path],  pc_fp: Union[str, Path], irr_fp: Optional[Union[str, Path]] = None, pr_fp: Optional[Union[str, Path]] = None, fym_fp: Optional[Union[str, Path]] = None, red_till = False, save_CO2 = False):
+def run_RothC_crops(
+    crop_name: str,
+    commodity_type: str,
+    practices_string_id: str,
+    n_years: int,
+    save_folder: PathLike,
+    data_description: str,
+    lu_fp: PathLike,
+    evap_fp: PathLike,
+    pc_fp: PathLike,
+    irr_fp: Optional[PathLike] = None,
+    pr_fp: Optional[PathLike] = None,
+    fym_fp: Optional[PathLike] = None,
+    red_till: bool = False,
+    save_CO2: bool = False,
+    env_path_overrides: Optional[Dict[str, PathLike]] = None,
+):
     def _crop_loader(
         *,
         lu_fp: str,
@@ -870,7 +989,14 @@ def run_RothC_crops(crop_name: str, commodity_type: str, practices_string_id: st
         pr_fp: Optional[str],
         fym_fp: Optional[str],
     ) -> Tuple[xr.DataArray, Dict[str, Any]]:
-        lu_raster, evap, pc, irr, pr, fym = _load_crop_data(lu_fp, evap_fp, pc_fp, irr_fp, pr_fp, fym_fp)
+        lu_raster, evap, pc, irr, pr, fym = _load_crop_data(
+            _as_path(lu_fp),
+            _as_path(evap_fp),
+            _as_path(pc_fp),
+            None if irr_fp is None else _as_path(irr_fp),
+            None if pr_fp is None else _as_path(pr_fp),
+            None if fym_fp is None else _as_path(fym_fp),
+        )
         return lu_raster, {
             "evap": evap,
             "pc": pc,
@@ -937,6 +1063,7 @@ def run_RothC_crops(crop_name: str, commodity_type: str, practices_string_id: st
         },
         loader_message="Loading crop data...",
         save_CO2=save_CO2,
+        env_overrides=env_path_overrides,
     )
 
 
@@ -945,14 +1072,15 @@ def run_RothC_forest(
     forest_type: str,
     weather_type: str,
     n_years: int,
-    save_folder: str,
+    save_folder: PathLike,
     data_description: str,
-    lu_fp: Union[str, Path],
-    evap_fp: Union[str, Path],
-    age_fp: Union[str, Path],
+    lu_fp: PathLike,
+    evap_fp: PathLike,
+    age_fp: PathLike,
     practices_string_id: Optional[str] = None,
-    TP_Type="IPCC",
-    save_CO2=False,
+    TP_Type: str = "IPCC",
+    save_CO2: bool = False,
+    env_path_overrides: Optional[Dict[str, PathLike]] = None,
 ):
     def _forest_loader(
         *,
@@ -960,7 +1088,11 @@ def run_RothC_forest(
         evap_fp: str,
         age_fp: str,
     ) -> Tuple[xr.DataArray, Dict[str, Any]]:
-        lu_raster, evap, pc, age = _load_forest_data(lu_fp, evap_fp, age_fp)
+        lu_raster, evap, pc, age = _load_forest_data(
+            _as_path(lu_fp),
+            _as_path(evap_fp),
+            _as_path(age_fp),
+        )
         return lu_raster, {
             "evap": evap,
             "pc": pc,
@@ -1019,23 +1151,25 @@ def run_RothC_forest(
         },
         loader_message="Loading forest data...",
         save_CO2=save_CO2,
+        env_overrides=env_path_overrides,
     )
 
 
 def run_RothC_grassland(
     grassland_type: str,
     n_years: int,
-    save_folder: str,
+    save_folder: PathLike,
     data_description: str,
-    lu_fp: Union[str, Path],
-    evap_fp: Union[str, Path],
-    fym_fp_list: list[str | Path],
-    pc_fp: Optional[Union[str, Path]] = None,  # Left for future development of commercial grasslands
-    irr_fp: Optional[Union[str, Path]] = None,  # Left for future development of commercial grasslands
-    pr_fp: Optional[Union[str, Path]] = None,  # Left for future development of commercial grasslands
+    lu_fp: PathLike,
+    evap_fp: PathLike,
+    fym_fp_list: list[PathLike],
+    pc_fp: Optional[PathLike] = None,  # Left for future development of commercial grasslands
+    irr_fp: Optional[PathLike] = None,  # Left for future development of commercial grasslands
+    pr_fp: Optional[PathLike] = None,  # Left for future development of commercial grasslands
     practices_string_id: Optional[str] = None,
     residue_runs = 100,
-    save_CO2=False
+    save_CO2: bool = False,
+    env_path_overrides: Optional[Dict[str, PathLike]] = None,
 ):
     def _grassland_loader(
         *,
@@ -1049,13 +1183,13 @@ def run_RothC_grassland(
         residue_runs: int,
     ) -> Tuple[xr.DataArray, Dict[str, Any]]:
         lu_raster, evap, pr, pc, fym, irr = _load_grassland_data(
-            lu_fp,
-            evap_fp,
+            _as_path(lu_fp),
+            _as_path(evap_fp),
             grassland_type,
-            fym_fp_list,
-            pc_fp,
-            irr_fp,
-            pr_fp,
+            [_as_path(fp) for fp in fym_fp_list],
+            None if pc_fp is None else _as_path(pc_fp),
+            None if irr_fp is None else _as_path(irr_fp),
+            None if pr_fp is None else _as_path(pr_fp),
             residue_runs,
         )
         return lu_raster, {
@@ -1072,7 +1206,7 @@ def run_RothC_grassland(
         env: Dict[str, np.ndarray],
         scenario: Dict[str, Any],
         grassland_type: str,
-        grassland_lu_fp: Union[str, Path],
+        grassland_lu_fp: PathLike,
         residue_runs: int,
     ) -> Tuple[np.ndarray, Optional[np.ndarray]]:
         evap_a = np.asarray(scenario["evap"].values)
@@ -1094,7 +1228,7 @@ def run_RothC_grassland(
             c_inp=c_inp_a,
             fym=fym_a,
             commodity_type="grassland",
-            grassland_lu_fp=grassland_lu_fp,
+            grassland_lu_fp=_as_path(grassland_lu_fp),
             grassland_type=grassland_type,
             grassland_residue_runs=residue_runs,
         )
@@ -1128,13 +1262,14 @@ def run_RothC_grassland(
         },
         loader_message=f"Loading {grassland_type} grassland data...",
         save_CO2=save_CO2,
+        env_overrides=env_path_overrides,
     )
 
 
-def run_rothC_scenarios_from_csv(csv_filepath):
+def run_rothC_scenarios_from_csv(csv_filepath: PathLike):
     # 1) Read & cast your CSV exactly as before
     scenarios = (
-        pl.read_csv(csv_filepath, null_values=["", "None"])
+        pl.read_csv(_resolve_csv_path(csv_filepath), null_values=["", "None"])
         .with_columns([
             pl.col("n_years").cast(pl.Int64),
             pl.col("red_till").cast(pl.Boolean),
@@ -1157,9 +1292,9 @@ def run_rothC_scenarios_from_csv(csv_filepath):
 #### OTHER USEFUL FUNCTIONS FOR ROTHC ####
 ##########################################
 
-def calcuate_annual_perc_changes(raster_path):
+def calcuate_annual_perc_changes(raster_path: PathLike):
     # Open the raster
-    da = rxr.open_rasterio(raster_path, masked=True)
+    da = rxr.open_rasterio(_as_path(raster_path), masked=True)
     if isinstance(da, list):
         da = da[0]
 
@@ -1174,10 +1309,15 @@ def calcuate_annual_perc_changes(raster_path):
     
     return pct
 
-def calcuate_practice_change_benefit(raster1_fp, raster2_fp, band_r1, band_r2):
+def calcuate_practice_change_benefit(
+    raster1_fp: PathLike,
+    raster2_fp: PathLike,
+    band_r1,
+    band_r2,
+):
     # Open the raster
-    da1 = rxr.open_rasterio(raster1_fp, masked=True)
-    da2 = rxr.open_rasterio(raster2_fp, masked=True)
+    da1 = rxr.open_rasterio(_as_path(raster1_fp), masked=True)
+    da2 = rxr.open_rasterio(_as_path(raster2_fp), masked=True)
 
     # Soc at year of band #
     da1_data = da1.isel(band = band_r1)
