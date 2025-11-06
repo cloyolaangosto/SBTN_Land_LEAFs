@@ -1941,37 +1941,59 @@ def generate_grassland_residue_map(
     means_above = grassland_residue_table["Residue_Above"].to_numpy().astype("float32")
     means_below = grassland_residue_table["Residue_Below"].to_numpy().astype("float32")
     ses_abv = grassland_residue_table["Res_Err_Abv"].to_numpy().astype("float32")
+    ses_below = grassland_residue_table["Res_Err_Below"].to_numpy().astype("float32")
 
     # Building lookup table
-    mean_lut = np.full(13, np.nan, dtype='float32')
-    se_lut = np.full(13, np.nan, dtype='float32')
+    mean_lut_abv = np.full(13, np.nan, dtype='float32')
+    se_lut_abv = np.full(13, np.nan, dtype='float32')
+    mean_lut_blw = np.full(13, np.nan, dtype='float32')
+    se_lut_blw = np.full(13, np.nan, dtype='float32')
 
-    mean_lut[climate_ids] = means_above
-    se_lut[climate_ids] = ses_abv
+    # Creating lookup tables (lut)
+    mean_lut_abv[climate_ids] = means_above
+    se_lut_abv[climate_ids] = ses_abv
+
+    mean_lut_blw[climate_ids]   = means_below
+    se_lut_blw[climate_ids]     = ses_below
 
     # ------- Step 3 - Assign residue values ----------
     # Building the arrays
     clim_raster_id = clim_data.astype(int)
-    pixel_means = mean_lut[clim_raster_id]
-    pixel_es    = se_lut[clim_raster_id]
+    
+    pixel_means_above = mean_lut_abv[clim_raster_id]
+    pixel_es_above    = se_lut_abv[clim_raster_id]
+    
+    pixel_means_below = mean_lut_blw[clim_raster_id]
+    pixel_es_below    = se_lut_blw[clim_raster_id]
 
     # Creating the residues including standard error. Assumes normal distribution
     if int(random_runs) <= 1:
         # Deterministic: use the mean only (no SE)
-        res_pixel = pixel_means
+        res_pixel_above = pixel_means_above * 0.5
+        res_pixel_below = pixel_means_below * 0.5
     else:
         # Stochastic: average of random_runs normal draws per pixel
         n_runs = int(random_runs)
-        draws = np.random.normal(
-            loc=pixel_means,
-            scale=pixel_es,
-            size=(n_runs, *pixel_means.shape)  # Construct an array of n_runs, pixel_means same shape
+        draws_above = np.random.normal(
+            loc=pixel_means_above,
+            scale=pixel_es_above,
+            size=(n_runs, *pixel_means_above.shape)  # Construct an array of n_runs, pixel_means same shape
         )
-        res_pixel = draws.mean(axis=0)
+
+        draws_below = np.random.normal(
+            loc=pixel_means_below,
+            scale=pixel_es_below,
+            size=(n_runs, *pixel_means_below.shape)  # Construct an array of n_runs, pixel_means same shape
+        )
+
+        res_pixel_above = draws_above.mean(axis=0) * 0.5
+        res_pixel_below = draws_below.mean(axis=0) * 0.5
+
+    res_pixel_total = res_pixel_above + res_pixel_below
 
     # Finally asigning them to pixels
     grassland_residue = np.full_like(lu, fill_value=np.nan, dtype='float32')
-    grassland_residue[grass_clim_valid] = res_pixel[grass_clim_valid] * c_content
+    grassland_residue[grass_clim_valid] = res_pixel_total[grass_clim_valid] * c_content
 
     return grassland_residue
 
@@ -1994,7 +2016,7 @@ class RasterResult:
     profile: dict
     name: str = ""
     
-    def write(self, path: str) -> None:
+    def write(self, path: Union[str, Path]) -> None:
         prof = self.profile.copy()
         # Ensure float32 + nodata
         prof.update(dtype="float32", count=1)

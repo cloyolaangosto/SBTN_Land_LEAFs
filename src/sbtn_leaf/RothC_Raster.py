@@ -10,9 +10,10 @@ import rioxarray as rxr
 import rasterio
 from rasterio.enums import Resampling
 import numpy as np
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 import polars as pl
 from tqdm.auto import trange, tqdm
+from pathlib import Path
 
 from sbtn_leaf.RothC_Core import RMF_Tmp, RMF_Moist, RMF_PC, RMF_TRM, _partition_to_bio_hum
 import sbtn_leaf.cropcalcs as cropcalcs
@@ -273,7 +274,7 @@ def _raster_rothc_annual_results(
     depth: float,
     commodity_type: str,
     soc0_nodatavalue: float,
-    grassland_lu_fp: Optional[str] = None,    # For grassland residues calculations
+    grassland_lu_fp: Optional[Union[str, Path]] = None,    # For grassland residues calculations
     sand: Optional[np.ndarray] = None,
     forest_age:  Optional[np.ndarray] = None,
     forest_type: Optional[str] = None,
@@ -454,7 +455,7 @@ def raster_rothc_annual_results_1yrloop(
     fym: Optional[np.ndarray] = None,
     forest_age: Optional[np.ndarray] = None,
     forest_type: Optional[str]= None,
-    grassland_lu_fp: Optional[str]= None, 
+    grassland_lu_fp: Optional[Union[str, Path]]= None, 
     grassland_type: Optional[str]= None,
     grassland_residue_runs: int = 100,
     weather_type: Optional[str]= None,
@@ -657,7 +658,7 @@ def _load_environmental_data(lu_rp: str):
 
     return tmp, rain, soc0, iom, clay, sand
 
-def _load_crop_data(lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str], pr_fp: Optional[str], fym_fp: Optional[str]):
+def _load_crop_data(lu_fp: Union[str, Path], evap_fp: Union[str, Path],  pc_fp: Union[str, Path], irr_fp: Optional[Union[str, Path]], pr_fp: Optional[Union[str, Path]], fym_fp: Optional[Union[str, Path]]):
     # Opens land use data
     lu_raster = rxr.open_rasterio(lu_fp, masked=False).squeeze()
     lu_maks = (lu_raster==1)
@@ -701,7 +702,7 @@ def _load_crop_data(lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str]
 
     return lu_raster, evap, pc, irr, pr, fym
 
-def _load_forest_data(lu_fp: str, evap_fp: str, age_fp: str):
+def _load_forest_data(lu_fp: Union[str, Path], evap_fp: Union[str, Path], age_fp: Union[str, Path]):
     # 1) Land-use (mask where class == 1)
     lu_raster = rxr.open_rasterio(lu_fp, masked=True).squeeze()   # (y, x)
     lu_mask = (lu_raster == 1)  
@@ -726,7 +727,7 @@ def _load_forest_data(lu_fp: str, evap_fp: str, age_fp: str):
 
     return lu_raster, evap, pc, age
     
-def _load_grassland_data(lu_fp: str, evap_fp: str, grassland_type: str, fym_fp: List[str], pc_fp: Optional[str] = None, irr_fp: Optional[str] = None, pr_fp: Optional[str] = None, residue_runs = 100):
+def _load_grassland_data(lu_fp: Union[str, Path], evap_fp: Union[str, Path], grassland_type: str, fym_fp: list[str | Path], pc_fp: Optional[Union[str, Path]] = None, irr_fp: Optional[Union[str, Path]] = None, pr_fp: Optional[Union[str, Path]] = None, residue_runs = 100):
     # Opens land use data
     lu_raster = rxr.open_rasterio(lu_fp, masked=False).squeeze()
     lu_mask = (lu_raster==1)
@@ -782,7 +783,7 @@ def _load_grassland_data(lu_fp: str, evap_fp: str, grassland_type: str, fym_fp: 
 
 def _run_rothc_scenario(
     *,
-    lu_fp: str,
+    lu_fp: Union[str, Path],
     n_years: int,
     save_folder: str,
     data_description: str,
@@ -859,7 +860,7 @@ def _run_rothc_scenario(
     return SOC_results
 
 
-def run_RothC_crops(crop_name: str, commodity_type: str, practices_string_id: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str] = None, pr_fp: Optional[str] = None, fym_fp: Optional[str] = None, red_till = False, save_CO2 = False):
+def run_RothC_crops(crop_name: str, commodity_type: str, practices_string_id: str, n_years: int, save_folder: str, data_description: str, lu_fp: Union[str, Path], evap_fp: Union[str, Path],  pc_fp: Union[str, Path], irr_fp: Optional[Union[str, Path]] = None, pr_fp: Optional[Union[str, Path]] = None, fym_fp: Optional[Union[str, Path]] = None, red_till = False, save_CO2 = False):
     def _crop_loader(
         *,
         lu_fp: str,
@@ -946,9 +947,9 @@ def run_RothC_forest(
     n_years: int,
     save_folder: str,
     data_description: str,
-    lu_fp: str,
-    evap_fp: str,
-    age_fp: str,
+    lu_fp: Union[str, Path],
+    evap_fp: Union[str, Path],
+    age_fp: Union[str, Path],
     practices_string_id: Optional[str] = None,
     TP_Type="IPCC",
     save_CO2=False,
@@ -1026,25 +1027,25 @@ def run_RothC_grassland(
     n_years: int,
     save_folder: str,
     data_description: str,
-    lu_fp: str,
-    evap_fp: str,
-    fym_fp_list: List[str],
-    pc_fp: Optional[str] = None,  # Left for future development of commercial grasslands
-    irr_fp: Optional[str] = None,  # Left for future development of commercial grasslands
-    pr_fp: Optional[str] = None,  # Left for future development of commercial grasslands
+    lu_fp: Union[str, Path],
+    evap_fp: Union[str, Path],
+    fym_fp_list: list[str | Path],
+    pc_fp: Optional[Union[str, Path]] = None,  # Left for future development of commercial grasslands
+    irr_fp: Optional[Union[str, Path]] = None,  # Left for future development of commercial grasslands
+    pr_fp: Optional[Union[str, Path]] = None,  # Left for future development of commercial grasslands
     practices_string_id: Optional[str] = None,
     residue_runs = 100,
     save_CO2=False
 ):
     def _grassland_loader(
         *,
-        lu_fp: str,
-        evap_fp: str,
+        lu_fp: Union[str, Path],
+        evap_fp: Union[str, Path],
         grassland_type: str,
-        fym_fp_list: List[str],
-        pc_fp: Optional[str],
-        irr_fp: Optional[str],
-        pr_fp: Optional[str],
+        fym_fp_list: list[str | Path],
+        pc_fp: Optional[Union[str, Path]],
+        irr_fp: Optional[Union[str, Path]],
+        pr_fp: Optional[Union[str, Path]],
         residue_runs: int,
     ) -> Tuple[xr.DataArray, Dict[str, Any]]:
         lu_raster, evap, pr, pc, fym, irr = _load_grassland_data(
@@ -1071,7 +1072,7 @@ def run_RothC_grassland(
         env: Dict[str, np.ndarray],
         scenario: Dict[str, Any],
         grassland_type: str,
-        grassland_lu_fp: str,
+        grassland_lu_fp: Union[str, Path],
         residue_runs: int,
     ) -> Tuple[np.ndarray, Optional[np.ndarray]]:
         evap_a = np.asarray(scenario["evap"].values)
