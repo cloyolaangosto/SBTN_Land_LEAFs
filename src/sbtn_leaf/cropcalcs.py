@@ -1938,15 +1938,16 @@ def generate_grassland_residue_map(
     # Getting the data
     grassland_residue_table = _load_grassland_residue_table()
     climate_ids = grassland_residue_table["FAO_ID"].to_numpy().astype("int")
-    means = grassland_residue_table["Residue"].to_numpy().astype("float32")
-    ses = grassland_residue_table["ResXErr"].to_numpy().astype("float32")
+    means_above = grassland_residue_table["Residue_Above"].to_numpy().astype("float32")
+    means_below = grassland_residue_table["Residue_Below"].to_numpy().astype("float32")
+    ses_abv = grassland_residue_table["Res_Err_Abv"].to_numpy().astype("float32")
 
     # Building lookup table
     mean_lut = np.full(13, np.nan, dtype='float32')
     se_lut = np.full(13, np.nan, dtype='float32')
 
-    mean_lut[climate_ids] = means
-    se_lut[climate_ids] = ses
+    mean_lut[climate_ids] = means_above
+    se_lut[climate_ids] = ses_abv
 
     # ------- Step 3 - Assign residue values ----------
     # Building the arrays
