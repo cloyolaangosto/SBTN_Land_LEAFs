@@ -1133,12 +1133,17 @@ def run_RothC_forest(
             TP_Type=TP_Type,
         )
 
+    if practices_string_id is not None:
+        result_basename = f"{forest_type}_{weather_type}_{practices_string_id}_{2016+n_years}y_SOC.tif"
+    else:
+        result_basename=f"{forest_type}_{weather_type}_{2016+n_years}y_SOC.tif"
+
     return _run_rothc_scenario(
         lu_fp=lu_fp,
         n_years=n_years,
         save_folder=save_folder,
         data_description=data_description,
-        result_basename=f"{forest_type}_{practices_string_id}_{n_years}y_SOC.tif",
+        result_basename=result_basename,
         loader=_forest_loader,
         loader_kwargs={
             "evap_fp": evap_fp,
@@ -1288,6 +1293,24 @@ def run_rothC_crop_scenarios_from_csv(csv_filepath: PathLike):
         print("\n\n")
 
 def run_rothC_grassland_scenarios_from_csv(csv_filepath: PathLike):
+    # 1) Read & cast your CSV exactly as before
+    scenarios = (
+        pl.read_csv(_resolve_csv_path(csv_filepath), null_values=["", "None"])
+        .with_columns([
+            pl.col("n_years").cast(pl.Int64)
+        ])
+    )
+
+    # 2) Turn into a list of dicts once (so we know the total count)
+    scenario_list = scenarios.to_dicts()
+
+    # 3) Iterate with tqdm
+    for scenario in scenario_list:
+        print(f"Running {scenario['grassland_type']} - {scenario['string_id']}")
+        run_RothC_grassland(**scenario)
+        print("\n\n")
+
+def run_rothC_forest_scenarios_from_csv(csv_filepath: PathLike):
     # 1) Read & cast your CSV exactly as before
     scenarios = (
         pl.read_csv(_resolve_csv_path(csv_filepath), null_values=["", "None"])
