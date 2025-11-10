@@ -49,8 +49,8 @@ def _resolve_optional_path(
     return _as_path(candidate)
 
 
-def _resolve_csv_path(path: PathLike) -> Path:
-    """Resolve a CSV path, falling back to :func:`data_path` when needed."""
+def _resolve_data_path(path: PathLike) -> Path:
+    """Resolve a data path, falling back to :func:`data_path` when needed."""
 
     candidate = _as_path(path)
     if candidate.exists():
@@ -1275,7 +1275,7 @@ def run_RothC_grassland(
 def run_rothC_crop_scenarios_from_csv(csv_filepath: PathLike):
     # 1) Read & cast your CSV exactly as before
     scenarios = (
-        pl.read_csv(_resolve_csv_path(csv_filepath), null_values=["", "None"])
+        pl.read_csv(_resolve_data_path(csv_filepath), null_values=["", "None"])
         .with_columns([
             pl.col("n_years").cast(pl.Int64),
             pl.col("red_till").cast(pl.Boolean),
@@ -1292,13 +1292,18 @@ def run_rothC_crop_scenarios_from_csv(csv_filepath: PathLike):
         run_RothC_crops(**scenario)
         print("\n\n")
 
-def run_rothC_grassland_scenarios_from_csv(csv_filepath: PathLike):
+def run_rothC_grassland_scenarios_from_excel(excel_filepath: PathLike):
     # 1) Read & cast your CSV exactly as before
     scenarios = (
-        pl.read_csv(_resolve_csv_path(csv_filepath), null_values=["", "None"])
+        pl.read_excel(_resolve_data_path(excel_filepath), has_header=True)
         .with_columns([
             pl.col("n_years").cast(pl.Int64)
         ])
+    )
+    print(scenarios.row(0))
+
+    scenarios = scenarios.with_columns(
+        lu_fp = _resolve_data_path(pl.col("lu_fp"))
     )
 
     # 2) Turn into a list of dicts once (so we know the total count)
@@ -1313,7 +1318,7 @@ def run_rothC_grassland_scenarios_from_csv(csv_filepath: PathLike):
 def run_rothC_forest_scenarios_from_csv(csv_filepath: PathLike):
     # 1) Read & cast your CSV exactly as before
     scenarios = (
-        pl.read_csv(_resolve_csv_path(csv_filepath), null_values=["", "None"])
+        pl.read_csv(_resolve_data_path(csv_filepath), null_values=["", "None"])
         .with_columns([
             pl.col("n_years").cast(pl.Int64)
         ])
