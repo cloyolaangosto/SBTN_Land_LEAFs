@@ -14,6 +14,8 @@ from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 import polars as pl
 from tqdm.auto import trange, tqdm
 from pathlib import Path
+import json
+import os
 
 from sbtn_leaf.RothC_Core import RMF_Tmp, RMF_Moist, RMF_PC, RMF_TRM, _partition_to_bio_hum
 import sbtn_leaf.cropcalcs as cropcalcs
@@ -1249,7 +1251,7 @@ def run_RothC_grassland(
         n_years=n_years,
         save_folder=save_folder,
         data_description=data_description,
-        result_basename=f"{grassland_type}_{string_id}_{2016+n_years}y_SOC.tif",
+        result_basename=f"{grassland_type}_grassland_{string_id}_{2016+n_years}y_SOC.tif",
         loader=_grassland_loader,
         loader_kwargs={
             "evap_fp": evap_fp,
@@ -1292,7 +1294,7 @@ def run_rothC_crop_scenarios_from_csv(csv_filepath: PathLike):
         run_RothC_crops(**scenario)
         print("\n\n")
 
-def run_rothC_grassland_scenarios_from_excel(excel_filepath: PathLike):
+def run_rothc_grassland_scenarios_from_excel(excel_filepath: PathLike, force_new_files: bool = False, run_test: bool = False):
     # 1) Read & cast your CSV exactly as before
     scenarios = (
         pl.read_excel(_resolve_data_path(excel_filepath), has_header=True)
@@ -1300,20 +1302,38 @@ def run_rothC_grassland_scenarios_from_excel(excel_filepath: PathLike):
             pl.col("n_years").cast(pl.Int64)
         ])
     )
-    print(scenarios.row(0))
 
-    scenarios = scenarios.with_columns(
-        lu_fp = _resolve_data_path(pl.col("lu_fp"))
-    )
+    if run_test:
+        print("Running test. Only top 2 scenarios are run.")
+        scenarios = scenarios[0:2]
 
     # 2) Turn into a list of dicts once (so we know the total count)
     scenario_list = scenarios.to_dicts()
 
     # 3) Iterate with tqdm
     for scenario in scenario_list:
-        print(f"Running {scenario['grassland_type']} - {scenario['string_id']}")
-        run_RothC_grassland(**scenario)
-        print("\n\n")
+        scn_string_text = f"{scenario['grassland_type']} - {scenario['string_id']}"
+
+        # Checks if output filepath exist
+        output_folder = scenario["save_folder"]
+        output_string = f"{scenario["grassland_type"]}_grassland_{scenario['string_id']}_{2016+scenario['n_years']}y_SOC.tif"
+        output_path = f"{output_folder}/{output_string}"
+
+        # Loads fym_fp
+        scenario['fym_fp_list'] = json.loads(scenario["fym_fp_list"])
+
+        if force_new_files:
+            print(f"Running {scn_string_text}")
+            run_RothC_grassland(**scenario)
+        else:
+            if os.path.exists(output_path):
+                print(f"{scn_string_text} already exists. Skipping...")
+                continue
+            else:
+                print(f"Running {scn_string_text}")
+                run_RothC_grassland(**scenario)
+
+        print(f"{scn_string_text} calculated. Continuing...\n\n")
 
 def run_rothC_forest_scenarios_from_csv(csv_filepath: PathLike):
     # 1) Read & cast your CSV exactly as before
@@ -1329,8 +1349,19 @@ def run_rothC_forest_scenarios_from_csv(csv_filepath: PathLike):
 
     # 3) Iterate with tqdm
     for scenario in scenario_list:
-        print(f"Running {scenario['grassland_type']} - {scenario['string_id']}")
-        run_RothC_grassland(**scenario)
+        scn_string_text = f"{scenario['grassland_type']} - {scenario['string_id']}"
+
+        # Checks if output filepath exist
+        output_folder = scenario["save_folder"]
+        output_string = f"{scenario["grassland_type"]}_grassland_{scenario['string_id']}_{2016+scenario['n_years']}y_SOC.tif"
+        output_path = f"{output_folder}/{output_string}"
+
+        if os.path.exists(output_path):
+            print(f"{scn_string_text} already exists. Skipping...")
+            continue
+        else:
+            print(f"Running {scn_string_text}")
+            run_RothC_grassland(**scenario)
         print("\n\n")
 
 ##########################################
