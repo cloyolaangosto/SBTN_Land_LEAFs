@@ -1312,7 +1312,7 @@ def run_rothc_grassland_scenarios_from_excel(excel_filepath: PathLike, force_new
 
     # 3) Iterate with tqdm
     for scenario in scenario_list:
-        scn_string_text = f"{scenario['grassland_type']} - {scenario['string_id']}"
+        scn_string_text = f"Grassland - {scenario['grassland_type']} - {scenario['string_id']}"
 
         # Checks if output filepath exist
         output_folder = scenario["save_folder"]
