@@ -1815,7 +1815,7 @@ def get_forest_litter_rate(da_fp: str, forest_type: str, weather_type: str, TP_I
 
     return litter
 
-def get_forest_litter_monthlyrate_fromda(da: np.ndarray, forest_type: str, weather_type: str, TP_IPCC_bool = False, year_offset: int = 0, base_year_offset = 6)-> np.ndarray:
+def get_forest_litter_monthlyrate_fromda(da: np.ndarray, forest_type: str, weather_type: str, TP_IPCC_bool = False, year_offset: int = 0, base_year_offset = 6, residue_runs = 1)-> np.ndarray:
     # this assumes that the da has already been masked properly
 
     # Checks if weather type is in the list
@@ -1827,6 +1827,8 @@ def get_forest_litter_monthlyrate_fromda(da: np.ndarray, forest_type: str, weath
         raise ValueError("Forest type not valid")
     else:
         forest_id_mean = "BD_mean" if forest_type == "BRDC" else "NE_mean"
+        forest_id_min = "BD_min" if forest_type == "BRDC" else "NE_min"
+        forest_id_max = "BD_max" if forest_type == "BRDC" else "NE_max"
         forest_id_tp = "BD_TP" if forest_type == "BRDC" else "NE_TP"
     
     # Gets maturity litter
@@ -1840,6 +1842,17 @@ def get_forest_litter_monthlyrate_fromda(da: np.ndarray, forest_type: str, weath
 
     # Calculates litter
     valid_mask = ~np.isnan(da)
+
+    if residue_runs > 1:
+        # draw 100 samples from a triangular distribution (left=min, mode=mean, right=max)
+        min_val = float(forest_litter_table.filter(pl.col("IPCC Climate") == weather_type)[forest_id_min].item())
+        mode_val = float(forest_litter_table.filter(pl.col("IPCC Climate") == weather_type)[forest_id_mean].item())
+        max_val = float(forest_litter_table.filter(pl.col("IPCC Climate") == weather_type)[forest_id_max].item())
+
+        # ensure valid triangular parameters (left <= mode <= right)
+        left, mode, right = sorted([min_val, mode_val, max_val])
+        samples = np.random.triangular(left, mode, right, size=residue_runs)
+        res_rate = float(samples.mean())
 
     litter = np.where(valid_mask, np.minimum(res_rate, res_rate/TP * (da + base_year_offset + year_offset)), np.nan)
     # build a 12-band array where each month is 1/12 of the annual litter

@@ -324,9 +324,9 @@ def _raster_rothc_annual_results(
     forest_age:  Optional[np.ndarray] = None,
     forest_type: Optional[str] = None,
     grassland_type: Optional[str] = None,
-    grassland_residue_runs: int = 100,
+    residue_runs: int = 100,
     weather_type: Optional[str] = None,
-    TP_Type: Optional[str] = None,
+    TP_IPCC_bool: bool = False,
     trm_handler: Optional[TRMHandler],
     progress_desc: str = "RothC months",
     progress_position: Optional[int] = None,
@@ -354,15 +354,16 @@ def _raster_rothc_annual_results(
     else: # forest type
         dpm_rpm = 0.25
         # Checks that all forest inputs are there
-        if forest_age is None or forest_type is None or weather_type is None or TP_Type is None:
-            raise ValueError("Missing forest inputs. Specify forest_age, forest_type, weather_type and TP_Type")
+        if forest_age is None or forest_type is None or weather_type is None or TP_IPCC_bool is None:
+            raise ValueError("Missing forest inputs. Specify forest_age, forest_type, weather_type and TP_IPCC_bool")
 
         # initialize c_inp
         c_inp = cropcalcs.get_forest_litter_monthlyrate_fromda(
             forest_age,
             forest_type,
             weather_type,
-            TP_Type,
+            TP_IPCC_bool,
+            residue_runs=residue_runs
         )
         c_inp = np.squeeze(np.asarray(c_inp))
         if c_inp.ndim != 2:
@@ -450,14 +451,15 @@ def _raster_rothc_annual_results(
                 forest_age,
                 forest_type,
                 weather_type,
-                TP_Type,
+                TP_IPCC_bool,
                 year_offset=year,
+                residue_runs=residue_runs
             )
             c_inp_month = np.squeeze(np.asarray(c_inp_month))
             if c_inp_month.ndim != 2:
                 raise ValueError("Forest litter input must be 2-D after squeezing")
         elif commodity_type == "grassland":
-            c_annual = cropcalcs.generate_grassland_residue_map(grass_lu_fp=grassland_lu_fp, random_runs=grassland_residue_runs)  # Returns raster for 1 year    
+            c_annual = cropcalcs.generate_grassland_residue_map(grass_lu_fp=grassland_lu_fp, random_runs=residue_runs)  # Returns raster for 1 year    
             pr_monthly = c_annual/12
             c_inp_month = np.squeeze(np.asarray(pr_monthly))
         else:
@@ -502,9 +504,9 @@ def raster_rothc_annual_results_1yrloop(
     forest_type: Optional[str]= None,
     grassland_lu_fp: Optional[PathLike] = None,
     grassland_type: Optional[str]= None,
-    grassland_residue_runs: int = 100,
+    residue_runs: int = 100,
     weather_type: Optional[str]= None,
-    TP_Type: Optional[str]= None,
+    TP_IPCC_bool: bool = False,
     depth: float = 15,
     soc0_nodatavalue: float = -32768.0,
 ) -> Tuple[np.ndarray, np.ndarray]:
@@ -545,9 +547,9 @@ def raster_rothc_annual_results_1yrloop(
         forest_type = forest_type,
         grassland_lu_fp= grassland_lu_fp,
         grassland_type = grassland_type,
-        grassland_residue_runs = grassland_residue_runs,
+        residue_runs = residue_runs,
         weather_type = weather_type,
-        TP_Type = TP_Type,
+        TP_IPCC_bool = TP_IPCC_bool,
         forest_age = forest_age
     )
 
@@ -604,7 +606,7 @@ def raster_rothc_ReducedTillage_annual_results_1yrloop(
         trm_handler=RMF_TRM,
         forest_type=None,
         weather_type=None,
-        TP_Type=None
+        TP_IPCC_bool=None
     )
 
 
@@ -1069,7 +1071,7 @@ def run_RothC_crops(
         env_overrides=env_path_overrides,
     )
 
-
+# TODO - INCORPORATE RESIDUE RUNS
 # Forest version
 def run_RothC_forest(
     forest_type: str,
@@ -1081,8 +1083,9 @@ def run_RothC_forest(
     evap_fp: PathLike,
     age_fp: PathLike,
     practices_string_id: Optional[str] = None,
-    TP_Type: str = "IPCC",
+    TP_IPCC_bool: bool = False,
     save_CO2: bool = False,
+    residue_runs = 100,
     env_path_overrides: Optional[Dict[str, PathLike]] = None,
 ):
     def _forest_loader(
@@ -1109,7 +1112,7 @@ def run_RothC_forest(
         scenario: Dict[str, Any],
         forest_type: str,
         weather_type: str,
-        TP_Type: str,
+        TP_IPCC_bool: bool,
     ) -> Tuple[np.ndarray, Optional[np.ndarray]]:
         evap_a = np.asarray(scenario["evap"].values)
         pc_a = np.asarray(scenario["pc"].values)
@@ -1132,7 +1135,8 @@ def run_RothC_forest(
             commodity_type="forest",
             forest_type=forest_type,
             weather_type=weather_type,
-            TP_Type=TP_Type,
+            TP_IPCC_bool=TP_IPCC_bool,
+            residue_runs=residue_runs
         )
 
     if practices_string_id is not None:
@@ -1155,7 +1159,8 @@ def run_RothC_forest(
         runner_kwargs={
             "forest_type": forest_type,
             "weather_type": weather_type,
-            "TP_Type": TP_Type,
+            "TP_IPCC_bool": TP_IPCC_bool,
+            "residue_runs": residue_runs
         },
         loader_message="Loading forest data...",
         save_CO2=save_CO2,
@@ -1217,6 +1222,7 @@ def run_RothC_grassland(
         grassland_lu_fp: PathLike,
         residue_runs: int,
     ) -> Tuple[np.ndarray, Optional[np.ndarray]]:
+        
         evap_a = np.asarray(scenario["evap"].values)
         pc_a = np.asarray(scenario["pc"].values)
         irr_val = scenario.get("irr")
