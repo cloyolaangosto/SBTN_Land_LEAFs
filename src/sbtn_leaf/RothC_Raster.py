@@ -1364,7 +1364,7 @@ def run_rothC_forest_scenarios_from_excel(excel_filepath: PathLike, force_new_fi
 
         # Checks if output filepath exist
         output_folder = scenario["save_folder"]
-        output_string = f"forest_{scenario["forest_type"]}_{scenario['weather_type']}_{2016+scenario['n_years']}y_SOC.tif"
+        output_string = f"{scenario["forest_type"]}_{scenario['weather_type']}_{2016+scenario['n_years']}y_SOC.tif"
         output_path = f"{output_folder}/{output_string}"
 
         if force_new_files:
