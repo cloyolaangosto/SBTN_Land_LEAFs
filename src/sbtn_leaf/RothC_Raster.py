@@ -422,7 +422,7 @@ def _raster_rothc_annual_results(
 
         #TRM when sand is given for reduced tillage
         trm_dpm = trm_rpm = trm_bio = trm_hum = 1.0
-        if trm_handler is not None:
+        if trm_handler is not None:  # Only applicable for reduced tillage option
             if sand is None:
                 raise ValueError("sand must be provided when a TRM handler is supplied")
             sand_current = sand[t] if sand_has_time_dim else sand
@@ -1113,6 +1113,7 @@ def run_RothC_forest(
         forest_type: str,
         weather_type: str,
         TP_IPCC_bool: bool,
+        residue_runs: int
     ) -> Tuple[np.ndarray, Optional[np.ndarray]]:
         evap_a = np.asarray(scenario["evap"].values)
         pc_a = np.asarray(scenario["pc"].values)
