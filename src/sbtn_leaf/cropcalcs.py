@@ -200,12 +200,14 @@ def create_crop_yield_shapefile(
     # Extract needed data
     yields_df = (
         yields_table.filter(pl.col("Item") == fao_crop)
-        .select(["Area", "Unit", "avg_yield_1423", "ratio_yield_20_toavg"])
+        .select(["Area", "Unit", "avg_yield_1423", "ratio_yield_20_toavg", "sd_yields_1423"])
         .to_pandas()
     )
 
     # rename to shorter names
-    yields_df = yields_df.rename(columns={"avg_yield_1423": "avg_yield", "ratio_yield_20_toavg": "yld_ratio"})
+    yields_df = yields_df.rename(columns={"avg_yield_1423": "avg_yield",
+                                          "ratio_yield_20_toavg": "yld_ratio",
+                                          "sd_yields_1423": "sd_yield"})
 
     # Merges with shapefile
     yield_shp = country_shapes.merge(yields_df, how='left', left_on='ADM0_NAME', right_on='Area').drop(columns='Area')
@@ -223,6 +225,7 @@ def _create_crop_yield_raster_core(
     resampling_method: Resampling = Resampling.bilinear,
     fao_avg_yield_name: str,
     fao_yield_ratio_name: str,
+    fao_sd_yield_name: str,
     irr_yield_scaling: Optional[str] = None,
     all_fp: Optional[str] = None,
     irr_fp: Optional[str] = None,
@@ -261,11 +264,12 @@ def _create_crop_yield_raster_core(
 
     # 3) Rasterize FAO yields & ratios
     fao_gdf = fao_crop_shp.to_crs(lu_crs).reset_index(drop=True)
-    for field in (fao_avg_yield_name, fao_yield_ratio_name):
+    for field in (fao_avg_yield_name, fao_yield_ratio_name, fao_sd_yield_name):
         if field not in fao_gdf.columns:
             raise KeyError(f"Missing '{field}' in FAO shapefile")
 
     fao_gdf[fao_avg_yield_name] = fao_gdf[fao_avg_yield_name] / 1000.0  # kg to ton
+    fao_gdf[fao_sd_yield_name] = fao_gdf[fao_sd_yield_name] / 1000.0  # kg to ton
     global_fao_ratio = fao_gdf[fao_yield_ratio_name].dropna().mean()
 
     # Creates a raster of FAO zones
@@ -280,17 +284,19 @@ def _create_crop_yield_raster_core(
     )
 
     # Creates empty fao yields array and fill it 
-    fao_yields_array = np.full((lu_height, lu_width), np.nan, dtype="float32")
+    fao_avg_yields_array = np.full((lu_height, lu_width), np.nan, dtype="float32")
+    fao_sd_yields_array = np.full((lu_height, lu_width), np.nan, dtype="float32")
     for _, row in fao_gdf.iterrows():
         zid = int(row["zone_id"])
         zid_mask = zone_array == zid
-        fao_yields_array[zid_mask] = row[fao_avg_yield_name]
+        fao_avg_yields_array[zid_mask] = row[fao_avg_yield_name]
+        fao_sd_yields_array[zid_mask] = row[fao_sd_yield_name]
 
-    valid_fao = ~np.isnan(fao_yields_array)
+    valid_fao = ~np.isnan(fao_avg_yields_array)
 
-    # Goes through SPAM noq
+    # Goes through SPAM
     all_fp_on_lu: Optional[np.ndarray] = None
-    avg_wat: Optional[float] = None
+    avg_wat_ratio: Optional[float] = None
     scaling_mode: Optional[str] = None
 
     if irr_yield_scaling is not None:
@@ -320,16 +326,16 @@ def _create_crop_yield_raster_core(
         watering_ratio = irr_ratios if scaling_mode == "irr" else rf_ratios
 
         valid_wat = ~np.isnan(watering_ratio)
-        avg_wat = np.nanmean(watering_ratio)
+        avg_wat_ratio = np.nanmean(watering_ratio)
 
-        scaled = np.where(valid_wat, fao_yields_array * watering_ratio, np.nan)
+        scaled = np.where(valid_wat, fao_avg_yields_array * watering_ratio, np.nan)
         scaled = fillnodata(scaled, mask=np.isnan(scaled), max_search_distance=1, smoothing_iterations=2)
         scaled = np.where(  # Assign fao scaled yields to places where SPAM is invalid and FAO is valid
             np.isnan(scaled) & valid_fao,
-            fao_yields_array * avg_wat,
+            fao_avg_yields_array * avg_wat_ratio,
             scaled,
         )
-        fao_yields_array = scaled
+        fao_avg_yields_array = scaled
 
     # 4) Build result: SPAM first, then FAO, then SPAM fallback
     result = np.full((lu_height, lu_width), np.nan, dtype="float32")
@@ -343,16 +349,16 @@ def _create_crop_yield_raster_core(
         result[valid_mask] = spam_scaled[valid_mask]
 
         mask_need_avg = zid_mask & np.isnan(result)
-        result[mask_need_avg] = fao_yields_array[mask_need_avg]
+        result[mask_need_avg] = fao_avg_yields_array[mask_need_avg]
 
     if all_fp_on_lu is not None:
         label = "rainfed" if scaling_mode == "rf" else "irrigation"
         print(f"  → Applying {label} scaling to all‐SPAM yields…")
         mask_all = lu_mask & np.isnan(result) & ~np.isnan(all_fp_on_lu)
-        result[mask_all] = all_fp_on_lu[mask_all] * avg_wat
+        result[mask_all] = all_fp_on_lu[mask_all] * avg_wat_ratio
 
     mask_fao = lu_mask & np.isnan(result) & valid_fao
-    result[mask_fao] = fao_yields_array[mask_fao]
+    result[mask_fao] = fao_avg_yields_array[mask_fao]
 
     mask_spam = (~np.isnan(spam_on_lu)) & np.isnan(result) & lu_mask
     result[mask_spam] = spam_on_lu[mask_spam] * global_fao_ratio
@@ -429,6 +435,7 @@ def create_crop_yield_raster_withIrrigationPracticeScaling(
     rf_fp: Optional[str] = None,
     fao_avg_yield_name: str = "avg_yield",
     fao_yield_ratio_name: str = "yld_ratio",
+    fao_sd_yield_name: str = "sd_yield",
     apply_ecoregion_fill: bool = True,
 ):
     """Create a crop yield raster with optional irrigation/rainfed scaling.
@@ -452,6 +459,7 @@ def create_crop_yield_raster_withIrrigationPracticeScaling(
         resampling_method=resampling_method,
         fao_avg_yield_name=fao_avg_yield_name,
         fao_yield_ratio_name=fao_yield_ratio_name,
+        fao_sd_yield_name=fao_sd_yield_name,
         irr_yield_scaling=irr_yield_scaling,
         all_fp=all_fp,
         irr_fp=irr_fp,
@@ -1448,7 +1456,7 @@ def prepare_crop_data(
     yield_output_path = output_practice_based.parent / f"{output_practice_based.name}_yield.tif"
     if all_new_files or not yield_output_path.exists():
         print("Creating yield raster...")
-        create_crop_yield_raster_withIrrigationPracticeScaling_vPipeline(
+        create_crop_yield_raster_with_irrigation_scaling_pipeline(
             croplu_grid_raster=str(lu_bin_output),
             fao_crop_shp=fao_yield_shp,
             spam_crop_raster=spam_crop_raster,
@@ -1588,7 +1596,7 @@ def calculate_irrigation_vPipeline(evap: np.ndarray, output_path: str, rain_fp =
     return irr
 
 
-def create_crop_yield_raster_withIrrigationPracticeScaling_vPipeline(
+def create_crop_yield_raster_with_irrigation_scaling_pipeline(
     croplu_grid_raster: str,
     fao_crop_shp: "gpd.GeoDataFrame",
     spam_crop_raster: str,
@@ -1601,6 +1609,7 @@ def create_crop_yield_raster_withIrrigationPracticeScaling_vPipeline(
     rf_fp: Optional[str] = None,
     fao_avg_yield_name: str = "avg_yield",
     fao_yield_ratio_name: str = "yld_ratio",
+    fao_sd_yield_name: str = "sd_yield",
     apply_ecoregion_fill: bool = True,
 ):
     """Pipeline wrapper around :func:`create_crop_yield_raster_withIrrigationPracticeScaling`."""
@@ -1614,6 +1623,7 @@ def create_crop_yield_raster_withIrrigationPracticeScaling_vPipeline(
         resampling_method=resampling_method,
         fao_avg_yield_name=fao_avg_yield_name,
         fao_yield_ratio_name=fao_yield_ratio_name,
+        fao_sd_yield_name=fao_sd_yield_name,
         irr_yield_scaling=irr_yield_scaling,
         all_fp=all_fp,
         irr_fp=irr_fp,

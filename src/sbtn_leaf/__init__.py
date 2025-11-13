@@ -154,7 +154,7 @@ from .cropcalcs import (
     convert_K2C_raster,
     create_crop_yield_raster,
     create_crop_yield_raster_withIrrigationPracticeScaling,
-    create_crop_yield_raster_withIrrigationPracticeScaling_vPipeline,
+    create_crop_yield_raster_with_irrigation_scaling_pipeline,
     create_crop_yield_shapefile,
     create_monthly_residue_vPipeline,
     create_plant_cover_monthly_curve,
