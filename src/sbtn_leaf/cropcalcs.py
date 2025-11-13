@@ -224,11 +224,11 @@ def _calculate_crop_yield_raster_withuncertainty_core(
     random_runs: int,
     rng: Optional[np.random.Generator] = None,
 ) -> np.ndarray:
-    """Generate stochastic crop yield rasters based on FAO uncertainty data."""
+    """Return the average crop yield after sampling FAO uncertainty draws."""
 
     # Ensure downstream math happens on a predictable floating type.  The
     # baseline input is treated as the deterministic run that will always be
-    # present in the stacked output.
+    # included in the ensemble average.
     baseline = np.asarray(result, dtype="float32")
 
     # Convert FAO reported standard deviations to coefficients of variation
@@ -244,10 +244,10 @@ def _calculate_crop_yield_raster_withuncertainty_core(
     ).astype("float32", copy=False)
     coefficient[~lu_mask] = np.nan
 
-    # When only a deterministic result is requested, return a leading singleton
-    # band so the downstream raster writer can treat all cases uniformly.
+    # When only a deterministic result is requested, return it directly to keep
+    # the output shape aligned with the baseline array.
     if random_runs <= 1:
-        return baseline[np.newaxis, ...]
+        return baseline
 
     # Generate normally distributed perturbations with a standard deviation set
     # by the coefficient of variation.  The RNG is injectable to support
@@ -260,13 +260,12 @@ def _calculate_crop_yield_raster_withuncertainty_core(
     ).astype("float32", copy=False)
 
     # Apply the multiplicative perturbation to the deterministic baseline for
-    # each stochastic run.  The output array reserves band ``0`` for the
-    # baseline and fills subsequent bands with the perturbed versions.
+    # each stochastic run.  The ensemble mean is computed from the baseline plus
+    # all stochastic draws, using ``nanmean`` so masked pixels stay excluded.
     stochastic = baseline[np.newaxis, ...] * (1.0 + draws)
-    stacked = np.empty((random_runs, *baseline.shape), dtype="float32")
-    stacked[0] = baseline
-    stacked[1:] = stochastic
-    return stacked
+    stack = np.concatenate((baseline[np.newaxis, ...], stochastic), axis=0)
+    averaged = np.nanmean(stack, axis=0, dtype="float32")
+    return averaged.astype("float32", copy=False)
 
 
 def _create_crop_yield_raster_core(
@@ -451,7 +450,7 @@ def _create_crop_yield_raster_core(
 
     result[~lu_mask] = np.nan
 
-    stacked_result = _calculate_crop_yield_raster_withuncertainty_core(
+    averaged_result = _calculate_crop_yield_raster_withuncertainty_core(
         result,
         fao_avg_yields_array,
         fao_sd_yields_array,
@@ -463,14 +462,14 @@ def _create_crop_yield_raster_core(
     if write_output:
         if output_rst_path is None:
             raise ValueError("output_rst_path is required when write_output is True")
-        lu_meta.update(dtype="float32", count=stacked_result.shape[0], nodata=np.nan)
+        lu_meta.update(dtype="float32", count=1, nodata=np.nan)
         with rasterio.open(output_rst_path, "w", **lu_meta) as dst:
-            dst.write(stacked_result)
+            dst.write(averaged_result[np.newaxis, ...])
 
         print(f"Yield raster written to {output_rst_path}")
 
     if return_array:
-        return stacked_result
+        return averaged_result
 
     return None
 
