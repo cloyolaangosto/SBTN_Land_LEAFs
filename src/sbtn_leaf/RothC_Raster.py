@@ -1071,7 +1071,6 @@ def run_RothC_crops(
         env_overrides=env_path_overrides,
     )
 
-# TODO - INCORPORATE RESIDUE RUNS
 # Forest version
 def run_RothC_forest(
     forest_type: str,
