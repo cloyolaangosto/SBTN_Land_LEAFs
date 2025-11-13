@@ -215,7 +215,7 @@ def create_crop_yield_shapefile(
     return yield_shp
 
 
-def _calculate_crop_yield_raster_withuncertainty_core(
+def _apply_uncertainty_to_yields(
     result: np.ndarray,
     fao_avg_yields_array: np.ndarray,
     fao_sd_yields_array: np.ndarray,
@@ -450,7 +450,7 @@ def _create_crop_yield_raster_core(
 
     result[~lu_mask] = np.nan
 
-    averaged_result = _calculate_crop_yield_raster_withuncertainty_core(
+    averaged_result = _apply_uncertainty_to_yields(
         result,
         fao_avg_yields_array,
         fao_sd_yields_array,
@@ -1567,6 +1567,111 @@ def prepare_crop_data(
 
     print(f"All data created for {crop_name}, {crop_practice_string}!!!")
 
+def prepare_crop_data_irrigation_plantcover(
+    crop_name: str,
+    crop_type: str,
+    crop_practice_string: str,
+    lu_data_path: str,
+    output_data_folder: str,
+    all_new_files: bool = False,
+):
+    # Check if crop_type is valid
+    if crop_type not in crop_types:
+        raise ValueError(f"Crop type {crop_type} not valid. Choose between {crop_types}")
+
+    # Output saving string bases
+    output_base = Path(output_data_folder)
+    output_crop_based = output_base / crop_name
+    output_practice_based = output_base / f"{crop_name}_{crop_practice_string}"
+
+    # Step 0 - rasterize input path
+    lu_bin_output = output_practice_based.parent / f"{output_practice_based.name}_lu.tif"
+    if all_new_files or not lu_bin_output.exists():
+        print("Creating lu raster...")
+        lu_array = binarize_raster_pipeline(lu_data_path, str(lu_bin_output))
+    else:
+        print("Land use binary raster already exist. Skipping...")
+        lu_array = rxr.open_rasterio(lu_bin_output, masked=False).squeeze()
+
+    # Step 1 - Prepare PET and irrigation
+    # Step 1.1 - PET
+    pet_monthly_output_path = output_crop_based.parent / f"{output_crop_based.name}_pet_monthly.tif"
+    if all_new_files or not pet_monthly_output_path.exists():
+        print("Creating PET raster...")
+        monthly_pet = calculate_crop_based_PET_raster_vPipeline(
+            crop_name=crop_name,
+            landuse_array=lu_array,
+            output_monthly_path=str(pet_monthly_output_path)
+        )
+    else:
+        print("PET raster already exists. Skipping...")
+        monthly_pet = rxr.open_rasterio(pet_monthly_output_path, masked=True).values
+
+    # Step 1.2 - Irrigation
+    irr_monthly_output_path = output_crop_based.parent / f"{output_crop_based.name}_irr_monthly.tif"
+    if all_new_files or not irr_monthly_output_path.exists():
+        print("Creating irrigation raster...")
+        irr = calculate_irrigation_vPipeline(
+            evap=monthly_pet,
+            output_path=str(irr_monthly_output_path)
+        )
+    else:
+        print("Irrigation raster already exists — skipping computation.")
+
+    # Step 3 - Create plant cover raster
+    plantcover_output_path = output_crop_based.parent / f"{output_crop_based.name}_pc_monthly.tif"
+    if all_new_files or not plantcover_output_path.exists():
+        print("Creating plant cover raster...")
+        create_plant_cover_monthly_raster(crop_name, str(plantcover_output_path))
+    else:
+        print("Plant Cover raster already exists — skipping computation.")
+
+    print(f"All data created for {crop_name}, {crop_practice_string}!!!")
+
+
+def calculate_monthly_residues_array(
+    lu_fp: str,
+    crop_name: str,
+    crop_type: str,
+    spam_crop_raster: str,
+    irr_yield_scaling: str,
+    spam_all_fp: str,
+    spam_irr_fp: str,
+    spam_rf_fp: str,
+    random_runs: int
+):
+
+    # Step 1 - Prepare fao yield shapefile
+    crop_names_table = _get_crop_naming_index_table()
+    fao_crop_name = crop_names_table.filter(pl.col("Crops") == crop_name).select(pl.col("FAO_Crop")).item()
+    print(f"Creating {fao_crop_name} helper shapefile...")
+    fao_yield_shp = create_crop_yield_shapefile(fao_crop_name)
+
+
+    print("    Calculating stochastic yield raster...")
+    yields = calculate_crop_yield_array_with_irrigation_scaling(
+        croplu_grid_raster=lu_fp,
+        fao_crop_shp=fao_yield_shp,
+        spam_crop_raster=spam_crop_raster,
+        irr_yield_scaling=irr_yield_scaling,
+        all_fp=spam_all_fp,
+        irr_fp=spam_irr_fp,
+        rf_fp=spam_rf_fp,
+        random_runs=random_runs
+    )
+
+    # Step 4 - Create plant residue raster
+    plant_residue_output_path = output_practice_based.parent / f"{output_practice_based.name}_residues_monthly.tif"
+    if all_new_files or not plant_residue_output_path.exists():
+        print("Creating plant residue raster...")
+        create_monthly_residue_vPipeline(
+            crop_name,
+            crop_type,
+            yield_raster_path=str(yield_output_path),
+            output_path=str(plant_residue_output_path),
+        )
+    else:
+        print("Plant Residues raster already exists — skipping computation.")
 
 def prepare_crop_scenarios(csv_filepath: str, override_params: dict | None = None):
     # Load scenarios
@@ -1585,6 +1690,23 @@ def prepare_crop_scenarios(csv_filepath: str, override_params: dict | None = Non
         prepare_crop_data(**scenario)
         print(f"Next!\n")
 
+
+def prepare_crop_scenarios_PET_PlantCover_only(csv_filepath: str, override_params: dict | None = None):
+    # Load scenarios
+    csv = pl.read_csv(csv_filepath)
+    scenarios = csv.to_dicts()
+
+    # Run scenarions
+    for scenario in scenarios:
+        scenario = scenario.copy()
+
+        # Apply overrides if given
+        if override_params is not None:
+            scenario.update(override_params)
+
+        print(f"Preparing irrigation and plant cover data for {scenario['crop_name']}, {scenario['crop_practice_string']}")
+        prepare_crop_data_irrigation_plantcover(**scenario)
+        print(f"Next!\n")
 
 
 #### PIPELINE SUPPORTING FUNCTIONS
@@ -1686,6 +1808,7 @@ def create_crop_yield_raster_with_irrigation_scaling_pipeline(
     fao_yield_ratio_name: str = "yld_ratio",
     fao_sd_yield_name: str = "sd_yield",
     apply_ecoregion_fill: bool = True,
+    random_runs: int = 1
 ):
     """Pipeline wrapper around :func:`create_crop_yield_raster_withIrrigationPracticeScaling`."""
 
@@ -1704,7 +1827,47 @@ def create_crop_yield_raster_with_irrigation_scaling_pipeline(
         irr_fp=irr_fp,
         rf_fp=rf_fp,
         apply_ecoregion_fill=apply_ecoregion_fill,
+        random_runs=random_runs
     )
+
+def calculate_crop_yield_array_with_irrigation_scaling(
+    croplu_grid_raster_fp: str,
+    fao_crop_shp: "gpd.GeoDataFrame",
+    spam_crop_raster: str,
+    spam_band: int = 1,
+    resampling_method: Resampling = Resampling.bilinear,
+    irr_yield_scaling: Optional[str] = None,
+    all_fp: Optional[str] = None,
+    irr_fp: Optional[str] = None,
+    rf_fp: Optional[str] = None,
+    fao_avg_yield_name: str = "avg_yield",
+    fao_yield_ratio_name: str = "yld_ratio",
+    fao_sd_yield_name: str = "sd_yield",
+    apply_ecoregion_fill: bool = True,
+    random_runs: int = 1
+):
+    """Pipeline wrapper around :func:`create_crop_yield_raster_withIrrigationPracticeScaling`."""
+
+    yields = _create_crop_yield_raster_core(
+        croplu_grid_raster_fp = croplu_grid_raster_fp,
+        fao_crop_shp = fao_crop_shp,
+        spam_crop_raster = spam_crop_raster,
+        spam_band=spam_band,
+        resampling_method=resampling_method,
+        fao_avg_yield_name=fao_avg_yield_name,
+        fao_yield_ratio_name=fao_yield_ratio_name,
+        fao_sd_yield_name=fao_sd_yield_name,
+        irr_yield_scaling=irr_yield_scaling,
+        all_fp=all_fp,
+        irr_fp=irr_fp,
+        rf_fp=rf_fp,
+        random_runs=random_runs,
+        apply_ecoregion_fill=apply_ecoregion_fill,
+        write_output= False,
+        return_array=True
+    )
+
+    return yields
 
 
 def create_monthly_residue_vPipeline(
@@ -1714,7 +1877,7 @@ def create_monthly_residue_vPipeline(
     output_path: str,
     output_nodata = np.nan,
     climate_raster_path: str = uhth_climates_fp,
-    C_Content: float = 0.40,
+    c_content: float = 0.40,
     *,
     climate_zone_lookup: Optional[Mapping[int, str]] = None,
     crop_names_table: Optional[pl.DataFrame] = None,
@@ -1757,7 +1920,7 @@ def create_monthly_residue_vPipeline(
     # 3) Pull core residue parameters
     res_row = res_table.filter(pl.col("Crop") == ipcc_crop)
     dry      = float(res_row["DRY"].to_list()[0])
-    dry_C_content = dry * C_Content
+    dry_C_content = dry * c_content
     
     # Seeing if there's an RS value
     try:
