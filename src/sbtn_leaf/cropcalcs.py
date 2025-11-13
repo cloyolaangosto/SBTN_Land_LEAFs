@@ -215,11 +215,65 @@ def create_crop_yield_shapefile(
     return yield_shp
 
 
+def _calculate_crop_yield_raster_withuncertainty_core(
+    result: np.ndarray,
+    fao_avg_yields_array: np.ndarray,
+    fao_sd_yields_array: np.ndarray,
+    lu_mask: np.ndarray,
+    *,
+    random_runs: int,
+    rng: Optional[np.random.Generator] = None,
+) -> np.ndarray:
+    """Generate stochastic crop yield rasters based on FAO uncertainty data."""
+
+    # Ensure downstream math happens on a predictable floating type.  The
+    # baseline input is treated as the deterministic run that will always be
+    # present in the stacked output.
+    baseline = np.asarray(result, dtype="float32")
+
+    # Convert FAO reported standard deviations to coefficients of variation
+    # (expressed as a fraction of the mean) so we can treat the stochastic
+    # component as a percentage delta from the deterministic baseline.  Pixels
+    # outside the land-use mask are set to NaN so they do not contribute to any
+    # random draws.
+    coefficient = np.divide(
+        fao_sd_yields_array,
+        fao_avg_yields_array,
+        out=np.zeros_like(fao_sd_yields_array, dtype="float32"),
+        where=fao_avg_yields_array != 0,
+    ).astype("float32", copy=False)
+    coefficient[~lu_mask] = np.nan
+
+    # When only a deterministic result is requested, return a leading singleton
+    # band so the downstream raster writer can treat all cases uniformly.
+    if random_runs <= 1:
+        return baseline[np.newaxis, ...]
+
+    # Generate normally distributed perturbations with a standard deviation set
+    # by the coefficient of variation.  The RNG is injectable to support
+    # reproducible testing.
+    rng = np.random.default_rng() if rng is None else rng
+    draws = rng.normal(
+        loc=0.0,
+        scale=coefficient,
+        size=(random_runs - 1, *coefficient.shape),
+    ).astype("float32", copy=False)
+
+    # Apply the multiplicative perturbation to the deterministic baseline for
+    # each stochastic run.  The output array reserves band ``0`` for the
+    # baseline and fills subsequent bands with the perturbed versions.
+    stochastic = baseline[np.newaxis, ...] * (1.0 + draws)
+    stacked = np.empty((random_runs, *baseline.shape), dtype="float32")
+    stacked[0] = baseline
+    stacked[1:] = stochastic
+    return stacked
+
+
 def _create_crop_yield_raster_core(
     croplu_grid_raster: str,
     fao_crop_shp: gpd.GeoDataFrame,
     spam_crop_raster: str,
-    output_rst_path: str,
+    output_rst_path: Optional[str] = None,
     *,
     spam_band: int = 1,
     resampling_method: Resampling = Resampling.bilinear,
@@ -231,6 +285,10 @@ def _create_crop_yield_raster_core(
     irr_fp: Optional[str] = None,
     rf_fp: Optional[str] = None,
     apply_ecoregion_fill: bool = False,
+    random_runs: int = 1,
+    rng: Optional[np.random.Generator] = None,
+    write_output: bool = True,
+    return_array: bool = False,
 ):
     """Shared implementation for the crop yield raster generators."""
 
@@ -393,11 +451,28 @@ def _create_crop_yield_raster_core(
 
     result[~lu_mask] = np.nan
 
-    lu_meta.update(dtype="float32", count=1, nodata=np.nan)
-    with rasterio.open(output_rst_path, "w", **lu_meta) as dst:
-        dst.write(result, 1)
+    stacked_result = _calculate_crop_yield_raster_withuncertainty_core(
+        result,
+        fao_avg_yields_array,
+        fao_sd_yields_array,
+        lu_mask,
+        random_runs=random_runs,
+        rng=rng,
+    )
 
-    print(f"Yield raster written to {output_rst_path}")
+    if write_output:
+        if output_rst_path is None:
+            raise ValueError("output_rst_path is required when write_output is True")
+        lu_meta.update(dtype="float32", count=stacked_result.shape[0], nodata=np.nan)
+        with rasterio.open(output_rst_path, "w", **lu_meta) as dst:
+            dst.write(stacked_result)
+
+        print(f"Yield raster written to {output_rst_path}")
+
+    if return_array:
+        return stacked_result
+
+    return None
 
 
 def create_crop_yield_raster(
@@ -419,6 +494,7 @@ def create_crop_yield_raster(
         resampling_method=resampling_method,
         fao_avg_yield_name="avg_yield_1423",
         fao_yield_ratio_name="ratio_yield_20_toavg",
+        fao_sd_yield_name="sd_yields_1423",
     )
 
 
