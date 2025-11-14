@@ -319,7 +319,13 @@ def _raster_rothc_annual_results(
     depth: float,
     commodity_type: str,
     soc0_nodatavalue: float,
-    grassland_lu_fp: Optional[PathLike] = None,    # For grassland residues calculations
+    crop_name: Optional[str] = None,
+    spam_crop_raster: Optional[str] = None,
+    irr_yield_scaling: Optional[str] = None,
+    spam_all_fp: Optional[str] = None,
+    spam_irr_fp: Optional[str] = None,
+    spam_rf_fp: Optional[str] = None,
+    commodity_lu_fp: Optional[PathLike] = None,    # For grassland, crops residues calculations
     sand: Optional[np.ndarray] = None,
     forest_age:  Optional[np.ndarray] = None,
     forest_type: Optional[str] = None,
@@ -335,21 +341,53 @@ def _raster_rothc_annual_results(
 
     months = n_years * 12
     _, y, x = tmp.shape
+    crop_type: Optional[str] = None
 
     # Assigns dpm_rpm according to commodity type
     # checks if commodity type is correct
     if commodity_type not in ["annual_crop", "permanent_crop", "forest", "grassland"]:
         raise ValueError("Commodity type not valid. Valid types: annual_crop, permanent_crop, forest, grassland")
     
-    # Assins dpm_rpm factor and other values if needed
+    # Assigns dpm_rpm factor and other values if needed
     if commodity_type in ["annual_crop", "grassland"]:
         dpm_rpm = 1.44
         # Checks if grassland type is valid
         if grassland_type is not None and grassland_type not in ["natural", "managed"]:
             raise ValueError("Grassland type not valid. Valid types: natural, managed")
+        if commodity_type == "annual_crop":
+            crop_type = "annual"
+
+            # initialize c_inp
+            c_inp = cropcalcs.calculate_monthly_residues_array(
+                lu_fp=commodity_lu_fp,
+                crop_name=crop_name,
+                crop_type=crop_type,
+                spam_crop_raster = spam_crop_raster,
+                irr_yield_scaling = irr_yield_scaling,
+                spam_all_fp = spam_all_fp,
+                spam_irr_fp = spam_irr_fp,
+                spam_rf_fp = spam_rf_fp,
+                residue_runs=residue_runs
+            )
+            c_inp = np.squeeze(np.asarray(c_inp))
+            if c_inp.ndim != 2:
+                raise ValueError("Forest litter input must be 2-D after squeezing")
         
     elif commodity_type == "permanent_crop":
         dpm_rpm = 1
+        crop_type = "permanent"
+        # initialize c_inp
+        c_inp = cropcalcs.calculate_monthly_residues_array(
+            lu_fp=commodity_lu_fp,
+            crop_name=crop_name,
+            crop_type=crop_type,
+            spam_crop_raster=spam_crop_raster,
+            irr_yield_scaling=irr_yield_scaling,
+            spam_all_fp=spam_all_fp,
+            spam_irr_fp=spam_irr_fp,
+            spam_rf_fp=spam_rf_fp,
+            residue_runs=residue_runs
+        )
 
     else: # forest type
         dpm_rpm = 0.25
@@ -365,9 +403,6 @@ def _raster_rothc_annual_results(
             TP_IPCC_bool,
             residue_runs=residue_runs
         )
-        c_inp = np.squeeze(np.asarray(c_inp))
-        if c_inp.ndim != 2:
-            raise ValueError("Forest litter input must be 2-D after squeezing")
 
     # Initialize c_inp and fym if no input given
     if commodity_type != "forest":
@@ -459,7 +494,7 @@ def _raster_rothc_annual_results(
             if c_inp_month.ndim != 2:
                 raise ValueError("Forest litter input must be 2-D after squeezing")
         elif commodity_type == "grassland":
-            c_annual = cropcalcs.generate_grassland_residue_map(grass_lu_fp=grassland_lu_fp, random_runs=residue_runs)  # Returns raster for 1 year    
+            c_annual = cropcalcs.generate_grassland_residue_map(grass_lu_fp=commodity_lu_fp, random_runs=residue_runs)  # Returns raster for 1 year
             pr_monthly = c_annual/12
             c_inp_month = np.squeeze(np.asarray(pr_monthly))
         else:
@@ -485,6 +520,21 @@ def _raster_rothc_annual_results(
             co2_annual[yi] = annual_co2_acc
             annual_co2_acc[:] = 0
 
+            # Updates plant residue inputs for crops:
+            if commodity_type in ("permanent_crop", "annual_crop"):
+                # initialize c_inp
+                c_inp = cropcalcs.calculate_monthly_residues_array(
+                    lu_fp=commodity_lu_fp,
+                    crop_name=crop_name,
+                    crop_type=crop_type,
+                    spam_crop_raster=spam_crop_raster,
+                    irr_yield_scaling=irr_yield_scaling,
+                    spam_all_fp=spam_all_fp,
+                    spam_irr_fp=spam_irr_fp,
+                    spam_rf_fp=spam_rf_fp,
+                    residue_runs=residue_runs
+                )
+
     return soc_annual, co2_annual
 
 
@@ -500,6 +550,12 @@ def raster_rothc_annual_results_1yrloop(
     irr: Optional[np.ndarray] = None,
     c_inp: Optional[np.ndarray] = None,
     fym: Optional[np.ndarray] = None,
+    crop_name: Optional[str] = None,
+    spam_crop_raster: Optional[str] = None,
+    irr_yield_scaling: Optional[str] = None,
+    spam_all_fp: Optional[str] = None,
+    spam_irr_fp: Optional[str] = None,
+    spam_rf_fp: Optional[str] = None,
     forest_age: Optional[np.ndarray] = None,
     forest_type: Optional[str]= None,
     grassland_lu_fp: Optional[PathLike] = None,
@@ -545,12 +601,18 @@ def raster_rothc_annual_results_1yrloop(
         soc0_nodatavalue=soc0_nodatavalue,
         trm_handler=None,
         forest_type = forest_type,
-        grassland_lu_fp= grassland_lu_fp,
+        commodity_lu_fp= grassland_lu_fp,
         grassland_type = grassland_type,
         residue_runs = residue_runs,
         weather_type = weather_type,
         TP_IPCC_bool = TP_IPCC_bool,
-        forest_age = forest_age
+        forest_age = forest_age,
+        crop_name: Optional[str] = None,
+        spam_crop_raster: Optional[str] = None,
+        irr_yield_scaling: Optional[str] = None,
+        spam_all_fp: Optional[str] = None,
+        spam_irr_fp: Optional[str] = None,
+        spam_rf_fp: Optional[str] = None,
     )
 
 

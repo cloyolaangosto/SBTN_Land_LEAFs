@@ -1094,6 +1094,8 @@ def create_plant_cover_monthly_raster(
     # 7. Save
     da_mask.rio.to_raster(save_path)
 
+    print(f"Plant cover raster saved to {save_path}")
+
 # -----------------------------------------------------------------------------
 # Residues
 # -----------------------------------------------------------------------------
@@ -1561,6 +1563,7 @@ def prepare_crop_data(
             crop_type,
             yield_raster_path=str(yield_output_path),
             output_path=str(plant_residue_output_path),
+            write_output=True
         )
     else:
         print("Plant Residues raster already exists — skipping computation.")
@@ -1584,14 +1587,8 @@ def prepare_crop_data_irrigation_plantcover(
     output_crop_based = output_base / crop_name
     output_practice_based = output_base / f"{crop_name}_{crop_practice_string}"
 
-    # Step 0 - rasterize input path
-    lu_bin_output = output_practice_based.parent / f"{output_practice_based.name}_lu.tif"
-    if all_new_files or not lu_bin_output.exists():
-        print("Creating lu raster...")
-        lu_array = binarize_raster_pipeline(lu_data_path, str(lu_bin_output))
-    else:
-        print("Land use binary raster already exist. Skipping...")
-        lu_array = rxr.open_rasterio(lu_bin_output, masked=False).squeeze()
+    # Step 0 - Opening input path
+    lu_array = rxr.open_rasterio(lu_data_path, masked=False).squeeze()
 
     # Step 1 - Prepare PET and irrigation
     # Step 1.1 - PET
@@ -1626,7 +1623,7 @@ def prepare_crop_data_irrigation_plantcover(
     else:
         print("Plant Cover raster already exists — skipping computation.")
 
-    print(f"All data created for {crop_name}, {crop_practice_string}!!!")
+    print(f"Irrigation, PET, and plant cover rasters created for {crop_name}, {crop_practice_string}!!!")
 
 
 def calculate_monthly_residues_array(
@@ -1661,17 +1658,16 @@ def calculate_monthly_residues_array(
     )
 
     # Step 4 - Create plant residue raster
-    plant_residue_output_path = output_practice_based.parent / f"{output_practice_based.name}_residues_monthly.tif"
-    if all_new_files or not plant_residue_output_path.exists():
-        print("Creating plant residue raster...")
-        create_monthly_residue_vPipeline(
-            crop_name,
-            crop_type,
-            yield_raster_path=str(yield_output_path),
-            output_path=str(plant_residue_output_path),
-        )
-    else:
-        print("Plant Residues raster already exists — skipping computation.")
+    print("Creating plant residue raster...")
+    plant_residues = create_monthly_residue_vPipeline(
+        crop_name,
+        crop_type,
+        yield_raster_path=lu_fp,
+        write_output=False,
+        return_array=True
+    )
+
+    return plant_residues
 
 def prepare_crop_scenarios(csv_filepath: str, override_params: dict | None = None):
     # Load scenarios
@@ -1869,18 +1865,18 @@ def calculate_crop_yield_array_with_irrigation_scaling(
 
     return yields
 
-
 def create_monthly_residue_vPipeline(
     crop: str,
     crop_type: str,
     yield_raster_path: str,
-    output_path: str,
+    output_path: Optional[str],
     output_nodata = np.nan,
     climate_raster_path: str = uhth_climates_fp,
     c_content: float = 0.40,
     *,
     climate_zone_lookup: Optional[Mapping[int, str]] = None,
-    crop_names_table: Optional[pl.DataFrame] = None,
+    write_output: bool = False,
+    return_array: bool = False,
 ):
     """
     Read a single‐band yield raster, choose one residue‐calculation path globally:
@@ -2001,15 +1997,20 @@ def create_monthly_residue_vPipeline(
     # 1️⃣ Tell rioxarray which dims are spatial
     da = da.rio.set_spatial_dims(x_dim="x", y_dim="y")
 
-    # 2️⃣ Write CRS, transform, nodata in order
-    da.rio.to_raster(
-        output_path,
-        driver="GTiff",
-        crs=src_crs,
-        transform=src_transform,
-        dtype="float32",
-        nodata=output_nodata,
-    )
+    if write_output:
+        # 2️⃣ Write CRS, transform, nodata in order
+        da.rio.to_raster(
+            output_path,
+            driver="GTiff",
+            crs=src_crs,
+            transform=src_transform,
+            dtype="float32",
+            nodata=output_nodata,
+        )
+
+    if return_array:
+        np_array = da.to_numpy(na_value=output_nodata, dtype="float32")
+        return np_array
 
 
 ##############################
