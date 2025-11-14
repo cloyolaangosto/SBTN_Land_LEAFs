@@ -607,12 +607,12 @@ def raster_rothc_annual_results_1yrloop(
         weather_type = weather_type,
         TP_IPCC_bool = TP_IPCC_bool,
         forest_age = forest_age,
-        crop_name: Optional[str] = None,
-        spam_crop_raster: Optional[str] = None,
-        irr_yield_scaling: Optional[str] = None,
-        spam_all_fp: Optional[str] = None,
-        spam_irr_fp: Optional[str] = None,
-        spam_rf_fp: Optional[str] = None,
+        crop_name = crop_name,
+        spam_crop_raster = spam_crop_raster,
+        irr_yield_scaling = irr_yield_scaling,
+        spam_all_fp = spam_all_fp,
+        spam_irr_fp = spam_irr_fp,
+        spam_rf_fp= spam_rf_fp,
     )
 
 
