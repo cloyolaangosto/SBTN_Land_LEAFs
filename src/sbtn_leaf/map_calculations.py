@@ -644,7 +644,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
         # Label string
         if area_type == "ecoregion":
             region_text = (
-                f"Object # {getattr(region, 'OBJECTID', idx)} - "
+                f"Object # {getattr(region, 'ECO_ID', idx)} - "
                 f"{getattr(region, 'ECO_NAME', 'Unknown')}"
             )
         elif area_type == "country":
@@ -731,7 +731,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
             if area_type == "ecoregion":
                 results.append(
                     {
-                        "er_geom_id": getattr(region, "OBJECTID", idx),
+                        "er_id": getattr(region, "ECO_ID", idx),
                         "er_name": getattr(region, "ECO_NAME", None),
                         "Biome": getattr(region, "BIOME_NAME", None),
                         "imp_cat": cf_name,
@@ -788,7 +788,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
 
     # Merge back for spatial output
     if area_type == "ecoregion":
-        final_gdf = shp.merge(results_df, how="left", left_on="OBJECTID", right_on="er_geom_id")
+        final_gdf = shp.merge(results_df, how="left", left_on="ECO_ID", right_on="er_id")
         # keep names/biome (or drop if you intentionally don't want them duplicated)
         drop_cols = ['NNH', 'SHAPE_LENG', 'SHAPE_AREA', 'NNH_NAME','COLOR', 'COLOR_BIO', 'COLOR_NNH', 'LICENSE']
         
@@ -1072,7 +1072,7 @@ def build_cfs_gpkg_from_rasters(
         results_df = results_df.merge(master_gdf[["ADM1_CODE", "ADM1_NAME", "ADM0_NAME"]], how="left", on="ADM1_CODE")
         results_df = results_df[["ADM0_NAME", "ADM1_NAME", "ADM1_CODE", "flow_name", "metric", "value"]]
     elif area_type == "ecoregion":
-        results_df = results_df.merge(master_gdf[['OBJECTID', 'ECO_NAME', 'BIOME_NUM', 'BIOME_NAME', 'REALM']], how="left", on="OBJECTID")
+        results_df = results_df.merge(master_gdf[['ECO_ID', 'ECO_NAME', 'BIOME_NUM', 'BIOME_NAME', 'REALM']], how="left", on="ECO_ID")
     
     # Store results
     results_df.to_csv(csv_path, index=False)
@@ -1328,7 +1328,7 @@ def _process_region(region, raster_input_filepath, cf_name, cf_unit, flow_name, 
 
     geom = [region["geometry"]]
     if area_type == "ecoregion":
-        region_text = "Object # " + str(region["OBJECTID"]) + " - " + region['ECO_NAME']
+        region_text = "Object # " + str(region["ECO_ID"]) + " - " + region['ECO_NAME']
     elif area_type == "country":
         region_text = region["ADM0_NAME"]
     else:
@@ -1373,7 +1373,7 @@ def _process_region(region, raster_input_filepath, cf_name, cf_unit, flow_name, 
         # Build the result dictionary.
         if area_type == "ecoregion":
             result = {
-                "ecoregion_geom_id": region["OBJECTID"],
+                "er_id": region["ECO_ID"],
                 "ecoregion_name": region["ECO_NAME"],
                 "Biome": region["BIOME_NAME"],
                 "impact_category": cf_name,
