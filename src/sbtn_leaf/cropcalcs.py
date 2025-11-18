@@ -1647,7 +1647,7 @@ def calculate_monthly_residues_array(
 
     print("    Calculating stochastic yield raster...")
     yields = calculate_crop_yield_array_with_irrigation_scaling(
-        croplu_grid_raster=lu_fp,
+        croplu_grid_raster_fp=   lu_fp,
         fao_crop_shp=fao_yield_shp,
         spam_crop_raster=spam_crop_raster,
         irr_yield_scaling=irr_yield_scaling,
@@ -1662,7 +1662,7 @@ def calculate_monthly_residues_array(
     plant_residues = create_monthly_residue_vPipeline(
         crop_name,
         crop_type,
-        yield_raster_path=lu_fp,
+        yield_array=yields,
         write_output=False,
         return_array=True
     )
@@ -1845,7 +1845,7 @@ def calculate_crop_yield_array_with_irrigation_scaling(
     """Pipeline wrapper around :func:`create_crop_yield_raster_withIrrigationPracticeScaling`."""
 
     yields = _create_crop_yield_raster_core(
-        croplu_grid_raster_fp = croplu_grid_raster_fp,
+        croplu_grid_raster= croplu_grid_raster_fp,
         fao_crop_shp = fao_crop_shp,
         spam_crop_raster = spam_crop_raster,
         spam_band=spam_band,
@@ -1868,8 +1868,9 @@ def calculate_crop_yield_array_with_irrigation_scaling(
 def create_monthly_residue_vPipeline(
     crop: str,
     crop_type: str,
-    yield_raster_path: str,
-    output_path: Optional[str],
+    output_path: Optional[str] = None,
+    yield_array: Optional[np.ndarray] = None,
+    yield_raster_path: Optional[str] = None,
     output_nodata = np.nan,
     climate_raster_path: str = uhth_climates_fp,
     c_content: float = 0.40,
@@ -1889,15 +1890,21 @@ def create_monthly_residue_vPipeline(
     """
 
     # 1) Load the yield raster
-    with rasterio.open(yield_raster_path) as src:
-        shape   = src.shape
-        yields  = src.read(1).astype("float32")
-        nodata  = src.nodata
-        src_crs = src.crs
-        src_transform = src.transform
+    if yield_raster_path is not None:
+        with rasterio.open(yield_raster_path) as src:
+            shape   = src.shape
+            yields  = src.read(1).astype("float32")
+            nodata  = src.nodata
+            src_crs = src.crs
+            src_transform = src.transform
+        
+        valid = (yields != nodata)
+    else:
+        yields = yield_array
+        valid = ~np.isnan(yields)
 
     # mask nodata → NaN
-    valid = (yields != nodata)
+    
     yld_arr = np.where(valid, yields, np.nan)
 
     # 2) Map user crop → IPCC crop key
