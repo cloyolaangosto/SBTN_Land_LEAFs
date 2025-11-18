@@ -1094,8 +1094,6 @@ def run_RothC_crops(
         c_inp_a = np.asarray(scenario["c_inp"].values)
         fym_a = np.asarray(scenario["fym"].values)
 
-        crop_type = "permanent" if commodity_type == "permanent_crop" else "annual"
-
         base_kwargs = dict(
             n_years=n_years,
             clay=env["clay"],
