@@ -367,7 +367,7 @@ def _raster_rothc_annual_results(
                 spam_all_fp = spam_all_fp,
                 spam_irr_fp = spam_irr_fp,
                 spam_rf_fp = spam_rf_fp,
-                residue_runs=residue_runs
+                random_runs=residue_runs
             )
             c_inp = np.squeeze(np.asarray(c_inp))
             if c_inp.ndim != 2:
@@ -386,7 +386,7 @@ def _raster_rothc_annual_results(
             spam_all_fp=spam_all_fp,
             spam_irr_fp=spam_irr_fp,
             spam_rf_fp=spam_rf_fp,
-            residue_runs=residue_runs
+            random_runs=residue_runs
         )
 
     else: # forest type
@@ -532,7 +532,7 @@ def _raster_rothc_annual_results(
                     spam_all_fp=spam_all_fp,
                     spam_irr_fp=spam_irr_fp,
                     spam_rf_fp=spam_rf_fp,
-                    residue_runs=residue_runs
+                    random_runs=residue_runs
                 )
 
     return soc_annual, co2_annual
@@ -791,17 +791,17 @@ def _load_environmental_data(
     rain  = rain[0].rename({'band': 'time'}) if isinstance(rain, list) else rain.rename({'band': 'time'})
 
     # Mask data to land use requirementes
-    lu_maks = (lu_raster==1)
+    lu_mask = (lu_raster==1)
 
     # Single‐band rasters
-    clay   = clay.where(lu_maks)
-    soc0   = soc0.where(lu_maks)
-    iom    = iom.where(lu_maks)
-    sand   = sand.where(lu_maks)
+    clay   = clay.where(lu_mask)
+    soc0   = soc0.where(lu_mask)
+    iom    = iom.where(lu_mask)
+    sand   = sand.where(lu_mask)
 
     # Multiband rasters (‘time’ × y × x)
-    tmp    = tmp.where(lu_maks)
-    rain   = rain.where(lu_maks)
+    tmp    = tmp.where(lu_mask)
+    rain   = rain.where(lu_mask)
 
     return tmp, rain, soc0, iom, clay, sand
 
@@ -815,46 +815,47 @@ def _load_crop_data(
 ):
     # Opens land use data
     lu_raster = rxr.open_rasterio(_as_path(lu_fp), masked=False).squeeze()
-    lu_maks = (lu_raster==1)
+    lu_mask = (lu_raster==1)
         
     
     # Opens evap and pc, and process it
     evap = rxr.open_rasterio(_as_path(evap_fp), masked=True)  # (12-band: Jan–Dec)
     evap  = evap.rename({"band": "time"})
-    evap = evap.where(lu_maks).fillna(0)
+    evap = evap.where(lu_mask).fillna(0)
 
     pc = rxr.open_rasterio(_as_path(pc_fp), masked=True)
     pc    = pc.rename({"band": "time"})
-    pc = (pc).where(lu_maks)
-    pc = pc.where(lu_maks).fillna(0)
+    pc = (pc).where(lu_mask)
+    pc = pc.where(lu_mask).fillna(0)
     
     # Optional inputs
     if irr_fp:
         irr = rxr.open_rasterio(_as_path(irr_fp), masked=True)  # (12-band: Jan–Dec)
         irr = irr.rename({'band': 'time'})
-        irr = (irr).where(lu_maks)
-        irr = irr.where(lu_maks).fillna(0)
+        irr = (irr).where(lu_mask)
+        irr = irr.where(lu_mask).fillna(0)
     else:
-        irr = (xr.zeros_like(pc)).where(lu_maks)
+        irr = (xr.zeros_like(pc)).where(lu_mask)
 
     if pr_fp:
         pr = rxr.open_rasterio(_as_path(pr_fp), masked=True)  # (12-band: Jan–Dec)
         pr = pr.rename({'band': 'time'})
-        pr = (pr).where(lu_maks)
-        pr = pr.where(lu_maks).fillna(0)
+        pr = (pr).where(lu_mask)
+        pr = pr.where(lu_mask).fillna(0)
     else:
-        pr    = (xr.zeros_like(pc)).where(lu_maks)
+        pr    = (xr.zeros_like(pc)).where(lu_mask)
     
     if fym_fp:
         fym = rxr.open_rasterio(_as_path(fym_fp), masked=True) # No farmyard manure in this case
         fym   = fym.rename({'band': 'time'})
-        fym = (fym).where(lu_maks)
-        fym = fym.where(lu_maks).fillna(0)
+        fym = (fym).where(lu_mask)
+        fym = fym.where(lu_mask).fillna(0)
     else:
-        fym    = (xr.zeros_like(pc)).where(lu_maks)
+        fym    = (xr.zeros_like(pc)).where(lu_mask)
 
 
     return lu_raster, evap, pc, irr, pr, fym
+
 
 def _load_forest_data(lu_fp: PathLike, evap_fp: PathLike, age_fp: PathLike):
     # 1) Land-use (mask where class == 1)
@@ -1033,16 +1034,22 @@ def _run_rothc_scenario(
 def run_RothC_crops(
     crop_name: str,
     commodity_type: str,
-    practices_string_id: str,
     n_years: int,
     save_folder: PathLike,
     data_description: str,
     lu_fp: PathLike,
     evap_fp: PathLike,
     pc_fp: PathLike,
+    practices_string_id: Optional[str] = None,
     irr_fp: Optional[PathLike] = None,
     pr_fp: Optional[PathLike] = None,
     fym_fp: Optional[PathLike] = None,
+    residue_runs: int = 1,
+    spam_crop_raster:  Optional[PathLike] = None,
+    irr_yield_scaling: Optional[str] = None,
+    spam_all_fp: Optional[PathLike] = None,
+    spam_irr_fp: Optional[PathLike] = None,
+    spam_rf_fp: Optional[PathLike] = None,
     red_till: bool = False,
     save_CO2: bool = False,
     env_path_overrides: Optional[Dict[str, PathLike]] = None,
@@ -1061,7 +1068,7 @@ def run_RothC_crops(
             _as_path(evap_fp),
             _as_path(pc_fp),
             None if irr_fp is None else _as_path(irr_fp),
-            None if pr_fp is None else _as_path(pr_fp),
+            None if pr_fp  is None else _as_path(pr_fp),
             None if fym_fp is None else _as_path(fym_fp),
         )
         return lu_raster, {
@@ -1087,6 +1094,8 @@ def run_RothC_crops(
         c_inp_a = np.asarray(scenario["c_inp"].values)
         fym_a = np.asarray(scenario["fym"].values)
 
+        crop_type = "permanent" if commodity_type == "permanent_crop" else "annual"
+
         base_kwargs = dict(
             n_years=n_years,
             clay=env["clay"],
@@ -1098,6 +1107,14 @@ def run_RothC_crops(
             c_inp=c_inp_a,
             fym=fym_a,
             commodity_type=commodity_type,
+            residue_runs = residue_runs,
+            lu_fp=lu_fp,
+            crop_name=crop_name,
+            spam_crop_raster = spam_crop_raster,
+            irr_yield_scaling = irr_yield_scaling,
+            spam_all_fp = spam_all_fp,
+            spam_irr_fp = spam_irr_fp,
+            spam_rf_fp = spam_rf_fp,
         )
 
         if irr_a is not None:
@@ -1125,8 +1142,16 @@ def run_RothC_crops(
         },
         runner=_crop_runner,
         runner_kwargs={
+            "residue_runs": residue_runs,
             "commodity_type": commodity_type,
             "red_till": red_till,
+            "lu_fp": lu_fp,
+            "crop_name": crop_name,
+            "spam_crop_raster": spam_crop_raster,
+            "irr_yield_scaling": irr_yield_scaling,
+            "spam_all_fp": spam_all_fp,
+            "spam_irr_fp": spam_irr_fp,
+            "spam_rf_fp": spam_rf_fp,
         },
         loader_message="Loading crop data...",
         save_CO2=save_CO2,
@@ -1361,6 +1386,45 @@ def run_rothC_crop_scenarios_from_csv(csv_filepath: PathLike):
         print(f"Running {scenario['crop_name']} - {scenario['practices_string_id']}")
         run_RothC_crops(**scenario)
         print("\n\n")
+
+def run_rothc_permanent_crops_scenarios_from_excel(excel_filepath: PathLike, force_new_files: bool = False, run_test: bool = False):
+    # 1) Read & cast your CSV exactly as before
+    scenarios = (
+        pl.read_excel(_resolve_data_path(excel_filepath), has_header=True, sheet_name="scenarios")
+        .with_columns([
+            pl.col("n_years").cast(pl.Int64)
+        ])
+    )
+
+    if run_test:
+        print("Running test. Only top 2 scenarios are run.")
+        scenarios = scenarios[0:2]
+
+    # 2) Turn into a list of dicts once (so we know the total count)
+    scenario_list = scenarios.to_dicts()
+
+    # 3) Iterate with tqdm
+    for scenario in scenario_list:
+        scn_string_text = f"Permanent crop - {scenario['crop_name']} - {scenario['irr_yield_scaling']}"
+
+        # Checks if output filepath exist
+        output_folder = scenario["save_folder"]
+        output_string = f"{scenario["crop_name"]}_{scenario['irr_yield_scaling']}_{2016+scenario['n_years']}y_SOC.tif"
+        output_path = f"{output_folder}/{output_string}"
+
+        if force_new_files:
+            print(f"Running {scn_string_text}")
+            run_RothC_crops(**scenario)
+        else:
+            if os.path.exists(output_path):
+                print(f"{scn_string_text} already exists. Skipping...")
+                continue
+            else:
+                print(f"Running {scn_string_text}")
+                run_RothC_crops(**scenario)
+
+        print(f"{scn_string_text} calculated. Continuing...\n\n")
+
 
 def run_rothc_grassland_scenarios_from_excel(excel_filepath: PathLike, force_new_files: bool = False, run_test: bool = False):
     # 1) Read & cast your CSV exactly as before

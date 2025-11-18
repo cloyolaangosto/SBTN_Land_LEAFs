@@ -79,5 +79,5 @@ Thumbs.db
 # Lightweight data and example data
 !data/crops/
 !data/templates/
-!data/crops/spam2020V2r0_global_yield/*.tif
+# !data/crops/spam2020V2r0_global_yield/*.tif
 !archives/se_rlsk.png
