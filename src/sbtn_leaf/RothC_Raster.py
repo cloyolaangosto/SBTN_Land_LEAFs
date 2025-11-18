@@ -377,6 +377,8 @@ def _raster_rothc_annual_results(
         dpm_rpm = 1
         crop_type = "permanent"
         # initialize c_inp
+
+        
         c_inp = cropcalcs.calculate_monthly_residues_array(
             lu_fp=commodity_lu_fp,
             crop_name=crop_name,

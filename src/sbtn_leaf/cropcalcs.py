@@ -264,7 +264,16 @@ def _apply_uncertainty_to_yields(
     # all stochastic draws, using ``nanmean`` so masked pixels stay excluded.
     stochastic = baseline[np.newaxis, ...] * (1.0 + draws)
     stack = np.concatenate((baseline[np.newaxis, ...], stochastic), axis=0)
-    averaged = np.nanmean(stack, axis=0, dtype="float32")
+    
+    # Preallocate result full of NaNs
+    averaged = np.full_like(baseline, np.nan, dtype="float32")
+
+    # Only compute the nanmean where we actually have land / want values
+    masked_stack = stack[:, lu_mask]            # shape: (runs, n_valid_pixels)
+    averaged_valid = np.nanmean(masked_stack, axis=0, dtype="float32")
+
+    averaged[lu_mask] = averaged_valid
+
     return averaged.astype("float32", copy=False)
 
 
@@ -1658,7 +1667,7 @@ def calculate_monthly_residues_array(
     )
 
     # Step 4 - Create plant residue raster
-    print("Creating plant residue raster...")
+    print("    Creating plant residue raster...")
     plant_residues = create_monthly_residue_vPipeline(
         crop_name,
         crop_type,
@@ -2016,8 +2025,7 @@ def create_monthly_residue_vPipeline(
         )
 
     if return_array:
-        np_array = da.to_numpy(na_value=output_nodata, dtype="float32")
-        return np_array
+        return da.values
 
 
 ##############################
