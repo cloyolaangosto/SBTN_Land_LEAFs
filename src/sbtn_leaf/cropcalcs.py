@@ -1607,7 +1607,7 @@ def prepare_crop_data_irrigation_plantcover(
 
     # Step 1 - Prepare PET and irrigation
     # Step 1.1 - PET
-    pet_monthly_output_path = output_crop_based.parent / f"{output_crop_based.name}_pet_monthly.tif"
+    pet_monthly_output_path = output_practice_based.parent / f"{output_practice_based.name}_pet_monthly.tif"
     if all_new_files or not pet_monthly_output_path.exists():
         print("Creating PET raster...")
         monthly_pet = calculate_crop_based_PET_raster_vPipeline(
@@ -1620,7 +1620,7 @@ def prepare_crop_data_irrigation_plantcover(
         monthly_pet = rxr.open_rasterio(pet_monthly_output_path, masked=True).values
 
     # Step 1.2 - Irrigation
-    irr_monthly_output_path = output_crop_based.parent / f"{output_crop_based.name}_irr_monthly.tif"
+    irr_monthly_output_path = output_practice_based.parent / f"{output_practice_based.name}_irr_monthly.tif"
     if all_new_files or not irr_monthly_output_path.exists():
         print("Creating irrigation raster...")
         irr = calculate_irrigation_vPipeline(
@@ -1631,7 +1631,7 @@ def prepare_crop_data_irrigation_plantcover(
         print("Irrigation raster already exists — skipping computation.")
 
     # Step 3 - Create plant cover raster
-    plantcover_output_path = output_crop_based.parent / f"{output_crop_based.name}_pc_monthly.tif"
+    plantcover_output_path = output_practice_based.parent / f"{output_practice_based.name}_pc_monthly.tif"
     if all_new_files or not plantcover_output_path.exists():
         print("Creating plant cover raster...")
         create_plant_cover_monthly_raster(crop_name, str(plantcover_output_path))

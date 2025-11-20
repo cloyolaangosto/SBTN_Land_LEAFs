@@ -1,0 +1,46 @@
+﻿crop_name,crop_type,crop_practice_string,lu_data_path,output_data_folder,all_new_files
+Barley,annual,irr_ron,../data/land_use/lu_Irrigated_Barley_residues_left_on_the_field.tif,../data/crops/rothc_support,FALSE
+Barley,annual,irr_roff,../data/land_use/lu_Irrigated_Barley_residues_removed_from_the_field.tif,../data/crops/rothc_support,FALSE
+Cabbage,annual,irr,../data/land_use/lu_Irrigated_Cabbages.tif,../data/crops/rothc_support,FALSE
+Carrot,annual,irr,../data/land_use/lu_Irrigated_Carrots.tif,../data/crops/rothc_support,FALSE
+Cotton,annual,irr,../data/land_use/lu_Irrigated_cotton.tif,../data/crops/rothc_support,FALSE
+Groundnut,annual,irr,../data/land_use/lu_Irrigated_Groundnuts.tif,../data/crops/rothc_support,FALSE
+Maize,annual,irr_ron,../data/land_use/lu_Irrigated_Maize_residues_left_on_the_field.tif,../data/crops/rothc_support,FALSE
+Maize,annual,irr_roff,../data/land_use/lu_Irrigated_Maize_residues_removed_from_the_field.tif,../data/crops/rothc_support,FALSE
+Onion,annual,irr,../data/land_use/lu_Irrigated_Onions.tif,../data/crops/rothc_support,FALSE
+Potato,annual,irr,../data/land_use/lu_Irrigated_Potatoes.tif,../data/crops/rothc_support,FALSE
+Rapeseed,annual,irr_ron,../data/land_use/lu_Irrigated_Rapeseed_residues_left_on_the_field.tif,../data/crops/rothc_support,FALSE
+Rapeseed,annual,irr_roff,../data/land_use/lu_Irrigated_Rapeseed_residues_removed_from_the_field.tif,../data/crops/rothc_support,FALSE
+Rice,annual,irr,../data/land_use/lu_Irrigated_Rice.tif,../data/crops/rothc_support,FALSE
+Sorghum,annual,irr_ron,../data/land_use/lu_Irrigated_Sorghum_residues_left_on_the_field.tif,../data/crops/rothc_support,FALSE
+Sorghum,annual,irr_roff,../data/land_use/lu_Irrigated_Sorghum_residues_removed_from_the_field.tif,../data/crops/rothc_support,FALSE
+Soybean,annual,irr,../data/land_use/lu_Irrigated_Soybeans.tif,../data/crops/rothc_support,FALSE
+Sugar beet,annual,irr,../data/land_use/lu_Irrigated_Sugarbeet.tif,../data/crops/rothc_support,FALSE
+Sugarcane,annual,irr,../data/land_use/lu_Irrigated_Sugarcane.tif,../data/crops/rothc_support,FALSE
+Sunflower,annual,irr,../data/land_use/lu_Irrigated_Sunflower.tif,../data/crops/rothc_support,FALSE
+Sweet potato,annual,irr,../data/land_use/lu_Irrigated_Sweet_potatoes.tif,../data/crops/rothc_support,FALSE
+Tobacco,annual,irr,../data/land_use/lu_Irrigated_Tobacco.tif,../data/crops/rothc_support,FALSE
+Tomato,annual,irr,../data/land_use/lu_Irrigated_Tomatoes.tif,../data/crops/rothc_support,FALSE
+Wheat,annual,irr_ron,../data/land_use/lu_Irrigated_Wheat_residues_left_on_the_field.tif,../data/crops/rothc_support,FALSE
+Wheat,annual,irr_roff,../data/land_use/lu_Irrigated_Wheat_residues_removed_from_the_field.tif,../data/crops/rothc_support,FALSE
+Barley,annual,rf_ron,../data/land_use/lu_Rainfed_Barley_residues_left_on_the_field.tif,../data/crops/rothc_support,FALSE
+Barley,annual,rf_roff,../data/land_use/lu_Rainfed_Barley_residues_removed_from_the_field.tif,../data/crops/rothc_support,FALSE
+Cotton,annual,rf,../data/land_use/lu_Rainfed_cotton.tif,../data/crops/rothc_support,FALSE
+Groundnut,annual,rf,../data/land_use/lu_Rainfed_Groundnuts.tif,../data/crops/rothc_support,FALSE
+Maize,annual,rf,../data/land_use/lu_Rainfed_Maize_residues_left_on_the_field.tif,../data/crops/rothc_support,FALSE
+Maize,annual,rf,../data/land_use/lu_Rainfed_Maize_residues_removed_from_the_field.tif,../data/crops/rothc_support,FALSE
+Potato,annual,rf,../data/land_use/lu_Rainfed_Potatoes.tif,../data/crops/rothc_support,FALSE
+Rapeseed,annual,rf_ron,../data/land_use/lu_Rainfed_Rapeseed_residues_left_on_the_field.tif,../data/crops/rothc_support,FALSE
+Rapeseed,annual,rf_roff,../data/land_use/lu_Rainfed_Rapeseed_residues_removed_from_the_field.tif,../data/crops/rothc_support,FALSE
+Rice,annual,rf,../data/land_use/lu_Rainfed_Rice.tif,../data/crops/rothc_support,FALSE
+Sorghum,annual,rf,../data/land_use/lu_Rainfed_Sorghum_residues_left_on_the_field.tif,../data/crops/rothc_support,FALSE
+Sorghum,annual,rf,../data/land_use/lu_Rainfed_Sorghum_residues_removed_from_the_field.tif,../data/crops/rothc_support,FALSE
+Soybean,annual,rf,../data/land_use/lu_Rainfed_Soybeans.tif,../data/crops/rothc_support,FALSE
+Sugar beet,annual,rf,../data/land_use/lu_Rainfed_Sugarbeet.tif,../data/crops/rothc_support,FALSE
+Sugarcane,annual,rf,../data/land_use/lu_Rainfed_Sugarcane.tif,../data/crops/rothc_support,FALSE
+Sunflower,annual,rf,../data/land_use/lu_Rainfed_Sunflower.tif,../data/crops/rothc_support,FALSE
+Sweet potato,annual,rf,../data/land_use/lu_Rainfed_Sweet_potatoes.tif,../data/crops/rothc_support,FALSE
+Tobacco,annual,rf,../data/land_use/lu_Rainfed_Tobacco.tif,../data/crops/rothc_support,FALSE
+Tomato,annual,rf,../data/land_use/lu_Rainfed_Tomatoes.tif,../data/crops/rothc_support,FALSE
+Wheat,annual,rf_ron,../data/land_use/lu_Rainfed_Wheat_residues_left_on_the_field.tif,../data/crops/rothc_support,FALSE
+Wheat,annual,rf_roff,../data/land_use/lu_Rainfed_Wheat_residues_removed_from_the_field.tif,../data/crops/rothc_support,FALSE

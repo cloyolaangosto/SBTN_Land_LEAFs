@@ -33,7 +33,7 @@ import numpy as np
 import pandas as pd
 
 # My modules
-import sbtn_leaf.map_plotting as mp
+import sbtn_leaf.map_plotting as maplot
 from sbtn_leaf.paths import data_path
 
 ############
