@@ -321,6 +321,7 @@ def _raster_rothc_annual_results(
     soc0_nodatavalue: float,
     crop_name: Optional[str] = None,
     spam_crop_raster: Optional[str] = None,
+    practices_string_id: Optional[str] = None,
     irr_yield_scaling: Optional[str] = None,
     spam_all_fp: Optional[str] = None,
     spam_irr_fp: Optional[str] = None,
@@ -351,34 +352,35 @@ def _raster_rothc_annual_results(
     # Assigns dpm_rpm factor and other values if needed
     if commodity_type in ["annual_crop", "grassland"]:
         dpm_rpm = 1.44
+        
         # Checks if grassland type is valid
         if grassland_type is not None and grassland_type not in ["natural", "managed"]:
             raise ValueError("Grassland type not valid. Valid types: natural, managed")
+        
         if commodity_type == "annual_crop":
             crop_type = "annual"
 
             # initialize c_inp
-            c_inp = cropcalcs.calculate_monthly_residues_array(
-                lu_fp=commodity_lu_fp,
-                crop_name=crop_name,
-                crop_type=crop_type,
-                spam_crop_raster = spam_crop_raster,
-                irr_yield_scaling = irr_yield_scaling,
-                spam_all_fp = spam_all_fp,
-                spam_irr_fp = spam_irr_fp,
-                spam_rf_fp = spam_rf_fp,
-                random_runs=residue_runs
-            )
+            if practices_string_id is not None and "roff" in practices_string_id:
+                c_inp = np.zeros_like(rain)
+            else:
+                c_inp = cropcalcs.calculate_monthly_residues_array(
+                    lu_fp=commodity_lu_fp,
+                    crop_name=crop_name,
+                    crop_type=crop_type,
+                    spam_crop_raster = spam_crop_raster,
+                    irr_yield_scaling = irr_yield_scaling,
+                    spam_all_fp = spam_all_fp,
+                    spam_irr_fp = spam_irr_fp,
+                    spam_rf_fp = spam_rf_fp,
+                    random_runs=residue_runs
+                )
             c_inp = np.squeeze(np.asarray(c_inp))
-            if c_inp.ndim != 2:
-                raise ValueError("Forest litter input must be 2-D after squeezing")
         
     elif commodity_type == "permanent_crop":
         dpm_rpm = 1
         crop_type = "permanent"
         # initialize c_inp
-
-        
         c_inp = cropcalcs.calculate_monthly_residues_array(
             lu_fp=commodity_lu_fp,
             crop_name=crop_name,
@@ -525,17 +527,21 @@ def _raster_rothc_annual_results(
             # Updates plant residue inputs for crops, skips final iteration:
             if (t_abs + 1) < months and commodity_type in ("permanent_crop", "annual_crop"):
                 # initialize c_inp
-                c_inp = cropcalcs.calculate_monthly_residues_array(
-                    lu_fp=commodity_lu_fp,
-                    crop_name=crop_name,
-                    crop_type=crop_type,
-                    spam_crop_raster=spam_crop_raster,
-                    irr_yield_scaling=irr_yield_scaling,
-                    spam_all_fp=spam_all_fp,
-                    spam_irr_fp=spam_irr_fp,
-                    spam_rf_fp=spam_rf_fp,
-                    random_runs=residue_runs
-                )
+                if practices_string_id is not None and "roff" in practices_string_id:
+                    c_inp = np.zeros_like(rain)
+                else:
+                    c_inp = cropcalcs.calculate_monthly_residues_array(
+                        lu_fp=commodity_lu_fp,
+                        crop_name=crop_name,
+                        crop_type=crop_type,
+                        spam_crop_raster = spam_crop_raster,
+                        irr_yield_scaling = irr_yield_scaling,
+                        spam_all_fp = spam_all_fp,
+                        spam_irr_fp = spam_irr_fp,
+                        spam_rf_fp = spam_rf_fp,
+                        random_runs=residue_runs
+                    )
+                c_inp = np.squeeze(np.asarray(c_inp))
 
     return soc_annual, co2_annual
 
@@ -1111,6 +1117,7 @@ def run_RothC_crops(
             crop_name=crop_name,
             spam_crop_raster = spam_crop_raster,
             irr_yield_scaling = irr_yield_scaling,
+            practices_string_id = practices_string_id
             spam_all_fp = spam_all_fp,
             spam_irr_fp = spam_irr_fp,
             spam_rf_fp = spam_rf_fp,
@@ -1149,6 +1156,8 @@ def run_RothC_crops(
         runner_kwargs={
             "commodity_type": commodity_type,
             "red_till": red_till,
+            "irr_yield_scaling": irr_yield_scaling,
+            "practices_string_id": practices_string_id
         },
         loader_message="    Loading crop data...",
         save_CO2=save_CO2,

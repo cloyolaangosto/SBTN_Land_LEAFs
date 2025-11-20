@@ -559,10 +559,7 @@ def _build_monthly_kc_vectors(
     crop_name: str,
     zone_groups: Mapping[str, Iterable[int]],
     crop_table: pl.DataFrame,
-    abs_table: pl.DataFrame,
-    *,
-    tqdm_desc: Optional[str] = "    Precomputing Kc curves for group",
-    log_template: Optional[str] = "    Precomputing Kc curve for group: {group}",
+    abs_table: pl.DataFrame
 ):
     """Return a mapping of zone group names to monthly Kc vectors.
 
@@ -587,9 +584,7 @@ def _build_monthly_kc_vectors(
 
     unique_groups = list(zone_groups)
     kc_by_group = {}
-    for group in tqdm(unique_groups, desc=tqdm_desc):
-        if log_template:
-            print(log_template.format(group=group))
+    for group in unique_groups:
         kc_df = monthly_KC_curve(
             crop_name,
             group,
@@ -764,11 +759,10 @@ def _calculate_crop_based_pet_core(
         crop_name,
         zone_groups,
         crop_table,
-        abs_table,
-        tqdm_desc="Precomputing Kc curves for group",
+        abs_table
     )
 
-    for group, kc_vec in tqdm(kc_by_group.items(), desc="Applying Kc to thremal groups"):
+    for group, kc_vec in kc_by_group.items():
         valid_zones = zone_groups[group]
         valid_zones_array = np.array(valid_zones)
         mask = np.isin(thermal_zones, valid_zones_array) & landuse_mask

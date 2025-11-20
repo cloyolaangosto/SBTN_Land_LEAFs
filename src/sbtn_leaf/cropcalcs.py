@@ -1621,7 +1621,7 @@ def prepare_crop_data_irrigation_plantcover(
     # Step 1.2 - Irrigation
     irr_monthly_output_path = None
     if "irr" in crop_practice_string:
-        irr_monthly_output_path = output_crop_based.parent / f"{output_crop_based.name}_irr_monthly.tif"
+        irr_monthly_output_path = output_practice_based.parent / f"{output_practice_based.name}_irr_monthly.tif"
         if all_new_files or not irr_monthly_output_path.exists():
             print("Creating irrigation raster...")
             irr = calculate_irrigation_vPipeline(
@@ -1630,6 +1630,9 @@ def prepare_crop_data_irrigation_plantcover(
             )
         else:
             print("Irrigation raster already exists — skipping computation.")
+    else:
+        print("Irrigation not needed. Skipping...")
+    
 
     # Step 3 - Create plant cover raster
     plantcover_output_path = output_practice_based.parent / f"{output_practice_based.name}_pc_monthly.tif"
@@ -1719,6 +1722,8 @@ def prepare_crop_scenarios_PET_PlantCover_only(csv_filepath: str, override_param
     # Cache raster hashes by path to avoid re-reading the same file
     hash_cache: Dict[str, str] = {}
     
+    print("Creating a unique list of rasters with different land use maps...\n")
+
     #1.- Iterate row-by-row (as dicts)
     for row in scneraios_df.iter_rows(named=True):
         # Needed information
@@ -1750,6 +1755,25 @@ def prepare_crop_scenarios_PET_PlantCover_only(csv_filepath: str, override_param
     # check which irrigation scenarios are missing
     join_keys = ["crop_name", "crop_practice_string"]
     extra_irrigation = irrigation_df.join(unique_df, on=join_keys, how="anti")  # anti keeps only the results missing
+
+    for row in extra_irrigation.iter_rows(named=True):
+        crop_name = row["crop_name"]
+        lu_path = row["lu_data_path"]
+
+        # get or compute the LU hash
+        if lu_path in hash_cache:
+            lu_hash = hash_cache[lu_path]
+        else:
+            lu_hash = _hash_raster(lu_path)
+            hash_cache[lu_path] = lu_hash
+
+        # if this LU hash is already seen for this crop, skip it
+        if lu_hash in seen_hashes_by_crop[crop_name]:
+            continue
+
+        # otherwise, this is a new LU for this crop → keep it
+        seen_hashes_by_crop[crop_name].add(lu_hash)
+        unique_scenarios.append(row)
 
     # Append these missing irrigation scenarios to the list
     unique_scenarios.extend(extra_irrigation.to_dicts())
@@ -1799,8 +1823,11 @@ def _hash_raster(path: str) -> str:
         # Read band 1 as masked array
         arr = src.read(1, masked=True)
 
+        # pick correct nodata fill
+        fill_val = src.nodata if src.nodata is not None else 255
+
         # Normalize the data: fill mask with a stable value
-        data = np.ma.filled(arr, fill_value=np.nan).astype("float32")
+        data = np.ma.filled(arr, fill_value=fill_val)
 
         # Create hash object
         h = hashlib.sha1()
