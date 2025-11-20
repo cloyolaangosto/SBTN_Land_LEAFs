@@ -522,8 +522,8 @@ def _raster_rothc_annual_results(
             co2_annual[yi] = annual_co2_acc
             annual_co2_acc[:] = 0
 
-            # Updates plant residue inputs for crops:
-            if commodity_type in ("permanent_crop", "annual_crop"):
+            # Updates plant residue inputs for crops, skips final iteration:
+            if (t_abs + 1) < months and commodity_type in ("permanent_crop", "annual_crop"):
                 # initialize c_inp
                 c_inp = cropcalcs.calculate_monthly_residues_array(
                     lu_fp=commodity_lu_fp,
@@ -707,9 +707,6 @@ def save_annual_results(
         .rio.write_crs(reference_raster.rio.crs)
         .rio.write_transform(reference_raster.rio.transform())
 )
-
-    # Define which dims correspond to spatial dims (only needed if not auto-detected)
-    # da = da.rio.set_spatial_dims(x_dim="x", y_dim="y", inplace=False)
 
     # 3. Write nodata value and additional tags
     data_array = data_array.rio.write_nodata(np.nan, inplace=False)
@@ -971,7 +968,7 @@ def _run_rothc_scenario(
     loader_kwargs = loader_kwargs or {}
     runner_kwargs = runner_kwargs or {}
 
-    print("Loading environmental data...")
+    print("    Loading environmental data...")
     tmp, rain, soc0, iom, clay, sand = _load_environmental_data(
         lu_fp, **(env_overrides or {})
     )
@@ -989,7 +986,7 @@ def _run_rothc_scenario(
         print(loader_message)
     lu_raster, scenario_inputs = loader(lu_fp=_as_path(lu_fp), **loader_kwargs)
 
-    print("Running RothC...")
+    print("    Running RothC...")
 
     results = runner(
         n_years=n_years,
@@ -1016,6 +1013,8 @@ def _run_rothc_scenario(
         long_name="Soil Organic Carbon",
         model_description="RothC rasterized vectorized",
     )
+
+    print(f"    RothC results saved into {save_path}")
 
     if save_CO2 and CO2_results is not None:
         save_annual_results(
@@ -1125,13 +1124,19 @@ def run_RothC_crops(
             return raster_rothc_ReducedTillage_annual_results_1yrloop(**base_kwargs)
 
         return raster_rothc_annual_results_1yrloop(**base_kwargs)
+    
+    # Creating results_basename
+    if commodity_type == "permanent_crop":
+        result_basename = f"{crop_name}_{irr_yield_scaling}_{2016+n_years}y_SOC.tif"
+    else:
+        result_basename = f"{crop_name}_{practices_string_id}_{2016+n_years}y_SOC.tif"
 
     return _run_rothc_scenario(
         lu_fp=lu_fp,
         n_years=n_years,
         save_folder=save_folder,
         data_description=data_description,
-        result_basename=f"{crop_name}_{practices_string_id}_{n_years}y_SOC.tif",
+        result_basename=result_basename,
         loader=_crop_loader,
         loader_kwargs={
             "evap_fp": evap_fp,
@@ -1145,7 +1150,7 @@ def run_RothC_crops(
             "commodity_type": commodity_type,
             "red_till": red_till,
         },
-        loader_message="Loading crop data...",
+        loader_message="    Loading crop data...",
         save_CO2=save_CO2,
         env_overrides=env_path_overrides,
     )
@@ -1241,7 +1246,7 @@ def run_RothC_forest(
             "TP_IPCC_bool": TP_IPCC_bool,
             "residue_runs": residue_runs
         },
-        loader_message="Loading forest data...",
+        loader_message="    Loading forest data...",
         save_CO2=save_CO2,
         env_overrides=env_path_overrides,
     )
@@ -1353,7 +1358,7 @@ def run_RothC_grassland(
             "grassland_lu_fp": lu_fp,
             "residue_runs": residue_runs,
         },
-        loader_message=f"Loading {grassland_type} grassland data...",
+        loader_message=f"    Loading {grassland_type} grassland data...",
         save_CO2=save_CO2,
         env_overrides=env_path_overrides,
     )
@@ -1389,7 +1394,7 @@ def run_rothc_permanent_crops_scenarios_from_excel(excel_filepath: PathLike, for
     )
 
     if run_test:
-        print("Running test. Only top 2 scenarios are run.")
+        print("Running test. Only top 2 scenarios are run. Residue runs forced to 2")
         scenarios = scenarios[0:2]
 
     # 2) Turn into a list of dicts once (so we know the total count)
@@ -1399,9 +1404,12 @@ def run_rothc_permanent_crops_scenarios_from_excel(excel_filepath: PathLike, for
     for scenario in scenario_list:
         scn_string_text = f"Permanent crop - {scenario['crop_name']} - {scenario['irr_yield_scaling']}"
 
+        if run_test:
+            scenario["residue_runs"] = 2
+
         # Checks if output filepath exist
         output_folder = scenario["save_folder"]
-        output_string = f"{scenario["crop_name"]}_{scenario['irr_yield_scaling']}_{2016+scenario['n_years']}y_SOC.tif"
+        output_string = f"{scenario['crop_name']}_{scenario['irr_yield_scaling']}_{2016 + scenario['n_years']}y_SOC.tif"
         output_path = f"{output_folder}/{output_string}"
 
         if force_new_files:

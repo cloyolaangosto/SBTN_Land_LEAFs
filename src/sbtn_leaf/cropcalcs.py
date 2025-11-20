@@ -297,6 +297,7 @@ def _create_crop_yield_raster_core(
     rng: Optional[np.random.Generator] = None,
     write_output: bool = True,
     return_array: bool = False,
+    print_outputs: bool = False,
 ):
     """Shared implementation for the crop yield raster generators."""
 
@@ -388,7 +389,7 @@ def _create_crop_yield_raster_core(
             dst_nodata=np.nan,
         )
 
-        irr_ratios, rf_ratios = calculate_SPAM_yield_modifiers(all_fp_on_lu, irr_fp_on_lu, rf_fp_on_lu)
+        irr_ratios, rf_ratios = calculate_SPAM_yield_modifiers(all_fp_on_lu, irr_fp_on_lu, rf_fp_on_lu, print_outputs)
         watering_ratio = irr_ratios if scaling_mode == "irr" else rf_ratios
 
         valid_wat = ~np.isnan(watering_ratio)
@@ -419,7 +420,8 @@ def _create_crop_yield_raster_core(
 
     if all_fp_on_lu is not None:
         label = "rainfed" if scaling_mode == "rf" else "irrigation"
-        print(f"  → Applying {label} scaling to all‐SPAM yields…")
+        if print_outputs:
+            print(f"  → Applying {label} scaling to all‐SPAM yields…")
         mask_all = lu_mask & np.isnan(result) & ~np.isnan(all_fp_on_lu)
         result[mask_all] = all_fp_on_lu[mask_all] * avg_wat_ratio
 
@@ -503,6 +505,7 @@ def create_crop_yield_raster(
         fao_avg_yield_name="avg_yield_1423",
         fao_yield_ratio_name="ratio_yield_20_toavg",
         fao_sd_yield_name="sd_yields_1423",
+        print_outputs=True
     )
 
 
@@ -549,6 +552,7 @@ def create_crop_yield_raster_withIrrigationPracticeScaling(
         irr_fp=irr_fp,
         rf_fp=rf_fp,
         apply_ecoregion_fill=apply_ecoregion_fill,
+        print_outputs=True
     )
 
 
@@ -559,7 +563,8 @@ def calculate_SPAM_yield_modifiers(
     save_ratios: bool = False,
     all_rasters_fp: Optional[str] = None,
     irr_ratios_fp: Optional[str] = None,
-    rf_ratios_fp: Optional[str] = None
+    rf_ratios_fp: Optional[str] = None,
+    print_outputs: bool = False
 ):
     '''
     Calculates the the ratios yields between irrigated:all and rainfed:all
@@ -598,8 +603,9 @@ def calculate_SPAM_yield_modifiers(
     # compute means safely and print using str.format to avoid f-string parsing issues
     avg_irr = np.nanmean(irr_ratios)
     avg_rf = np.nanmean(rf_ratios)
-    print("Average irrigated ratio: {:.2f}".format(avg_irr))
-    print("Average rainfed ratio: {:.2f}".format(avg_rf))
+    if print_outputs:
+        print("Average irrigated ratio: {:.2f}".format(avg_irr))
+        print("Average rainfed ratio: {:.2f}".format(avg_rf))
 
     # Step 5 - Optional, Save as GeoTiff
     if save_ratios:
@@ -1646,15 +1652,15 @@ def calculate_monthly_residues_array(
     spam_rf_fp: str,
     random_runs: int
 ):
+    # print("    Calculating stochastic residue array...")
 
     # Step 1 - Prepare fao yield shapefile
     crop_names_table = _get_crop_naming_index_table()
     fao_crop_name = crop_names_table.filter(pl.col("Crops") == crop_name).select(pl.col("FAO_Crop")).item()
-    print(f"Creating {fao_crop_name} helper shapefile...")
+    
+    # print(f"Creating {fao_crop_name} helper shapefile...")
     fao_yield_shp = create_crop_yield_shapefile(fao_crop_name)
 
-
-    print("    Calculating stochastic yield raster...")
     yields = calculate_crop_yield_array_with_irrigation_scaling(
         croplu_grid_raster_fp=   lu_fp,
         fao_crop_shp=fao_yield_shp,
@@ -1667,7 +1673,6 @@ def calculate_monthly_residues_array(
     )
 
     # Step 4 - Create plant residue raster
-    print("    Creating plant residue raster...")
     plant_residues = create_monthly_residue_vPipeline(
         crop_name,
         crop_type,
@@ -1832,7 +1837,8 @@ def create_crop_yield_raster_with_irrigation_scaling_pipeline(
         irr_fp=irr_fp,
         rf_fp=rf_fp,
         apply_ecoregion_fill=apply_ecoregion_fill,
-        random_runs=random_runs
+        random_runs=random_runs,
+        print_outputs=False
     )
 
 def calculate_crop_yield_array_with_irrigation_scaling(
