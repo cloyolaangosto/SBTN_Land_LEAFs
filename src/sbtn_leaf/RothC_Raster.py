@@ -364,10 +364,10 @@ def _raster_rothc_annual_results(
 
             # initialize c_inp
             if practices_string_id is not None and "roff" in practices_string_id:
-                # print(f"        Residues removed. C_inputs are 0's")
+                print(f"        Residues removed. C_inputs are 0's")
                 c_inp = np.zeros_like(rain)
             else:
-                # print(f"        Calculating baseline residue inputs for {crop_type} {crop_name} using {residue_runs} stochastic runs")
+                print(f"        Calculating baseline residue inputs for {crop_type} {crop_name} using {residue_runs} stochastic runs")
 
                 c_inp = cropcalcs.calculate_monthly_residues_array(
                     lu_fp=commodity_lu_fp,
@@ -566,10 +566,10 @@ def _raster_rothc_annual_results(
             ):
                 # initialize c_inp
                 if practices_string_id is not None and "roff" in practices_string_id:
-                    # print(f"        C_inputs are 0's")
+                    print(f"        C_inputs are 0's")
                     c_inp = np.zeros_like(rain)
                 else:
-                    # print(f"        Calculating baseline residue inputs for {crop_type} {crop_name}")
+                    print(f"        Calculating baseline residue inputs for {crop_type} {crop_name}")
                     c_inp = cropcalcs.calculate_monthly_residues_array(
                         lu_fp=commodity_lu_fp,
                         crop_name=crop_name,
