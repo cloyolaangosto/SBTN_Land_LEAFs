@@ -362,8 +362,10 @@ def _raster_rothc_annual_results(
 
             # initialize c_inp
             if practices_string_id is not None and "roff" in practices_string_id:
+                print(f"        C_inputs are 0's")
                 c_inp = np.zeros_like(rain)
             else:
+                print(f"        Calculating baseline residue inputs for {crop_type} {crop_name}")
                 c_inp = cropcalcs.calculate_monthly_residues_array(
                     lu_fp=commodity_lu_fp,
                     crop_name=crop_name,
@@ -382,6 +384,7 @@ def _raster_rothc_annual_results(
         crop_type = "permanent"
         
         # initialize c_inp
+        print(f"        Calculating baseline residue inputs for {crop_type} {crop_name}")
         c_inp = cropcalcs.calculate_monthly_residues_array(
             lu_fp=commodity_lu_fp,
             crop_name=crop_name,
@@ -530,8 +533,10 @@ def _raster_rothc_annual_results(
             if (t_abs + 1) < months and commodity_type in ("permanent_crop", "annual_crop"):
                 # initialize c_inp
                 if practices_string_id is not None and "roff" in practices_string_id:
+                    print(f"        C_inputs are 0's")
                     c_inp = np.zeros_like(rain)
                 else:
+                    print(f"        Calculating baseline residue inputs for {crop_type} {crop_name}")
                     c_inp = cropcalcs.calculate_monthly_residues_array(
                         lu_fp=commodity_lu_fp,
                         crop_name=crop_name,
@@ -1413,7 +1418,7 @@ def run_rothc_crops_scenarios_from_excel(excel_filepath: PathLike, force_new_fil
     )
 
     if run_test:
-        print("Running test. Only top 2 scenarios are run. Residue runs forced to 2")
+        print("Running test. Only top 2 scenarios are run. Residue runs forced to 2, years to 5.")
         scenarios = scenarios[0:2]
 
     # 2) Turn into a list of dicts once (so we know the total count)
@@ -1430,6 +1435,7 @@ def run_rothc_crops_scenarios_from_excel(excel_filepath: PathLike, force_new_fil
 
         if run_test:
             scenario["residue_runs"] = 2
+            scenario["n_years"] = 5
 
         # Checks if output filepath exist
         output_folder = scenario["save_folder"]
