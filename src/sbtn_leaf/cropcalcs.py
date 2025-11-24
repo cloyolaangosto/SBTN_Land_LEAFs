@@ -361,9 +361,9 @@ def _create_crop_yield_raster_core(
     valid_fao = ~np.isnan(fao_avg_yields_array)
 
     # Goes through SPAM
-    all_fp_on_lu: Optional[np.ndarray] = None
-    avg_wat_ratio: Optional[float] = None
-    scaling_mode: Optional[str] = None
+    all_fp_on_lu:  np.ndarray | None = None
+    irr_fp_on_lu:  np.ndarray | None = None 
+    rf_fp_on_lu:   np.ndarray | None = None
 
     if irr_yield_scaling is not None:
         scaling_mode = irr_yield_scaling.lower()
@@ -388,7 +388,12 @@ def _create_crop_yield_raster_core(
             dst_nodata=np.nan,
         )
 
-        irr_ratios, rf_ratios = calculate_SPAM_yield_modifiers(all_fp_on_lu, irr_fp_on_lu, rf_fp_on_lu, print_outputs)
+        irr_ratios, rf_ratios = calculate_SPAM_yield_modifiers(
+            all_yields  =   all_fp_on_lu, 
+            irr_yields  =   irr_fp_on_lu, 
+            rf_yields   =   rf_fp_on_lu, 
+            print_outputs = print_outputs)
+        
         watering_ratio = irr_ratios if scaling_mode == "irr" else rf_ratios
 
         valid_wat = ~np.isnan(watering_ratio)
@@ -654,6 +659,7 @@ def calculate_SPAM_yield_modifiers(
 
     # Returning ratios
     return irr_ratios, rf_ratios
+
 
 def calculate_average_yield_by_ecoregion_and_biome(
     result_arr: np.ndarray,
@@ -1657,7 +1663,8 @@ def calculate_monthly_residues_array(
     spam_all_fp: str,
     spam_irr_fp: str,
     spam_rf_fp: str,
-    random_runs: int
+    random_runs: int,
+    print_outputs: bool = False
 ):
     # print("    Calculating stochastic residue array...")
 
@@ -1676,7 +1683,8 @@ def calculate_monthly_residues_array(
         all_fp=spam_all_fp,
         irr_fp=spam_irr_fp,
         rf_fp=spam_rf_fp,
-        random_runs=random_runs
+        random_runs=random_runs,
+        print_outputs= print_outputs
     )
 
     # Step 4 - Create plant residue raster
@@ -1939,7 +1947,8 @@ def create_crop_yield_raster_with_irrigation_scaling_pipeline(
     fao_yield_ratio_name: str = "yld_ratio",
     fao_sd_yield_name: str = "sd_yield",
     apply_ecoregion_fill: bool = True,
-    random_runs: int = 1
+    random_runs: int = 1,
+    print_outputs: bool = False
 ):
     """Pipeline wrapper around :func:`create_crop_yield_raster_withIrrigationPracticeScaling`."""
 
@@ -1959,7 +1968,7 @@ def create_crop_yield_raster_with_irrigation_scaling_pipeline(
         rf_fp=rf_fp,
         apply_ecoregion_fill=apply_ecoregion_fill,
         random_runs=random_runs,
-        print_outputs=False
+        print_outputs=print_outputs
     )
 
 def calculate_crop_yield_array_with_irrigation_scaling(
@@ -1976,7 +1985,8 @@ def calculate_crop_yield_array_with_irrigation_scaling(
     fao_yield_ratio_name: str = "yld_ratio",
     fao_sd_yield_name: str = "sd_yield",
     apply_ecoregion_fill: bool = True,
-    random_runs: int = 1
+    random_runs: int = 1,
+    print_outputs: bool = False
 ):
     """Pipeline wrapper around :func:`create_crop_yield_raster_withIrrigationPracticeScaling`."""
 
@@ -1996,7 +2006,8 @@ def calculate_crop_yield_array_with_irrigation_scaling(
         random_runs=random_runs,
         apply_ecoregion_fill=apply_ecoregion_fill,
         write_output= False,
-        return_array=True
+        return_array=True,
+        print_outputs= print_outputs
     )
 
     return yields

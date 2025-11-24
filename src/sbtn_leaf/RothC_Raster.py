@@ -362,10 +362,11 @@ def _raster_rothc_annual_results(
 
             # initialize c_inp
             if practices_string_id is not None and "roff" in practices_string_id:
-                print(f"        C_inputs are 0's")
+                print(f"        Residues removed. C_inputs are 0's")
                 c_inp = np.zeros_like(rain)
             else:
-                print(f"        Calculating baseline residue inputs for {crop_type} {crop_name}")
+                print(f"        Calculating baseline residue inputs for {crop_type} {crop_name} using {residue_runs} stochastic runs")
+
                 c_inp = cropcalcs.calculate_monthly_residues_array(
                     lu_fp=commodity_lu_fp,
                     crop_name=crop_name,
@@ -375,7 +376,8 @@ def _raster_rothc_annual_results(
                     spam_all_fp = spam_all_fp,
                     spam_irr_fp = spam_irr_fp,
                     spam_rf_fp = spam_rf_fp,
-                    random_runs=residue_runs
+                    random_runs=residue_runs,
+                    print_outputs= True
                 )
             c_inp = np.squeeze(np.asarray(c_inp))
         
@@ -546,7 +548,8 @@ def _raster_rothc_annual_results(
                         spam_all_fp = spam_all_fp,
                         spam_irr_fp = spam_irr_fp,
                         spam_rf_fp = spam_rf_fp,
-                        random_runs=residue_runs
+                        random_runs=residue_runs,
+                        print_outputs= True
                     )
                 c_inp = np.squeeze(np.asarray(c_inp))
 
@@ -567,6 +570,7 @@ def raster_rothc_annual_results_1yrloop(
     fym: Optional[np.ndarray] = None,
     crop_name: Optional[str] = None,
     spam_crop_raster: Optional[str] = None,
+    practices_string_id: Optional[str] = None,
     irr_yield_scaling: Optional[str] = None,
     spam_all_fp: Optional[str] = None,
     spam_irr_fp: Optional[str] = None,
@@ -624,6 +628,7 @@ def raster_rothc_annual_results_1yrloop(
         forest_age = forest_age,
         crop_name = crop_name,
         spam_crop_raster = spam_crop_raster,
+        practices_string_id = practices_string_id,
         irr_yield_scaling = irr_yield_scaling,
         spam_all_fp = spam_all_fp,
         spam_irr_fp = spam_irr_fp,
@@ -1100,6 +1105,7 @@ def run_RothC_crops(
         scenario: Dict[str, Any],
         commodity_type: str,
         red_till: bool,
+        practices_string_id: Optional[str],
         irr_yield_scaling: Optional[str],
         spam_crop_raster: Optional[str],
         spam_all_fp: Optional[str],
@@ -1128,6 +1134,7 @@ def run_RothC_crops(
             commodity_lu_fp=lu_fp,
             crop_name=crop_name,
             spam_crop_raster = spam_crop_raster,
+            practices_string_id = practices_string_id,
             irr_yield_scaling = irr_yield_scaling,
             spam_all_fp = spam_all_fp,
             spam_irr_fp = spam_irr_fp,
@@ -1168,7 +1175,7 @@ def run_RothC_crops(
             "commodity_type": commodity_type,
             "red_till": red_till,
             "irr_yield_scaling": irr_yield_scaling,
-            "irr_yield_scaling": irr_yield_scaling,
+            "practices_string_id": practices_string_id,
             "spam_crop_raster": spam_crop_raster,
             "spam_all_fp": spam_all_fp,
             "spam_irr_fp": spam_irr_fp,
@@ -1431,7 +1438,8 @@ def run_rothc_crops_scenarios_from_excel(excel_filepath: PathLike, force_new_fil
         else:
             crop_type_string = "Annual"
         
-        scn_string_text = f"{crop_type_string} crop - {scenario['crop_name']} - {scenario['irr_yield_scaling']}"
+        scenario_description = (scenario["practices_string_id"] if scenario["practices_string_id"] is not None else scenario    ["irr_yield_scaling"])
+        scn_string_text = f"{crop_type_string} crop - {scenario['crop_name']} - {scenario_description}"
 
         if run_test:
             scenario["residue_runs"] = 2
@@ -1439,7 +1447,7 @@ def run_rothc_crops_scenarios_from_excel(excel_filepath: PathLike, force_new_fil
 
         # Checks if output filepath exist
         output_folder = scenario["save_folder"]
-        output_string = f"{scenario['crop_name']}_{scenario['irr_yield_scaling']}_{2016 + scenario['n_years']}y_SOC.tif"
+        output_string = f"{scenario['crop_name']}_{scenario_description}_{2016 + scenario['n_years']}y_SOC.tif"
         output_path = f"{output_folder}/{output_string}"
 
         if force_new_files:
