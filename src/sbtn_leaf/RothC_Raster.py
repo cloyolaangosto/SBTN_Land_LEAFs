@@ -362,10 +362,10 @@ def _raster_rothc_annual_results(
 
             # initialize c_inp
             if practices_string_id is not None and "roff" in practices_string_id:
-                print(f"        Residues removed. C_inputs are 0's")
+                # print(f"        Residues removed. C_inputs are 0's")
                 c_inp = np.zeros_like(rain)
             else:
-                print(f"        Calculating baseline residue inputs for {crop_type} {crop_name} using {residue_runs} stochastic runs")
+                # print(f"        Calculating baseline residue inputs for {crop_type} {crop_name} using {residue_runs} stochastic runs")
 
                 c_inp = cropcalcs.calculate_monthly_residues_array(
                     lu_fp=commodity_lu_fp,
@@ -377,7 +377,7 @@ def _raster_rothc_annual_results(
                     spam_irr_fp = spam_irr_fp,
                     spam_rf_fp = spam_rf_fp,
                     random_runs=residue_runs,
-                    print_outputs= True
+                    print_outputs= False
                 )
             c_inp = np.squeeze(np.asarray(c_inp))
         
@@ -386,7 +386,7 @@ def _raster_rothc_annual_results(
         crop_type = "permanent"
         
         # initialize c_inp
-        print(f"        Calculating baseline residue inputs for {crop_type} {crop_name}")
+        # print(f"        Calculating baseline residue inputs for {crop_type} {crop_name}")
         c_inp = cropcalcs.calculate_monthly_residues_array(
             lu_fp=commodity_lu_fp,
             crop_name=crop_name,
@@ -535,10 +535,10 @@ def _raster_rothc_annual_results(
             if (t_abs + 1) < months and commodity_type in ("permanent_crop", "annual_crop"):
                 # initialize c_inp
                 if practices_string_id is not None and "roff" in practices_string_id:
-                    print(f"        C_inputs are 0's")
+                    # print(f"        C_inputs are 0's")
                     c_inp = np.zeros_like(rain)
                 else:
-                    print(f"        Calculating baseline residue inputs for {crop_type} {crop_name}")
+                    # print(f"        Calculating baseline residue inputs for {crop_type} {crop_name}")
                     c_inp = cropcalcs.calculate_monthly_residues_array(
                         lu_fp=commodity_lu_fp,
                         crop_name=crop_name,
