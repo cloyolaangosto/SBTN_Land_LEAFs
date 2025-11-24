@@ -1093,6 +1093,11 @@ def run_RothC_crops(
         scenario: Dict[str, Any],
         commodity_type: str,
         red_till: bool,
+        irr_yield_scaling: Optional[str],
+        spam_crop_raster: Optional[str],
+        spam_all_fp: Optional[str],
+        spam_irr_fp: Optional[str],
+        spam_rf_fp: Optional[str],
     ) -> Tuple[np.ndarray, Optional[np.ndarray]]:
         evap_a = np.asarray(scenario["evap"].values)
         pc_a = np.asarray(scenario["pc"].values)
@@ -1117,7 +1122,6 @@ def run_RothC_crops(
             crop_name=crop_name,
             spam_crop_raster = spam_crop_raster,
             irr_yield_scaling = irr_yield_scaling,
-            practices_string_id = practices_string_id
             spam_all_fp = spam_all_fp,
             spam_irr_fp = spam_irr_fp,
             spam_rf_fp = spam_rf_fp,
@@ -1157,7 +1161,11 @@ def run_RothC_crops(
             "commodity_type": commodity_type,
             "red_till": red_till,
             "irr_yield_scaling": irr_yield_scaling,
-            "practices_string_id": practices_string_id
+            "irr_yield_scaling": irr_yield_scaling,
+            "spam_crop_raster": spam_crop_raster,
+            "spam_all_fp": spam_all_fp,
+            "spam_irr_fp": spam_irr_fp,
+            "spam_rf_fp": spam_rf_fp,
         },
         loader_message="    Loading crop data...",
         save_CO2=save_CO2,
@@ -1373,7 +1381,7 @@ def run_RothC_grassland(
     )
 
 
-def run_rothC_crop_scenarios_from_csv(csv_filepath: PathLike):
+def DEPRECATED_run_rothC_crop_scenarios_from_csv(csv_filepath: PathLike):
     # 1) Read & cast your CSV exactly as before
     scenarios = (
         pl.read_csv(_resolve_data_path(csv_filepath), null_values=["", "None"])
@@ -1393,10 +1401,10 @@ def run_rothC_crop_scenarios_from_csv(csv_filepath: PathLike):
         run_RothC_crops(**scenario)
         print("\n\n")
 
-def run_rothc_permanent_crops_scenarios_from_excel(excel_filepath: PathLike, force_new_files: bool = False, run_test: bool = False):
+def run_rothc_crops_scenarios_from_excel(excel_filepath: PathLike, force_new_files: bool = False, run_test: bool = False, scenario_sheet_name = "scenarios"):
     # 1) Read & cast your CSV exactly as before
     scenarios = (
-        pl.read_excel(_resolve_data_path(excel_filepath), has_header=True, sheet_name="scenarios")
+        pl.read_excel(_resolve_data_path(excel_filepath), has_header=True, sheet_name=scenario_sheet_name)
         .with_columns([
             pl.col("n_years").cast(pl.Int64)
         ])
@@ -1411,7 +1419,12 @@ def run_rothc_permanent_crops_scenarios_from_excel(excel_filepath: PathLike, for
 
     # 3) Iterate with tqdm
     for scenario in scenario_list:
-        scn_string_text = f"Permanent crop - {scenario['crop_name']} - {scenario['irr_yield_scaling']}"
+        if scenario["commodity_type"] == "permanent_crop":
+            crop_type_string = "Permanent"
+        else:
+            crop_type_string = "Annual"
+        
+        scn_string_text = f"{crop_type_string} crop - {scenario['crop_name']} - {scenario['irr_yield_scaling']}"
 
         if run_test:
             scenario["residue_runs"] = 2
