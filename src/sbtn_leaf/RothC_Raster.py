@@ -380,6 +380,7 @@ def _raster_rothc_annual_results(
     elif commodity_type == "permanent_crop":
         dpm_rpm = 1
         crop_type = "permanent"
+        
         # initialize c_inp
         c_inp = cropcalcs.calculate_monthly_residues_array(
             lu_fp=commodity_lu_fp,
@@ -395,6 +396,7 @@ def _raster_rothc_annual_results(
 
     else: # forest type
         dpm_rpm = 0.25
+        
         # Checks that all forest inputs are there
         if forest_age is None or forest_type is None or weather_type is None or TP_IPCC_bool is None:
             raise ValueError("Missing forest inputs. Specify forest_age, forest_type, weather_type and TP_IPCC_bool")
