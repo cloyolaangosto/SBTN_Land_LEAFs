@@ -1569,10 +1569,16 @@ def multiply_rasters(raster_paths, output_path=None, band=1):
     
     # Create a valid mask that tracks where the data are valid (i.e. not no_data).
     if nodata0 is not None:
-        # True where the value is not equal to the no_data value.
-        valid_mask = (data0 != nodata0)
-        # Replace no_data values with 1 so that they do not affect the multiplication.
-        data0 = np.where(data0 == nodata0, 1, data0)
+        if isinstance(nodata0, float) and np.isnan(nodata0):
+            # True where the value is not NaN.
+            valid_mask = ~np.isnan(data0)
+            # Replace NaN values with 1 so that they do not affect the multiplication.
+            data0 = np.where(np.isnan(data0), 1, data0)
+        else:
+            # True where the value is not equal to the no_data value.
+            valid_mask = (data0 != nodata0)
+            # Replace no_data values with 1 so that they do not affect the multiplication.
+            data0 = np.where(data0 == nodata0, 1, data0)
     else:
         valid_mask = np.ones_like(data0, dtype=bool)  # All values are valid if no no_data is defined.
     
@@ -1596,10 +1602,16 @@ def multiply_rasters(raster_paths, output_path=None, band=1):
             # Get the no_data value for the current raster.
             nodata = src.nodata
             if nodata is not None:
-                # Update the valid mask: a pixel remains valid only if it's valid in all rasters.
-                valid_mask &= (data != nodata)
-                # Replace no_data values with 1 (neutral for multiplication).
-                data = np.where(data == nodata, 1, data)
+                if isinstance(nodata, float) and np.isnan(nodata):
+                    # Update the valid mask: a pixel remains valid only if it's valid in all rasters.
+                    valid_mask &= ~np.isnan(data)
+                    # Replace NaN values with 1 (neutral for multiplication).
+                    data = np.where(np.isnan(data), 1, data)
+                else:
+                    # Update the valid mask: a pixel remains valid only if it's valid in all rasters.
+                    valid_mask &= (data != nodata)
+                    # Replace no_data values with 1 (neutral for multiplication).
+                    data = np.where(data == nodata, 1, data)
             else:
                 # If no no_data is defined, consider all pixels as valid.
                 valid_mask &= np.ones_like(data, dtype=bool)
