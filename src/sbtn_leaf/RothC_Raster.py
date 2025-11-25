@@ -1472,7 +1472,7 @@ def run_rothc_crops_scenarios_from_excel(excel_filepath: PathLike, all_new_files
         else:
             crop_type_string = "Annual"
         
-        scenario_description = (scenario["practices_string_id"] if scenario["practices_string_id"] is not None else scenario    ["irr_yield_scaling"])
+        scenario_description = (scenario["practices_string_id"] if "practices_string_id" in scenario else scenario    ["irr_yield_scaling"])
         scn_string_text = f"{crop_type_string} crop - {scenario['crop_name']} - {scenario_description}"
 
         if run_test:
