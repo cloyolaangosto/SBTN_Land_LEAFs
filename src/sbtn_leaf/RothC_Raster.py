@@ -1446,7 +1446,7 @@ def DEPRECATED_run_rothC_crop_scenarios_from_csv(csv_filepath: PathLike):
         run_RothC_crops(**scenario)
         print("\n\n")
 
-def run_rothc_crops_scenarios_from_excel(excel_filepath: PathLike, force_new_files: bool = False, run_test: bool = False, scenario_sheet_name = "scenarios"):
+def run_rothc_crops_scenarios_from_excel(excel_filepath: PathLike, all_new_files: bool = False, run_test: bool = False, scenario_sheet_name = "scenarios"):
     # 1) Read & cast your CSV exactly as before
     scenarios = (
         pl.read_excel(_resolve_data_path(excel_filepath), has_header=True, sheet_name=scenario_sheet_name)
@@ -1464,6 +1464,8 @@ def run_rothc_crops_scenarios_from_excel(excel_filepath: PathLike, force_new_fil
 
     # 3) Iterate with tqdm
     for scenario in scenario_list:
+        file_fnw = scenario["force_new_file"]
+
         if scenario["commodity_type"] == "permanent_crop":
             crop_type_string = "Permanent"
         else:
@@ -1481,7 +1483,13 @@ def run_rothc_crops_scenarios_from_excel(excel_filepath: PathLike, force_new_fil
         output_string = f"{scenario['crop_name']}_{scenario_description}_{2016 + scenario['n_years']}y_SOC.tif"
         output_path = f"{output_folder}/{output_string}"
 
-        if force_new_files:
+        # Remove 'force_new_file' so it's not forwarded to run_RothC_crops
+        scenario.pop("force_new_file", None)
+
+        if all_new_files:
+            print(f"Running {scn_string_text}")
+            run_RothC_crops(**scenario)
+        elif file_fnw is not None and file_fnw is True:
             print(f"Running {scn_string_text}")
             run_RothC_crops(**scenario)
         else:
