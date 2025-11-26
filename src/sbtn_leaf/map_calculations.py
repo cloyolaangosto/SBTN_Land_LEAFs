@@ -633,8 +633,6 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
     # Reproject the shapefile to the raster's (equal-area) CRS
     shp = shp.to_crs(raster_crs)
 
-    # Initialize empty results array and select the proper band of the raster
-    raster_data = raster.sel(band = raster_band)
     results = []
 
     # Iterate regions (itertuples gives ~25-30% speedup vs iterrows on large shapefiles in local tests)
@@ -665,17 +663,17 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
             # Clip quickly to region bounds; fall back to precise clipping if needed
             minx, miny, maxx, maxy = geom.bounds
             try:
-                window = raster_data.rio.window(minx, miny, maxx, maxy)
-                masked = raster_data.rio.isel_window(window)
+                window = raster.rio.window(minx, miny, maxx, maxy)
+                masked = raster.rio.isel_window(window)
                 if masked.size == 0 or masked.rio.width == 0 or masked.rio.height == 0:
                     if log:
                         log.debug("Window outside raster for %s. Skipping...", region_text)
                     continue
             except Exception:
-                masked = raster_data.rio.clip([geom], drop=True)
+                masked = raster.rio.clip([geom], drop=True)
 
-            # Extract band 1 as ndarray; masked is xarray.DataArray with shape (band, y, x)
-            arr = masked.values[0]  # (H, W)
+            # Extract band given as ndarray; masked is xarray.DataArray with shape (band, y, x)
+            arr = masked.values[raster_band-1]  # (H, W)
             # nodata from reprojected raster
             nodata = masked.rio.nodata
 
