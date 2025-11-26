@@ -528,6 +528,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
     flow_name: str,
     area_type: str,
     run_test: bool = False,
+    raster_band: int = 1,
     *,
     # Equal-area handling
     equal_area_crs: str = "EPSG:6933",
@@ -632,6 +633,8 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
     # Reproject the shapefile to the raster's (equal-area) CRS
     shp = shp.to_crs(raster_crs)
 
+    # Initialize empty results array and select the proper band of the raster
+    raster_data = raster.sel(band = raster_band)
     results = []
 
     # Iterate regions (itertuples gives ~25-30% speedup vs iterrows on large shapefiles in local tests)
@@ -662,14 +665,14 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
             # Clip quickly to region bounds; fall back to precise clipping if needed
             minx, miny, maxx, maxy = geom.bounds
             try:
-                window = raster.rio.window(minx, miny, maxx, maxy)
-                masked = raster.rio.isel_window(window)
+                window = raster_data.rio.window(minx, miny, maxx, maxy)
+                masked = raster_data.rio.isel_window(window)
                 if masked.size == 0 or masked.rio.width == 0 or masked.rio.height == 0:
                     if log:
                         log.debug("Window outside raster for %s. Skipping...", region_text)
                     continue
             except Exception:
-                masked = raster.rio.clip([geom], drop=True)
+                masked = raster_data.rio.clip([geom], drop=True)
 
             # Extract band 1 as ndarray; masked is xarray.DataArray with shape (band, y, x)
             arr = masked.values[0]  # (H, W)
@@ -814,16 +817,18 @@ def build_cfs_gpkg_from_rasters(
     master_gdf: gpd.GeoDataFrame,
     master_key: str,                 # e.g., 'ADM0_NAME', 'ISO_A3', 'ADM1_NAME', 'ECO_NAME'
     result_key: str,                 # column in calculator's gdf that matches master_key
-    input_raster_key: Optional[str], # optional filename prefix filter; if set, only files starting with it are processed
+
     equal_area_crs: str= "EPSG:6933",
     cf_name: str,
     cf_unit: str,
     area_type: str,
+    input_raster_key_startswith: Optional[str] = None, # optional filename prefix filter; if set, only files starting with it are processed
+    input_raster_key_endswith: Optional[str] = None,
     calc_kwargs: Optional[dict] = None,
     file_filter: Iterable[str] = (".tif", ".tiff"),
     reset_gpkg: bool = True,         # remove existing gpkg before first write
     promote_to_multi: bool = True,   # avoid Polygon/MultiPolygon mismatches
-    add_provenance: bool = True,     # add _source_file column
+    add_source_file_name: bool = True,     # add _source_file column
     run_test: bool = False,          # process only first 5 rasters
     logger: Optional[logging.Logger] = build_logger,  # pass a logger or None
     sig_figures: int = 4,
@@ -870,7 +875,7 @@ def build_cfs_gpkg_from_rasters(
         file
         for file in all_files
         if file.lower().endswith(tuple(file_filter))
-        and (not input_raster_key or file.startswith(input_raster_key))
+        and (not input_raster_key_startswith or file.startswith(input_raster_key_startswith))
     ]
 
     progress_iter = tqdm(
@@ -933,8 +938,10 @@ def build_cfs_gpkg_from_rasters(
 
             raster_path = os.path.join(input_folder, file)
             flow_name = os.path.splitext(file)[0]
-            if input_raster_key:
-                flow_name = flow_name.replace(input_raster_key, "")
+            if input_raster_key_startswith:
+                flow_name = flow_name.replace(input_raster_key_startswith, "")
+            if input_raster_key_endswith:
+                flow_name = flow_name.replace(input_raster_key_startswith, "")
 
             if logger:
                 logger.info(f"Calculating {cf_name} for {flow_name}...")
@@ -982,7 +989,7 @@ def build_cfs_gpkg_from_rasters(
                 if col in flow_values.columns:
                     flow_values[col] = flow_values[col].astype("float32")
 
-            if add_provenance:
+            if add_source_file_name:
                 flow_values["_source_file"] = file
 
             # Record metadata once per flow (recommendation #2)
@@ -991,7 +998,7 @@ def build_cfs_gpkg_from_rasters(
                 "impact_category": cf_name,
                 "unit": cf_unit,
             }
-            if add_provenance:
+            if add_source_file_name:
                 metadata_entry["source_file"] = file
             metadata_records.append(metadata_entry)
 
