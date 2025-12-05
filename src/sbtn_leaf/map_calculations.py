@@ -812,10 +812,9 @@ def build_cfs_gpkg_from_rasters(
     output_folder: str,
     *,
     layer_name: str,
-    master_gdf: gpd.GeoDataFrame,
+    master_gdf: gpd.GeoDataFrame | None,
     master_key: str,                 # e.g., 'ADM0_NAME', 'ISO_A3', 'ADM1_NAME', 'ECO_NAME'
     result_key: str,                 # column in calculator's gdf that matches master_key
-
     equal_area_crs: str= "EPSG:6933",
     cf_name: str,
     cf_unit: str,
