@@ -805,8 +805,8 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
     final_gdf = final_gdf.drop(columns=drop_cols)
     return [results_df, final_gdf]
 
-## FUNCTION TO CALCULATE ALL LEAF INTO 1 PACKAGE ##
 
+## FUNCTION TO CALCULATE ALL LEAF INTO 1 PACKAGE ##
 def build_cfs_gpkg_from_rasters(
     input_folder: str,
     output_folder: str,
