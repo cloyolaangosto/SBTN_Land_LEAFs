@@ -33,7 +33,7 @@ import numpy as np
 import pandas as pd
 
 # My modules
-import sbtn_leaf.map_plotting as mp
+import sbtn_leaf.map_plotting as maplot
 from sbtn_leaf.paths import data_path
 
 ############
@@ -528,6 +528,7 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
     flow_name: str,
     area_type: str,
     run_test: bool = False,
+    raster_band: int = 1,
     *,
     # Equal-area handling
     equal_area_crs: str = "EPSG:6933",
@@ -671,8 +672,8 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
             except Exception:
                 masked = raster.rio.clip([geom], drop=True)
 
-            # Extract band 1 as ndarray; masked is xarray.DataArray with shape (band, y, x)
-            arr = masked.values[0]  # (H, W)
+            # Extract band given as ndarray; masked is xarray.DataArray with shape (band, y, x)
+            arr = masked.values[raster_band-1]  # (H, W)
             # nodata from reprojected raster
             nodata = masked.rio.nodata
 
@@ -804,26 +805,27 @@ def calculate_area_weighted_cfs_from_raster_with_std_and_median_vOutliers(
     final_gdf = final_gdf.drop(columns=drop_cols)
     return [results_df, final_gdf]
 
-## FUNCTION TO CALCULATE ALL LEAF INTO 1 PACKAGE ##
 
+## FUNCTION TO CALCULATE ALL LEAF INTO 1 PACKAGE ##
 def build_cfs_gpkg_from_rasters(
     input_folder: str,
     output_folder: str,
     *,
     layer_name: str,
-    master_gdf: gpd.GeoDataFrame,
+    master_gdf: gpd.GeoDataFrame | None,
     master_key: str,                 # e.g., 'ADM0_NAME', 'ISO_A3', 'ADM1_NAME', 'ECO_NAME'
     result_key: str,                 # column in calculator's gdf that matches master_key
-    input_raster_key: Optional[str], # optional filename prefix filter; if set, only files starting with it are processed
     equal_area_crs: str= "EPSG:6933",
     cf_name: str,
     cf_unit: str,
     area_type: str,
+    input_raster_key_startswith: Optional[str] = None, # optional filename prefix filter; if set, only files starting with it are processed
+    input_raster_key_endswith: Optional[str] = None,
     calc_kwargs: Optional[dict] = None,
     file_filter: Iterable[str] = (".tif", ".tiff"),
     reset_gpkg: bool = True,         # remove existing gpkg before first write
     promote_to_multi: bool = True,   # avoid Polygon/MultiPolygon mismatches
-    add_provenance: bool = True,     # add _source_file column
+    add_source_file_name: bool = True,     # add _source_file column
     run_test: bool = False,          # process only first 5 rasters
     logger: Optional[logging.Logger] = build_logger,  # pass a logger or None
     sig_figures: int = 4,
@@ -870,7 +872,7 @@ def build_cfs_gpkg_from_rasters(
         file
         for file in all_files
         if file.lower().endswith(tuple(file_filter))
-        and (not input_raster_key or file.startswith(input_raster_key))
+        and (not input_raster_key_startswith or file.startswith(input_raster_key_startswith))
     ]
 
     progress_iter = tqdm(
@@ -933,8 +935,10 @@ def build_cfs_gpkg_from_rasters(
 
             raster_path = os.path.join(input_folder, file)
             flow_name = os.path.splitext(file)[0]
-            if input_raster_key:
-                flow_name = flow_name.replace(input_raster_key, "")
+            if input_raster_key_startswith:
+                flow_name = flow_name.replace(input_raster_key_startswith, "")
+            if input_raster_key_endswith:
+                flow_name = flow_name.replace(input_raster_key_startswith, "")
 
             if logger:
                 logger.info(f"Calculating {cf_name} for {flow_name}...")
@@ -982,7 +986,7 @@ def build_cfs_gpkg_from_rasters(
                 if col in flow_values.columns:
                     flow_values[col] = flow_values[col].astype("float32")
 
-            if add_provenance:
+            if add_source_file_name:
                 flow_values["_source_file"] = file
 
             # Record metadata once per flow (recommendation #2)
@@ -991,7 +995,7 @@ def build_cfs_gpkg_from_rasters(
                 "impact_category": cf_name,
                 "unit": cf_unit,
             }
-            if add_provenance:
+            if add_source_file_name:
                 metadata_entry["source_file"] = file
             metadata_records.append(metadata_entry)
 
@@ -1532,8 +1536,10 @@ def calculate_polygon_means_from_raster(raster_path: str,
 
 def multiply_rasters(raster_paths, output_path=None, band=1):
     """
-    Multiplies n number of rasters element-wise after verifying that they all share the same 
-    coordinate system (CRS) and dimensions, while handling no_data values.
+    Multiplies n number of rasters element-wise after verifying that they all share the same
+    coordinate system (CRS) and dimensions, while handling no_data values. When rasters differ
+    in transform, width, or height they are resampled to the baseline grid (first raster) before
+    multiplication to ensure co-registration.
     
     Handling of no_data:
     - For each raster, if a no_data value is defined, we create/update a 'valid_mask' that is True 
@@ -1565,14 +1571,23 @@ def multiply_rasters(raster_paths, output_path=None, band=1):
         data0 = src.read(band).astype("float64")
         meta = src.meta.copy()         # Copy metadata for potential output.
         base_crs = src.crs             # Get the coordinate reference system of the first raster.
+        base_transform = src.transform
+        base_width = src.width
+        base_height = src.height
         nodata0 = src.nodata           # Get the no_data value for the first raster.
     
     # Create a valid mask that tracks where the data are valid (i.e. not no_data).
     if nodata0 is not None:
-        # True where the value is not equal to the no_data value.
-        valid_mask = (data0 != nodata0)
-        # Replace no_data values with 1 so that they do not affect the multiplication.
-        data0 = np.where(data0 == nodata0, 1, data0)
+        if isinstance(nodata0, float) and np.isnan(nodata0):
+            # True where the value is not NaN.
+            valid_mask = ~np.isnan(data0)
+            # Replace NaN values with 1 so that they do not affect the multiplication.
+            data0 = np.where(np.isnan(data0), 1, data0)
+        else:
+            # True where the value is not equal to the no_data value.
+            valid_mask = (data0 != nodata0)
+            # Replace no_data values with 1 so that they do not affect the multiplication.
+            data0 = np.where(data0 == nodata0, 1, data0)
     else:
         valid_mask = np.ones_like(data0, dtype=bool)  # All values are valid if no no_data is defined.
     
@@ -1588,18 +1603,46 @@ def multiply_rasters(raster_paths, output_path=None, band=1):
             
             # Read the current raster band as float64.
             data = src.read(band).astype("float64")
-            
-            # Ensure the current raster has the same dimensions.
+
+            # Ensure the current raster is on the same grid as the baseline raster.
+            if (
+                src.transform != base_transform
+                or src.width != base_width
+                or src.height != base_height
+            ):
+                aligned = np.empty_like(product)
+                reproject(
+                    source=data,
+                    destination=aligned,
+                    src_transform=src.transform,
+                    src_crs=src.crs,
+                    dst_transform=base_transform,
+                    dst_crs=base_crs,
+                    resampling=Resampling.nearest,
+                    src_nodata=src.nodata,
+                    dst_nodata=src.nodata,
+                )
+                data = aligned
+
+            # Ensure the current raster has the same dimensions after alignment.
             if data.shape != product.shape:
-                raise ValueError(f"Raster shapes do not match: {raster_paths[0]} and {path}")
+                raise ValueError(
+                    f"Raster alignment mismatch: {raster_paths[0]} and {path} cannot be co-registered."
+                )
             
             # Get the no_data value for the current raster.
             nodata = src.nodata
             if nodata is not None:
-                # Update the valid mask: a pixel remains valid only if it's valid in all rasters.
-                valid_mask &= (data != nodata)
-                # Replace no_data values with 1 (neutral for multiplication).
-                data = np.where(data == nodata, 1, data)
+                if isinstance(nodata, float) and np.isnan(nodata):
+                    # Update the valid mask: a pixel remains valid only if it's valid in all rasters.
+                    valid_mask &= ~np.isnan(data)
+                    # Replace NaN values with 1 (neutral for multiplication).
+                    data = np.where(np.isnan(data), 1, data)
+                else:
+                    # Update the valid mask: a pixel remains valid only if it's valid in all rasters.
+                    valid_mask &= (data != nodata)
+                    # Replace no_data values with 1 (neutral for multiplication).
+                    data = np.where(data == nodata, 1, data)
             else:
                 # If no no_data is defined, consider all pixels as valid.
                 valid_mask &= np.ones_like(data, dtype=bool)

@@ -17,3 +17,5 @@ Grapes,permanent,rf,../data/land_use/lu_Rainfed_Grapes.tif,../data/crops/rothc_s
 Oil palm,permanent,rf,../data/land_use/lu_Rainfed_Oil_palm.tif,../data/crops/rothc_support,TRUE
 Olive,permanent,rf,../data/land_use/lu_Rainfed_Olives.tif,../data/crops/rothc_support,TRUE
 Orange,permanent,rf,../data/land_use/lu_Rainfed_Oranges.tif,../data/crops/rothc_support,TRUE
+Sugarcane,permanent,irr,../data/land_use/lu_Irrigated_Sugarcane.tif,../data/crops/rothc_support,TRUE
+Sugarcane,permanent,rf,../data/land_use/lu_Rainfed_Sugarcane.tif,../data/crops/rothc_support,TRUE

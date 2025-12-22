@@ -5,14 +5,16 @@
 from pathlib import Path
 import logging
 from functools import lru_cache
-
+import hashlib
+from collections import defaultdict
+import numpy as np
+import polars as pl
+import rasterio
 import numpy as np
 import pandas as pd
 import polars as pl
 import xarray as xr
-
-from typing import Mapping, Optional, Tuple, Dict, Union, List, NamedTuple
-
+from typing import Mapping, Optional, Tuple, Dict, Union, List, NamedTuple, Set
 import geopandas as gpd
 import rasterio
 from rasterio.features import rasterize
@@ -38,10 +40,9 @@ from sbtn_leaf.map_calculations import resample_raster_to_match
 
 # ``Resampling`` is re-exported for backwards compatibility in this module.
 from rasterio.enums import Resampling
-
-
 from rasterio.fill import fillnodata
 from scipy import ndimage
+
 
 ##### DATA ####
 rain_monthly_fp = data_path("soil_weather", "uhth_monthly_avg_precip.tif")
@@ -49,8 +50,6 @@ uhth_climates_fp = data_path("soil_weather", "uhth_thermal_climates.tif")
 crop_types      = ["annual", "permanent"]
 
 #### FUNCTIONS ####
-
-
 def _resolve_crop_coefficient_table(crop_table: Optional[pl.DataFrame] = None) -> pl.DataFrame:
     """Return the provided crop coefficient table or the shared cached copy."""
 
@@ -362,9 +361,9 @@ def _create_crop_yield_raster_core(
     valid_fao = ~np.isnan(fao_avg_yields_array)
 
     # Goes through SPAM
-    all_fp_on_lu: Optional[np.ndarray] = None
-    avg_wat_ratio: Optional[float] = None
-    scaling_mode: Optional[str] = None
+    all_fp_on_lu:  np.ndarray | None = None
+    irr_fp_on_lu:  np.ndarray | None = None 
+    rf_fp_on_lu:   np.ndarray | None = None
 
     if irr_yield_scaling is not None:
         scaling_mode = irr_yield_scaling.lower()
@@ -389,7 +388,12 @@ def _create_crop_yield_raster_core(
             dst_nodata=np.nan,
         )
 
-        irr_ratios, rf_ratios = calculate_SPAM_yield_modifiers(all_fp_on_lu, irr_fp_on_lu, rf_fp_on_lu, print_outputs)
+        irr_ratios, rf_ratios = calculate_SPAM_yield_modifiers(
+            all_yields  =   all_fp_on_lu, 
+            irr_yields  =   irr_fp_on_lu, 
+            rf_yields   =   rf_fp_on_lu, 
+            print_outputs = print_outputs)
+        
         watering_ratio = irr_ratios if scaling_mode == "irr" else rf_ratios
 
         valid_wat = ~np.isnan(watering_ratio)
@@ -655,6 +659,7 @@ def calculate_SPAM_yield_modifiers(
 
     # Returning ratios
     return irr_ratios, rf_ratios
+
 
 def calculate_average_yield_by_ecoregion_and_biome(
     result_arr: np.ndarray,
@@ -1507,7 +1512,7 @@ def prepare_crop_data(
     lu_bin_output = output_practice_based.parent / f"{output_practice_based.name}_lu.tif"
     if all_new_files or not lu_bin_output.exists():
         print("Creating lu raster...")
-        lu_array = binarize_raster_pipeline(lu_data_path, str(lu_bin_output))
+        lu_array = _binarize_raster_pipeline(lu_data_path, str(lu_bin_output))
     else:
         print("Land use binary raster already exist. Skipping...")
         lu_array = rxr.open_rasterio(lu_bin_output, masked=False).squeeze()
@@ -1607,7 +1612,7 @@ def prepare_crop_data_irrigation_plantcover(
 
     # Step 1 - Prepare PET and irrigation
     # Step 1.1 - PET
-    pet_monthly_output_path = output_crop_based.parent / f"{output_crop_based.name}_pet_monthly.tif"
+    pet_monthly_output_path = output_practice_based.parent / f"{output_practice_based.name}_pet_monthly.tif"
     if all_new_files or not pet_monthly_output_path.exists():
         print("Creating PET raster...")
         monthly_pet = calculate_crop_based_PET_raster_vPipeline(
@@ -1620,18 +1625,23 @@ def prepare_crop_data_irrigation_plantcover(
         monthly_pet = rxr.open_rasterio(pet_monthly_output_path, masked=True).values
 
     # Step 1.2 - Irrigation
-    irr_monthly_output_path = output_crop_based.parent / f"{output_crop_based.name}_irr_monthly.tif"
-    if all_new_files or not irr_monthly_output_path.exists():
-        print("Creating irrigation raster...")
-        irr = calculate_irrigation_vPipeline(
-            evap=monthly_pet,
-            output_path=str(irr_monthly_output_path)
-        )
+    irr_monthly_output_path = None
+    if "irr" in crop_practice_string:
+        irr_monthly_output_path = output_practice_based.parent / f"{output_practice_based.name}_irr_monthly.tif"
+        if all_new_files or not irr_monthly_output_path.exists():
+            print("Creating irrigation raster...")
+            irr = calculate_irrigation_vPipeline(
+                evap=monthly_pet,
+                output_path=str(irr_monthly_output_path)
+            )
+        else:
+            print("Irrigation raster already exists — skipping computation.")
     else:
-        print("Irrigation raster already exists — skipping computation.")
+        print("Irrigation not needed. Skipping...")
+    
 
     # Step 3 - Create plant cover raster
-    plantcover_output_path = output_crop_based.parent / f"{output_crop_based.name}_pc_monthly.tif"
+    plantcover_output_path = output_practice_based.parent / f"{output_practice_based.name}_pc_monthly.tif"
     if all_new_files or not plantcover_output_path.exists():
         print("Creating plant cover raster...")
         create_plant_cover_monthly_raster(crop_name, str(plantcover_output_path))
@@ -1639,6 +1649,9 @@ def prepare_crop_data_irrigation_plantcover(
         print("Plant Cover raster already exists — skipping computation.")
 
     print(f"Irrigation, PET, and plant cover rasters created for {crop_name}, {crop_practice_string}!!!")
+
+    # Return all lu path associated with the scenario run
+    return lu_data_path, pet_monthly_output_path, irr_monthly_output_path, plantcover_output_path
 
 
 def calculate_monthly_residues_array(
@@ -1650,7 +1663,8 @@ def calculate_monthly_residues_array(
     spam_all_fp: str,
     spam_irr_fp: str,
     spam_rf_fp: str,
-    random_runs: int
+    random_runs: int,
+    print_outputs: bool = False
 ):
     # print("    Calculating stochastic residue array...")
 
@@ -1669,7 +1683,8 @@ def calculate_monthly_residues_array(
         all_fp=spam_all_fp,
         irr_fp=spam_irr_fp,
         rf_fp=spam_rf_fp,
-        random_runs=random_runs
+        random_runs=random_runs,
+        print_outputs= print_outputs
     )
 
     # Step 4 - Create plant residue raster
@@ -1703,11 +1718,78 @@ def prepare_crop_scenarios(csv_filepath: str, override_params: dict | None = Non
 
 def prepare_crop_scenarios_PET_PlantCover_only(csv_filepath: str, override_params: dict | None = None):
     # Load scenarios
-    csv = pl.read_csv(csv_filepath)
-    scenarios = csv.to_dicts()
+    scneraios_df = pl.read_csv(csv_filepath)
+    all_scenarios = scneraios_df.to_dicts()
 
-    # Run scenarions
-    for scenario in scenarios:
+    # Store unique land use scenarios, to not duplicate unneeded, heavy files
+    unique_scenarios: list[dict] = []
+
+    # For each crop, remember which LU hashes we have already seen
+    seen_hashes_by_crop: Dict[str, Set[str]] = defaultdict(set)
+
+    # Cache raster hashes by path to avoid re-reading the same file
+    hash_cache: Dict[str, str] = {}
+    
+    print("Creating a unique list of rasters with different land use maps...\n")
+
+    #1.- Iterate row-by-row (as dicts)
+    for row in scneraios_df.iter_rows(named=True):
+        # Needed information
+        crop_name = row["crop_name"]
+        crop_lu_path = row["lu_data_path"]
+
+        # Get or compute hash for this LU raster
+        if crop_lu_path in hash_cache:
+            lu_hash = hash_cache[crop_lu_path]
+        else:
+            lu_hash = _hash_raster(crop_lu_path)
+            hash_cache[crop_lu_path] = lu_hash
+
+        # Check if we've already seen this LU for this crop. If yes, skip all that follows
+        if lu_hash in seen_hashes_by_crop[crop_name]:
+            continue
+
+        ### This only happens if it has not been seen ###
+        # First time seeing this LU for this crop → keep the scenario
+        seen_hashes_by_crop[crop_name].add(lu_hash)
+        unique_scenarios.append(row)
+
+    #2.- Add back irrigation scenarios, as the irrigation rasters always need to be computed
+    irrigation_df = scneraios_df.filter(pl.col("crop_practice_string").str.contains("irr_"))
+
+    # Turn unique_scenarios (list-of-dicts) into a Polars DF to compare
+    unique_df = pl.DataFrame(unique_scenarios) if unique_scenarios else scneraios_df.clear()
+
+    # check which irrigation scenarios are missing
+    join_keys = ["crop_name", "crop_practice_string"]
+    extra_irrigation = irrigation_df.join(unique_df, on=join_keys, how="anti")  # anti keeps only the results missing
+
+    for row in extra_irrigation.iter_rows(named=True):
+        crop_name = row["crop_name"]
+        lu_path = row["lu_data_path"]
+
+        # get or compute the LU hash
+        if lu_path in hash_cache:
+            lu_hash = hash_cache[lu_path]
+        else:
+            lu_hash = _hash_raster(lu_path)
+            hash_cache[lu_path] = lu_hash
+
+        # if this LU hash is already seen for this crop, skip it
+        if lu_hash in seen_hashes_by_crop[crop_name]:
+            continue
+
+        # otherwise, this is a new LU for this crop → keep it
+        seen_hashes_by_crop[crop_name].add(lu_hash)
+        unique_scenarios.append(row)
+
+    # Append these missing irrigation scenarios to the list
+    unique_scenarios.extend(extra_irrigation.to_dicts())
+
+    # 3.- Run scenarions
+    # Creates an emtpy list
+    all_results = []
+    for scenario in unique_scenarios:
         scenario = scenario.copy()
 
         # Apply overrides if given
@@ -1715,12 +1797,59 @@ def prepare_crop_scenarios_PET_PlantCover_only(csv_filepath: str, override_param
             scenario.update(override_params)
 
         print(f"Preparing irrigation and plant cover data for {scenario['crop_name']}, {scenario['crop_practice_string']}")
-        prepare_crop_data_irrigation_plantcover(**scenario)
+        
+        # Prepare crop data scenario
+        lu_path, pet_path, irr_path, plantcover_path = prepare_crop_data_irrigation_plantcover(**scenario)
+
+        # Build one combined record
+        result_entry = {
+            "crop_name": scenario["crop_name"],
+            "crop_type": scenario["crop_type"],
+            "crop_practice_string": scenario["crop_practice_string"],
+            "lu_path": lu_path,
+            "pet_path": pet_path,
+            "irr_path": irr_path,
+            "plantcover_path": plantcover_path,
+        }
+        # Append it
+        all_results.append(result_entry)
+        
+        # Continues
         print(f"Next!\n")
+
+    all_results_df = pd.DataFrame(all_results)
+
+    return all_results_df
 
 
 #### PIPELINE SUPPORTING FUNCTIONS
-def binarize_raster_pipeline(
+def _hash_raster(path: str) -> str:
+    """
+    Compute a hash for the raster at 'path' based on its data. Used to detect identical LU rasters.
+    """
+    with rasterio.open(path) as src:
+        # Read band 1 as masked array
+        arr = src.read(1, masked=True)
+
+        # pick correct nodata fill
+        fill_val = src.nodata if src.nodata is not None else 255
+
+        # Normalize the data: fill mask with a stable value
+        data = np.ma.filled(arr, fill_value=fill_val)
+
+        # Create hash object
+        h = hashlib.sha1()
+        # Include shape so different sized rasters never collide trivially
+        h.update(str(data.shape).encode("utf-8"))
+        # Include the transform as part of identity (optional but sensible)
+        h.update(str(src.transform).encode("utf-8"))
+        # Hash the actual pixel bytes
+        h.update(data.tobytes())
+
+        return h.hexdigest()
+    
+
+def _binarize_raster_pipeline(
     src_path: str,
     dst_path: str,
     nodata_value: int = 255,
@@ -1818,7 +1947,8 @@ def create_crop_yield_raster_with_irrigation_scaling_pipeline(
     fao_yield_ratio_name: str = "yld_ratio",
     fao_sd_yield_name: str = "sd_yield",
     apply_ecoregion_fill: bool = True,
-    random_runs: int = 1
+    random_runs: int = 1,
+    print_outputs: bool = False
 ):
     """Pipeline wrapper around :func:`create_crop_yield_raster_withIrrigationPracticeScaling`."""
 
@@ -1838,7 +1968,7 @@ def create_crop_yield_raster_with_irrigation_scaling_pipeline(
         rf_fp=rf_fp,
         apply_ecoregion_fill=apply_ecoregion_fill,
         random_runs=random_runs,
-        print_outputs=False
+        print_outputs=print_outputs
     )
 
 def calculate_crop_yield_array_with_irrigation_scaling(
@@ -1855,7 +1985,8 @@ def calculate_crop_yield_array_with_irrigation_scaling(
     fao_yield_ratio_name: str = "yld_ratio",
     fao_sd_yield_name: str = "sd_yield",
     apply_ecoregion_fill: bool = True,
-    random_runs: int = 1
+    random_runs: int = 1,
+    print_outputs: bool = False
 ):
     """Pipeline wrapper around :func:`create_crop_yield_raster_withIrrigationPracticeScaling`."""
 
@@ -1875,7 +2006,8 @@ def calculate_crop_yield_array_with_irrigation_scaling(
         random_runs=random_runs,
         apply_ecoregion_fill=apply_ecoregion_fill,
         write_output= False,
-        return_array=True
+        return_array=True,
+        print_outputs= print_outputs
     )
 
     return yields

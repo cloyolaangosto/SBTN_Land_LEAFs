@@ -321,6 +321,7 @@ def _raster_rothc_annual_results(
     soc0_nodatavalue: float,
     crop_name: Optional[str] = None,
     spam_crop_raster: Optional[str] = None,
+    practices_string_id: Optional[str] = None,
     irr_yield_scaling: Optional[str] = None,
     spam_all_fp: Optional[str] = None,
     spam_irr_fp: Optional[str] = None,
@@ -348,51 +349,80 @@ def _raster_rothc_annual_results(
     if commodity_type not in ["annual_crop", "permanent_crop", "forest", "grassland"]:
         raise ValueError("Commodity type not valid. Valid types: annual_crop, permanent_crop, forest, grassland")
     
+    c_inp_provided = c_inp is not None
+
     # Assigns dpm_rpm factor and other values if needed
     if commodity_type in ["annual_crop", "grassland"]:
         dpm_rpm = 1.44
+
         # Checks if grassland type is valid
         if grassland_type is not None and grassland_type not in ["natural", "managed"]:
             raise ValueError("Grassland type not valid. Valid types: natural, managed")
+
         if commodity_type == "annual_crop":
             crop_type = "annual"
 
             # initialize c_inp
-            c_inp = cropcalcs.calculate_monthly_residues_array(
-                lu_fp=commodity_lu_fp,
-                crop_name=crop_name,
-                crop_type=crop_type,
-                spam_crop_raster = spam_crop_raster,
-                irr_yield_scaling = irr_yield_scaling,
-                spam_all_fp = spam_all_fp,
-                spam_irr_fp = spam_irr_fp,
-                spam_rf_fp = spam_rf_fp,
-                random_runs=residue_runs
-            )
+            if practices_string_id is not None and "roff" in practices_string_id:
+                print(f"        Residues removed. C_inputs are 0's")
+                c_inp = np.zeros_like(rain)
+            else:
+                print(f"        Calculating baseline residue inputs for {crop_type} {crop_name} using {residue_runs} stochastic runs")
+
+                c_inp = cropcalcs.calculate_monthly_residues_array(
+                    lu_fp=commodity_lu_fp,
+                    crop_name=crop_name,
+                    crop_type=crop_type,
+                    spam_crop_raster = spam_crop_raster,
+                    irr_yield_scaling = irr_yield_scaling,
+                    spam_all_fp = spam_all_fp,
+                    spam_irr_fp = spam_irr_fp,
+                    spam_rf_fp = spam_rf_fp,
+                    random_runs=residue_runs,
+                    print_outputs= False
+                )
+            if c_inp is None:
+                if practices_string_id is not None and "roff" in practices_string_id:
+                    print(f"        C_inputs are 0's")
+                    c_inp = np.zeros_like(rain)
+                else:
+                    print(f"        Calculating baseline residue inputs for {crop_type} {crop_name}")
+                    c_inp = cropcalcs.calculate_monthly_residues_array(
+                        lu_fp=commodity_lu_fp,
+                        crop_name=crop_name,
+                        crop_type=crop_type,
+                        spam_crop_raster = spam_crop_raster,
+                        irr_yield_scaling = irr_yield_scaling,
+                        spam_all_fp = spam_all_fp,
+                        spam_irr_fp = spam_irr_fp,
+                        spam_rf_fp = spam_rf_fp,
+                        random_runs=residue_runs
+                    )
             c_inp = np.squeeze(np.asarray(c_inp))
-            if c_inp.ndim != 2:
-                raise ValueError("Forest litter input must be 2-D after squeezing")
         
     elif commodity_type == "permanent_crop":
         dpm_rpm = 1
         crop_type = "permanent"
-        # initialize c_inp
 
-        
-        c_inp = cropcalcs.calculate_monthly_residues_array(
-            lu_fp=commodity_lu_fp,
-            crop_name=crop_name,
-            crop_type=crop_type,
-            spam_crop_raster=spam_crop_raster,
-            irr_yield_scaling=irr_yield_scaling,
-            spam_all_fp=spam_all_fp,
-            spam_irr_fp=spam_irr_fp,
-            spam_rf_fp=spam_rf_fp,
-            random_runs=residue_runs
-        )
+        # initialize c_inp
+        if c_inp is None:
+            print(f"        Calculating baseline residue inputs for {crop_type} {crop_name}")
+            c_inp = cropcalcs.calculate_monthly_residues_array(
+                lu_fp=commodity_lu_fp,
+                crop_name=crop_name,
+                crop_type=crop_type,
+                spam_crop_raster=spam_crop_raster,
+                irr_yield_scaling=irr_yield_scaling,
+                spam_all_fp=spam_all_fp,
+                spam_irr_fp=spam_irr_fp,
+                spam_rf_fp=spam_rf_fp,
+                random_runs=residue_runs
+            )
+        c_inp = np.squeeze(np.asarray(c_inp))
 
     else: # forest type
         dpm_rpm = 0.25
+        
         # Checks that all forest inputs are there
         if forest_age is None or forest_type is None or weather_type is None or TP_IPCC_bool is None:
             raise ValueError("Missing forest inputs. Specify forest_age, forest_type, weather_type and TP_IPCC_bool")
@@ -411,6 +441,12 @@ def _raster_rothc_annual_results(
         c_inp = c_inp if c_inp is not None else np.zeros_like(tmp)
     if c_inp is not None:
         c_inp = np.asarray(c_inp)
+        if c_inp.ndim > 3:
+            c_inp = np.squeeze(c_inp)
+        if c_inp.ndim == 2:
+            c_inp = np.broadcast_to(c_inp, tmp.shape)
+        if c_inp.ndim != 3:
+            raise ValueError("C input must be 3-D after squeezing/broadcasting")
     
     fym = fym if fym is not None else np.zeros_like(tmp)
     fym = np.asarray(fym)
@@ -523,24 +559,35 @@ def _raster_rothc_annual_results(
             annual_co2_acc[:] = 0
 
             # Updates plant residue inputs for crops, skips final iteration:
-            if (t_abs + 1) < months and commodity_type in ("permanent_crop", "annual_crop"):
+            if (
+                (t_abs + 1) < months
+                and commodity_type in ("permanent_crop", "annual_crop")
+                and not c_inp_provided
+            ):
                 # initialize c_inp
-                c_inp = cropcalcs.calculate_monthly_residues_array(
-                    lu_fp=commodity_lu_fp,
-                    crop_name=crop_name,
-                    crop_type=crop_type,
-                    spam_crop_raster=spam_crop_raster,
-                    irr_yield_scaling=irr_yield_scaling,
-                    spam_all_fp=spam_all_fp,
-                    spam_irr_fp=spam_irr_fp,
-                    spam_rf_fp=spam_rf_fp,
-                    random_runs=residue_runs
-                )
+                if practices_string_id is not None and "roff" in practices_string_id:
+                    print(f"        C_inputs are 0's")
+                    c_inp = np.zeros_like(rain)
+                else:
+                    print(f"        Calculating baseline residue inputs for {crop_type} {crop_name}")
+                    c_inp = cropcalcs.calculate_monthly_residues_array(
+                        lu_fp=commodity_lu_fp,
+                        crop_name=crop_name,
+                        crop_type=crop_type,
+                        spam_crop_raster = spam_crop_raster,
+                        irr_yield_scaling = irr_yield_scaling,
+                        spam_all_fp = spam_all_fp,
+                        spam_irr_fp = spam_irr_fp,
+                        spam_rf_fp = spam_rf_fp,
+                        random_runs=residue_runs,
+                        print_outputs= True
+                    )
+                c_inp = np.squeeze(np.asarray(c_inp))
 
     return soc_annual, co2_annual
 
 
-def raster_rothc_annual_results_1yrloop(
+def raster_rothc_annual_results(
     n_years: int,
     clay: np.ndarray,
     soc0: np.ndarray,
@@ -554,28 +601,33 @@ def raster_rothc_annual_results_1yrloop(
     fym: Optional[np.ndarray] = None,
     crop_name: Optional[str] = None,
     spam_crop_raster: Optional[str] = None,
+    practices_string_id: Optional[str] = None,
     irr_yield_scaling: Optional[str] = None,
     spam_all_fp: Optional[str] = None,
     spam_irr_fp: Optional[str] = None,
     spam_rf_fp: Optional[str] = None,
     forest_age: Optional[np.ndarray] = None,
-    forest_type: Optional[str]= None,
+    forest_type: Optional[str] = None,
     commodity_lu_fp: Optional[PathLike] = None,
-    grassland_type: Optional[str]= None,
+    grassland_type: Optional[str] = None,
     residue_runs: int = 100,
-    weather_type: Optional[str]= None,
+    weather_type: Optional[str] = None,
     TP_IPCC_bool: bool = False,
     depth: float = 15,
     soc0_nodatavalue: float = -32768.0,
+    red_till: bool = False,
+    sand: Optional[np.ndarray] = None,
 ) -> Tuple[np.ndarray, np.ndarray]:
     """
-    Vectorized RothC that returns only annual SOC and CO2.
+    Vectorized RothC that returns annual SOC and CO2.
 
     Parameters
     ----------
     clay, soc0 : 2D (y, x)
     tmp, rain, evap, pc, c_inp, fym : 3D (time, y, x)
       time can be 12 (annual cycle) or n_years*12.
+    red_till : bool
+        When ``True``, apply reduced-tillage rate modifiers using ``sand``.
     depth : float (cm)
     dpm_rpm : float
     n_years : int
@@ -586,71 +638,10 @@ def raster_rothc_annual_results_1yrloop(
     co2_annual : ndarray (years, y, x)
     """
 
-    return _raster_rothc_annual_results(
-        n_years=n_years,
-        clay=clay,
-        soc0=soc0,
-        tmp=tmp,
-        rain=rain,
-        evap=evap,
-        pc=pc,
-        irr=irr,
-        c_inp=c_inp,
-        fym=fym,
-        sand=None,
-        depth=depth,
-        commodity_type=commodity_type,
-        soc0_nodatavalue=soc0_nodatavalue,
-        trm_handler=None,
-        forest_type = forest_type,
-        commodity_lu_fp= commodity_lu_fp,
-        grassland_type = grassland_type,
-        residue_runs = residue_runs,
-        weather_type = weather_type,
-        TP_IPCC_bool = TP_IPCC_bool,
-        forest_age = forest_age,
-        crop_name = crop_name,
-        spam_crop_raster = spam_crop_raster,
-        irr_yield_scaling = irr_yield_scaling,
-        spam_all_fp = spam_all_fp,
-        spam_irr_fp = spam_irr_fp,
-        spam_rf_fp= spam_rf_fp,
-    )
+    if red_till and sand is None:
+        raise ValueError("sand must be provided when red_till is True")
 
-
-def raster_rothc_ReducedTillage_annual_results_1yrloop(
-    n_years: int,
-    clay: np.ndarray,
-    soc0: np.ndarray,
-    tmp: np.ndarray,
-    rain: np.ndarray,
-    evap: np.ndarray,
-    pc: np.ndarray,
-    sand: np.ndarray,
-    commodity_type: str,
-    irr: Optional[np.ndarray] = None,
-    c_inp: Optional[np.ndarray] = None,
-    fym: Optional[np.ndarray] = None,
-    depth: float = 15,
-    soc0_nodatavalue: float = -32768,
-) -> Tuple[np.ndarray, np.ndarray]:
-    """
-    Vectorized RothC for reduced tillage that returns only annual SOC and CO2.
-
-    Parameters
-    ----------
-    clay, soc0 : 2D (y, x)
-    tmp, rain, evap, pc, c_inp, fym : 3D (time, y, x)
-      time can be 12 (annual cycle) or n_years*12.
-    depth : float (cm)
-    dpm_rpm : float
-    n_years : int
-
-    Returns
-    -------
-    soc_annual : ndarray (years, y, x)
-    co2_annual : ndarray (years, y, x)
-    """
+    trm_handler = RMF_TRM if red_till else None
 
     return _raster_rothc_annual_results(
         n_years=n_years,
@@ -667,10 +658,21 @@ def raster_rothc_ReducedTillage_annual_results_1yrloop(
         depth=depth,
         commodity_type=commodity_type,
         soc0_nodatavalue=soc0_nodatavalue,
-        trm_handler=RMF_TRM,
-        forest_type=None,
-        weather_type=None,
-        TP_IPCC_bool=None
+        trm_handler=trm_handler,
+        forest_type=forest_type,
+        commodity_lu_fp=commodity_lu_fp,
+        grassland_type=grassland_type,
+        residue_runs=residue_runs,
+        weather_type=weather_type,
+        TP_IPCC_bool=TP_IPCC_bool,
+        forest_age=forest_age,
+        crop_name=crop_name,
+        spam_crop_raster=spam_crop_raster,
+        practices_string_id=practices_string_id,
+        irr_yield_scaling=irr_yield_scaling,
+        spam_all_fp=spam_all_fp,
+        spam_irr_fp=spam_irr_fp,
+        spam_rf_fp=spam_rf_fp,
     )
 
 
@@ -1087,6 +1089,12 @@ def run_RothC_crops(
         scenario: Dict[str, Any],
         commodity_type: str,
         red_till: bool,
+        practices_string_id: Optional[str],
+        irr_yield_scaling: Optional[str],
+        spam_crop_raster: Optional[str],
+        spam_all_fp: Optional[str],
+        spam_irr_fp: Optional[str],
+        spam_rf_fp: Optional[str],
     ) -> Tuple[np.ndarray, Optional[np.ndarray]]:
         evap_a = np.asarray(scenario["evap"].values)
         pc_a = np.asarray(scenario["pc"].values)
@@ -1110,6 +1118,7 @@ def run_RothC_crops(
             commodity_lu_fp=lu_fp,
             crop_name=crop_name,
             spam_crop_raster = spam_crop_raster,
+            practices_string_id = practices_string_id,
             irr_yield_scaling = irr_yield_scaling,
             spam_all_fp = spam_all_fp,
             spam_irr_fp = spam_irr_fp,
@@ -1119,11 +1128,11 @@ def run_RothC_crops(
         if irr_a is not None:
             base_kwargs["irr"] = irr_a
 
+        base_kwargs["red_till"] = red_till
         if red_till:
             base_kwargs["sand"] = env["sand"]
-            return raster_rothc_ReducedTillage_annual_results_1yrloop(**base_kwargs)
 
-        return raster_rothc_annual_results_1yrloop(**base_kwargs)
+        return raster_rothc_annual_results(**base_kwargs)
     
     # Creating results_basename
     if commodity_type == "permanent_crop":
@@ -1149,6 +1158,12 @@ def run_RothC_crops(
         runner_kwargs={
             "commodity_type": commodity_type,
             "red_till": red_till,
+            "irr_yield_scaling": irr_yield_scaling,
+            "practices_string_id": practices_string_id,
+            "spam_crop_raster": spam_crop_raster,
+            "spam_all_fp": spam_all_fp,
+            "spam_irr_fp": spam_irr_fp,
+            "spam_rf_fp": spam_rf_fp,
         },
         loader_message="    Loading crop data...",
         save_CO2=save_CO2,
@@ -1207,7 +1222,7 @@ def run_RothC_forest(
         if age_a.ndim != 2:
             raise ValueError("Forest age raster must be 2-D after squeezing")
 
-        return raster_rothc_annual_results_1yrloop(
+        return raster_rothc_annual_results(
             n_years=n_years,
             clay=env["clay"],
             soc0=env["soc0"],
@@ -1326,15 +1341,15 @@ def run_RothC_grassland(
             c_inp=c_inp_a,
             fym=fym_a,
             commodity_type="grassland",
-            grassland_lu_fp=_as_path(grassland_lu_fp),
+            commodity_lu_fp=_as_path(grassland_lu_fp),
             grassland_type=grassland_type,
-            grassland_residue_runs=residue_runs,
+            residue_runs=residue_runs,
         )
 
         if irr_a is not None:
             base_kwargs["irr"] = irr_a
 
-        return raster_rothc_annual_results_1yrloop(**base_kwargs)
+        return raster_rothc_annual_results(**base_kwargs)
 
     return _run_rothc_scenario(
         lu_fp=lu_fp,
@@ -1364,7 +1379,7 @@ def run_RothC_grassland(
     )
 
 
-def run_rothC_crop_scenarios_from_csv(csv_filepath: PathLike):
+def DEPRECATED_run_rothC_crop_scenarios_from_csv(csv_filepath: PathLike):
     # 1) Read & cast your CSV exactly as before
     scenarios = (
         pl.read_csv(_resolve_data_path(csv_filepath), null_values=["", "None"])
@@ -1384,17 +1399,17 @@ def run_rothC_crop_scenarios_from_csv(csv_filepath: PathLike):
         run_RothC_crops(**scenario)
         print("\n\n")
 
-def run_rothc_permanent_crops_scenarios_from_excel(excel_filepath: PathLike, force_new_files: bool = False, run_test: bool = False):
+def run_rothc_crops_scenarios_from_excel(excel_filepath: PathLike, all_new_files: bool = False, run_test: bool = False, scenario_sheet_name = "scenarios"):
     # 1) Read & cast your CSV exactly as before
     scenarios = (
-        pl.read_excel(_resolve_data_path(excel_filepath), has_header=True, sheet_name="scenarios")
+        pl.read_excel(_resolve_data_path(excel_filepath), has_header=True, sheet_name=scenario_sheet_name)
         .with_columns([
             pl.col("n_years").cast(pl.Int64)
         ])
     )
 
     if run_test:
-        print("Running test. Only top 2 scenarios are run. Residue runs forced to 2")
+        print("Running test. Only top 2 scenarios are run. Residue runs forced to 2, years to 5.")
         scenarios = scenarios[0:2]
 
     # 2) Turn into a list of dicts once (so we know the total count)
@@ -1402,17 +1417,33 @@ def run_rothc_permanent_crops_scenarios_from_excel(excel_filepath: PathLike, for
 
     # 3) Iterate with tqdm
     for scenario in scenario_list:
-        scn_string_text = f"Permanent crop - {scenario['crop_name']} - {scenario['irr_yield_scaling']}"
+        if "force_new_file" in scenario:
+            file_fnw = scenario["force_new_file"]
+
+        if scenario["commodity_type"] == "permanent_crop":
+            crop_type_string = "Permanent"
+        else:
+            crop_type_string = "Annual"
+        
+        scenario_description = (scenario["practices_string_id"] if "practices_string_id" in scenario else scenario    ["irr_yield_scaling"])
+        scn_string_text = f"{crop_type_string} crop - {scenario['crop_name']} - {scenario_description}"
 
         if run_test:
             scenario["residue_runs"] = 2
+            scenario["n_years"] = 5
 
         # Checks if output filepath exist
         output_folder = scenario["save_folder"]
-        output_string = f"{scenario['crop_name']}_{scenario['irr_yield_scaling']}_{2016 + scenario['n_years']}y_SOC.tif"
+        output_string = f"{scenario['crop_name']}_{scenario_description}_{2016 + scenario['n_years']}y_SOC.tif"
         output_path = f"{output_folder}/{output_string}"
 
-        if force_new_files:
+        # Remove 'force_new_file' so it's not forwarded to run_RothC_crops
+        scenario.pop("force_new_file", None)
+
+        if all_new_files:
+            print(f"Running {scn_string_text}")
+            run_RothC_crops(**scenario)
+        elif file_fnw is not None and file_fnw is True:
             print(f"Running {scn_string_text}")
             run_RothC_crops(**scenario)
         else:
@@ -1448,7 +1479,7 @@ def run_rothc_grassland_scenarios_from_excel(excel_filepath: PathLike, force_new
 
         # Checks if output filepath exist
         output_folder = scenario["save_folder"]
-        output_string = f"{scenario["grassland_type"]}_grassland_{scenario['string_id']}_{2016+scenario['n_years']}y_SOC.tif"
+        output_string = f"{scenario['grassland_type']}_grassland_{scenario['string_id']}_{2016 + scenario['n_years']}y_SOC.tif"
         output_path = f"{output_folder}/{output_string}"
 
         # Loads fym_fp
@@ -1489,7 +1520,7 @@ def run_rothC_forest_scenarios_from_excel(excel_filepath: PathLike, force_new_fi
 
         # Checks if output filepath exist
         output_folder = scenario["save_folder"]
-        output_string = f"{scenario["forest_type"]}_{scenario['weather_type']}_{2016+scenario['n_years']}y_SOC.tif"
+        output_string = f"{scenario['forest_type']}_{scenario['weather_type']}_{2016 + scenario['n_years']}y_SOC.tif"
         output_path = f"{output_folder}/{output_string}"
 
         if force_new_files:
