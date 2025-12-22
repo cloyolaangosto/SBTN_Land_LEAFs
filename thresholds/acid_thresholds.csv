@@ -1,0 +1,767 @@
+﻿ECO ID,Ecoregion name,Threshold,Ecoregion baseline,Target (10% above threshold),Threshold exceedance,Difference between baseline and target,Threshold met or exceeded? (Y/N)
+1,Albertine Rift montane forests,20,13.8,18,-6.2,-4.2,No
+2,Cameroon Highlands forests,20,16.5,18,-3.5,-1.5,No
+3,Central Congolian lowland forests,14.2,14.1,12.78,-0.1,1.32,No
+4,Comoros forests,20,2.2,18,-17.8,-15.8,No
+5,Congolian coastal forests,9.8,11.9,8.82,2.1,3.08,Yes
+6,Cross-Niger transition forests,17.3,17.6,15.57,0.3,2.03,Yes
+7,Cross-Sanaga-Bioko coastal forests,20,17.4,18,-2.6,-0.6,No
+8,East African montane forests,10,9.1,9,-0.9,0.1,No
+9,Eastern Arc forests,3.6,4.2,3.24,0.6,0.96,Yes
+10,Eastern Congolian swamp forests,14.3,14.4,12.87,0.1,1.53,Yes
+11,Eastern Guinean forests,12,12.3,10.8,0.3,1.5,Yes
+12,Ethiopian montane forests,20,13.7,18,-6.3,-4.3,No
+14,Guinean montane forests,20,10.8,18,-9.2,-7.2,No
+15,Knysna-Amatole montane forests,20,0.7,18,-19.3,-17.3,No
+16,Kwazulu Natal-Cape coastal forests,1.8,1.9,1.62,0.1,0.28,Yes
+17,Madagascar humid forests,3,2.9,2.7,-0.1,0.2,No
+18,Madagascar subhumid forests,3.3,3.5,2.97,0.2,0.53,Yes
+19,Maputaland coastal forests and woodlands,5.3,4.2,4.77,-1.1,-0.57,No
+20,Mascarene forests,20,0.8,18,-19.2,-17.2,No
+22,Niger Delta swamp forests,20,16.6,18,-3.4,-1.4,No
+23,Nigerian lowland forests,20,16.7,18,-3.3,-1.3,No
+24,Northeast Congolian lowland forests,15.4,15.5,13.86,0.1,1.64,Yes
+25,Northern Swahili coastal forests,20,3.7,18,-16.3,-14.3,No
+26,Northwest Congolian lowland forests,15.2,14.2,13.68,-1,0.52,No
+28,Southern Swahili coastal forests and woodlands,20,3,18,-17,-15,No
+29,Western Congolian swamp forests,14.3,14.7,12.87,0.4,1.83,Yes
+30,Western Guinean lowland forests,11.5,11.9,10.35,0.4,1.55,Yes
+32,Madagascar dry deciduous forests,4.3,3.9,3.87,-0.4,0.03,No
+33,Zambezian evergreen dry forests,20,6,18,-14,-12,No
+34,Angolan mopane woodlands,15,3.6,13.5,-11.4,-9.9,No
+35,Angolan scarp savanna and woodlands,15,7.4,13.5,-7.6,-6.1,No
+36,Angolan wet miombo woodlands,6.9,7.2,6.21,0.3,0.99,Yes
+38,Central bushveld,2.1,2.8,1.89,0.7,0.91,Yes
+39,Central Zambezian wet miombo woodlands,15,7.2,13.5,-7.8,-6.3,No
+40,Drakensberg Escarpment savanna and thicket,1.3,1.9,1.17,0.6,0.73,Yes
+41,Drakensberg grasslands,2.8,2.8,2.52,0,0.28,Yes
+42,Dry miombo woodlands,15,4.4,13.5,-10.6,-9.1,No
+43,East Sudanian savanna,14,11.5,12.6,-2.5,-1.1,No
+44,Guinean forest-savanna,12.5,13,11.25,0.5,1.75,Yes
+45,Horn of Africa xeric bushlands,15,3.6,13.5,-11.4,-9.9,No
+46,Itigi-Sumbu thicket,15,6,13.5,-9,-7.5,No
+47,Kalahari Acacia woodlands,15,4.2,13.5,-10.8,-9.3,No
+48,Limpopo lowveld,5,3.4,4.5,-1.6,-1.1,No
+49,Mandara Plateau woodlands,15,9.8,13.5,-5.2,-3.7,No
+50,Masai xeric grasslands and shrublands,7.7,7.8,6.93,0.1,0.87,Yes
+51,Northern Acacia-Commiphora bushlands and thickets,11,7.5,9.9,-3.5,-2.4,No
+52,Northern Congolian Forest-Savanna,15,14.5,13.5,-0.5,1,No
+53,Sahelian Acacia savanna,15,4.2,13.5,-10.8,-9.3,No
+55,Somali Acacia-Commiphora bushlands and thickets,3.8,4.9,3.42,1.1,1.48,Yes
+56,"South Arabian fog woodlands, shrublands, and dune",15,4.4,13.5,-10.6,-9.1,No
+57,Southern Acacia-Commiphora bushlands and thickets,15,5.9,13.5,-9.1,-7.6,No
+58,Southern Congolian forest-savanna,13.9,13.1,12.51,-0.8,0.59,No
+59,Southwest Arabian montane woodlands and grasslands,15,6.9,13.5,-8.1,-6.6,No
+61,Victoria Basin forest-savanna,15,12.5,13.5,-2.5,-1,No
+62,West Sudanian savanna,15,9,13.5,-6,-4.5,No
+63,Western Congolian forest-savanna,15,11.6,13.5,-3.4,-1.9,No
+64,Zambezian Baikiaea woodlands,15,5.1,13.5,-9.9,-8.4,No
+65,Zambezian mopane woodlands,15,4.5,13.5,-10.5,-9,No
+66,Zambezian-Limpopo mixed woodlands,3.8,4.6,3.42,0.8,1.18,Yes
+69,East African halophytics,15,6,13.5,-9,-7.5,No
+70,Etosha Pan halophytics,15,4.2,13.5,-10.8,-9.3,No
+71,Inner Niger Delta flooded savanna,15,4.3,13.5,-10.7,-9.2,No
+72,Lake Chad flooded savanna,5.1,5.9,4.59,0.8,1.31,Yes
+73,Makgadikgadi halophytics,15,4.6,13.5,-10.4,-8.9,No
+74,Sudd flooded grasslands,13.3,12.5,11.97,-0.8,0.53,No
+75,Zambezian coastal flooded savanna,3.3,3.4,2.97,0.1,0.43,Yes
+76,Zambezian flooded grasslands,6,5.6,5.4,-0.4,0.2,No
+77,Angolan montane forest-grassland,10,6.2,9,-3.8,-2.8,No
+78,East African montane moorlands,10,6.2,9,-3.8,-2.8,No
+79,Ethiopian montane grasslands and woodlands,10,10.2,9,0.2,1.2,Yes
+80,Ethiopian montane moorlands,9.7,9.5,8.73,-0.2,0.77,No
+81,Highveld grasslands,1.6,2.4,1.44,0.8,0.96,Yes
+82,Jos Plateau forest-grassland,10,14,9,4,5,Yes
+83,Madagascar ericoid thickets,10,NA,9,#VALUE!,#VALUE!,NoA
+85,Nyanga-Chimanimani Montane forest-grassland,10,4.4,9,-5.6,-4.6,No
+87,Southern Rift Montane forest-grassland,10,4.2,9,-5.8,-4.8,No
+88,Albany thickets,0.9,1,0.81,0.1,0.19,Yes
+89,Fynbos shrubland,7.5,0.6,6.75,-6.9,-6.15,No
+90,Renosterveld shrubland,0.6,0.6,0.54,0,0.06,Yes
+92,Djibouti xeric shrublands,5,6.5,4.5,1.5,2,Yes
+93,Eritrean coastal desert,5,5.5,4.5,0.5,1,Yes
+94,Gariep Karoo,5,1.4,4.5,-3.6,-3.1,No
+95,Hobyo grasslands and shrublands,3,3.2,2.7,0.2,0.5,Yes
+97,Kalahari xeric savanna,1.4,3,1.26,1.6,1.74,Yes
+98,Kaokoveld desert,5,2.4,4.5,-2.6,-2.1,No
+99,Madagascar spiny thickets,2.5,2.4,2.25,-0.1,0.15,No
+100,Madagascar succulent woodlands,5,3.1,4.5,-1.9,-1.4,No
+101,Nama Karoo shrublands,1.1,1,0.99,-0.1,0.01,No
+102,Namaqualand-Richtersveld steppe,5,0.8,4.5,-4.2,-3.7,No
+103,Namib Desert,5,1.6,4.5,-3.4,-2.9,No
+104,Namibian savanna woodlands,5,2.8,4.5,-2.2,-1.7,No
+105,Socotra Island xeric shrublands,5,4.5,4.5,-0.5,0,No
+106,Somali montane xeric woodlands,5,3.3,4.5,-1.7,-1.2,No
+107,Southwest Arabian coastal xeric shrublands,5,7.6,4.5,2.6,3.1,Yes
+108,Southwest Arabian Escarpment shrublands and woodlands,5,6.2,4.5,1.2,1.7,Yes
+109,Southwest Arabian highland xeric scrub,5,7.3,4.5,2.3,2.8,Yes
+110,Succulent Karoo xeric shrublands,5,0.6,4.5,-4.4,-3.9,No
+111,Central African mangroves,16.1,14.3,14.49,-1.8,-0.19,No
+112,East African mangroves,2.7,NA,2.43,#VALUE!,#VALUE!,NoA
+113,Guinean mangroves,20,6.7,18,-13.3,-11.3,No
+114,Madagascar mangroves,2.9,NA,2.61,#VALUE!,#VALUE!,NoA
+135,Admiralty Islands lowland rain forests,20,1.2,18,-18.8,-16.8,No
+136,Banda Sea Islands moist deciduous forests,20,2.1,18,-17.9,-15.9,No
+137,Biak-Numfoor rain forests,20,1.7,18,-18.3,-16.3,No
+138,Buru rain forests,20,2,18,-18,-16,No
+139,Central Range Papuan montane rain forests,3.5,3.8,3.15,0.3,0.65,Yes
+140,Halmahera rain forests,1.8,1.8,1.62,0,0.18,Yes
+141,Huon Peninsula montane rain forests,20,4.3,18,-15.7,-13.7,No
+143,Louisiade Archipelago rain forests,20,1.5,18,-18.5,-16.5,No
+144,New Britain-New Ireland lowland rain forests,1.5,1.4,1.35,-0.1,0.05,No
+145,New Britain-New Ireland montane rain forests,20,1.4,18,-18.6,-16.6,No
+146,New Caledonia rain forests,20,0.8,18,-19.2,-17.2,No
+148,Northern New Guinea lowland rain and freshwater swamp forests,2.2,2.9,1.98,0.7,0.92,Yes
+149,Northern New Guinea montane rain forests,2.3,3.8,2.07,1.5,1.73,Yes
+150,Queensland tropical rain forests,20,3,18,-17,-15,No
+151,Seram rain forests,1.9,1.9,1.71,0,0.19,Yes
+152,Solomon Islands rain forests,20,1.3,18,-18.7,-16.7,No
+153,Southeast Papuan rain forests,3.5,3.4,3.15,-0.1,0.25,No
+154,Southern New Guinea freshwater swamp forests,20,3.9,18,-16.1,-14.1,No
+155,Southern New Guinea lowland rain forests,3.8,4.3,3.42,0.5,0.88,Yes
+156,Sulawesi lowland rain forests,20,8.5,18,-11.5,-9.5,No
+157,Sulawesi montane rain forests,20,10.3,18,-9.7,-7.7,No
+158,Trobriand Islands rain forests,20,1.6,18,-18.4,-16.4,No
+159,Vanuatu rain forests,20,1,18,-19,-17,No
+160,Vogelkop montane rain forests,1.9,1.9,1.71,0,0.19,Yes
+161,Vogelkop-Aru lowland rain forests,2.1,2,1.89,-0.1,0.11,No
+162,Yapen rain forests,20,NA,18,#VALUE!,#VALUE!,NoA
+163,Lesser Sundas deciduous forests,20,6.7,18,-13.3,-11.3,No
+164,New Caledonia dry forests,20,0.8,18,-19.2,-17.2,No
+165,Sumba deciduous forests,7.4,6.4,6.66,-1,-0.26,No
+166,Timor and Wetar deciduous forests,4.8,6.2,4.32,1.4,1.88,Yes
+168,Eastern Australian temperate forests,5.4,4.7,4.86,-0.7,-0.16,No
+169,Fiordland temperate forests,1.6,1.7,1.44,0.1,0.26,Yes
+170,Nelson Coast temperate forests,2.8,2.8,2.52,0,0.28,Yes
+171,New Zealand North Island temperate forests,3.7,3.5,3.33,-0.2,0.17,No
+172,New Zealand South Island temperate forests,12.5,1.9,11.25,-10.6,-9.35,No
+173,Northland temperate kauri forests,3.1,2.7,2.79,-0.4,-0.09,No
+174,Rakiura Island temperate forests,12.5,1.5,11.25,-11,-9.75,No
+175,Richmond temperate forests,2.9,2.9,2.61,0,0.29,Yes
+176,Southeast Australia temperate forests,12.5,4.9,11.25,-7.6,-6.35,No
+177,Tasmanian Central Highland forests,12.5,2,11.25,-10.5,-9.25,No
+178,Tasmanian temperate forests,12.5,2.1,11.25,-10.4,-9.15,No
+179,Tasmanian temperate rain forests,12.5,2,11.25,-10.5,-9.25,No
+180,Westland temperate forests,12.5,NA,11.25,#VALUE!,#VALUE!,NoA
+181,Arnhem Land tropical savanna,15,2.9,13.5,-12.1,-10.6,No
+182,Brigalow tropical savanna,15,4.4,13.5,-10.6,-9.1,No
+183,Cape York Peninsula tropical savanna,15,2.2,13.5,-12.8,-11.3,No
+184,Carpentaria tropical savanna,15,3.1,13.5,-11.9,-10.4,No
+185,Einasleigh upland savanna,2.9,3.2,2.61,0.3,0.59,Yes
+186,Kimberly tropical savanna,3.8,3.4,3.42,-0.4,-0.02,No
+187,Mitchell Grass Downs,2.7,3.1,2.43,0.4,0.67,Yes
+188,Trans Fly savanna and grasslands,2.9,3.9,2.61,1,1.29,Yes
+189,Victoria Plains tropical savanna,3.5,3.6,3.15,0.1,0.45,Yes
+190,Canterbury-Otago tussock grasslands,2.4,2.8,2.16,0.4,0.64,Yes
+191,Eastern Australia mulga shrublands,2.9,3.7,2.61,0.8,1.09,Yes
+192,Southeast Australia temperate savanna,5.3,4.9,4.77,-0.4,0.13,No
+193,Australian Alps montane grasslands,4.6,5,4.14,0.4,0.86,Yes
+194,New Zealand South Island montane grasslands,10,2.8,9,-7.2,-6.2,No
+195,Papuan Central Range sub-alpine grasslands,10,3.3,9,-6.7,-5.7,No
+197,Coolgardie woodlands,1,1.2,0.9,0.2,0.3,Yes
+198,Esperance mallee,1.3,1.2,1.17,-0.1,0.03,No
+199,Eyre and York mallee,1.7,2,1.53,0.3,0.47,Yes
+200,Flinders-Lofty montane woodlands,7.5,2.5,6.75,-5,-4.25,No
+201,Hampton mallee and woodlands,7.5,0.9,6.75,-6.6,-5.85,No
+202,Jarrah-Karri forest and shrublands,1.3,1.3,1.17,0,0.13,Yes
+203,Murray-Darling woodlands and mallee,2.8,3.4,2.52,0.6,0.88,Yes
+204,Naracoorte woodlands,7.5,2.6,6.75,-4.9,-4.15,No
+205,Southwest Australia savanna,1.4,1.6,1.26,0.2,0.34,Yes
+206,Southwest Australia woodlands,1.7,1.6,1.53,-0.1,0.07,No
+207,Carnarvon xeric shrublands,5,1.3,4.5,-3.7,-3.2,No
+208,Central Ranges xeric scrub,5,1.9,4.5,-3.1,-2.6,No
+209,Gibson desert,1.4,1.7,1.26,0.3,0.44,Yes
+210,Great Sandy-Tanami desert,2.6,2.4,2.34,-0.2,0.06,No
+211,Great Victoria desert,5,1.3,4.5,-3.7,-3.2,No
+212,Nullarbor Plains xeric shrublands,5,1.1,4.5,-3.9,-3.4,No
+213,Pilbara shrublands,5,1.8,4.5,-3.2,-2.7,No
+214,Simpson desert,5,2.2,4.5,-2.8,-2.3,No
+215,Tirari-Sturt stony desert,5,1.9,4.5,-3.1,-2.6,No
+216,Western Australian Mulga shrublands,1.5,1.4,1.35,-0.1,0.05,No
+217,New Guinea mangroves,20,3.2,18,-16.8,-14.8,No
+218,Andaman Islands rain forests,7,7.2,6.3,0.2,0.9,Yes
+219,Borneo lowland rain forests,6.8,12.2,6.12,5.4,6.08,Yes
+220,Borneo montane rain forests,8.4,10.2,7.56,1.8,2.64,Yes
+221,Borneo peat swamp forests,20,14.2,18,-5.8,-3.8,No
+222,Brahmaputra Valley semi-evergreen forests,19.1,24.3,17.19,5.2,7.11,Yes
+223,Cardamom Mountains rain forests,20,15.7,18,-4.3,-2.3,No
+224,Chao Phraya freshwater swamp forests,20,21.5,18,1.5,3.5,Yes
+225,Chao Phraya lowland moist deciduous forests,16.8,17,15.12,0.2,1.88,Yes
+226,Chin Hills-Arakan Yoma montane forests,18.4,19.8,16.56,1.4,3.24,Yes
+228,East Deccan moist deciduous forests,20,31.6,18,11.6,13.6,Yes
+229,Eastern Java-Bali montane rain forests,12,13.8,10.8,1.8,3,Yes
+230,Eastern Java-Bali rain forests,13,14.5,11.7,1.5,2.8,Yes
+231,Greater Negros-Panay rain forests,7.6,6.6,6.84,-1,-0.24,No
+232,Hainan Island monsoon rain forests,20,29.5,18,9.5,11.5,Yes
+233,Himalayan subtropical broadleaf forests,16.6,14.4,14.94,-2.2,-0.54,No
+234,Irrawaddy freshwater swamp forests,20,21,18,1,3,Yes
+235,Irrawaddy moist deciduous forests,20,19.5,18,-0.5,1.5,No
+236,Jian Nan subtropical evergreen forests,20,60.8,18,40.8,42.8,Yes
+237,Kayah-Karen montane rain forests,20,23.6,18,3.6,5.6,Yes
+238,Lower Gangetic Plains moist deciduous forests,20,26.1,18,6.1,8.1,Yes
+239,Luang Prabang montane rain forests,20,25.8,18,5.8,7.8,Yes
+240,Luzon montane rain forests,20,10.6,18,-9.4,-7.4,No
+241,Luzon rain forests,20,9.9,18,-10.1,-8.1,No
+242,Malabar Coast moist forests,20,17.8,18,-2.2,-0.2,No
+244,Meghalaya subtropical forests,20,27.3,18,7.3,9.3,Yes
+245,Mentawai Islands rain forests,11,12.2,9.9,1.2,2.3,Yes
+246,Mindanao montane rain forests,20,9,18,-11,-9,No
+247,Mindanao-Eastern Visayas rain forests,20,7.4,18,-12.6,-10.6,No
+248,Mindoro rain forests,20,6.4,18,-13.6,-11.6,No
+249,Mizoram-Manipur-Kachin rain forests,17.4,20.3,15.66,2.9,4.64,Yes
+250,Myanmar coastal rain forests,15.4,20.1,13.86,4.7,6.24,Yes
+251,Nansei Islands subtropical evergreen forests,20,7.4,18,-12.6,-10.6,No
+252,Nicobar Islands rain forests,20,NA,18,#VALUE!,#VALUE!,NoA
+253,North Western Ghats moist deciduous forests,20,18.3,18,-1.7,0.3,No
+254,North Western Ghats montane rain forests,17.6,19.5,15.84,1.9,3.66,Yes
+255,Northern Annamites rain forests,20,22.8,18,2.8,4.8,Yes
+256,Northern Indochina subtropical forests,20,29.3,18,9.3,11.3,Yes
+257,Northern Khorat Plateau moist deciduous forests,20,24.4,18,4.4,6.4,Yes
+258,Northern Thailand-Laos moist deciduous forests,20,26.8,18,6.8,8.8,Yes
+259,Northern Triangle subtropical forests,19.6,19.6,17.64,0,1.96,Yes
+260,Northern Vietnam lowland rain forests,20,25.4,18,5.4,7.4,Yes
+261,Orissa semi-evergreen forests,20,29.3,18,9.3,11.3,Yes
+262,Palawan rain forests,20,3.9,18,-16.1,-14.1,No
+263,Peninsular Malaysian montane rain forests,20,11,18,-9,-7,No
+264,Peninsular Malaysian peat swamp forests,20,NA,18,#VALUE!,#VALUE!,NoA
+265,Peninsular Malaysian rain forests,9.7,10.9,8.73,1.2,2.17,Yes
+266,Red River freshwater swamp forests,20,32,18,12,14,Yes
+268,South China-Vietnam subtropical evergreen forests,20,49.6,18,29.6,31.6,Yes
+269,South Taiwan monsoon rain forests,20,23,18,3,5,Yes
+270,South Western Ghats moist deciduous forests,20,21.7,18,1.7,3.7,Yes
+271,South Western Ghats montane rain forests,20,19.7,18,-0.3,1.7,No
+272,Southern Annamites montane rain forests,20,16.6,18,-3.4,-1.4,No
+273,Southwest Borneo freshwater swamp forests,20,15.1,18,-4.9,-2.9,No
+274,Sri Lanka lowland rain forests,20,3.7,18,-16.3,-14.3,No
+275,Sri Lanka montane rain forests,20,3.8,18,-16.2,-14.2,No
+276,Sulu Archipelago rain forests,20,3.5,18,-16.5,-14.5,No
+277,Sumatran freshwater swamp forests,20,20.6,18,0.6,2.6,Yes
+278,Sumatran lowland rain forests,20,20,18,0,2,Yes
+279,Sumatran montane rain forests,17.3,19.3,15.57,2,3.73,Yes
+280,Sumatran peat swamp forests,20,20.1,18,0.1,2.1,Yes
+281,Sundaland heath forests,20,14.2,18,-5.8,-3.8,No
+282,Sundarbans freshwater swamp forests,12.2,20.4,10.98,8.2,9.42,Yes
+283,Taiwan subtropical evergreen forests,20,24.8,18,4.8,6.8,Yes
+284,Tenasserim-South Thailand semi-evergreen rain forests,16.6,12.1,14.94,-4.5,-2.84,No
+285,Tonle Sap freshwater swamp forests,20,15.5,18,-4.5,-2.5,No
+286,Tonle Sap-Mekong peat swamp forests,15.1,14.3,13.59,-0.8,0.71,No
+287,Upper Gangetic Plains moist deciduous forests,20,35,18,15,17,Yes
+288,Western Java montane rain forests,20,20.9,18,0.9,2.9,Yes
+289,Western Java rain forests,20,20.7,18,0.7,2.7,Yes
+290,Central Deccan Plateau dry deciduous forests,20,26.8,18,6.8,8.8,Yes
+291,Central Indochina dry forests,19.5,20.7,17.55,1.2,3.15,Yes
+292,Chhota-Nagpur dry deciduous forests,20,37.9,18,17.9,19.9,Yes
+293,East Deccan dry-evergreen forests,20,22.2,18,2.2,4.2,Yes
+294,Irrawaddy dry forests,20,19.1,18,-0.9,1.1,No
+295,Khathiar-Gir dry deciduous forests,18.4,22.1,16.56,3.7,5.54,Yes
+296,Narmada Valley dry deciduous forests,20,27.2,18,7.2,9.2,Yes
+297,North Deccan dry deciduous forests,20,33,18,13,15,Yes
+298,South Deccan Plateau dry deciduous forests,20,22.6,18,2.6,4.6,Yes
+299,Southeast Indochina dry evergreen forests,20,16.2,18,-3.8,-1.8,No
+300,Southern Vietnam lowland dry forests,20,14.4,18,-5.6,-3.6,No
+301,Sri Lanka dry-zone dry evergreen forests,3.3,3.6,2.97,0.3,0.63,Yes
+302,Himalayan subtropical pine forests,11,18,9.9,7,8.1,Yes
+303,Luzon tropical pine forests,20,13.2,18,-6.8,-4.8,No
+304,Northeast India-Myanmar pine forests,20,21.4,18,1.4,3.4,Yes
+305,Sumatran tropical pine forests,20,NA,18,#VALUE!,#VALUE!,NoA
+306,Eastern Himalayan broadleaf forests,12.5,16.7,11.25,4.2,5.45,Yes
+307,Northern Triangle temperate forests,12.5,18.6,11.25,6.1,7.35,Yes
+308,Western Himalayan broadleaf forests,7.1,18,6.39,10.9,11.61,Yes
+309,Eastern Himalayan subalpine conifer forests,7.5,12.5,6.75,5,5.75,Yes
+310,Western Himalayan subalpine conifer forests,4.6,10,4.14,5.4,5.86,Yes
+311,Terai-Duar savanna and grasslands,15,21,13.5,6,7.5,Yes
+312,Rann of Kutch seasonal salt marsh,15,11.1,13.5,-3.9,-2.4,No
+314,Aravalli west thorn scrub forests,5,13.7,4.5,8.7,9.2,Yes
+315,Deccan thorn scrub forests,5,21.2,4.5,16.2,16.7,Yes
+316,Godavari-Krishna mangroves,5,26.1,4.5,21.1,21.6,Yes
+317,Indus Valley desert,5,6.6,4.5,1.6,2.1,Yes
+318,Thar desert,5,12.4,4.5,7.4,7.9,Yes
+319,Indochina mangroves,20,12.2,18,-7.8,-5.8,No
+320,Indus River Delta-Arabian Sea mangroves,20,11.2,18,-8.8,-6.8,No
+321,Myanmar Coast mangroves,14.1,15.6,12.69,1.5,2.91,Yes
+322,Sunda Shelf mangroves,20,11.9,18,-8.1,-6.1,No
+323,Sundarbans mangroves,20,14.3,18,-5.7,-3.7,No
+324,Sonoran-Sinaloan subtropical dry forest,20,4.1,18,-15.9,-13.9,No
+326,Sierra Madre Occidental pine-oak forests,20,6.3,18,-13.7,-11.7,No
+327,Sierra Madre Oriental pine-oak forests,10.5,9.9,9.45,-0.6,0.45,No
+328,Allegheny Highlands forests,12.5,16.8,11.25,4.3,5.55,Yes
+329,Appalachian mixed mesophytic forests,12.5,18.2,11.25,5.7,6.95,Yes
+330,Appalachian Piedmont forests,12.5,15.5,11.25,3,4.25,Yes
+331,Appalachian-Blue Ridge forests,12.5,17.4,11.25,4.9,6.15,Yes
+332,East Central Texas forests,12.5,16.8,11.25,4.3,5.55,Yes
+333,Eastern Canadian Forest-Boreal transition,12.5,7.4,11.25,-5.1,-3.85,No
+334,Eastern Great Lakes lowland forests,12.5,12.5,11.25,0,1.25,Yes
+335,Gulf of St. Lawrence lowland forests,12.5,5.4,11.25,-7.1,-5.85,No
+336,Interior Plateau US Hardwood Forests,12.5,19.2,11.25,6.7,7.95,Yes
+337,Mississippi lowland forests,12.5,15.1,11.25,2.6,3.85,Yes
+338,New England-Acadian forests,9.3,8.3,8.37,-1,-0.07,No
+339,Northeast US Coastal forests,11.8,16,10.62,4.2,5.38,Yes
+340,Ozark Highlands mixed forests,12.5,18.1,11.25,5.6,6.85,Yes
+341,Ozark Mountain forests,12.5,16.6,11.25,4.1,5.35,Yes
+342,Southern Great Lakes forests,12.5,17.4,11.25,4.9,6.15,Yes
+343,Upper Midwest US forest-savanna transition,12.5,11.5,11.25,-1,0.25,No
+344,Western Great Lakes forests,5.6,7,5.04,1.4,1.96,Yes
+345,Alberta-British Columbia foothills forests,7.5,1.3,6.75,-6.2,-5.45,No
+346,Arizona Mountains forests,3.7,3.8,3.33,0.1,0.47,Yes
+347,Atlantic coastal pine barrens,7.5,16.9,6.75,9.4,10.15,Yes
+348,Blue Mountains forests,3.7,3.4,3.33,-0.3,0.07,No
+349,British Columbia coastal conifer forests,7.5,1.4,6.75,-6.1,-5.35,No
+350,Central British Columbia Mountain forests,0.6,0.8,0.54,0.2,0.26,Yes
+351,Central Pacific Northwest coastal forests,2.6,2.3,2.34,-0.3,-0.04,No
+352,Central-Southern Cascades Forests,4.4,3.6,3.96,-0.8,-0.36,No
+353,Colorado Rockies forests,6.2,5.1,5.58,-1.1,-0.48,No
+354,Eastern Cascades forests,7.5,3.2,6.75,-4.3,-3.55,No
+355,Fraser Plateau and Basin conifer forests,7.5,1.4,6.75,-6.1,-5.35,No
+356,Great Basin montane forests,7.5,2.9,6.75,-4.6,-3.85,No
+357,Klamath-Siskiyou forests,7.5,2.9,6.75,-4.6,-3.85,No
+358,North Cascades conifer forests,7.5,3.5,6.75,-4,-3.25,No
+359,Northern California coastal forests,4.4,3.2,3.96,-1.2,-0.76,No
+360,Northern Pacific Alaskan coastal forests,7.5,0.6,6.75,-6.9,-6.15,No
+361,Northern Rockies conifer forests,2.6,2.4,2.34,-0.2,0.06,No
+362,Okanogan dry forests,2,2.5,1.8,0.5,0.7,Yes
+363,Piney Woods,7.5,15.4,6.75,7.9,8.65,Yes
+364,Puget lowland forests,7.5,3.1,6.75,-4.4,-3.65,No
+365,Queen Charlotte Islands conifer forests,7.5,0.8,6.75,-6.7,-5.95,No
+366,Sierra Nevada forests,7.5,4.5,6.75,-3,-2.25,No
+367,South Central Rockies forests,7.5,3.7,6.75,-3.8,-3.05,No
+368,Wasatch and Uinta montane forests,7.5,3.7,6.75,-3.8,-3.05,No
+369,Alaska Peninsula montane taiga,7.5,0.5,6.75,-7,-6.25,No
+370,Central Canadian Shield forests,7.5,3.7,6.75,-3.8,-3.05,No
+371,Cook Inlet taiga,7.5,0.4,6.75,-7.1,-6.35,No
+372,Copper Plateau taiga,7.5,0.3,6.75,-7.2,-6.45,No
+373,Eastern Canadian forests,7.5,2.8,6.75,-4.7,-3.95,No
+374,Eastern Canadian Shield taiga,1.6,1.3,1.44,-0.3,-0.14,No
+375,Interior Alaska-Yukon lowland taiga,7.5,0.3,6.75,-7.2,-6.45,No
+376,Mid-Canada Boreal Plains forests,7.5,2.2,6.75,-5.3,-4.55,No
+377,Midwest Canadian Shield forests,3.5,2,3.15,-1.5,-1.15,No
+378,Muskwa-Slave Lake taiga,0.7,0.5,0.63,-0.2,-0.13,No
+379,Northern Canadian Shield taiga,7.5,0.6,6.75,-6.9,-6.15,No
+380,Northern Cordillera forests,7.5,0.5,6.75,-7,-6.25,No
+381,Northwest Territories taiga,7.5,0.3,6.75,-7.2,-6.45,No
+382,Southern Hudson Bay taiga,1.6,1.7,1.44,0.1,0.26,Yes
+383,Watson Highlands taiga,7.5,0.4,6.75,-7.1,-6.35,No
+384,Western Gulf coastal grasslands,15,13.9,13.5,-1.1,0.4,No
+385,California Central Valley grasslands,6.6,5.7,5.94,-0.9,-0.24,No
+386,Canadian Aspen forests and parklands,5.3,6.6,4.77,1.3,1.83,Yes
+387,Central US forest-grasslands transition,15,17.9,13.5,2.9,4.4,Yes
+388,Central Tallgrass prairie,15,16.6,13.5,1.6,3.1,Yes
+389,Central-Southern US mixed grasslands,15,16.2,13.5,1.2,2.7,Yes
+390,Cross-Timbers savanna-woodland,15,17.3,13.5,2.3,3.8,Yes
+391,Edwards Plateau savanna,12.4,12.4,11.16,0,1.24,Yes
+392,Flint Hills tallgrass prairie,15,19.3,13.5,4.3,5.8,Yes
+393,Mid-Atlantic US coastal savannas,12.9,14.3,11.61,1.4,2.69,Yes
+394,Montana Valley and Foothill grasslands,5.1,3.7,4.59,-1.4,-0.89,No
+395,Nebraska Sand Hills mixed grasslands,10,11.6,9,1.6,2.6,Yes
+396,Northern Shortgrass prairie,6.8,6.3,6.12,-0.5,0.18,No
+397,Northern Tallgrass prairie,10,7.1,9,-2.9,-1.9,No
+398,Palouse prairie,4,4,3.6,0,0.4,Yes
+399,Southeast US conifer savannas,15,13.1,13.5,-1.9,-0.4,No
+401,Texas blackland prairies,15,16.9,13.5,1.9,3.4,Yes
+402,Western shortgrass prairie,9.1,10,8.19,0.9,1.81,Yes
+403,Willamette Valley oak savanna,3.6,3.8,3.24,0.2,0.56,Yes
+404,Ahklun and Kilbuck Upland Tundra,10,0.4,9,-9.6,-8.6,No
+405,Alaska-St. Elias Range tundra,10,0.3,9,-9.7,-8.7,No
+406,Aleutian Islands tundra,10,0.7,9,-9.3,-8.3,No
+407,Arctic coastal tundra,10,0.1,9,-9.9,-8.9,No
+408,Arctic foothills tundra,10,0.1,9,-9.9,-8.9,No
+409,Beringia lowland tundra,10,0.3,9,-9.7,-8.7,No
+410,Beringia upland tundra,10,0.2,9,-9.8,-8.8,No
+411,Brooks-British Range tundra,10,0.2,9,-9.8,-8.8,No
+412,Canadian High Arctic tundra,10,0.1,9,-9.9,-8.9,No
+413,Canadian Low Arctic tundra,10,0.3,9,-9.7,-8.7,No
+414,Canadian Middle Arctic Tundra,10,0.2,9,-9.8,-8.8,No
+415,Davis Highlands tundra,10,0.2,9,-9.8,-8.8,No
+416,Interior Yukon-Alaska alpine tundra,10,0.2,9,-9.8,-8.8,No
+417,Kalaallit Nunaat Arctic steppe,10,0,9,-10,-9,No
+418,Kalaallit Nunaat High Arctic tundra,10,0,9,-10,-9,No
+419,Ogilvie-MacKenzie alpine tundra,10,0.3,9,-9.7,-8.7,No
+420,Pacific Coastal Mountain icefields and tundra,10,0.5,9,-9.5,-8.5,No
+421,Torngat Mountain tundra,10,0.7,9,-9.3,-8.3,No
+422,California coastal sage and chaparral,7.5,7,6.75,-0.5,0.25,No
+423,California interior chaparral and woodlands,7.5,5.2,6.75,-2.3,-1.55,No
+424,California montane chaparral and woodlands,7.5,6.6,6.75,-0.9,-0.15,No
+425,Santa Lucia Montane Chaparral & Woodlands,5.5,5.3,4.95,-0.2,0.35,No
+426,Baja California desert,5,2.6,4.5,-2.4,-1.9,No
+427,Central Mexican matorral,5,11.3,4.5,6.3,6.8,Yes
+428,Chihuahuan desert,5,6,4.5,1,1.5,Yes
+429,Colorado Plateau shrublands,3.3,3.7,2.97,0.4,0.73,Yes
+430,Great Basin shrub steppe,5,3,4.5,-2,-1.5,No
+431,Gulf of California xeric scrub,5,2.6,4.5,-2.4,-1.9,No
+432,Meseta Central matorral,5,9.6,4.5,4.6,5.1,Yes
+433,Mojave desert,5,4.7,4.5,-0.3,0.2,No
+434,Snake-Columbia shrub steppe,3.1,2.8,2.79,-0.3,0.01,No
+435,Sonoran desert,5,3.8,4.5,-1.2,-0.7,No
+436,Tamaulipan matorral,5,10.9,4.5,5.9,6.4,Yes
+437,Tamaulipan mezquital,5,12.3,4.5,7.3,7.8,Yes
+438,Wyoming Basin shrub steppe,5,4.5,4.5,-0.5,0,No
+439,Alto Paraná Atlantic forests,20,14.3,18,5.7,3.7,Yes
+440,Araucaria moist forests,12.7,14.5,11.43,-1.8,-3.07,No
+441,Atlantic Coast restingas,20,7.3,18,12.7,10.7,Yes
+442,Bahia coastal forests,20,7.6,18,12.4,10.4,Yes
+443,Bahia interior forests,20,9.6,18,10.4,8.4,Yes
+444,Bolivian Yungas,20,7.5,18,12.5,10.5,Yes
+445,Caatinga Enclaves moist forests,20,6.9,18,13.1,11.1,Yes
+446,Caqueta moist forests,8.8,7.3,7.92,1.5,0.62,Yes
+447,Catatumbo moist forests,20,14.3,18,5.7,3.7,Yes
+448,Cauca Valley montane forests,14.2,13.8,12.78,0.4,-1.02,Yes
+450,Central American Atlantic moist forests,5.2,6.7,4.68,-1.5,-2.02,No
+451,Central American montane forests,7.5,7.9,6.75,-0.4,-1.15,No
+452,Chiapas montane forests,8.3,8.5,7.47,-0.2,-1.03,No
+453,Chimalapas montane forests,20,8.5,18,11.5,9.5,Yes
+454,Chocó-Darién moist forests,20,10.5,18,9.5,7.5,Yes
+456,Cordillera La Costa montane forests,8.2,7.7,7.38,0.5,-0.32,Yes
+457,Cordillera Oriental montane forests,20,14.2,18,5.8,3.8,Yes
+458,Costa Rican seasonal moist forests,6,6.2,5.4,-0.2,-0.8,No
+459,Cuban moist forests,20,5.8,18,14.2,12.2,Yes
+460,Eastern Cordillera Real montane forests,20,7.3,18,12.7,10.7,Yes
+461,Eastern Panamanian montane forests,20,10.1,18,9.9,7.9,Yes
+463,Guianan freshwater swamp forests,20,2.9,18,17.1,15.1,Yes
+464,Guianan Highlands moist forests,3.8,5,3.42,-1.2,-1.58,No
+465,Guianan lowland moist forests,3.6,3.5,3.24,0.1,-0.26,Yes
+466,Guianan piedmont moist forests,20,5.4,18,14.6,12.6,Yes
+467,Gurupa várzea,20,8.9,18,11.1,9.1,Yes
+468,Hispaniolan moist forests,20,5.5,18,14.5,12.5,Yes
+469,Iquitos várzea,20,5.4,18,14.6,12.6,Yes
+470,Isthmian-Atlantic moist forests,20,6.8,18,13.2,11.2,Yes
+471,Isthmian-Pacific moist forests,20,6.5,18,13.5,11.5,Yes
+472,Jamaican moist forests,4.8,4.8,4.32,0,-0.48,Yes
+473,Japurá-Solimões-Negro moist forests,20,5.5,18,14.5,12.5,Yes
+474,Juruá-Purus moist forests,20,5.8,18,14.2,12.2,Yes
+476,Madeira-Tapajós moist forests,11,9.7,9.9,1.3,0.2,Yes
+477,Magdalena Valley montane forests,16.5,15.7,14.85,0.8,-0.85,Yes
+478,Magdalena-Urabá moist forests,14.4,15.6,12.96,-1.2,-2.64,No
+479,Marañón dry forests,5.4,5.6,4.86,-0.2,-0.74,No
+480,Marajó várzea,7.3,7.5,6.57,-0.2,-0.93,No
+481,Mato Grosso tropical dry forests,20,12.3,18,7.7,5.7,Yes
+482,Monte Alegre várzea,20,7.3,18,12.7,10.7,Yes
+483,Napo moist forests,4.8,6.5,4.32,-1.7,-2.18,No
+484,Negro-Branco moist forests,8,6.8,7.2,1.2,0.4,Yes
+485,Northeast Brazil restingas,20,8.3,18,11.7,9.7,Yes
+486,Northwest Andean montane forests,8.6,10.5,7.74,-1.9,-2.76,No
+487,Oaxacan montane forests,20,10,18,10,8,Yes
+488,Orinoco Delta swamp forests,20,3.9,18,16.1,14.1,Yes
+489,Pantanos de Centla,7,7.4,6.3,-0.4,-1.1,No
+490,Pantepui forests & shrublands,6.9,5.1,6.21,1.8,1.11,Yes
+491,Pernambuco coastal forests,5.7,5.5,5.13,0.2,-0.37,Yes
+492,Pernambuco interior forests,20,5.6,18,14.4,12.4,Yes
+493,Peruvian Yungas,20,5.4,18,14.6,12.6,Yes
+494,Petén-Veracruz moist forests,7.3,8.4,6.57,-1.1,-1.83,No
+495,Puerto Rican moist forests,20,2.9,18,17.1,15.1,Yes
+496,Purus várzea,5,5.9,4.5,-0.9,-1.4,No
+497,Purus-Madeira moist forests,20,7.4,18,12.6,10.6,Yes
+498,Rio Negro campinarana,4.7,5.2,4.23,-0.5,-0.97,No
+499,Santa Marta montane forests,20,10.2,18,9.8,7.8,Yes
+500,Serra do Mar coastal forests,20,11.5,18,8.5,6.5,Yes
+501,Sierra de los Tuxtlas,8.5,8.3,7.65,0.2,-0.65,Yes
+502,Sierra Madre de Chiapas moist forests,9.6,8,8.64,1.6,0.64,Yes
+503,Solimões-Japurá moist forests,4.9,5.2,4.41,-0.3,-0.79,No
+504,Southern Andean Yungas,20,7.1,18,12.9,10.9,Yes
+505,Southwest Amazon moist forests,20,6.2,18,13.8,11.8,Yes
+506,Talamancan montane forests,20,6.4,18,13.6,11.6,Yes
+507,Tapajós-Xingu moist forests,20,10.7,18,9.3,7.3,Yes
+508,Tocantins/Pindare moist forests,20,11.3,18,8.7,6.7,Yes
+510,Trinidad and Tobago moist forest,3.3,NA,2.97,#VALUE!,#VALUE!,NoA
+511,Uatumí-Trombetas moist forests,20,6.1,18,13.9,11.9,Yes
+512,Ucayali moist forests,5.5,5.5,4.95,0,-0.55,Yes
+513,Venezuelan Andes montane forests,20,13.3,18,6.7,4.7,Yes
+514,Veracruz moist forests,11,10.1,9.9,0.9,-0.2,Yes
+515,Veracruz montane forests,20,NA,18,#VALUE!,#VALUE!,NoA
+516,Western Ecuador moist forests,20,8.1,18,11.9,9.9,Yes
+518,Xingu-Tocantins-Araguaia moist forests,14.3,13,12.87,1.3,-0.13,Yes
+519,Yucatán moist forests,20,5.8,18,14.2,12.2,Yes
+520,Apure-Villavicencio dry forests,20,14,18,-6,-4,No
+521,Bajío dry forests,20,11.8,18,-8.2,-6.2,No
+522,Balsas dry forests,10.5,12,9.45,1.5,2.55,Yes
+523,Bolivian montane dry forests,20,7.6,18,-12.4,-10.4,No
+524,Brazilian Atlantic dry forests,20,8.8,18,-11.2,-9.2,No
+525,Caatinga,5.6,7.5,5.04,1.9,2.46,Yes
+526,Cauca Valley dry forests,14.5,11.6,13.05,-2.9,-1.45,No
+527,Central American dry forests,8.3,7.7,7.47,-0.6,0.23,No
+528,Chiapas Depression dry forests,8.5,8.7,7.65,0.2,1.05,Yes
+529,Chiquitano dry forests,20,10.2,18,-9.8,-7.8,No
+530,Cuban dry forests,20,6.5,18,-13.5,-11.5,No
+531,Ecuadorian dry forests,7.8,7.6,7.02,-0.2,0.58,No
+532,Hispaniolan dry forests,20,6,18,-14,-12,No
+534,Jalisco dry forests,8.2,8.5,7.38,0.3,1.12,Yes
+535,Jamaican dry forests,20,4.5,18,-15.5,-13.5,No
+536,Lara-Falcón dry forests,8,7.6,7.2,-0.4,0.4,No
+538,Magdalena Valley dry forests,14.2,13.7,12.78,-0.5,0.92,No
+539,Maracaibo dry forests,20,11.5,18,-8.5,-6.5,No
+540,Maranhío Babaçu forests,9.2,10.3,8.28,1.1,2.02,Yes
+541,Panamanian dry forests,20,6.9,18,-13.1,-11.1,No
+542,Patía valley dry forests,20,9.6,18,-10.4,-8.4,No
+543,Puerto Rican dry forests,20,NA,18,#VALUE!,#VALUE!,NoA
+544,Sierra de la Laguna dry forests,20,NA,18,#VALUE!,#VALUE!,NoA
+545,Sinaloan dry forests,8.5,7.2,7.65,-1.3,-0.45,No
+546,Sinú Valley dry forests,20,12.6,18,-7.4,-5.4,No
+547,Southern Pacific dry forests,20,8.9,18,-11.1,-9.1,No
+549,Tumbes-Piura dry forests,20,5,18,-15,-13,No
+550,Veracruz dry forests,20,9.8,18,-10.2,-8.2,No
+551,Yucatán dry forests,5.2,5.3,4.68,0.1,0.62,Yes
+552,Bahamian pineyards,20,4.9,18,-15.1,-13.1,No
+553,Central American pine-oak forests,20,8.6,18,-11.4,-9.4,No
+554,Cuban pine forests,20,5.5,18,-14.5,-12.5,No
+555,Hispaniolan pine forests,6.4,5.9,5.76,-0.5,0.14,No
+556,Sierra de la Laguna pine-oak forests,20,3,18,-17,-15,No
+557,Sierra Madre de Oaxaca pine-oak forests,20,10,18,-10,-8,No
+558,Sierra Madre del Sur pine-oak forests,8.8,10.3,7.92,1.5,2.38,Yes
+559,Trans-Mexican Volcanic Belt pine-oak forests,12.8,11.3,11.52,-1.5,-0.22,No
+561,Magellanic subpolar forests,12.5,0.5,11.25,-12,-10.75,No
+563,Valdivian temperate forests,12.5,1.6,11.25,-10.9,-9.65,No
+564,Belizian pine savannas,6.4,6.2,5.76,-0.2,0.44,No
+565,Beni savanna,15,8.5,13.5,-6.5,-5,No
+566,Campos Rupestres montane savanna,11.3,11.2,10.17,-0.1,1.03,No
+567,Cerrado,12.2,11.9,10.98,-0.3,0.92,No
+569,Dry Chaco,15,8.8,13.5,-6.2,-4.7,No
+570,Guianan savanna,15,4.5,13.5,-10.5,-9,No
+571,Humid Chaco,15,13.5,13.5,-1.5,0,No
+572,Llanos,15,10.3,13.5,-4.7,-3.2,No
+573,Miskito pine forests,4.7,5,4.23,0.3,0.77,Yes
+574,Uruguayan savanna,15,12.5,13.5,-2.5,-1,No
+575,Espinal,15,7.9,13.5,-7.1,-5.6,No
+576,Humid Pampas,7.9,8.4,7.11,0.5,1.29,Yes
+577,Low Monte,15,2.4,13.5,-12.6,-11.1,No
+578,Patagonian steppe,15,1,13.5,-14,-12.5,No
+579,Cuban wetlands,15,NA,13.5,#VALUE!,#VALUE!,NoA
+581,Everglades flooded grasslands,15,8,13.5,-7,-5.5,No
+582,Guayaquil flooded grasslands,7.9,NA,7.11,#VALUE!,#VALUE!,NoA
+583,Orinoco wetlands,15,4.2,13.5,-10.8,-9.3,No
+584,Pantanal,15,12.1,13.5,-2.9,-1.4,No
+585,Paraná flooded savanna,11.5,12.5,10.35,1,2.15,Yes
+586,Southern Cone Mesopotamian savanna,15,14.9,13.5,-0.1,1.4,No
+587,Central Andean dry puna,3.6,3.5,3.24,-0.1,0.26,No
+588,Central Andean puna,4.6,4.8,4.14,0.2,0.66,Yes
+589,Central Andean wet puna,5.6,5.4,5.04,-0.2,0.36,No
+590,Cordillera Central páramo,17.5,5.5,15.75,-12,-10.25,No
+591,Cordillera de Merida páramo,17.5,13.3,15.75,-4.2,-2.45,No
+592,High Monte,3.3,3.7,2.97,0.4,0.73,Yes
+593,Northern Andean páramo,17.5,9.8,15.75,-7.7,-5.95,No
+594,Santa Marta páramo,17.5,NA,15.75,#VALUE!,#VALUE!,NoA
+595,Southern Andean steppe,17.5,2.6,15.75,-14.9,-13.15,No
+596,Chilean Matorral,10,2,9,-8,-7,No
+597,Araya and Paria xeric scrub,4.4,4.9,3.96,0.5,0.94,Yes
+598,Atacama desert,1.5,2,1.35,0.5,0.65,Yes
+600,Cuban cactus scrub,5,5.6,4.5,0.6,1.1,Yes
+601,Galápagos Islands xeric scrub,1.4,1.5,1.26,0.1,0.24,Yes
+602,Guajira-Barranquilla xeric scrub,5,9,4.5,4,4.5,Yes
+603,La Costa xeric shrublands,5,8,4.5,3,3.5,Yes
+605,Motagua Valley thornscrub,5,9.7,4.5,4.7,5.2,Yes
+606,Paraguaná xeric scrub,5,7.7,4.5,2.7,3.2,Yes
+607,San Lucan xeric scrub,5,3,4.5,-2,-1.5,No
+608,Sechura desert,4,4,3.6,0,0.4,Yes
+610,Tehuacán Valley matorral,5,11.6,4.5,6.6,7.1,Yes
+611,Amazon-Orinoco-Southern Caribbean mangroves,20,6.5,18,-13.5,-11.5,No
+612,Bahamian-Antillean mangroves,4.9,5.4,4.41,0.5,0.99,Yes
+613,Mesoamerican Gulf-Caribbean mangroves,5.8,6.4,5.22,0.6,1.18,Yes
+614,Northern Mesoamerican Pacific mangroves,20,6,18,-14,-12,No
+615,South American Pacific mangroves,20,6.9,18,-13.1,-11.1,No
+616,Southern Atlantic Brazilian mangroves,20,8.2,18,-11.8,-9.8,No
+617,Southern Mesoamerican Pacific mangroves,8.3,8.1,7.47,-0.2,0.63,No
+622,Fiji tropical moist forests,1.24768,1.318329,1.122912,0.070649,0.195417,Yes
+623,Hawai'i tropical moist forests,20,1.115139,18,-18.8849,-16.8849,No
+629,Samoan tropical moist forests,20,1.165568,18,-18.8344,-16.8344,No
+635,Fiji tropical dry forests,20,1.309602,18,-18.6904,-16.6904,No
+636,Hawai'i tropical dry forests,20,1.230533,18,-18.7695,-16.7695,No
+639,Hawai'i tropical high shrublands,1.22761,NA,1.104849,#VALUE!,#VALUE!,NoA
+640,Hawai'i tropical low shrublands,15,1.199612,13.5,-13.8004,-12.3004,No
+642,Guizhou Plateau broadleaf and mixed forests,20,65.9,18,45.9,47.9,Yes
+643,Yunnan Plateau subtropical evergreen forests,20,39.9,18,19.9,21.9,Yes
+644,Appenine deciduous montane forests,12.5,13.4,11.25,0.9,2.15,Yes
+646,Balkan mixed forests,11.5,12.9,10.35,1.4,2.55,Yes
+647,Baltic mixed forests,12.5,15.7,11.25,3.2,4.45,Yes
+648,Cantabrian mixed forests,12.5,9.4,11.25,-3.1,-1.85,No
+649,Caspian Hyrcanian mixed forests,12.5,7.9,11.25,-4.6,-3.35,No
+650,Caucasus mixed forests,6.5,7,5.85,0.5,1.15,Yes
+651,Celtic broadleaf forests,12.5,11.8,11.25,-0.7,0.55,No
+652,Central Anatolian steppe and woodlands,10.3,11.4,9.27,1.1,2.13,Yes
+653,Central China Loess Plateau mixed forests,12.5,27.9,11.25,15.4,16.65,Yes
+654,Central European mixed forests,12.5,13.2,11.25,0.7,1.95,Yes
+655,Central Korean deciduous forests,12.5,17.8,11.25,5.3,6.55,Yes
+656,Changbai Mountains mixed forests,12.5,17.7,11.25,5.2,6.45,Yes
+657,Changjiang Plain evergreen forests,12.5,68.4,11.25,55.9,57.15,Yes
+658,Crimean Submediterranean forest complex,7.2,7.6,6.48,0.4,1.12,Yes
+659,Daba Mountains evergreen forests,12.5,63.3,11.25,50.8,52.05,Yes
+660,Dinaric Mountains mixed forests,12.5,12.8,11.25,0.3,1.55,Yes
+661,East European forest steppe,9.1,8,8.19,-1.1,-0.19,No
+662,Eastern Anatolian deciduous forests,12.5,9.8,11.25,-2.7,-1.45,No
+663,English Lowlands beech forests,12.5,17.2,11.25,4.7,5.95,Yes
+664,European Atlantic mixed forests,12.5,19.1,11.25,6.6,7.85,Yes
+665,Euxine-Colchic broadleaf forests,9.5,10.3,8.55,0.8,1.75,Yes
+666,Hokkaido deciduous forests,4.8,4.3,4.32,-0.5,-0.02,No
+667,Huang He Plain mixed forests,12.5,46,11.25,33.5,34.75,Yes
+669,Manchurian mixed forests,7,14.7,6.3,7.7,8.4,Yes
+670,Nihonkai evergreen forests,12.5,11.9,11.25,-0.6,0.65,No
+671,Nihonkai montane deciduous forests,12.5,11,11.25,-1.5,-0.25,No
+672,North Atlantic moist mixed forests,4.8,5.7,4.32,0.9,1.38,Yes
+673,Northeast China Plain deciduous forests,12.5,22.2,11.25,9.7,10.95,Yes
+674,Pannonian mixed forests,12.5,15.7,11.25,3.2,4.45,Yes
+675,Po Basin mixed forests,12.5,16.1,11.25,3.6,4.85,Yes
+676,Pyrenees conifer and mixed forests,11.4,11.7,10.26,0.3,1.44,Yes
+677,Qin Ling Mountains deciduous forests,12.5,43.8,11.25,31.3,32.55,Yes
+678,Rodope montane mixed forests,11.1,11.9,9.99,0.8,1.91,Yes
+679,Sarmatic mixed forests,8.8,7.1,7.92,-1.7,-0.82,No
+680,Sichuan Basin evergreen broadleaf forests,12.5,65.3,11.25,52.8,54.05,Yes
+681,Southern Korea evergreen forests,12.5,15.3,11.25,2.8,4.05,Yes
+682,Taiheiyo evergreen forests,12.5,12.1,11.25,-0.4,0.85,No
+683,Taiheiyo montane deciduous forests,12.2,12.4,10.98,0.2,1.42,Yes
+684,Tarim Basin deciduous forests and steppe,12.5,3.5,11.25,-9,-7.75,No
+685,Ussuri broadleaf and mixed forests,5,5.6,4.5,0.6,1.1,Yes
+686,Western European broadleaf forests,12.5,20.7,11.25,8.2,9.45,Yes
+687,Western Siberian hemiboreal forests,3.4,3.3,3.06,-0.1,0.24,No
+688,Zagros Mountains forest steppe,9.7,9.7,8.73,0,0.97,Yes
+689,Alps conifer and mixed forests,12.5,17.3,11.25,4.8,6.05,Yes
+690,Altai montane forest and forest steppe,7.5,2.6,6.75,-4.9,-4.15,No
+691,Caledon conifer forests,7.3,5.7,6.57,-1.6,-0.87,No
+692,Carpathian montane forests,7.5,14.6,6.75,7.1,7.85,Yes
+693,Da Hinggan-Dzhagdy Mountains conifer forests,2.5,4,2.25,1.5,1.75,Yes
+694,East Afghan montane conifer forests,7.5,3.2,6.75,-4.3,-3.55,No
+695,Elburz Range forest steppe,7.5,7.5,6.75,0,0.75,Yes
+696,Helanshan montane conifer forests,7.5,9.7,6.75,2.2,2.95,Yes
+697,Hengduan Mountains subalpine conifer forests,7.5,18.5,6.75,11,11.75,Yes
+698,Hokkaido montane conifer forests,4.3,4.4,3.87,0.1,0.53,Yes
+699,Honshu alpine conifer forests,7.5,13.1,6.75,5.6,6.35,Yes
+700,Khangai Mountains conifer forests,2.4,2.4,2.16,0,0.24,Yes
+701,Mediterranean conifer and mixed forests,7.5,7.9,6.75,0.4,1.15,Yes
+702,Northeast Himalayan subalpine conifer forests,7.5,13,6.75,5.5,6.25,Yes
+703,Northern Anatolian conifer and deciduous forests,7.5,10.8,6.75,3.3,4.05,Yes
+704,Nujiang Langcang Gorge alpine conifer and mixed forests,7.5,13.4,6.75,5.9,6.65,Yes
+705,Qilian Mountains conifer forests,7.5,15.3,6.75,7.8,8.55,Yes
+706,Qionglai-Minshan conifer forests,7.5,36.7,6.75,29.2,29.95,Yes
+707,Sayan montane conifer forests,2.4,2.1,2.16,-0.3,-0.06,No
+708,Scandinavian coastal conifer forests,1,2.9,0.9,1.9,2,Yes
+709,Tian Shan montane conifer forests,7.5,5,6.75,-2.5,-1.75,No
+710,East Siberian taiga,7.5,0.8,6.75,-6.7,-5.95,No
+711,Iceland boreal birch forests and alpine tundra,0.6,0.7,0.54,0.1,0.16,Yes
+712,Kamchatka taiga,0.5,0.6,0.45,0.1,0.15,Yes
+713,Kamchatka-Kurile meadows and sparse forests,7.5,0.7,6.75,-6.8,-6.05,No
+714,Northeast Siberian taiga,7.5,0.3,6.75,-7.2,-6.45,No
+715,Okhotsk-Manchurian taiga,2.9,2.8,2.61,-0.1,0.19,No
+716,Sakhalin Island taiga,7.5,2.1,6.75,-5.4,-4.65,No
+717,Scandinavian and Russian taiga,7.5,2.9,6.75,-4.6,-3.85,No
+718,Trans-Baikal conifer forests,1.5,1.9,1.35,0.4,0.55,Yes
+719,Urals montane forest and taiga,3,3,2.7,0,0.3,Yes
+720,West Siberian taiga,7.5,1.7,6.75,-5.8,-5.05,No
+721,Alai-Western Tian Shan steppe,3.8,4.6,3.42,0.8,1.18,Yes
+722,Al-Hajar foothill xeric woodlands and shrublands,15,4.7,13.5,-10.3,-8.8,No
+724,Altai steppe and semi-desert,15,4.4,13.5,-10.6,-9.1,No
+725,Central Anatolian steppe,15,11.7,13.5,-3.3,-1.8,No
+726,Daurian forest steppe,15,2.7,13.5,-12.3,-10.8,No
+727,Eastern Anatolian montane steppe,15,9.5,13.5,-5.5,-4,No
+728,Emin Valley steppe,3.6,4.5,3.24,0.9,1.26,Yes
+730,Gissaro-Alai open woodlands,15,5.3,13.5,-9.7,-8.2,No
+731,Kazakh forest steppe,3.1,4.4,2.79,1.3,1.61,Yes
+732,Kazakh steppe,5,5.4,4.5,0.4,0.9,Yes
+733,Kazakh upland steppe,15,4.7,13.5,-10.3,-8.8,No
+734,Mongolian-Manchurian grassland,13,8.6,11.7,-4.4,-3.1,No
+735,Pontic steppe,6.3,8.1,5.67,1.8,2.43,Yes
+736,Sayan Intermontane steppe,1.9,1.7,1.71,-0.2,-0.01,No
+737,Selenge-Orkhon forest steppe,1.6,2.7,1.44,1.1,1.26,Yes
+738,South Siberian forest steppe,2.3,2.3,2.07,0,0.23,Yes
+739,Syrian xeric grasslands and shrublands,15,9.9,13.5,-5.1,-3.6,No
+740,Tian Shan foothill arid steppe,15,4.3,13.5,-10.7,-9.2,No
+741,Amur meadow steppe,15,10,13.5,-5,-3.5,No
+742,Bohai Sea saline meadow,15,31,13.5,16,17.5,Yes
+743,Nenjiang River grassland,15,13.6,13.5,-1.4,0.1,No
+744,Nile Delta flooded savanna,15,8.2,13.5,-6.8,-5.3,No
+745,Saharan halophytics,15,3.7,13.5,-11.3,-9.8,No
+746,Suiphun-Khanka meadows and forest meadows,15,12,13.5,-3,-1.5,No
+747,Tigris-Euphrates alluvial salt marsh,15,9.7,13.5,-5.3,-3.8,No
+748,Yellow Sea saline meadow,15,48.4,13.5,33.4,34.9,Yes
+749,Altai alpine meadow and tundra,3.4,2.8,3.06,-0.6,-0.26,No
+750,Central Tibetan Plateau alpine steppe,10,6.6,9,-3.4,-2.4,No
+751,Eastern Himalayan alpine shrub and meadows,10,16.6,9,6.6,7.6,Yes
+752,Ghorat-Hazarajat alpine meadow,10,1.4,9,-8.6,-7.6,No
+753,Hindu Kush alpine meadow,3.3,2.5,2.97,-0.8,-0.47,No
+754,Karakoram-West Tibetan Plateau alpine steppe,10,6.6,9,-3.4,-2.4,No
+755,Khangai Mountains alpine meadow,2.6,2.5,2.34,-0.1,0.16,No
+756,Kopet Dag woodlands and forest steppe,10,4,9,-6,-5,No
+757,Kuh Rud and Eastern Iran montane woodlands,10,5.4,9,-4.6,-3.6,No
+758,Mediterranean High Atlas juniper steppe,4.5,5.3,4.05,0.8,1.25,Yes
+759,North Tibetan Plateau-Kunlun Mountains alpine desert,10,4.1,9,-5.9,-4.9,No
+760,Northwestern Himalayan alpine shrub and meadows,4.2,10,3.78,5.8,6.22,Yes
+761,Ordos Plateau steppe,10,17.5,9,7.5,8.5,Yes
+762,Pamir alpine desert and tundra,10,5.4,9,-4.6,-3.6,No
+763,Qilian Mountains subalpine meadows,10,3.7,9,-6.3,-5.3,No
+764,Sayan alpine meadows and tundra,1.5,2,1.35,0.5,0.65,Yes
+765,Southeast Tibet shrublands and meadows,10,11.6,9,1.6,2.6,Yes
+766,Sulaiman Range alpine meadows,2.7,3.3,2.43,0.6,0.87,Yes
+767,Tian Shan montane steppe and meadows,10,4.4,9,-5.6,-4.6,No
+768,Tibetan Plateau alpine shrublands and meadows,10,6.3,9,-3.7,-2.7,No
+769,Western Himalayan alpine shrub and meadows,10,14.1,9,4.1,5.1,Yes
+770,Yarlung Zanbo arid steppe,10,14.4,9,4.4,5.4,Yes
+771,Cherskii-Kolyma mountain tundra,10,0.3,9,-9.7,-8.7,No
+772,Chukchi Peninsula tundra,10,0.2,9,-9.8,-8.8,No
+773,Kamchatka tundra,0.5,0.6,0.45,0.1,0.15,Yes
+774,Kola Peninsula tundra,1,1,0.9,0,0.1,Yes
+775,Northeast Siberian coastal tundra,10,0.1,9,-9.9,-8.9,No
+776,Northwest Russian-Novaya Zemlya tundra,0.9,0.8,0.81,-0.1,-0.01,No
+777,Novosibirsk Islands Arctic desert,10,0.1,9,-9.9,-8.9,No
+778,Russian Arctic desert,10,0.2,9,-9.8,-8.8,No
+779,Russian Bering tundra,10,0.3,9,-9.7,-8.7,No
+780,Scandinavian Montane Birch forest and grasslands,10,2.1,9,-7.9,-6.9,No
+781,Taimyr-Central Siberian tundra,10,0.3,9,-9.7,-8.7,No
+782,Trans-Baikal Bald Mountain tundra,0.9,1.2,0.81,0.3,0.39,Yes
+783,Wrangel Island Arctic desert,10,0.1,9,-9.9,-8.9,No
+784,Yamal-Gydan tundra,10,0.5,9,-9.5,-8.5,No
+785,Aegean and Western Turkey sclerophyllous and mixed forests,7.5,10,6.75,2.5,3.25,Yes
+786,Anatolian conifer and deciduous mixed forests,7.5,12.7,6.75,5.2,5.95,Yes
+787,Canary Islands dry woodlands and forests,7.5,1.6,6.75,-5.9,-5.15,No
+788,Corsican montane broadleaf and mixed forests,7.5,9.8,6.75,2.3,3.05,Yes
+789,Crete Mediterranean forests,7.5,5.5,6.75,-2,-1.25,No
+790,Cyprus Mediterranean forests,7.5,7.1,6.75,-0.4,0.35,No
+791,Eastern Mediterranean conifer-broadleaf forests,7.5,10.3,6.75,2.8,3.55,Yes
+792,Iberian conifer forests,7.5,11,6.75,3.5,4.25,Yes
+793,Iberian sclerophyllous and semi-deciduous forests,7.5,10.9,6.75,3.4,4.15,Yes
+794,Illyrian deciduous forests,7.5,11.4,6.75,3.9,4.65,Yes
+795,Italian sclerophyllous and semi-deciduous forests,7.5,13.1,6.75,5.6,6.35,Yes
+796,Mediterranean Acacia-Argania dry woodlands and succulent thickets,7.5,4.3,6.75,-3.2,-2.45,No
+797,Mediterranean dry woodlands and steppe,7.5,5.6,6.75,-1.9,-1.15,No
+798,Mediterranean woodlands and forests,7.5,7.2,6.75,-0.3,0.45,No
+799,Northeast Spain and Southern France Mediterranean forests,7.5,12.3,6.75,4.8,5.55,Yes
+800,Northwest Iberian montane forests,7.5,10.5,6.75,3,3.75,Yes
+801,Pindus Mountains mixed forests,7.5,10.9,6.75,3.4,4.15,Yes
+802,South Apennine mixed montane forests,7.5,9.5,6.75,2,2.75,Yes
+803,Southeast Iberian shrubs and woodlands,7.5,8.6,6.75,1.1,1.85,Yes
+804,Southern Anatolian montane conifer and deciduous forests,7.5,10.7,6.75,3.2,3.95,Yes
+805,Southwest Iberian Mediterranean sclerophyllous and mixed forests,7.5,9.2,6.75,1.7,2.45,Yes
+806,Tyrrhenian-Adriatic sclerophyllous and mixed forests,7.5,8.9,6.75,1.4,2.15,Yes
+807,Afghan Mountains semi-desert,1.6,1.8,1.44,0.2,0.36,Yes
+808,Alashan Plateau semi-desert,5,3.7,4.5,-1.3,-0.8,No
+809,Arabian desert,5,4.9,4.5,-0.1,0.4,No
+810,Arabian sand desert,5,4.2,4.5,-0.8,-0.3,No
+811,Arabian-Persian Gulf coastal plain desert,5,5.7,4.5,0.7,1.2,Yes
+812,Azerbaijan shrub desert and steppe,5,5.9,4.5,0.9,1.4,Yes
+813,Badghyz and Karabil semi-desert,3.7,3,3.33,-0.7,-0.33,No
+814,Baluchistan xeric woodlands,5,4,4.5,-1,-0.5,No
+815,Caspian lowland desert,5,5.3,4.5,0.3,0.8,Yes
+816,Central Afghan Mountains xeric woodlands,5,1.7,4.5,-3.3,-2.8,No
+817,Central Asian northern desert,3.4,3.3,3.06,-0.1,0.24,No
+818,Central Asian riparian woodlands,5,3.1,4.5,-1.9,-1.4,No
+819,Central Asian southern desert,5,3.3,4.5,-1.7,-1.2,No
+820,Central Persian desert basins,5,5.5,4.5,0.5,1,Yes
+821,East Arabian fog shrublands and sand desert,5,4.1,4.5,-0.9,-0.4,No
+822,East Sahara Desert,5,2.5,4.5,-2.5,-2,No
+823,East Saharan montane xeric woodlands,5,2.4,4.5,-2.6,-2.1,No
+824,Eastern Gobi desert steppe,5,4.9,4.5,-0.1,0.4,No
+825,Gobi Lakes Valley desert steppe,5,2.5,4.5,-2.5,-2,No
+826,Great Lakes Basin desert steppe,5,2.2,4.5,-2.8,-2.3,No
+827,Junggar Basin semi-desert,5,2.9,4.5,-2.1,-1.6,No
+828,Kazakh semi-desert,3.1,4,2.79,0.9,1.21,Yes
+829,Kopet Dag semi-desert,5,4,4.5,-1,-0.5,No
+830,Mesopotamian shrub desert,5,8.4,4.5,3.4,3.9,Yes
+831,North Arabian desert,5,6,4.5,1,1.5,Yes
+832,North Arabian highland shrublands,5,3.8,4.5,-1.2,-0.7,No
+833,North Saharan Xeric Steppe and Woodland,5,3.4,4.5,-1.6,-1.1,No
+834,Paropamisus xeric woodlands,1.2,1.8,1.08,0.6,0.72,Yes
+835,Qaidam Basin semi-desert,5,2.7,4.5,-2.3,-1.8,No
+836,Red Sea coastal desert,5,5.1,4.5,0.1,0.6,Yes
+837,Red Sea-Arabian Desert shrublands,5,4.7,4.5,-0.3,0.2,No
+838,Registan-North Pakistan sandy desert,5,2.1,4.5,-2.9,-2.4,No
+839,Saharan Atlantic coastal desert,5,1.4,4.5,-3.6,-3.1,No
+840,South Arabian plains and plateau desert,5,3.9,4.5,-1.1,-0.6,No
+841,South Iran Nubo-Sindian desert and semi-desert,5,5.8,4.5,0.8,1.3,Yes
+842,South Sahara desert,5,1.7,4.5,-3.3,-2.8,No
+843,Taklimakan desert,5,3.2,4.5,-1.8,-1.3,No
+844,Tibesti-Jebel Uweinat montane xeric woodlands,5,1.2,4.5,-3.8,-3.3,No
+845,West Sahara desert,5,1.9,4.5,-3.1,-2.6,No
+846,West Saharan montane xeric woodlands,5,1.4,4.5,-3.6,-3.1,No

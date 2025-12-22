@@ -1,0 +1,21 @@
+﻿crop_name,crop_type,crop_practice_string,lu_data_path,output_data_folder,all_new_files
+Apple,permanent,irr,../data/land_use/lu_Irrigated_Apples.tif,../data/crops/rothc_support,TRUE
+Banana,permanent,irr,../data/land_use/lu_Irrigated_Bananas.tif,../data/crops/rothc_support,TRUE
+Cocoa,permanent,irr,../data/land_use/lu_Irrigated_Cocoa.tif,../data/crops/rothc_support,TRUE
+Coconut,permanent,irr,../data/land_use/lu_Irrigated_Coconuts.tif,../data/crops/rothc_support,TRUE
+Coffee,permanent,irr,../data/land_use/lu_Irrigated_Coffee.tif,../data/crops/rothc_support,TRUE
+Grapes,permanent,irr,../data/land_use/lu_Irrigated_Grapes.tif,../data/crops/rothc_support,TRUE
+Oil palm,permanent,irr,../data/land_use/lu_Irrigated_Oil_palm.tif,../data/crops/rothc_support,TRUE
+Olive,permanent,irr,../data/land_use/lu_Irrigated_Olives.tif,../data/crops/rothc_support,TRUE
+Orange,permanent,irr,../data/land_use/lu_Irrigated_Oranges.tif,../data/crops/rothc_support,TRUE
+Apple,permanent,rf,../data/land_use/lu_Rainfed_Apples.tif,../data/crops/rothc_support,TRUE
+Banana,permanent,rf,../data/land_use/lu_Rainfed_Bananas.tif,../data/crops/rothc_support,TRUE
+Cocoa,permanent,rf,../data/land_use/lu_Rainfed_Cocoa.tif,../data/crops/rothc_support,TRUE
+Coconut,permanent,rf,../data/land_use/lu_Rainfed_Coconuts.tif,../data/crops/rothc_support,TRUE
+Coffee,permanent,rf,../data/land_use/lu_Rainfed_Coffee.tif,../data/crops/rothc_support,TRUE
+Grapes,permanent,rf,../data/land_use/lu_Rainfed_Grapes.tif,../data/crops/rothc_support,TRUE
+Oil palm,permanent,rf,../data/land_use/lu_Rainfed_Oil_palm.tif,../data/crops/rothc_support,TRUE
+Olive,permanent,rf,../data/land_use/lu_Rainfed_Olives.tif,../data/crops/rothc_support,TRUE
+Orange,permanent,rf,../data/land_use/lu_Rainfed_Oranges.tif,../data/crops/rothc_support,TRUE
+Sugarcane,permanent,irr,../data/land_use/lu_Irrigated_Sugarcane.tif,../data/crops/rothc_support,TRUE
+Sugarcane,permanent,rf,../data/land_use/lu_Rainfed_Sugarcane.tif,../data/crops/rothc_support,TRUE

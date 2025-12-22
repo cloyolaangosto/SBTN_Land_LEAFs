@@ -43,6 +43,29 @@ import polars as pl  # For data manipulation and analysis
 
 from sbtn_leaf.paths import data_path
 
+PathLike = Union[str, Path]
+
+
+def _as_path(value: PathLike) -> Path:
+    """Return ``value`` as a :class:`~pathlib.Path` instance."""
+
+    return value if isinstance(value, Path) else Path(value)
+
+
+def _resolve_raster_path(path: PathLike) -> Path:
+    """Resolve ``path`` to the appropriate on-disk raster location."""
+
+    candidate = _as_path(path)
+    if candidate.exists() or candidate.is_absolute():
+        return candidate
+
+    data_candidate = data_path(candidate)
+    if data_candidate.exists():
+        return data_candidate
+
+    return data_candidate
+
+
 _DEFAULT_PET_BASE_RASTER_PATH = data_path("soil_weather", "uhth_pet_locationonly.tif")
 _DEFAULT_THERMAL_ZONE_RASTER_PATH = data_path("soil_weather", "uhth_thermal_climates.tif")
 
@@ -122,10 +145,10 @@ def _normalize_landuse_mask(mask: np.ndarray, *, expected_shape: Tuple[int, int]
 
 
 def _load_pet_inputs(
-    pet_base_raster_path: Union[str, Path],
-    thermal_zone_raster_path: Union[str, Path],
+    pet_base_raster_path: PathLike,
+    thermal_zone_raster_path: PathLike,
     *,
-    landuse_raster_path: Optional[Union[str, Path]] = None,
+    landuse_raster_path: Optional[PathLike] = None,
     landuse_mask: Optional[np.ndarray] = None,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, Dict[str, Any]]:
     """Load the PET base, thermal zones, and land-use mask arrays.
@@ -157,8 +180,11 @@ def _load_pet_inputs(
             "Exactly one of landuse_raster_path or landuse_mask must be provided."
         )
 
-    with rasterio.open(pet_base_raster_path) as pet_ds, rasterio.open(
-        thermal_zone_raster_path
+    pet_base_path = _resolve_raster_path(pet_base_raster_path)
+    thermal_zone_path = _resolve_raster_path(thermal_zone_raster_path)
+
+    with rasterio.open(pet_base_path) as pet_ds, rasterio.open(
+        thermal_zone_path
     ) as thermal_ds:
         if (
             pet_ds.crs != thermal_ds.crs
@@ -182,7 +208,8 @@ def _load_pet_inputs(
         expected_shape = (pet_ds.height, pet_ds.width)
 
         if landuse_raster_path is not None:
-            with rasterio.open(landuse_raster_path) as landuse_ds:
+            landuse_path = _resolve_raster_path(landuse_raster_path)
+            with rasterio.open(landuse_path) as landuse_ds:
                 if (
                     pet_ds.crs != landuse_ds.crs
                     or pet_ds.transform != landuse_ds.transform
@@ -532,10 +559,7 @@ def _build_monthly_kc_vectors(
     crop_name: str,
     zone_groups: Mapping[str, Iterable[int]],
     crop_table: pl.DataFrame,
-    abs_table: pl.DataFrame,
-    *,
-    tqdm_desc: Optional[str] = "    Precomputing Kc curves for group",
-    log_template: Optional[str] = "    Precomputing Kc curve for group: {group}",
+    abs_table: pl.DataFrame
 ):
     """Return a mapping of zone group names to monthly Kc vectors.
 
@@ -560,9 +584,7 @@ def _build_monthly_kc_vectors(
 
     unique_groups = list(zone_groups)
     kc_by_group = {}
-    for group in tqdm(unique_groups, desc=tqdm_desc):
-        if log_template:
-            print(log_template.format(group=group))
+    for group in unique_groups:
         kc_df = monthly_KC_curve(
             crop_name,
             group,
@@ -737,11 +759,10 @@ def _calculate_crop_based_pet_core(
         crop_name,
         zone_groups,
         crop_table,
-        abs_table,
-        tqdm_desc="Precomputing Kc curves for group",
+        abs_table
     )
 
-    for group, kc_vec in tqdm(kc_by_group.items(), desc="Applying Kc to thremal groups"):
+    for group, kc_vec in kc_by_group.items():
         valid_zones = zone_groups[group]
         valid_zones_array = np.array(valid_zones)
         mask = np.isin(thermal_zones, valid_zones_array) & landuse_mask
@@ -762,13 +783,13 @@ def _calculate_crop_based_pet_core(
 
 def calculate_crop_based_PET_raster(
     crop_name: str,
-    output_monthly_path: str,
+    output_monthly_path: PathLike,
     *,
-    output_annual_path: Optional[str] = None,
-    landuse_raster_path: Optional[str] = None,
+    output_annual_path: Optional[PathLike] = None,
+    landuse_raster_path: Optional[PathLike] = None,
     landuse_mask: Optional[np.ndarray] = None,
-    pet_base_raster_path: Union[str, Path] = _DEFAULT_PET_BASE_RASTER_PATH,
-    thermal_zone_raster_path: Union[str, Path] = _DEFAULT_THERMAL_ZONE_RASTER_PATH,
+    pet_base_raster_path: PathLike = _DEFAULT_PET_BASE_RASTER_PATH,
+    thermal_zone_raster_path: PathLike = _DEFAULT_THERMAL_ZONE_RASTER_PATH,
     crop_table: Optional[pl.DataFrame] = None,
     abs_date_table: Optional[pl.DataFrame] = None,
     zone_ids_by_group: Optional[Mapping[str, Iterable[int]]] = None,
@@ -796,6 +817,9 @@ def calculate_crop_based_PET_raster(
 
     if crop_name not in crop_table["Crop"].unique():
         raise ValueError(f"Crop '{crop_name}' not found in K_Crops table.")
+
+    output_monthly_path = _as_path(output_monthly_path)
+    output_annual_path = _as_path(output_annual_path) if output_annual_path is not None else None
 
     pet_base, thermal_zones, resolved_landuse_mask, profile = _load_pet_inputs(
         pet_base_raster_path,
@@ -834,11 +858,11 @@ def calculate_crop_based_PET_raster(
 
 def calculate_crop_based_PET_raster_optimized(
     crop_name: str,
-    landuse_raster_path: str,
-    output_monthly_path: str,
-    output_annual_path: str,
-    pet_base_raster_path: Union[str, Path] = _DEFAULT_PET_BASE_RASTER_PATH,
-    thermal_zone_raster_path: Union[str, Path] = _DEFAULT_THERMAL_ZONE_RASTER_PATH,
+    landuse_raster_path: PathLike,
+    output_monthly_path: PathLike,
+    output_annual_path: PathLike,
+    pet_base_raster_path: PathLike = _DEFAULT_PET_BASE_RASTER_PATH,
+    thermal_zone_raster_path: PathLike = _DEFAULT_THERMAL_ZONE_RASTER_PATH,
     *,
     crop_table: Optional[pl.DataFrame] = None,
     abs_date_table: Optional[pl.DataFrame] = None,
@@ -868,9 +892,9 @@ def calculate_crop_based_PET_raster_optimized(
 def calculate_crop_based_PET_raster_vPipeline(
     crop_name: str,
     landuse_array: np.ndarray,
-    output_monthly_path: str,
-    pet_base_raster_path: Union[str, Path] = _DEFAULT_PET_BASE_RASTER_PATH,
-    thermal_zone_raster_path: Union[str, Path] = _DEFAULT_THERMAL_ZONE_RASTER_PATH,
+    output_monthly_path: PathLike,
+    pet_base_raster_path: PathLike = _DEFAULT_PET_BASE_RASTER_PATH,
+    thermal_zone_raster_path: PathLike = _DEFAULT_THERMAL_ZONE_RASTER_PATH,
     *,
     crop_table: Optional[pl.DataFrame] = None,
     abs_date_table: Optional[pl.DataFrame] = None,

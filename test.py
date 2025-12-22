@@ -1,7 +1,7 @@
 print("Hello world")
 
 
-import sbtn_leaf.map_plotting as mp
+import sbtn_leaf.map_plotting as maplot
 from sbtn_leaf.paths import data_path, project_path
 import geopandas as gpd
 
@@ -12,4 +12,4 @@ world_global_hr = gpd.read_file(
     data_path("world_maps", "high_res", "ne_10m_admin_0_countries.shp")
 )
 
-mp.plot_raster_histogram(raster_test)
+maplot.plot_raster_histogram(raster_test)

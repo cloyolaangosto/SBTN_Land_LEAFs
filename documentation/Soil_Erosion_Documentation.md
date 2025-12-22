@@ -1,7 +1,7 @@
 # Soil Erosion Documentation
 Soil Erosion LEAFs are factors that estimate the annual rate of soil loss (t soil/year) for different land uses and land management practices. Despite the existence of other models, due to global applicability and data sources, they are currently based on the Revised Universal Soil Loss Equation (RUSLE, **INSERT CITATION HERE**). Guidance on how to apply LEAFs to different land uses has been covered in detail on SBTN Land's AGILE document [link](https://sciencebasedtargetsnetwork.org/wp-content/uploads/2025/04/SBTN-Land-Accounting-Guidelines-Draft-for-Public-Consultation.pdf).
 
-LEAFs are available in [`LEAFs/soil_erosion`](../LEAFs) in csv format and shapefile for ecoregions, countries and subcountries. Native resolution (25km) raster files can be found in **XXX - Replace when we figure this out**. How to generate new LEAFs can be found on the notebook [New Leafs Soil Erosion Example](../examples/New_LEAFs_Soil_Erosion_Example.ipynb).
+LEAFs are available in [`LEAFs/soil_erosion`](../LEAFs) in csv format for ecoregions, countries and subcountries. Native resolution (25km) raster files and geopackages containing the same information as the csv format can be found in **XXX - Replace when we figure this out**. How to generate new LEAFs can be found on the notebook [New Leafs Soil Erosion Example](../examples/New_LEAFs_Soil_Erosion_Example.ipynb).
 
 ## RUSLE
 The RUSLE equation estimates soil loss simply by:
