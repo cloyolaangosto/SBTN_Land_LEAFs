@@ -27,8 +27,7 @@ surface area.  The curated groups are:
   - :func:`build_pc_mask`
   - :func:`write_single_band_tif`, :func:`write_multiband_tif`
   - :func:`raster_rothc_annual_only`
-  - :func:`raster_rothc_annual_results_1yrloop`
-  - :func:`raster_rothc_ReducedTillage_annual_results_1yrloop`
+  - :func:`raster_rothc_annual_results`
   - :func:`save_annual_results`
   - :func:`run_RothC_crops`, :func:`run_RothC_forest`, :func:`run_RothC_grassland`
   - :func:`run_rothC_sceneraios_from_csv`
@@ -126,9 +125,8 @@ from .RothC_Raster import (
     load_multiband,
     load_single_band,
     mask_by_landuse,
-    raster_rothc_ReducedTillage_annual_results_1yrloop,
     raster_rothc_annual_only,
-    raster_rothc_annual_results_1yrloop,
+    raster_rothc_annual_results,
     run_RothC_crops,
     run_RothC_forest,
     run_RothC_grassland,
@@ -257,9 +255,8 @@ _ROTHC_RASTER_EXPORTS = [
     "load_multiband",
     "load_single_band",
     "mask_by_landuse",
-    "raster_rothc_ReducedTillage_annual_results_1yrloop",
     "raster_rothc_annual_only",
-    "raster_rothc_annual_results_1yrloop",
+    "raster_rothc_annual_results",
     "run_RothC_crops",
     "run_RothC_forest",
     "run_RothC_grassland",

@@ -587,7 +587,7 @@ def _raster_rothc_annual_results(
     return soc_annual, co2_annual
 
 
-def raster_rothc_annual_results_1yrloop(
+def raster_rothc_annual_results(
     n_years: int,
     clay: np.ndarray,
     soc0: np.ndarray,
@@ -607,23 +607,27 @@ def raster_rothc_annual_results_1yrloop(
     spam_irr_fp: Optional[str] = None,
     spam_rf_fp: Optional[str] = None,
     forest_age: Optional[np.ndarray] = None,
-    forest_type: Optional[str]= None,
+    forest_type: Optional[str] = None,
     commodity_lu_fp: Optional[PathLike] = None,
-    grassland_type: Optional[str]= None,
+    grassland_type: Optional[str] = None,
     residue_runs: int = 100,
-    weather_type: Optional[str]= None,
+    weather_type: Optional[str] = None,
     TP_IPCC_bool: bool = False,
     depth: float = 15,
     soc0_nodatavalue: float = -32768.0,
+    red_till: bool = False,
+    sand: Optional[np.ndarray] = None,
 ) -> Tuple[np.ndarray, np.ndarray]:
     """
-    Vectorized RothC that returns only annual SOC and CO2.
+    Vectorized RothC that returns annual SOC and CO2.
 
     Parameters
     ----------
     clay, soc0 : 2D (y, x)
     tmp, rain, evap, pc, c_inp, fym : 3D (time, y, x)
       time can be 12 (annual cycle) or n_years*12.
+    red_till : bool
+        When ``True``, apply reduced-tillage rate modifiers using ``sand``.
     depth : float (cm)
     dpm_rpm : float
     n_years : int
@@ -634,72 +638,10 @@ def raster_rothc_annual_results_1yrloop(
     co2_annual : ndarray (years, y, x)
     """
 
-    return _raster_rothc_annual_results(
-        n_years=n_years,
-        clay=clay,
-        soc0=soc0,
-        tmp=tmp,
-        rain=rain,
-        evap=evap,
-        pc=pc,
-        irr=irr,
-        c_inp=c_inp,
-        fym=fym,
-        sand=None,
-        depth=depth,
-        commodity_type=commodity_type,
-        soc0_nodatavalue=soc0_nodatavalue,
-        trm_handler=None,
-        forest_type = forest_type,
-        commodity_lu_fp= commodity_lu_fp,
-        grassland_type = grassland_type,
-        residue_runs = residue_runs,
-        weather_type = weather_type,
-        TP_IPCC_bool = TP_IPCC_bool,
-        forest_age = forest_age,
-        crop_name = crop_name,
-        spam_crop_raster = spam_crop_raster,
-        practices_string_id = practices_string_id,
-        irr_yield_scaling = irr_yield_scaling,
-        spam_all_fp = spam_all_fp,
-        spam_irr_fp = spam_irr_fp,
-        spam_rf_fp= spam_rf_fp,
-    )
+    if red_till and sand is None:
+        raise ValueError("sand must be provided when red_till is True")
 
-
-def raster_rothc_ReducedTillage_annual_results_1yrloop(
-    n_years: int,
-    clay: np.ndarray,
-    soc0: np.ndarray,
-    tmp: np.ndarray,
-    rain: np.ndarray,
-    evap: np.ndarray,
-    pc: np.ndarray,
-    sand: np.ndarray,
-    commodity_type: str,
-    irr: Optional[np.ndarray] = None,
-    c_inp: Optional[np.ndarray] = None,
-    fym: Optional[np.ndarray] = None,
-    depth: float = 15,
-    soc0_nodatavalue: float = -32768,
-) -> Tuple[np.ndarray, np.ndarray]:
-    """
-    Vectorized RothC for reduced tillage that returns only annual SOC and CO2.
-
-    Parameters
-    ----------
-    clay, soc0 : 2D (y, x)
-    tmp, rain, evap, pc, c_inp, fym : 3D (time, y, x)
-      time can be 12 (annual cycle) or n_years*12.
-    depth : float (cm)
-    dpm_rpm : float
-    n_years : int
-
-    Returns
-    -------
-    soc_annual : ndarray (years, y, x)
-    co2_annual : ndarray (years, y, x)
-    """
+    trm_handler = RMF_TRM if red_till else None
 
     return _raster_rothc_annual_results(
         n_years=n_years,
@@ -716,10 +658,21 @@ def raster_rothc_ReducedTillage_annual_results_1yrloop(
         depth=depth,
         commodity_type=commodity_type,
         soc0_nodatavalue=soc0_nodatavalue,
-        trm_handler=RMF_TRM,
-        forest_type=None,
-        weather_type=None,
-        TP_IPCC_bool=None
+        trm_handler=trm_handler,
+        forest_type=forest_type,
+        commodity_lu_fp=commodity_lu_fp,
+        grassland_type=grassland_type,
+        residue_runs=residue_runs,
+        weather_type=weather_type,
+        TP_IPCC_bool=TP_IPCC_bool,
+        forest_age=forest_age,
+        crop_name=crop_name,
+        spam_crop_raster=spam_crop_raster,
+        practices_string_id=practices_string_id,
+        irr_yield_scaling=irr_yield_scaling,
+        spam_all_fp=spam_all_fp,
+        spam_irr_fp=spam_irr_fp,
+        spam_rf_fp=spam_rf_fp,
     )
 
 
@@ -1175,11 +1128,11 @@ def run_RothC_crops(
         if irr_a is not None:
             base_kwargs["irr"] = irr_a
 
+        base_kwargs["red_till"] = red_till
         if red_till:
             base_kwargs["sand"] = env["sand"]
-            return raster_rothc_ReducedTillage_annual_results_1yrloop(**base_kwargs)
 
-        return raster_rothc_annual_results_1yrloop(**base_kwargs)
+        return raster_rothc_annual_results(**base_kwargs)
     
     # Creating results_basename
     if commodity_type == "permanent_crop":
@@ -1269,7 +1222,7 @@ def run_RothC_forest(
         if age_a.ndim != 2:
             raise ValueError("Forest age raster must be 2-D after squeezing")
 
-        return raster_rothc_annual_results_1yrloop(
+        return raster_rothc_annual_results(
             n_years=n_years,
             clay=env["clay"],
             soc0=env["soc0"],
@@ -1388,15 +1341,15 @@ def run_RothC_grassland(
             c_inp=c_inp_a,
             fym=fym_a,
             commodity_type="grassland",
-            grassland_lu_fp=_as_path(grassland_lu_fp),
+            commodity_lu_fp=_as_path(grassland_lu_fp),
             grassland_type=grassland_type,
-            grassland_residue_runs=residue_runs,
+            residue_runs=residue_runs,
         )
 
         if irr_a is not None:
             base_kwargs["irr"] = irr_a
 
-        return raster_rothc_annual_results_1yrloop(**base_kwargs)
+        return raster_rothc_annual_results(**base_kwargs)
 
     return _run_rothc_scenario(
         lu_fp=lu_fp,
@@ -1526,7 +1479,7 @@ def run_rothc_grassland_scenarios_from_excel(excel_filepath: PathLike, force_new
 
         # Checks if output filepath exist
         output_folder = scenario["save_folder"]
-        output_string = f"{scenario["grassland_type"]}_grassland_{scenario['string_id']}_{2016+scenario['n_years']}y_SOC.tif"
+        output_string = f"{scenario['grassland_type']}_grassland_{scenario['string_id']}_{2016 + scenario['n_years']}y_SOC.tif"
         output_path = f"{output_folder}/{output_string}"
 
         # Loads fym_fp
@@ -1567,7 +1520,7 @@ def run_rothC_forest_scenarios_from_excel(excel_filepath: PathLike, force_new_fi
 
         # Checks if output filepath exist
         output_folder = scenario["save_folder"]
-        output_string = f"{scenario["forest_type"]}_{scenario['weather_type']}_{2016+scenario['n_years']}y_SOC.tif"
+        output_string = f"{scenario['forest_type']}_{scenario['weather_type']}_{2016 + scenario['n_years']}y_SOC.tif"
         output_path = f"{output_folder}/{output_string}"
 
         if force_new_files:

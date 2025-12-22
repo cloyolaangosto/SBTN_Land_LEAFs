@@ -19,7 +19,7 @@ def test_import_functions():
     expected_exports = {
         "calculate_PET_crop_based",
         "run_simulation",
-        "raster_rothc_annual_results_1yrloop",
+        "raster_rothc_annual_results",
         "calculate_area_weighted_cfs_from_shp_with_std_and_median",
         "create_crop_yield_raster",
         "plot_raster_on_world_extremes_cutoff",
