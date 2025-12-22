@@ -31,13 +31,20 @@ The following part of the code tries to automatize this calculations for annual 
 #### Modules ####
 import math  # For mathematical operations
 from calendar import monthrange  # For getting the number of days in a month
-from typing import Iterable, Mapping, Optional, Tuple
+from pathlib import Path
+from typing import Any, Dict, Iterable, Mapping, Optional, Tuple, Union
 
-import polars as pl  # For data manipulation and analysis
 import numpy as np  # For numerical operations and array handling
 import rasterio  # For raster data handling
 from rasterio.warp import reproject, Resampling  # For raster reprojection and resampling
 from tqdm import tqdm  # For progress bar
+
+import polars as pl  # For data manipulation and analysis
+
+from sbtn_leaf.paths import data_path
+
+_DEFAULT_PET_BASE_RASTER_PATH = data_path("soil_weather", "uhth_pet_locationonly.tif")
+_DEFAULT_THERMAL_ZONE_RASTER_PATH = data_path("soil_weather", "uhth_thermal_climates.tif")
 
 from sbtn_leaf.data_loader import (
     get_absolute_day_table,
@@ -96,6 +103,106 @@ def _resolve_zone_mappings(
         climate_zone_lookup or lookup,
         zone_ids_by_group or zones,
     )
+
+
+def _normalize_landuse_mask(mask: np.ndarray, *, expected_shape: Tuple[int, int]) -> np.ndarray:
+    """Return a boolean land-use mask, validating its dimensionality."""
+
+    mask_array = np.asarray(mask)
+    if mask_array.shape != expected_shape:
+        raise ValueError(
+            "landuse_mask must match raster dimensions "
+            f"{expected_shape}; got {mask_array.shape}."
+        )
+
+    if mask_array.dtype == bool:
+        return mask_array
+
+    return mask_array.astype(int) == 1
+
+
+def _load_pet_inputs(
+    pet_base_raster_path: Union[str, Path],
+    thermal_zone_raster_path: Union[str, Path],
+    *,
+    landuse_raster_path: Optional[Union[str, Path]] = None,
+    landuse_mask: Optional[np.ndarray] = None,
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray, Dict[str, Any]]:
+    """Load the PET base, thermal zones, and land-use mask arrays.
+
+    Parameters
+    ----------
+    pet_base_raster_path:
+        Path to the PET base raster containing the 12 monthly bands.
+    thermal_zone_raster_path:
+        Path to the raster encoding the thermal zone identifiers.
+    landuse_raster_path:
+        Optional path to a land-use raster aligned with the PET base and
+        thermal rasters. Mutually exclusive with ``landuse_mask``.
+    landuse_mask:
+        Optional 2D array providing the land-use mask in-memory. Mutually
+        exclusive with ``landuse_raster_path``.
+
+    Returns
+    -------
+    Tuple[np.ndarray, np.ndarray, np.ndarray, Dict[str, Any]]
+        The PET base array (12, H, W), the thermal zone array (H, W), a
+        boolean land-use mask (H, W), and the raster profile copied from the
+        PET base dataset.
+    """
+
+    strategy_count = int(landuse_raster_path is not None) + int(landuse_mask is not None)
+    if strategy_count != 1:
+        raise ValueError(
+            "Exactly one of landuse_raster_path or landuse_mask must be provided."
+        )
+
+    with rasterio.open(pet_base_raster_path) as pet_ds, rasterio.open(
+        thermal_zone_raster_path
+    ) as thermal_ds:
+        if (
+            pet_ds.crs != thermal_ds.crs
+            or pet_ds.transform != thermal_ds.transform
+            or pet_ds.width != thermal_ds.width
+            or pet_ds.height != thermal_ds.height
+        ):
+            raise ValueError("CRS/transform/shape mismatch between PET and thermal rasters")
+
+        pet_base = pet_ds.read(out_dtype="float32", masked=True)
+        if np.ma.isMaskedArray(pet_base):
+            pet_base = pet_base.filled(np.float32(np.nan))
+        else:
+            pet_base = pet_base.astype("float32", copy=False)
+
+        thermal_zones = thermal_ds.read(1)
+        if np.ma.isMaskedArray(thermal_zones):
+            thermal_zones = thermal_zones.filled(0)
+        thermal_zones = thermal_zones.astype(int)
+
+        expected_shape = (pet_ds.height, pet_ds.width)
+
+        if landuse_raster_path is not None:
+            with rasterio.open(landuse_raster_path) as landuse_ds:
+                if (
+                    pet_ds.crs != landuse_ds.crs
+                    or pet_ds.transform != landuse_ds.transform
+                    or pet_ds.width != landuse_ds.width
+                    or pet_ds.height != landuse_ds.height
+                ):
+                    raise ValueError("CRS/transform/shape mismatch between PET and land-use rasters")
+
+                landuse_data = landuse_ds.read(1)
+                if np.ma.isMaskedArray(landuse_data):
+                    landuse_data = landuse_data.filled(0)
+                landuse_mask_array = landuse_data.astype(int) == 1
+        else:
+            landuse_mask_array = _normalize_landuse_mask(
+                landuse_mask, expected_shape=expected_shape
+            )
+
+        profile = pet_ds.profile.copy()
+
+    return pet_base, thermal_zones, landuse_mask_array, profile
 
 def get_month_from_absolute_day(abs_day: int, abs_date_table: Optional[pl.DataFrame] = None):
     """
@@ -233,7 +340,7 @@ def create_KC_Curve(
     # Retrieve data for the specified crop and climate
     crop_data = crop_table.filter((pl.col('Crop') == crop) & (pl.col('Climate_Zone') == climate))
     # print("Crop data retrieved:")
-    # print(crop_data)
+    # print(crop_data.columns)
 
     # Stage dataframe for 365 days
     Kc_df = pl.DataFrame({
@@ -257,8 +364,8 @@ def create_KC_Curve(
         pl.col('Date') == crop_data['Planting_Greenup_Date']).select('Day_Num').item()
     planting_day_num_end = planting_day_num_start
     initial_stage_duration = int(crop_data['Initial_days'][0])
-    dev_stage_duration = int(crop_data['Dev_Days'][0])
-    mid_stage_duration = int(crop_data['Mid_Days'][0])
+    dev_stage_duration = int(crop_data['Dev_days'][0])
+    mid_stage_duration = int(crop_data['Mid_days'][0])
     late_stage_duration = int(crop_data['Late_days'][0])
 
     def _stage_end(start_day: int, duration: int) -> int:
@@ -272,11 +379,6 @@ def create_KC_Curve(
     Mid_day_end = _stage_end(Mid_day_start, mid_stage_duration)
     Late_day_start = Mid_day_end + 1
     Late_day_end = _stage_end(Late_day_start, late_stage_duration)
-
-    if Late_day_end > 365:
-        raise ValueError(
-            "Crop phenology configuration extends beyond the 365-day calendar."
-        )
 
     # Correct absolute day numbers if they're above 365
     Initial_cday_start = correct_abs_date(Initial_day_start)
@@ -294,8 +396,8 @@ def create_KC_Curve(
         pl.when(pl.col('Stage') == 'Planting').then(planting_day_num_end).when(pl.col('Stage') == 'Initial').then(Initial_cday_end).when(pl.col('Stage') == 'Development').then(Development_cday_end).when(pl.col('Stage') == 'Mid').then(Mid_cday_end).otherwise(Late_cday_end).alias('End_Day'),
     )
 
-    # print("Stages dates:")
-    # print(KC_Dates)
+    #print("Stages dates:")
+    #print(KC_Dates)
     
     # Filling Kc values
     # print("Assigning Kc values to stages")
@@ -432,8 +534,8 @@ def _build_monthly_kc_vectors(
     crop_table: pl.DataFrame,
     abs_table: pl.DataFrame,
     *,
-    tqdm_desc: Optional[str] = "Precomputing Kc curves for group",
-    log_template: Optional[str] = "Precomputing Kc curve for group: {group}",
+    tqdm_desc: Optional[str] = "    Precomputing Kc curves for group",
+    log_template: Optional[str] = "    Precomputing Kc curve for group: {group}",
 ):
     """Return a mapping of zone group names to monthly Kc vectors.
 
@@ -658,75 +760,51 @@ def _calculate_crop_based_pet_core(
     return pet_monthly, pet_annual
 
 
-def calculate_crop_based_PET_raster_optimized(
+def calculate_crop_based_PET_raster(
     crop_name: str,
-    landuse_raster_path: str,
     output_monthly_path: str,
-    output_annual_path: str,
-    pet_base_raster_path: str = "SOC_Data_Processing/uhth_pet_locationonly.tif",
-    thermal_zone_raster_path: str = "SOC_Data_Processing/uhth_thermal_climates.tif",
     *,
+    output_annual_path: Optional[str] = None,
+    landuse_raster_path: Optional[str] = None,
+    landuse_mask: Optional[np.ndarray] = None,
+    pet_base_raster_path: Union[str, Path] = _DEFAULT_PET_BASE_RASTER_PATH,
+    thermal_zone_raster_path: Union[str, Path] = _DEFAULT_THERMAL_ZONE_RASTER_PATH,
     crop_table: Optional[pl.DataFrame] = None,
     abs_date_table: Optional[pl.DataFrame] = None,
     zone_ids_by_group: Optional[Mapping[str, Iterable[int]]] = None,
-):
-    """
-    Calculates crop-specific Potential Evapotranspiration (PET) rasters using optimized raster operations.
-    This function computes monthly and annual PET rasters for a given crop by applying crop coefficients (Kc)
-    to a base PET raster, considering GAEZ thermal zones and land use. The output consists of two rasters:
-    one with monthly PET values and another with annual PET sums, both masked to relevant land use and thermal zones.
-    Args:
-        crop_name (str): Name of the crop to calculate PET for. Must exist in the K_Crops table.
-        landuse_raster_path (str): File path to the land use raster (must align with PET and thermal zone rasters).
-        output_monthly_path (str): File path to write the output monthly PET raster (12 bands).
-        output_annual_path (str): File path to write the output annual PET raster (single band).
-        pet_base_raster_path (str, optional): File path to the base PET raster (default: "SOC_Data_Processing/uhth_pet_locationonly.tif").
-        thermal_zone_raster_path (str, optional): File path to the thermal zone raster (default: "SOC_Data_Processing/uhth_thermal_climates.tif").
-    
-    Raises:
-        ValueError: If the crop name is not found in the K_Crops table.
-        ValueError: If the rasters do not have matching CRS, transform, or shape.
-    
-    Outputs:
-        Writes two raster files:
-            - Monthly PET raster (12 bands) at `output_monthly_path`
-            - Annual PET raster (single band) at `output_annual_path`
+) -> Tuple[np.ndarray, Optional[np.ndarray]]:
+    """Calculate crop-specific PET rasters using a unified entry point.
+
+    Exactly one land-use input strategy must be provided via ``landuse_raster_path``
+    or ``landuse_mask``. The function writes the monthly PET raster to
+    ``output_monthly_path`` and, when ``output_annual_path`` is supplied, also
+    writes the annual PET raster. The in-memory monthly (and optionally annual)
+    arrays are returned for further processing.
+
+    Returns
+    -------
+    Tuple[np.ndarray, Optional[np.ndarray]]
+        The monthly PET raster (12, H, W) and, when requested, the annual PET
+        raster (H, W).
     """
 
-
-    # 1) sanity check crop
     crop_table = _resolve_crop_table(crop_table)
     abs_table = _resolve_abs_date_table(abs_date_table)
     _, _, zone_groups = _resolve_zone_mappings(zone_ids_by_group=zone_ids_by_group)
     if zone_groups is None:
         zone_groups = {}
 
-    if crop_name not in crop_table['Crop'].unique():
+    if crop_name not in crop_table["Crop"].unique():
         raise ValueError(f"Crop '{crop_name}' not found in K_Crops table.")
 
-    # 2) load rasters once
-    with rasterio.open(pet_base_raster_path) as PET_raster, \
-         rasterio.open(thermal_zone_raster_path) as thermal_zone_raster, \
-         rasterio.open(landuse_raster_path)  as landuse_raster:
+    pet_base, thermal_zones, resolved_landuse_mask, profile = _load_pet_inputs(
+        pet_base_raster_path,
+        thermal_zone_raster_path,
+        landuse_raster_path=landuse_raster_path,
+        landuse_mask=landuse_mask,
+    )
 
-        # alignment check
-        for other_raster in (thermal_zone_raster, landuse_raster):
-            if (PET_raster.crs       != other_raster.crs
-            or  PET_raster.transform != other_raster.transform
-            or  PET_raster.width     != other_raster.width
-            or  PET_raster.height    != other_raster.height):
-                raise ValueError("CRS/transform/shape mismatch")
-
-        pet_base      = PET_raster.read(out_dtype="float32", masked=True)
-        if np.ma.isMaskedArray(pet_base):
-            pet_base = pet_base.filled(np.float32(np.nan))
-        else:
-            pet_base = pet_base.astype("float32", copy=False)
-        thermal_zones = thermal_zone_raster.read(1).astype(int)          # (H, W)
-        lu_data       = landuse_raster.read(1).astype(int)          # (H, W)
-        landuse_mask  = lu_data == 1
-        profile       = PET_raster.profile.copy()
-
+    compute_annual = output_annual_path is not None
     pet_monthly, pet_annual = _calculate_crop_based_pet_core(
         crop_name,
         pet_base,
@@ -734,19 +812,56 @@ def calculate_crop_based_PET_raster_optimized(
         zone_groups=zone_groups,
         crop_table=crop_table,
         abs_table=abs_table,
-        landuse_mask=landuse_mask,
-        compute_annual=True,
+        landuse_mask=resolved_landuse_mask,
+        compute_annual=compute_annual,
     )
 
-    print(f"PET calculation completed for crop '{crop_name}' succesfully. Storing...")
-    # 5) write out rasters
-    profile.update(count=12, dtype="float32", nodata=np.nan)
-    with rasterio.open(output_monthly_path, "w", **profile) as dst:
+    print(f"PET calculation completed for crop '{crop_name}' succesfully.")
+
+    monthly_profile = profile.copy()
+    monthly_profile.update(count=12, dtype="float32", nodata=np.nan)
+    with rasterio.open(output_monthly_path, "w", **monthly_profile) as dst:
         dst.write(pet_monthly)
 
-    profile.update(count=1)
-    with rasterio.open(output_annual_path, "w", **profile) as dst:
-        dst.write(pet_annual, 1)
+    if compute_annual and pet_annual is not None and output_annual_path is not None:
+        annual_profile = profile.copy()
+        annual_profile.update(count=1, dtype="float32", nodata=np.nan)
+        with rasterio.open(output_annual_path, "w", **annual_profile) as dst:
+            dst.write(pet_annual, 1)
+
+    return pet_monthly, pet_annual
+
+
+def calculate_crop_based_PET_raster_optimized(
+    crop_name: str,
+    landuse_raster_path: str,
+    output_monthly_path: str,
+    output_annual_path: str,
+    pet_base_raster_path: Union[str, Path] = _DEFAULT_PET_BASE_RASTER_PATH,
+    thermal_zone_raster_path: Union[str, Path] = _DEFAULT_THERMAL_ZONE_RASTER_PATH,
+    *,
+    crop_table: Optional[pl.DataFrame] = None,
+    abs_date_table: Optional[pl.DataFrame] = None,
+    zone_ids_by_group: Optional[Mapping[str, Iterable[int]]] = None,
+):
+    """Deprecated wrapper for :func:`calculate_crop_based_PET_raster`.
+
+    This function preserves the original interface while delegating the work to
+    :func:`calculate_crop_based_PET_raster`. New code should call the unified
+    entry point directly.
+    """
+
+    calculate_crop_based_PET_raster(
+        crop_name,
+        output_monthly_path,
+        output_annual_path=output_annual_path,
+        landuse_raster_path=landuse_raster_path,
+        pet_base_raster_path=pet_base_raster_path,
+        thermal_zone_raster_path=thermal_zone_raster_path,
+        crop_table=crop_table,
+        abs_date_table=abs_date_table,
+        zone_ids_by_group=zone_ids_by_group,
+    )
 
 
 
@@ -754,97 +869,28 @@ def calculate_crop_based_PET_raster_vPipeline(
     crop_name: str,
     landuse_array: np.ndarray,
     output_monthly_path: str,
-    pet_base_raster_path: str = "data/soil_weather/uhth_pet_locationonly.tif",
-    thermal_zone_raster_path: str = "data/soil_weather/uhth_thermal_climates.tif",
+    pet_base_raster_path: Union[str, Path] = _DEFAULT_PET_BASE_RASTER_PATH,
+    thermal_zone_raster_path: Union[str, Path] = _DEFAULT_THERMAL_ZONE_RASTER_PATH,
     *,
     crop_table: Optional[pl.DataFrame] = None,
     abs_date_table: Optional[pl.DataFrame] = None,
     zone_ids_by_group: Optional[Mapping[str, Iterable[int]]] = None,
 ):
-    """Calculate monthly crop-specific PET rasters using optimized raster operations.
+    """Deprecated wrapper for :func:`calculate_crop_based_PET_raster`.
 
-    The function multiplies a base PET raster by crop coefficients (Kc) for each
-    thermal zone group to produce monthly crop-adjusted PET layers. Pixels are
-    masked according to the provided ``landuse_array`` so that only relevant land
-    uses (for example, where the value equals 1) receive crop PET values. After
-    the raster is written to ``output_monthly_path`` the in-memory monthly PET
-    array is returned for further use.
-
-    Args:
-        crop_name (str): Name of the crop to calculate PET for. Must exist in the
-            K_Crops table.
-        landuse_array (np.ndarray): 2D array aligned with the PET and thermal
-            zone rasters whose values indicate which pixels should be populated
-            with crop PET values.
-        output_monthly_path (str): File path to write the output monthly PET
-            raster (12 bands).
-        pet_base_raster_path (str, optional): File path to the base PET raster
-            (default: ``"data/soil_weather/uhth_pet_locationonly.tif"``).
-        thermal_zone_raster_path (str, optional): File path to the thermal zone
-            raster (default: ``"data/soil_weather/uhth_thermal_climates.tif"``).
-
-    Raises:
-        ValueError: If the crop name is not found in the K_Crops table.
-        ValueError: If the rasters do not have matching CRS, transform, or shape.
-
-    Returns:
-        np.ndarray: The 12-band monthly PET array that was written to disk.
+    The ``landuse_array`` argument is forwarded as the in-memory land-use mask.
+    New code should call the unified entry point directly.
     """
 
-
-    # 1) sanity check crop
-    crop_table = _resolve_crop_table(crop_table)
-    abs_table = _resolve_abs_date_table(abs_date_table)
-    _, _, zone_groups = _resolve_zone_mappings(zone_ids_by_group=zone_ids_by_group)
-    if zone_groups is None:
-        zone_groups = {}
-
-    if crop_name not in crop_table['Crop'].unique():
-        raise ValueError(f"Crop '{crop_name}' not found in K_Crops table.")
-
-    # 2) load rasters once
-    with rasterio.open(pet_base_raster_path) as PET_raster, \
-         rasterio.open(thermal_zone_raster_path) as thermal_zone_raster:
-
-        # alignment check
-        if (PET_raster.crs       != thermal_zone_raster.crs
-            or  PET_raster.transform != thermal_zone_raster.transform
-            or  PET_raster.width     != thermal_zone_raster.width
-            or  PET_raster.height    != thermal_zone_raster.height):
-                raise ValueError("CRS/transform/shape mismatch")
-
-        pet_base      = PET_raster.read(out_dtype="float32", masked=True)
-        if np.ma.isMaskedArray(pet_base):
-            pet_base = pet_base.filled(np.float32(np.nan))
-        else:
-            pet_base = pet_base.astype("float32", copy=False)
-        thermal_zones = thermal_zone_raster.read(1).astype(int)          # (H, W)
-        lu_data       = landuse_array.astype(int)          # (H, W)
-        landuse_mask  = lu_data == 1
-        expected_shape = (PET_raster.height, PET_raster.width)
-        if thermal_zones.shape != expected_shape or lu_data.shape != expected_shape:
-            raise ValueError(
-                "landuse_array and thermal_zones must match raster dimensions "
-                f"{expected_shape}; got landuse {lu_data.shape} and thermal {thermal_zones.shape}."
-            )
-        profile       = PET_raster.profile.copy()
-
-    pet_monthly, _ = _calculate_crop_based_pet_core(
+    pet_monthly, _ = calculate_crop_based_PET_raster(
         crop_name,
-        pet_base,
-        thermal_zones,
-        zone_groups=zone_groups,
+        output_monthly_path,
+        landuse_mask=landuse_array,
+        pet_base_raster_path=pet_base_raster_path,
+        thermal_zone_raster_path=thermal_zone_raster_path,
         crop_table=crop_table,
-        abs_table=abs_table,
-        landuse_mask=landuse_mask,
-        compute_annual=False,
+        abs_date_table=abs_date_table,
+        zone_ids_by_group=zone_ids_by_group,
     )
-
-    print(f"PET calculation completed for crop '{crop_name}' succesfully")
-    
-    # 5) write out the monthly raster
-    profile.update(count=12, dtype="float32", nodata=np.nan)
-    with rasterio.open(output_monthly_path, "w", **profile) as dst:
-        dst.write(pet_monthly)
 
     return pet_monthly

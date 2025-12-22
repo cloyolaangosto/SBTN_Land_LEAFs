@@ -10,13 +10,13 @@ import rioxarray as rxr
 import rasterio
 from rasterio.enums import Resampling
 import numpy as np
-from typing import Callable, List, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple
 import polars as pl
-from tqdm import trange
-from tqdm import tqdm
+from tqdm.auto import trange, tqdm
 
-from sbtn_leaf.RothC_Core import RMF_Tmp, RMF_Moist, RMF_PC, RMF_TRM
+from sbtn_leaf.RothC_Core import RMF_Tmp, RMF_Moist, RMF_PC, RMF_TRM, _partition_to_bio_hum
 import sbtn_leaf.cropcalcs as cropcalcs
+from sbtn_leaf.paths import data_path
 
 # -----------------------------------------------------------------------------
 # FUNCTIONS
@@ -283,6 +283,7 @@ def _raster_rothc_annual_results(
     TP_Type: Optional[str] = None,
     trm_handler: Optional[TRMHandler],
     progress_desc: str = "RothC months",
+    progress_position: Optional[int] = None,
 ) -> Tuple[np.ndarray, np.ndarray]:
     """Shared implementation for baseline and reduced tillage raster RothC runs."""
 
@@ -293,6 +294,8 @@ def _raster_rothc_annual_results(
     # checks if commodity type is correct
     if commodity_type not in ["annual_crop", "permanent_crop", "forest", "grassland"]:
         raise ValueError("Commodity type not valid. Valid types: annual_crop, permanent_crop, forest, grassland")
+    
+    # Assins dpm_rpm factor and other values if needed
     if commodity_type in ["annual_crop", "grassland"]:
         dpm_rpm = 1.44
         # Checks if grassland type is valid
@@ -356,7 +359,9 @@ def _raster_rothc_annual_results(
     dt = 1.0 / 12.0
     sand_has_time_dim = sand is not None and sand.ndim == 3
 
-    for t_abs in trange(months, desc=progress_desc, position=1):
+    position = 0 if progress_position is None else progress_position
+
+    for t_abs in trange(months, desc=progress_desc, position=position):
         t = t_abs % 12
         year = t_abs // 12
 
@@ -388,13 +393,10 @@ def _raster_rothc_annual_results(
         total_co2 = (lossD + lossR + lossB + lossH) * resp_frac
 
         # Pool partition
-        def BioHumPartition(arr):
-            return arr * (0.46 / (x + 1.0)), arr * (0.54 / (x + 1.0))
-
-        D2B, D2H = BioHumPartition(lossD)
-        R2B, R2H = BioHumPartition(lossR)
-        B2B, B2H = BioHumPartition(lossB)
-        H2B, H2H = BioHumPartition(lossH)
+        D2B, D2H = _partition_to_bio_hum(x, lossD)
+        R2B, R2H = _partition_to_bio_hum(x, lossR)
+        B2B, B2H = _partition_to_bio_hum(x, lossB)
+        H2B, H2H = _partition_to_bio_hum(x, lossH)
 
         # Calculates carbon residue input if it's forest or grassland
         if commodity_type == "forest":
@@ -609,11 +611,26 @@ def save_annual_results(results_array, reference_raster, n_years, var_name, save
 # Function to prepare all data
 def _load_environmental_data(lu_rp: str):
     # Loads data
-    tmp = rxr.open_rasterio("../data/soil_weather/uhth_monthly_avg_temp_celsius.tif", masked=True)  # in °C
-    rain = rxr.open_rasterio("../data/soil_weather/uhth_monthly_avg_precip.tif", masked=True)
-    clay = rxr.open_rasterio("../data/soil_weather/uhth_clay_15-30cm_mean_perc.tif", masked=False).squeeze()
-    soc0 = rxr.open_rasterio("../data/soil_weather/uhth_soc_0-30cm_mean.tif", masked=False).squeeze()
-    sand = rxr.open_rasterio("../data/soil_weather/uhth_sand_15-30cm_mean_perc.tif", masked=False).squeeze()
+    tmp = rxr.open_rasterio(
+        data_path("soil_weather", "uhth_monthly_avg_temp_celsius.tif"),
+        masked=True,
+    )  # in °C
+    rain = rxr.open_rasterio(
+        data_path("soil_weather", "uhth_monthly_avg_precip.tif"),
+        masked=True,
+    )
+    clay = rxr.open_rasterio(
+        data_path("soil_weather", "uhth_clay_15-30cm_mean_perc.tif"),
+        masked=False,
+    ).squeeze()
+    soc0 = rxr.open_rasterio(
+        data_path("soil_weather", "uhth_soc_0-30cm_mean.tif"),
+        masked=False,
+    ).squeeze()
+    sand = rxr.open_rasterio(
+        data_path("soil_weather", "uhth_sand_15-30cm_mean_perc.tif"),
+        masked=False,
+    ).squeeze()
     lu_raster = rxr.open_rasterio(lu_rp, masked=False).squeeze()
 
     # Creates IOM
@@ -713,7 +730,7 @@ def _load_grassland_data(lu_fp: str, evap_fp: str, grassland_type: str, fym_fp: 
     # Opens land use data
     lu_raster = rxr.open_rasterio(lu_fp, masked=False).squeeze()
     lu_mask = (lu_raster==1)
-        
+
     # Opens evap and pc, and process it
     evap = rxr.open_rasterio(evap_fp, masked=True)  # (12-band: Jan–Dec)
     evap  = evap.rename({"band": "time"})
@@ -762,92 +779,164 @@ def _load_grassland_data(lu_fp: str, evap_fp: str, grassland_type: str, fym_fp: 
 
     return lu_raster, evap, pr, pc, fym, irr
 
-def run_RothC_crops(crop_name: str, commodity_type: str, practices_string_id: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str] = None, pr_fp: Optional[str] = None, fym_fp: Optional[str] = None, red_till = False, save_CO2 = False):
-    # Loads environmental data:
+
+def _run_rothc_scenario(
+    *,
+    lu_fp: str,
+    n_years: int,
+    save_folder: str,
+    data_description: str,
+    result_basename: str,
+    loader: Callable[..., Tuple[xr.DataArray, Dict[str, Any]]],
+    loader_kwargs: Optional[Dict[str, Any]] = None,
+    runner: Callable[..., Any],
+    runner_kwargs: Optional[Dict[str, Any]] = None,
+    loader_message: Optional[str] = None,
+    save_CO2: bool = False,
+):
+    """Shared workflow for RothC scenario execution and persistence."""
+
+    loader_kwargs = loader_kwargs or {}
+    runner_kwargs = runner_kwargs or {}
+
     print("Loading environmental data...")
     tmp, rain, soc0, iom, clay, sand = _load_environmental_data(lu_fp)
 
-    # Prepares crop data
-    print("Loading crop data...")
-    lu_raster, evap, pc, irr, pr, fym = _load_crop_data(lu_fp, evap_fp,  pc_fp, irr_fp, pr_fp, fym_fp)
-    
-    # Convert to values
-    clay_a, soc0_a, iom_a, sand_a = np.asarray(clay.values), np.asarray(soc0.values), np.asarray(iom.values), np.asarray(sand.values)
-    tmp_a, rain_a, evap_a = np.asarray(tmp.values), np.asarray(rain.values), np.asarray(evap.values)
-    pc_a, c_a, fym_a, irr_a = np.asarray(pc.values), np.asarray(pr.values), np.asarray(fym.values), np.asarray(irr.values)
+    env_arrays = {
+        "tmp": np.asarray(tmp.values),
+        "rain": np.asarray(rain.values),
+        "soc0": np.asarray(soc0.values),
+        "iom": np.asarray(iom.values),
+        "clay": np.asarray(clay.values),
+        "sand": np.asarray(sand.values),
+    }
 
-    # Run model
+    if loader_message:
+        print(loader_message)
+    lu_raster, scenario_inputs = loader(lu_fp=lu_fp, **loader_kwargs)
+
     print("Running RothC...")
-    if irr is not None:
-        if red_till:
-            SOC_results, CO2_results = raster_rothc_ReducedTillage_annual_results_1yrloop(
-                n_years = n_years,
-                clay    = clay_a,
-                soc0    = soc0_a,
-                tmp     = tmp_a,
-                rain    = rain_a,
-                evap    = evap_a,  
-                pc      = pc_a,
-                irr     = irr_a,
-                c_inp   = c_a,
-                fym     = fym_a,
-                sand    = sand_a,
-                commodity_type = commodity_type
-            )
-        else:
-            SOC_results, CO2_results = raster_rothc_annual_results_1yrloop(
-                n_years = n_years,
-                clay    = clay_a,
-                soc0    = soc0_a,
-                tmp     = tmp_a,
-                rain    = rain_a,
-                evap    = evap_a,  
-                pc      = pc_a,
-                irr     = irr_a,
-                c_inp   = c_a,
-                fym     = fym_a,
-                commodity_type = commodity_type
-            )
+
+    results = runner(
+        n_years=n_years,
+        env=env_arrays,
+        scenario=scenario_inputs,
+        **runner_kwargs,
+    )
+
+    if isinstance(results, tuple):
+        SOC_results, CO2_results = results
     else:
-        if red_till:
-            SOC_results, CO2_results = raster_rothc_ReducedTillage_annual_results_1yrloop(
-                n_years = n_years,
-                clay    = clay_a,
-                soc0    = soc0_a,
-                tmp     = tmp_a,
-                rain    = rain_a,
-                evap    = evap_a,  
-                pc      = pc_a,
-                c_inp   = c_a,
-                fym     = fym_a,
-                sand    = sand_a,
-                commodity_type = commodity_type
-            )
-        else:
-            SOC_results, CO2_results = raster_rothc_annual_results_1yrloop(
-                n_years = n_years,
-                clay    = clay_a,
-                soc0    = soc0_a,
-                tmp     = tmp_a,
-                rain    = rain_a,
-                evap    = evap_a,  
-                pc      = pc_a,
-                c_inp   = c_a,
-                fym     = fym_a,
-                commodity_type = commodity_type
-            )
+        SOC_results, CO2_results = results, None
 
-    # Saving results
-    string_save = f"{crop_name}_{practices_string_id}_{n_years}y_SOC.tif"
-    save_path =f"{save_folder}/{string_save}"
-    
-    # SOC
-    save_annual_results(SOC_results, lu_raster, n_years, "SOC", save_path, data_description, 't C/ha', long_name = "Soil Organic Carbon", model_description = "RothC rasterized vectorized")
+    save_path = f"{save_folder}/{result_basename}"
 
-    if save_CO2:
-        save_annual_results(CO2_results, lu_raster, n_years, "CO2", save_path, data_description, 't CO2/ha', long_name = "CO2", model_description = "RothC rasterized vectorized")
+    save_annual_results(
+        SOC_results,
+        lu_raster,
+        n_years,
+        "SOC",
+        save_path,
+        data_description,
+        't C/ha',
+        long_name="Soil Organic Carbon",
+        model_description="RothC rasterized vectorized",
+    )
+
+    if save_CO2 and CO2_results is not None:
+        save_annual_results(
+            CO2_results,
+            lu_raster,
+            n_years,
+            "CO2",
+            save_path,
+            data_description,
+            't CO2/ha',
+            long_name="CO2",
+            model_description="RothC rasterized vectorized",
+        )
 
     return SOC_results
+
+
+def run_RothC_crops(crop_name: str, commodity_type: str, practices_string_id: str, n_years: int, save_folder: str, data_description: str, lu_fp: str, evap_fp: str,  pc_fp: str, irr_fp: Optional[str] = None, pr_fp: Optional[str] = None, fym_fp: Optional[str] = None, red_till = False, save_CO2 = False):
+    def _crop_loader(
+        *,
+        lu_fp: str,
+        evap_fp: str,
+        pc_fp: str,
+        irr_fp: Optional[str],
+        pr_fp: Optional[str],
+        fym_fp: Optional[str],
+    ) -> Tuple[xr.DataArray, Dict[str, Any]]:
+        lu_raster, evap, pc, irr, pr, fym = _load_crop_data(lu_fp, evap_fp, pc_fp, irr_fp, pr_fp, fym_fp)
+        return lu_raster, {
+            "evap": evap,
+            "pc": pc,
+            "irr": irr,
+            "c_inp": pr,
+            "fym": fym,
+        }
+
+    def _crop_runner(
+        *,
+        n_years: int,
+        env: Dict[str, np.ndarray],
+        scenario: Dict[str, Any],
+        commodity_type: str,
+        red_till: bool,
+    ) -> Tuple[np.ndarray, Optional[np.ndarray]]:
+        evap_a = np.asarray(scenario["evap"].values)
+        pc_a = np.asarray(scenario["pc"].values)
+        irr_val = scenario.get("irr")
+        irr_a = np.asarray(irr_val.values) if hasattr(irr_val, "values") else np.asarray(irr_val) if irr_val is not None else None
+        c_inp_a = np.asarray(scenario["c_inp"].values)
+        fym_a = np.asarray(scenario["fym"].values)
+
+        base_kwargs = dict(
+            n_years=n_years,
+            clay=env["clay"],
+            soc0=env["soc0"],
+            tmp=env["tmp"],
+            rain=env["rain"],
+            evap=evap_a,
+            pc=pc_a,
+            c_inp=c_inp_a,
+            fym=fym_a,
+            commodity_type=commodity_type,
+        )
+
+        if irr_a is not None:
+            base_kwargs["irr"] = irr_a
+
+        if red_till:
+            base_kwargs["sand"] = env["sand"]
+            return raster_rothc_ReducedTillage_annual_results_1yrloop(**base_kwargs)
+
+        return raster_rothc_annual_results_1yrloop(**base_kwargs)
+
+    return _run_rothc_scenario(
+        lu_fp=lu_fp,
+        n_years=n_years,
+        save_folder=save_folder,
+        data_description=data_description,
+        result_basename=f"{crop_name}_{practices_string_id}_{n_years}y_SOC.tif",
+        loader=_crop_loader,
+        loader_kwargs={
+            "evap_fp": evap_fp,
+            "pc_fp": pc_fp,
+            "irr_fp": irr_fp,
+            "pr_fp": pr_fp,
+            "fym_fp": fym_fp,
+        },
+        runner=_crop_runner,
+        runner_kwargs={
+            "commodity_type": commodity_type,
+            "red_till": red_till,
+        },
+        loader_message="Loading crop data...",
+        save_CO2=save_CO2,
+    )
 
 
 # Forest version
@@ -864,56 +953,72 @@ def run_RothC_forest(
     TP_Type="IPCC",
     save_CO2=False,
 ):
-    # Loads environmental data:
-    print("Loading environmental data...")
-    tmp, rain, soc0, iom, clay, sand = _load_environmental_data(lu_fp)
+    def _forest_loader(
+        *,
+        lu_fp: str,
+        evap_fp: str,
+        age_fp: str,
+    ) -> Tuple[xr.DataArray, Dict[str, Any]]:
+        lu_raster, evap, pc, age = _load_forest_data(lu_fp, evap_fp, age_fp)
+        return lu_raster, {
+            "evap": evap,
+            "pc": pc,
+            "age": age,
+        }
 
-    # Prepares crop data
-    print("Loading forest data...")
-    lu_raster, evap, pc, age = _load_forest_data(lu_fp, evap_fp, age_fp)
-    
-    # Convert to values
-    clay_a = np.asarray(clay.values)
-    soc0_a = np.asarray(soc0.values)
-    iom_a = np.asarray(iom.values)
-    tmp_a = np.asarray(tmp.values)
-    rain_a = np.asarray(rain.values)
-    evap_a = np.asarray(evap.values)
-    pc_a = np.asarray(pc.values)
-    age_a = np.asarray(age.values)
-    if age_a.ndim != 2:
-        age_a = np.squeeze(age_a)
-    if age_a.ndim != 2:
-        raise ValueError("Forest age raster must be 2-D after squeezing")
+    def _forest_runner(
+        *,
+        n_years: int,
+        env: Dict[str, np.ndarray],
+        scenario: Dict[str, Any],
+        forest_type: str,
+        weather_type: str,
+        TP_Type: str,
+    ) -> Tuple[np.ndarray, Optional[np.ndarray]]:
+        evap_a = np.asarray(scenario["evap"].values)
+        pc_a = np.asarray(scenario["pc"].values)
+        age_vals = scenario["age"]
+        age_a = np.asarray(age_vals.values) if hasattr(age_vals, "values") else np.asarray(age_vals)
+        if age_a.ndim != 2:
+            age_a = np.squeeze(age_a)
+        if age_a.ndim != 2:
+            raise ValueError("Forest age raster must be 2-D after squeezing")
 
-    # Run model
-    print("Running RothC...")
-    SOC_results, CO2_results = raster_rothc_annual_results_1yrloop(
-                n_years = n_years,
-                clay    = clay_a,
-                soc0    = soc0_a,
-                tmp     = tmp_a,
-                rain    = rain_a,
-                evap    = evap_a,
-                pc      = pc_a,
-                forest_age=    age_a,
-                commodity_type = "forest",
-                forest_type = forest_type,
-                weather_type = weather_type,
-                TP_Type = TP_Type
-            )
+        return raster_rothc_annual_results_1yrloop(
+            n_years=n_years,
+            clay=env["clay"],
+            soc0=env["soc0"],
+            tmp=env["tmp"],
+            rain=env["rain"],
+            evap=evap_a,
+            pc=pc_a,
+            forest_age=age_a,
+            commodity_type="forest",
+            forest_type=forest_type,
+            weather_type=weather_type,
+            TP_Type=TP_Type,
+        )
 
-    # Saving results
-    string_save = f"{forest_type}_{practices_string_id}_{n_years}y_SOC.tif"
-    save_path =f"{save_folder}/{string_save}"
-    
-    # SOC
-    save_annual_results(SOC_results, lu_raster, n_years, "SOC", save_path, data_description, 't C/ha', long_name = "Soil Organic Carbon", model_description = "RothC rasterized vectorized")
-
-    if save_CO2:
-        save_annual_results(CO2_results, lu_raster, n_years, "CO2", save_path, data_description, 't CO2/ha', long_name = "CO2", model_description = "RothC rasterized vectorized")
-
-    return SOC_results
+    return _run_rothc_scenario(
+        lu_fp=lu_fp,
+        n_years=n_years,
+        save_folder=save_folder,
+        data_description=data_description,
+        result_basename=f"{forest_type}_{practices_string_id}_{n_years}y_SOC.tif",
+        loader=_forest_loader,
+        loader_kwargs={
+            "evap_fp": evap_fp,
+            "age_fp": age_fp,
+        },
+        runner=_forest_runner,
+        runner_kwargs={
+            "forest_type": forest_type,
+            "weather_type": weather_type,
+            "TP_Type": TP_Type,
+        },
+        loader_message="Loading forest data...",
+        save_CO2=save_CO2,
+    )
 
 
 def run_RothC_grassland(
@@ -931,53 +1036,101 @@ def run_RothC_grassland(
     residue_runs = 100,
     save_CO2=False
 ):
-    # Loads environmental data:
-    print("Loading environmental data...")
-    tmp, rain, soc0, iom, clay, sand = _load_environmental_data(lu_fp)
+    def _grassland_loader(
+        *,
+        lu_fp: str,
+        evap_fp: str,
+        grassland_type: str,
+        fym_fp_list: List[str],
+        pc_fp: Optional[str],
+        irr_fp: Optional[str],
+        pr_fp: Optional[str],
+        residue_runs: int,
+    ) -> Tuple[xr.DataArray, Dict[str, Any]]:
+        lu_raster, evap, pr, pc, fym, irr = _load_grassland_data(
+            lu_fp,
+            evap_fp,
+            grassland_type,
+            fym_fp_list,
+            pc_fp,
+            irr_fp,
+            pr_fp,
+            residue_runs,
+        )
+        return lu_raster, {
+            "evap": evap,
+            "pc": pc,
+            "irr": irr,
+            "c_inp": pr,
+            "fym": fym,
+        }
 
-    # Prepares crop data
-    print(f"Loading {grassland_type} grassland data...")
-    lu_raster, evap, pr, pc, fym, irr = _load_grassland_data(lu_fp, evap_fp, grassland_type, fym_fp_list, pc_fp, irr_fp, pr_fp, residue_runs)
-    
-    # Convert to values
-    clay_a, soc0_a, iom_a, sand_a = np.asarray(clay.values), np.asarray(soc0.values), np.asarray(iom.values), np.asarray(sand.values)
-    tmp_a, rain_a, evap_a = np.asarray(tmp.values), np.asarray(rain.values), np.asarray(evap.values)
-    pc_a, c_a, fym_a, irr_a = np.asarray(pc.values), np.asarray(pr), np.asarray(fym.values), np.asarray(irr.values)
+    def _grassland_runner(
+        *,
+        n_years: int,
+        env: Dict[str, np.ndarray],
+        scenario: Dict[str, Any],
+        grassland_type: str,
+        grassland_lu_fp: str,
+        residue_runs: int,
+    ) -> Tuple[np.ndarray, Optional[np.ndarray]]:
+        evap_a = np.asarray(scenario["evap"].values)
+        pc_a = np.asarray(scenario["pc"].values)
+        irr_val = scenario.get("irr")
+        irr_a = np.asarray(irr_val.values) if hasattr(irr_val, "values") else np.asarray(irr_val) if irr_val is not None else None
+        c_inp_a = np.asarray(scenario["c_inp"])
+        fym_val = scenario.get("fym")
+        fym_a = np.asarray(fym_val.values) if hasattr(fym_val, "values") else np.asarray(fym_val)
+
+        base_kwargs = dict(
+            n_years=n_years,
+            clay=env["clay"],
+            soc0=env["soc0"],
+            tmp=env["tmp"],
+            rain=env["rain"],
+            evap=evap_a,
+            pc=pc_a,
+            c_inp=c_inp_a,
+            fym=fym_a,
+            commodity_type="grassland",
+            grassland_lu_fp=grassland_lu_fp,
+            grassland_type=grassland_type,
+            grassland_residue_runs=residue_runs,
+        )
+
+        if irr_a is not None:
+            base_kwargs["irr"] = irr_a
+
+        return raster_rothc_annual_results_1yrloop(**base_kwargs)
+
+    return _run_rothc_scenario(
+        lu_fp=lu_fp,
+        n_years=n_years,
+        save_folder=save_folder,
+        data_description=data_description,
+        result_basename=f"{grassland_type}_{practices_string_id}_{n_years}y_SOC.tif",
+        loader=_grassland_loader,
+        loader_kwargs={
+            "evap_fp": evap_fp,
+            "grassland_type": grassland_type,
+            "fym_fp_list": fym_fp_list,
+            "pc_fp": pc_fp,
+            "irr_fp": irr_fp,
+            "pr_fp": pr_fp,
+            "residue_runs": residue_runs,
+        },
+        runner=_grassland_runner,
+        runner_kwargs={
+            "grassland_type": grassland_type,
+            "grassland_lu_fp": lu_fp,
+            "residue_runs": residue_runs,
+        },
+        loader_message=f"Loading {grassland_type} grassland data...",
+        save_CO2=save_CO2,
+    )
 
 
-    # Run model
-    print("Running RothC...")
-    SOC_results, CO2_results = raster_rothc_annual_results_1yrloop(
-                n_years = n_years,
-                clay    = clay_a,
-                soc0    = soc0_a,
-                tmp     = tmp_a,
-                rain    = rain_a,
-                evap    = evap_a,
-                pc      = pc_a,
-                irr     = irr_a,
-                c_inp   = c_a,
-                fym     = fym_a,
-                commodity_type = "grassland",
-                grassland_lu_fp=lu_fp,
-                grassland_type = grassland_type,
-                grassland_residue_runs=residue_runs
-            )
-
-    # Saving results
-    string_save = f"{grassland_type}_{practices_string_id}_{n_years}y_SOC.tif"
-    save_path =f"{save_folder}/{string_save}"
-    
-    # SOC
-    save_annual_results(SOC_results, lu_raster, n_years, "SOC", save_path, data_description, 't C/ha', long_name = "Soil Organic Carbon", model_description = "RothC rasterized vectorized")
-
-    if save_CO2:
-        save_annual_results(CO2_results, lu_raster, n_years, "CO2", save_path, data_description, 't CO2/ha', long_name = "CO2", model_description = "RothC rasterized vectorized")
-
-    return SOC_results
-
-
-def run_rothC_sceneraios_from_csv(csv_filepath):
+def run_rothC_scenarios_from_csv(csv_filepath):
     # 1) Read & cast your CSV exactly as before
     scenarios = (
         pl.read_csv(csv_filepath, null_values=["", "None"])
