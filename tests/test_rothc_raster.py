@@ -6,6 +6,7 @@ import polars as pl
 import rasterio
 from rasterio.transform import from_origin
 
+import sbtn_leaf.RothC_Raster as rr
 
 _ORIGINAL_READ_FILE = gpd.read_file
 
@@ -88,8 +89,7 @@ def _write_raster(path, data, *, nodata=None, dtype="float32"):
 
 from sbtn_leaf.RothC_Raster import (
     _load_forest_data,
-    raster_rothc_annual_results_1yrloop,
-    raster_rothc_ReducedTillage_annual_results_1yrloop,
+    raster_rothc_annual_results,
     run_RothC_forest,
 )
 import sbtn_leaf.cropcalcs as cropcalcs
@@ -123,7 +123,7 @@ def test_reduced_tillage_trm_uses_full_soc(monkeypatch):
         fake_trm,
     )
 
-    soc_annual, co2_annual = raster_rothc_ReducedTillage_annual_results_1yrloop(
+    soc_annual, co2_annual = raster_rothc_annual_results(
         n_years=n_years,
         clay=clay,
         soc0=soc0,
@@ -131,8 +131,9 @@ def test_reduced_tillage_trm_uses_full_soc(monkeypatch):
         rain=rain,
         evap=evap,
         pc=pc,
-        sand=sand,
         commodity_type="annual_crop",
+        sand=sand,
+        red_till=True,
     )
 
     # TRM should be applied once per monthly timestep (n_years * 12)
@@ -168,7 +169,7 @@ def test_reduced_tillage_trm_accepts_time_varying_sand(monkeypatch):
         fake_trm,
     )
 
-    raster_rothc_ReducedTillage_annual_results_1yrloop(
+    raster_rothc_annual_results(
         n_years=n_years,
         clay=clay,
         soc0=soc0,
@@ -176,13 +177,72 @@ def test_reduced_tillage_trm_accepts_time_varying_sand(monkeypatch):
         rain=rain,
         evap=evap,
         pc=pc,
-        sand=sand,
         commodity_type="annual_crop",
+        sand=sand,
+        red_till=True,
     )
 
     # Every call should receive matching 2-D slices for sand and the full SOC state
     assert len(captured_shapes) == n_years * months
     assert all(s == ((y, x), (y, x)) for s in captured_shapes)
+
+
+def test_unified_wrapper_accepts_shared_args(monkeypatch):
+    captured_kwargs = []
+
+    def fake_runner(**kwargs):
+        captured_kwargs.append(kwargs)
+        return "soc", "co2"
+
+    monkeypatch.setattr(rr, "_raster_rothc_annual_results", fake_runner)
+
+    months = 12
+    clay = np.full((1, 1), 25.0, dtype=float)
+    soc0 = np.full((1, 1), 40.0, dtype=float)
+    tmp = np.full((months, 1, 1), 15.0, dtype=float)
+    rain = np.full((months, 1, 1), 80.0, dtype=float)
+    evap = np.full((months, 1, 1), 20.0, dtype=float)
+    pc = np.ones((months, 1, 1), dtype=float)
+    irr = np.zeros_like(tmp)
+    c_inp = np.ones_like(tmp)
+    fym = np.ones_like(tmp)
+    sand = np.full((1, 1), 30.0, dtype=float)
+
+    shared_kwargs = dict(
+        n_years=1,
+        clay=clay,
+        soc0=soc0,
+        tmp=tmp,
+        rain=rain,
+        evap=evap,
+        pc=pc,
+        irr=irr,
+        c_inp=c_inp,
+        fym=fym,
+        crop_name="maize",
+        spam_crop_raster="spam",
+        practices_string_id="practice",
+        irr_yield_scaling="scale",
+        spam_all_fp="all",
+        spam_irr_fp="irr_fp",
+        spam_rf_fp="rf_fp",
+        commodity_lu_fp="lu.tif",
+        commodity_type="annual_crop",
+        residue_runs=2,
+    )
+
+    baseline_soc, baseline_co2 = raster_rothc_annual_results(**shared_kwargs)
+    assert (baseline_soc, baseline_co2) == ("soc", "co2")
+    assert captured_kwargs[-1]["trm_handler"] is None
+    assert captured_kwargs[-1]["sand"] is None
+
+    captured_kwargs.clear()
+    reduced_soc, reduced_co2 = raster_rothc_annual_results(
+        **shared_kwargs, red_till=True, sand=sand
+    )
+    assert (reduced_soc, reduced_co2) == ("soc", "co2")
+    assert captured_kwargs[-1]["trm_handler"] is rr.RMF_TRM
+    assert captured_kwargs[-1]["sand"] is sand
 
 
 def test_raster_rothc_baseline_regression(monkeypatch):
@@ -217,7 +277,7 @@ def test_raster_rothc_baseline_regression(monkeypatch):
         dtype=np.float32,
     )
 
-    soc, co2 = raster_rothc_annual_results_1yrloop(
+    soc, co2 = raster_rothc_annual_results(
         n_years=n_years,
         clay=clay,
         soc0=soc0,
@@ -266,7 +326,7 @@ def test_raster_rothc_reduced_tillage_regression(monkeypatch):
         dtype=np.float32,
     )
 
-    soc, co2 = raster_rothc_ReducedTillage_annual_results_1yrloop(
+    soc, co2 = raster_rothc_annual_results(
         n_years=n_years,
         clay=clay,
         soc0=soc0,
@@ -274,9 +334,10 @@ def test_raster_rothc_reduced_tillage_regression(monkeypatch):
         rain=rain,
         evap=evap,
         pc=pc,
-        sand=sand,
         irr=irr,
         commodity_type="annual_crop",
+        sand=sand,
+        red_till=True,
     )
 
     npt.assert_allclose(soc, expected_soc)

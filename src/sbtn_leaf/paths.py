@@ -31,6 +31,7 @@ _PROJECT_ROOT = _resolve_root()
 _DATA_DIR = _PROJECT_ROOT / "data"
 _DOCUMENTATION_DIR = _PROJECT_ROOT / "documentation"
 _EXAMPLES_DIR = _PROJECT_ROOT / "examples"
+_LEAFS_DIR = _PROJECT_ROOT / "LEAFs"
 
 
 def project_root() -> Path:
@@ -56,6 +57,10 @@ def examples_dir() -> Path:
 
     return _EXAMPLES_DIR
 
+def LEAFs_dir() -> Path:
+    """Return the absolute path to the ``examples`` directory."""
+
+    return _LEAFS_DIR
 
 @overload
 def data_path(*parts: PathLike) -> Path:

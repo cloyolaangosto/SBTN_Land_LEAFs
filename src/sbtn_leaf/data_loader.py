@@ -17,15 +17,14 @@ pipeline while preserving ``functools.lru_cache`` semantics.
 from __future__ import annotations
 
 from functools import lru_cache, partial
-from pathlib import Path
 import calendar
+from pathlib import Path
 from typing import Callable, Dict, Iterable, Mapping, Tuple, TypeVar
 
 import geopandas as gpd
 import polars as pl
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = REPO_ROOT / "data"
+from sbtn_leaf.paths import data_path
 
 TableT = TypeVar("TableT")
 
@@ -65,7 +64,7 @@ def _cached_table(
 
 
 _load_crop_coefficients_table, get_crop_coefficients_table = _cached_table(
-    lambda: DATA_DIR / "crops" / "K_Crop_Data.csv",
+    lambda: data_path("crops", "K_Crop_Data.csv"),
     pl.read_csv,
     description="crop coefficient lookup table",
     clone_method="clone",
@@ -77,7 +76,7 @@ get_crop_coefficients_table.__doc__ = (
 
 
 _load_absolute_day_table, get_absolute_day_table = _cached_table(
-    lambda: DATA_DIR / "crops" / "AbsoluteDayTable.csv",
+    lambda: data_path("crops", "AbsoluteDayTable.csv"),
     pl.read_csv,
     description="absolute day lookup table",
     clone_method="clone",
@@ -107,7 +106,7 @@ def get_days_in_month_table(year: int = 2023) -> pl.DataFrame:
 
 
 _load_crop_naming_index_table, get_crop_naming_index_table = _cached_table(
-    lambda: DATA_DIR / "crops" / "crop_naming_index.csv",
+    lambda: data_path("crops", "crop_naming_index.csv"),
     pl.read_csv,
     description="crop naming index table",
     clone_method="clone",
@@ -119,7 +118,7 @@ get_crop_naming_index_table.__doc__ = (
 
 
 _load_fao_statistics_table, get_fao_statistics_table = _cached_table(
-    lambda: DATA_DIR / "crops" / "Production_Crops_Livestock_E_All_Data.csv",
+    lambda: data_path("crops", "Production_Crops_Livestock_E_All_Data.csv"),
     pl.read_csv,
     description="FAO production statistics table",
     clone_method="clone",
@@ -131,7 +130,7 @@ get_fao_statistics_table.__doc__ = (
 
 
 _load_fao_crop_yields_table, get_fao_crop_yields_table = _cached_table(
-    lambda: DATA_DIR / "crops" / "fao_crop_yields_1423.csv",
+    lambda: data_path("crops", "fao_crop_yields_1423.csv"),
     partial(pl.read_csv, separator=";"),
     description="FAO crop yields table",
     clone_method="clone",
@@ -143,10 +142,7 @@ get_fao_crop_yields_table.__doc__ = (
 
 
 _load_country_boundaries, get_country_boundaries = _cached_table(
-    lambda: DATA_DIR
-    / "CountryLayers"
-    / "Country_Level0"
-    / "g2015_2014_0.shp",
+    lambda: data_path("CountryLayers", "Country_Level0", "g2015_2014_0.shp"),
     gpd.read_file,
     description="country boundary shapefile",
     clone_method="copy",
@@ -158,7 +154,7 @@ get_country_boundaries.__doc__ = (
 
 
 _load_ecoregions_shapefile, get_ecoregions_shapefile = _cached_table(
-    lambda: DATA_DIR / "Ecoregions2017" / "Ecoregions2017.shp",
+    lambda: data_path("Ecoregions2017", "Ecoregions2017.shp"),
     gpd.read_file,
     description="ecoregions shapefile",
     clone_method="copy",
@@ -170,7 +166,7 @@ get_ecoregions_shapefile.__doc__ = (
 
 
 _load_crop_ag_residue_table, get_crop_ag_residue_table = _cached_table(
-    lambda: DATA_DIR / "crops" / "crop_residue_data.xlsx",
+    lambda: data_path("crops", "crop_residue_data.xlsx"),
     partial(pl.read_excel, sheet_name="crop_ABG_Res"),
     description="crop residue workbook",
     clone_method="clone",
@@ -184,7 +180,7 @@ get_crop_ag_residue_table.__doc__ = (
 
 
 _load_crop_residue_ratio_table, get_crop_residue_ratio_table = _cached_table(
-    lambda: DATA_DIR / "crops" / "crop_residue_data.xlsx",
+    lambda: data_path("crops", "crop_residue_data.xlsx"),
     partial(pl.read_excel, sheet_name="crop_res_ratios"),
     description="crop residue workbook",
     clone_method="clone",
