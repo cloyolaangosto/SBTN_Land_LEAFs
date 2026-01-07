@@ -819,6 +819,7 @@ def build_cfs_gpkg_from_rasters(
     cf_name: str,
     cf_unit: str,
     area_type: str,
+    gpckg_name: Optional[str] = None,
     input_raster_key_startswith: Optional[str] = None, # optional filename prefix filter; if set, only files starting with it are processed
     input_raster_key_endswith: Optional[str] = None,
     calc_kwargs: Optional[dict] = None,
@@ -828,7 +829,6 @@ def build_cfs_gpkg_from_rasters(
     add_source_file_name: bool = True,     # add _source_file column
     run_test: bool = False,          # process only first 5 rasters
     logger: Optional[logging.Logger] = build_logger,  # pass a logger or None
-    sig_figures: int = 4,
     write_gpkg: bool = True,         # optionally skip GeoPackage output entirely
 ) -> Tuple[Optional[str], pd.DataFrame]:
     """
@@ -843,8 +843,9 @@ def build_cfs_gpkg_from_rasters(
     """
     calc_kwargs = dict(calc_kwargs or {})
     calc_kwargs.setdefault("suppress_logging", True)
-    output_string = output_folder + cf_name + "_" + area_type
-    gpckg_path = output_string + ".gpkg" if write_gpkg else None
+    output_string = (output_folder + gpckg_name ) if gpckg_name is not None else (output_folder + cf_name + "_" + area_type)
+    if write_gpkg:
+        gpckg_path = output_string + ".gpkg"
     csv_path = output_string + ".csv"
 
     # Reset gpkg if requested

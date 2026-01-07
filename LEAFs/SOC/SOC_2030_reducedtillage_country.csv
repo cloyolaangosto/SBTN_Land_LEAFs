@@ -1,0 +1,2494 @@
+ADM0_NAME,country,value,metric,flow_name
+Abyei,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Afghanistan,Afghanistan,30.81145373974626,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Aksai Chin,Aksai Chin,32.28968402759321,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Albania,Albania,43.13488094020572,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Algeria,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+American Samoa,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Andorra,Andorra,49.94616134610769,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Angola,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Anguilla,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Antarctica,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Antigua and Barbuda,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Argentina,Argentina,24.20299802779279,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Armenia,Armenia,42.784970086166304,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Aruba,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Arunachal Pradesh,Arunachal Pradesh,42.19160420066457,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Ashmore and Cartier Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Australia,Australia,18.650602984347625,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Austria,Austria,42.349302716606616,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Azerbaijan,Azerbaijan,38.84640545960346,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Azores Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Bahamas,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Bahrain,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Baker Island,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Bangladesh,Bangladesh,20.12327794550366,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Barbados,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Bassas da India,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Belarus,Belarus,36.18133923041655,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Belgium,Belgium,40.51479226507606,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Belize,Belize,33.17347622947855,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Benin,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Bermuda,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Bhutan,Bhutan,46.21254678584963,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Bird Island,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Bolivia,Bolivia,26.086302252862726,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Bosnia and Herzegovina,Bosnia and Herzegovina,53.79089278113354,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Botswana,Botswana,9.558497576330913,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Bouvet Island,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Brazil,Brazil,23.44171851646606,cf_mean,Barley_irr_roff_rt_2030y_SOC
+British Indian Ocean Territory,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+British Virgin Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Brunei Darussalam,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Bulgaria,Bulgaria,32.69613635718628,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Burkina Faso,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Burundi,Burundi,25.908901490916694,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Cambodia,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Cameroon,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Canada,Canada,48.62618950526277,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Cape Verde,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Cayman Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Central African Republic,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Chad,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Chile,Chile,40.05919742836732,cf_mean,Barley_irr_roff_rt_2030y_SOC
+China,China,33.147695737082564,cf_mean,Barley_irr_roff_rt_2030y_SOC
+China/India,China/India,45.64481647444417,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Christmas Island,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Clipperton Island,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Cocos (Keeling) Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Colombia,Colombia,28.479118671843434,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Comoros,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Congo,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Cook Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Costa Rica,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Croatia,Croatia,44.401463362812706,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Cuba,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Cyprus,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Czech Republic,Czech Republic,41.72483427842134,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Côte d'Ivoire,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Dem People's Rep of Korea,Dem People's Rep of Korea,43.95820626893061,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Democratic Republic of the Congo,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Denmark,Denmark,58.848978963357666,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Djibouti,Djibouti,9.097576646842349,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Dominica,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Dominican Republic,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Ecuador,Ecuador,38.03905528093131,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Egypt,Egypt,8.964368955706659,cf_mean,Barley_irr_roff_rt_2030y_SOC
+El Salvador,El Salvador,45.64902932789861,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Equatorial Guinea,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Eritrea,Eritrea,11.73123695342415,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Estonia,Estonia,57.37827264412171,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Ethiopia,Ethiopia,24.60307126135808,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Europa Island,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Falkland Islands (Malvinas),,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Faroe Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Fiji,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Finland,Finland,65.44464348429014,cf_mean,Barley_irr_roff_rt_2030y_SOC
+France,France,41.818177642383155,cf_mean,Barley_irr_roff_rt_2030y_SOC
+French Guiana,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+French Polynesia,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+French Southern and Antarctic Territories,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Gabon,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Gambia,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Gaza Strip,Gaza Strip,11.399999094590344,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Georgia,Georgia,52.819791127151085,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Germany,Germany,43.53824180653958,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Ghana,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Gibraltar,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Glorioso Island,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Greece,Greece,33.2788643144882,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Greenland,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Grenada,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Guadeloupe,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Guam,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Guatemala,Guatemala,32.59626896436946,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Guernsey,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Guinea,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Guinea-Bissau,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Guyana,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Haiti,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Hala'ib triangle,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Heard Island and McDonald Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Holy See,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Honduras,Honduras,33.887019798863165,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Hong Kong,Hong Kong,27.023943745684427,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Howland Island,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Hungary,Hungary,33.70318570876726,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Iceland,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Ilemi triangle,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+India,India,16.987789817613777,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Indonesia,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Iran  (Islamic Republic of),Iran  (Islamic Republic of),23.878090917917913,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Iraq,Iraq,18.918431034776372,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Ireland,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Isle of Man,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Israel,Israel,21.00533839332713,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Italy,Italy,40.6818630973426,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Jamaica,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Jammu and Kashmir,Jammu and Kashmir,38.99292639542471,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Japan,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Jarvis Island,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Jersey,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Johnston Atoll,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Jordan,Jordan,16.741829675337605,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Juan de Nova Island,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Kazakhstan,Kazakhstan,30.80052688220419,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Kenya,Kenya,20.97989951593223,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Kingman Reef,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Kiribati,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Kuril islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Kuwait,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Kyrgyzstan,Kyrgyzstan,43.1716622188388,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Lao People's Democratic Republic,Lao People's Democratic Republic,28.906372878118322,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Latvia,Latvia,46.89960847455448,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Lebanon,Lebanon,25.305324288436214,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Lesotho,Lesotho,36.01610598041919,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Liberia,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Libya,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Liechtenstein,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Lithuania,Lithuania,39.58798606196828,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Luxembourg,Luxembourg,46.73052011883637,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Ma'tan al-Sarra,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Macau,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Madagascar,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Madeira Islands,Madeira Islands,84.03059123014219,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Malawi,Malawi,24.57407057532072,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Malaysia,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Maldives,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Mali,Mali,7.669780503247336,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Malta,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Marshall Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Martinique,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Mauritania,Mauritania,7.075561249755978,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Mauritius,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Mayotte,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Mexico,Mexico,23.975111689859308,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Micronesia (Federated States of),,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Midway Island,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+"Moldova, Republic of","Moldova, Republic of",43.85379792092888,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Monaco,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Mongolia,Mongolia,34.248991601487994,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Montenegro,Montenegro,55.89195695214103,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Montserrat,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Morocco,Morocco,39.17837142944335,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Mozambique,Mozambique,15.344007417938425,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Myanmar,Myanmar,35.9643713821008,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Namibia,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Nauru,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Navassa Island,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Nepal,Nepal,33.650514375312596,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Netherlands,Netherlands,53.47989571117095,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Netherlands Antilles,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+New Caledonia,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+New Zealand,New Zealand,79.16669551859889,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Nicaragua,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Niger,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Nigeria,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Niue,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Norfolk Island,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Northern Mariana Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Norway,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Oman,Oman,8.690684742951957,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Pakistan,Pakistan,15.54214696472761,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Palau,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Palmyra Atoll,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Panama,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Papua New Guinea,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Paracel Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Paraguay,Paraguay,20.576068636912858,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Peru,Peru,30.36208342089924,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Philippines,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Pitcairn,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Poland,Poland,31.72851202955719,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Portugal,Portugal,33.05090489638698,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Puerto Rico,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Qatar,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Republic of Korea,Republic of Korea,38.159247510127955,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Romania,Romania,33.93904806892395,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Russian Federation,Russian Federation,54.83213924324151,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Rwanda,Rwanda,31.18828633553452,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Réunion,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Saint Helena,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Saint Kitts and Nevis,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Saint Lucia,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Saint Pierre et Miquelon,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Saint Vincent and the Grenadines,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Samoa,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+San Marino,San Marino,31.1453914642334,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Sao Tome and Principe,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Saudi Arabia,Saudi Arabia,7.749210175811685,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Scarborough Reef,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Senegal,Senegal,9.850317509783249,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Senkaku Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Serbia,Serbia,34.829489970233865,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Seychelles,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Sierra Leone,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Singapore,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Slovakia,Slovakia,42.049684080499404,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Slovenia,Slovenia,49.47565137614009,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Solomon Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Somalia,Somalia,12.18630697234761,cf_mean,Barley_irr_roff_rt_2030y_SOC
+South Africa,South Africa,19.80111162673647,cf_mean,Barley_irr_roff_rt_2030y_SOC
+South Georgia and the South Sandwich Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+South Sudan,South Sudan,15.861043841824017,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Spain,Spain,31.70968168598712,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Spratly Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Sri Lanka,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Sudan,Sudan,14.03659920259869,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Suriname,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Svalbard and Jan Mayen Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Swaziland,Swaziland,27.049194095660944,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Sweden,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Switzerland,Switzerland,62.307029454787134,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Syrian Arab Republic,Syrian Arab Republic,17.536911455972096,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Taiwan,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Tajikistan,Tajikistan,37.90270941047845,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Thailand,Thailand,22.847813667594973,cf_mean,Barley_irr_roff_rt_2030y_SOC
+The former Yugoslav Republic of Macedonia,The former Yugoslav Republic of Macedonia,33.3780213000533,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Timor-Leste,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Togo,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Tokelau,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Tonga,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Trinidad and Tobago,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Tromelin Island,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Tunisia,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Turkey,Turkey,35.46469659031835,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Turkmenistan,Turkmenistan,23.49382882281025,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Turks and Caicos islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Tuvalu,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+U.K. of Great Britain and Northern Ireland,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Uganda,Uganda,33.751735546589536,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Ukraine,Ukraine,43.929770950904384,cf_mean,Barley_irr_roff_rt_2030y_SOC
+United Arab Emirates,United Arab Emirates,6.569771289825439,cf_mean,Barley_irr_roff_rt_2030y_SOC
+United Republic of Tanzania,United Republic of Tanzania,19.10390272763397,cf_mean,Barley_irr_roff_rt_2030y_SOC
+United States Virgin Islands,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+United States of America,United States of America,32.50844421036998,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Uruguay,Uruguay,29.64849326945592,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Uzbekistan,Uzbekistan,20.881420369391094,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Vanuatu,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Venezuela,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Viet Nam,Viet Nam,32.14137348447001,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Wake Island,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Wallis and Futuna,,,cf_mean,Barley_irr_roff_rt_2030y_SOC
+West Bank,West Bank,24.992321332295734,cf_mean,Barley_irr_roff_rt_2030y_SOC
+West Bank,West Bank,27.70473541921576,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Western Sahara,Western Sahara,7.231198430050885,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Yemen,Yemen,10.194028235845963,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Zambia,Zambia,19.103650141525932,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Zimbabwe,Zimbabwe,12.596544248665051,cf_mean,Barley_irr_roff_rt_2030y_SOC
+Abyei,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Afghanistan,Afghanistan,29.36956787109375,cf_median,Barley_irr_roff_rt_2030y_SOC
+Aksai Chin,Aksai Chin,33.64248275756836,cf_median,Barley_irr_roff_rt_2030y_SOC
+Albania,Albania,40.93724822998047,cf_median,Barley_irr_roff_rt_2030y_SOC
+Algeria,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+American Samoa,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Andorra,Andorra,58.29985046386719,cf_median,Barley_irr_roff_rt_2030y_SOC
+Angola,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Anguilla,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Antarctica,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Antigua and Barbuda,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Argentina,Argentina,22.830392837524414,cf_median,Barley_irr_roff_rt_2030y_SOC
+Armenia,Armenia,44.84245300292969,cf_median,Barley_irr_roff_rt_2030y_SOC
+Aruba,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Arunachal Pradesh,Arunachal Pradesh,39.431339263916016,cf_median,Barley_irr_roff_rt_2030y_SOC
+Ashmore and Cartier Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Australia,Australia,13.1643648147583,cf_median,Barley_irr_roff_rt_2030y_SOC
+Austria,Austria,39.961082458496094,cf_median,Barley_irr_roff_rt_2030y_SOC
+Azerbaijan,Azerbaijan,38.27094650268555,cf_median,Barley_irr_roff_rt_2030y_SOC
+Azores Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Bahamas,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Bahrain,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Baker Island,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Bangladesh,Bangladesh,18.972171783447266,cf_median,Barley_irr_roff_rt_2030y_SOC
+Barbados,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Bassas da India,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Belarus,Belarus,35.58418655395508,cf_median,Barley_irr_roff_rt_2030y_SOC
+Belgium,Belgium,39.07514572143555,cf_median,Barley_irr_roff_rt_2030y_SOC
+Belize,Belize,32.96934509277344,cf_median,Barley_irr_roff_rt_2030y_SOC
+Benin,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Bermuda,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Bhutan,Bhutan,45.824501037597656,cf_median,Barley_irr_roff_rt_2030y_SOC
+Bird Island,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Bolivia,Bolivia,23.07286262512207,cf_median,Barley_irr_roff_rt_2030y_SOC
+Bosnia and Herzegovina,Bosnia and Herzegovina,53.10982131958008,cf_median,Barley_irr_roff_rt_2030y_SOC
+Botswana,Botswana,10.157153129577637,cf_median,Barley_irr_roff_rt_2030y_SOC
+Bouvet Island,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Brazil,Brazil,24.329269409179688,cf_median,Barley_irr_roff_rt_2030y_SOC
+British Indian Ocean Territory,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+British Virgin Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Brunei Darussalam,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Bulgaria,Bulgaria,32.08220291137695,cf_median,Barley_irr_roff_rt_2030y_SOC
+Burkina Faso,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Burundi,Burundi,27.200395584106445,cf_median,Barley_irr_roff_rt_2030y_SOC
+Cambodia,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Cameroon,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Canada,Canada,48.036346435546875,cf_median,Barley_irr_roff_rt_2030y_SOC
+Cape Verde,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Cayman Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Central African Republic,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Chad,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Chile,Chile,23.437273025512695,cf_median,Barley_irr_roff_rt_2030y_SOC
+China,China,29.163997650146484,cf_median,Barley_irr_roff_rt_2030y_SOC
+China/India,China/India,48.71414566040039,cf_median,Barley_irr_roff_rt_2030y_SOC
+Christmas Island,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Clipperton Island,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Cocos (Keeling) Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Colombia,Colombia,25.937366485595703,cf_median,Barley_irr_roff_rt_2030y_SOC
+Comoros,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Congo,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Cook Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Costa Rica,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Croatia,Croatia,40.324798583984375,cf_median,Barley_irr_roff_rt_2030y_SOC
+Cuba,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Cyprus,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Czech Republic,Czech Republic,40.13166046142578,cf_median,Barley_irr_roff_rt_2030y_SOC
+Côte d'Ivoire,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Dem People's Rep of Korea,Dem People's Rep of Korea,43.7304801940918,cf_median,Barley_irr_roff_rt_2030y_SOC
+Democratic Republic of the Congo,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Denmark,Denmark,51.70711135864258,cf_median,Barley_irr_roff_rt_2030y_SOC
+Djibouti,Djibouti,8.269871711730957,cf_median,Barley_irr_roff_rt_2030y_SOC
+Dominica,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Dominican Republic,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Ecuador,Ecuador,34.21794891357422,cf_median,Barley_irr_roff_rt_2030y_SOC
+Egypt,Egypt,7.022022724151611,cf_median,Barley_irr_roff_rt_2030y_SOC
+El Salvador,El Salvador,53.58259201049805,cf_median,Barley_irr_roff_rt_2030y_SOC
+Equatorial Guinea,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Eritrea,Eritrea,10.573335647583008,cf_median,Barley_irr_roff_rt_2030y_SOC
+Estonia,Estonia,48.02470397949219,cf_median,Barley_irr_roff_rt_2030y_SOC
+Ethiopia,Ethiopia,23.117549896240234,cf_median,Barley_irr_roff_rt_2030y_SOC
+Europa Island,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Falkland Islands (Malvinas),,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Faroe Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Fiji,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Finland,Finland,67.93292999267578,cf_median,Barley_irr_roff_rt_2030y_SOC
+France,France,39.380470275878906,cf_median,Barley_irr_roff_rt_2030y_SOC
+French Guiana,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+French Polynesia,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+French Southern and Antarctic Territories,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Gabon,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Gambia,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Gaza Strip,Gaza Strip,8.590675354003906,cf_median,Barley_irr_roff_rt_2030y_SOC
+Georgia,Georgia,53.224761962890625,cf_median,Barley_irr_roff_rt_2030y_SOC
+Germany,Germany,41.31911087036133,cf_median,Barley_irr_roff_rt_2030y_SOC
+Ghana,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Gibraltar,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Glorioso Island,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Greece,Greece,31.241498947143555,cf_median,Barley_irr_roff_rt_2030y_SOC
+Greenland,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Grenada,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Guadeloupe,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Guam,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Guatemala,Guatemala,32.9442024230957,cf_median,Barley_irr_roff_rt_2030y_SOC
+Guernsey,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Guinea,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Guinea-Bissau,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Guyana,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Haiti,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Hala'ib triangle,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Heard Island and McDonald Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Holy See,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Honduras,Honduras,33.258758544921875,cf_median,Barley_irr_roff_rt_2030y_SOC
+Hong Kong,Hong Kong,27.266559600830078,cf_median,Barley_irr_roff_rt_2030y_SOC
+Howland Island,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Hungary,Hungary,33.985111236572266,cf_median,Barley_irr_roff_rt_2030y_SOC
+Iceland,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Ilemi triangle,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+India,India,14.904572486877441,cf_median,Barley_irr_roff_rt_2030y_SOC
+Indonesia,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Iran  (Islamic Republic of),Iran  (Islamic Republic of),24.037809371948242,cf_median,Barley_irr_roff_rt_2030y_SOC
+Iraq,Iraq,15.906091690063477,cf_median,Barley_irr_roff_rt_2030y_SOC
+Ireland,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Isle of Man,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Israel,Israel,19.139385223388672,cf_median,Barley_irr_roff_rt_2030y_SOC
+Italy,Italy,38.62645721435547,cf_median,Barley_irr_roff_rt_2030y_SOC
+Jamaica,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Jammu and Kashmir,Jammu and Kashmir,40.119049072265625,cf_median,Barley_irr_roff_rt_2030y_SOC
+Japan,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Jarvis Island,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Jersey,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Johnston Atoll,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Jordan,Jordan,16.463817596435547,cf_median,Barley_irr_roff_rt_2030y_SOC
+Juan de Nova Island,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Kazakhstan,Kazakhstan,31.58230972290039,cf_median,Barley_irr_roff_rt_2030y_SOC
+Kenya,Kenya,17.807533264160156,cf_median,Barley_irr_roff_rt_2030y_SOC
+Kingman Reef,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Kiribati,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Kuril islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Kuwait,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Kyrgyzstan,Kyrgyzstan,44.27709197998047,cf_median,Barley_irr_roff_rt_2030y_SOC
+Lao People's Democratic Republic,Lao People's Democratic Republic,33.30752182006836,cf_median,Barley_irr_roff_rt_2030y_SOC
+Latvia,Latvia,46.97678756713867,cf_median,Barley_irr_roff_rt_2030y_SOC
+Lebanon,Lebanon,24.437192916870117,cf_median,Barley_irr_roff_rt_2030y_SOC
+Lesotho,Lesotho,34.60928726196289,cf_median,Barley_irr_roff_rt_2030y_SOC
+Liberia,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Libya,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Liechtenstein,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Lithuania,Lithuania,39.115909576416016,cf_median,Barley_irr_roff_rt_2030y_SOC
+Luxembourg,Luxembourg,47.398311614990234,cf_median,Barley_irr_roff_rt_2030y_SOC
+Ma'tan al-Sarra,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Macau,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Madagascar,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Madeira Islands,Madeira Islands,83.14271545410156,cf_median,Barley_irr_roff_rt_2030y_SOC
+Malawi,Malawi,21.834190368652344,cf_median,Barley_irr_roff_rt_2030y_SOC
+Malaysia,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Maldives,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Mali,Mali,7.751206398010254,cf_median,Barley_irr_roff_rt_2030y_SOC
+Malta,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Marshall Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Martinique,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Mauritania,Mauritania,6.9625372886657715,cf_median,Barley_irr_roff_rt_2030y_SOC
+Mauritius,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Mayotte,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Mexico,Mexico,23.057092666625977,cf_median,Barley_irr_roff_rt_2030y_SOC
+Micronesia (Federated States of),,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Midway Island,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+"Moldova, Republic of","Moldova, Republic of",44.01897430419922,cf_median,Barley_irr_roff_rt_2030y_SOC
+Monaco,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Mongolia,Mongolia,29.23243522644043,cf_median,Barley_irr_roff_rt_2030y_SOC
+Montenegro,Montenegro,56.459041595458984,cf_median,Barley_irr_roff_rt_2030y_SOC
+Montserrat,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Morocco,Morocco,39.17837142944335,cf_median,Barley_irr_roff_rt_2030y_SOC
+Mozambique,Mozambique,13.558915138244629,cf_median,Barley_irr_roff_rt_2030y_SOC
+Myanmar,Myanmar,35.781829833984375,cf_median,Barley_irr_roff_rt_2030y_SOC
+Namibia,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Nauru,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Navassa Island,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Nepal,Nepal,29.495866775512695,cf_median,Barley_irr_roff_rt_2030y_SOC
+Netherlands,Netherlands,50.203819274902344,cf_median,Barley_irr_roff_rt_2030y_SOC
+Netherlands Antilles,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+New Caledonia,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+New Zealand,New Zealand,76.09059143066406,cf_median,Barley_irr_roff_rt_2030y_SOC
+Nicaragua,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Niger,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Nigeria,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Niue,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Norfolk Island,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Northern Mariana Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Norway,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Oman,Oman,7.113693714141846,cf_median,Barley_irr_roff_rt_2030y_SOC
+Pakistan,Pakistan,10.887639999389648,cf_median,Barley_irr_roff_rt_2030y_SOC
+Palau,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Palmyra Atoll,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Panama,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Papua New Guinea,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Paracel Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Paraguay,Paraguay,20.335969924926758,cf_median,Barley_irr_roff_rt_2030y_SOC
+Peru,Peru,26.373979568481445,cf_median,Barley_irr_roff_rt_2030y_SOC
+Philippines,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Pitcairn,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Poland,Poland,30.649852752685547,cf_median,Barley_irr_roff_rt_2030y_SOC
+Portugal,Portugal,31.14012908935547,cf_median,Barley_irr_roff_rt_2030y_SOC
+Puerto Rico,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Qatar,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Republic of Korea,Republic of Korea,35.49481964111328,cf_median,Barley_irr_roff_rt_2030y_SOC
+Romania,Romania,32.80377197265625,cf_median,Barley_irr_roff_rt_2030y_SOC
+Russian Federation,Russian Federation,55.291107177734375,cf_median,Barley_irr_roff_rt_2030y_SOC
+Rwanda,Rwanda,35.16279983520508,cf_median,Barley_irr_roff_rt_2030y_SOC
+Réunion,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Saint Helena,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Saint Kitts and Nevis,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Saint Lucia,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Saint Pierre et Miquelon,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Saint Vincent and the Grenadines,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Samoa,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+San Marino,San Marino,31.1453914642334,cf_median,Barley_irr_roff_rt_2030y_SOC
+Sao Tome and Principe,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Saudi Arabia,Saudi Arabia,7.186171531677246,cf_median,Barley_irr_roff_rt_2030y_SOC
+Scarborough Reef,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Senegal,Senegal,7.92075252532959,cf_median,Barley_irr_roff_rt_2030y_SOC
+Senkaku Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Serbia,Serbia,32.649681091308594,cf_median,Barley_irr_roff_rt_2030y_SOC
+Seychelles,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Sierra Leone,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Singapore,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Slovakia,Slovakia,40.31277084350586,cf_median,Barley_irr_roff_rt_2030y_SOC
+Slovenia,Slovenia,44.19468307495117,cf_median,Barley_irr_roff_rt_2030y_SOC
+Solomon Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Somalia,Somalia,13.142973899841309,cf_median,Barley_irr_roff_rt_2030y_SOC
+South Africa,South Africa,18.336179733276367,cf_median,Barley_irr_roff_rt_2030y_SOC
+South Georgia and the South Sandwich Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+South Sudan,South Sudan,17.496654510498047,cf_median,Barley_irr_roff_rt_2030y_SOC
+Spain,Spain,26.201871871948242,cf_median,Barley_irr_roff_rt_2030y_SOC
+Spratly Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Sri Lanka,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Sudan,Sudan,14.513463973999023,cf_median,Barley_irr_roff_rt_2030y_SOC
+Suriname,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Svalbard and Jan Mayen Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Swaziland,Swaziland,27.99080467224121,cf_median,Barley_irr_roff_rt_2030y_SOC
+Sweden,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Switzerland,Switzerland,62.27040100097656,cf_median,Barley_irr_roff_rt_2030y_SOC
+Syrian Arab Republic,Syrian Arab Republic,15.88178825378418,cf_median,Barley_irr_roff_rt_2030y_SOC
+Taiwan,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Tajikistan,Tajikistan,39.37861251831055,cf_median,Barley_irr_roff_rt_2030y_SOC
+Thailand,Thailand,24.75963592529297,cf_median,Barley_irr_roff_rt_2030y_SOC
+The former Yugoslav Republic of Macedonia,The former Yugoslav Republic of Macedonia,30.875139236450195,cf_median,Barley_irr_roff_rt_2030y_SOC
+Timor-Leste,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Togo,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Tokelau,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Tonga,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Trinidad and Tobago,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Tromelin Island,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Tunisia,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Turkey,Turkey,33.93561935424805,cf_median,Barley_irr_roff_rt_2030y_SOC
+Turkmenistan,Turkmenistan,23.547101974487305,cf_median,Barley_irr_roff_rt_2030y_SOC
+Turks and Caicos islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Tuvalu,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+U.K. of Great Britain and Northern Ireland,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Uganda,Uganda,30.615222930908203,cf_median,Barley_irr_roff_rt_2030y_SOC
+Ukraine,Ukraine,43.11354446411133,cf_median,Barley_irr_roff_rt_2030y_SOC
+United Arab Emirates,United Arab Emirates,6.569771289825439,cf_median,Barley_irr_roff_rt_2030y_SOC
+United Republic of Tanzania,United Republic of Tanzania,17.24459457397461,cf_median,Barley_irr_roff_rt_2030y_SOC
+United States Virgin Islands,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+United States of America,United States of America,30.2908992767334,cf_median,Barley_irr_roff_rt_2030y_SOC
+Uruguay,Uruguay,30.9178524017334,cf_median,Barley_irr_roff_rt_2030y_SOC
+Uzbekistan,Uzbekistan,18.872333526611328,cf_median,Barley_irr_roff_rt_2030y_SOC
+Vanuatu,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Venezuela,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Viet Nam,Viet Nam,31.952510833740234,cf_median,Barley_irr_roff_rt_2030y_SOC
+Wake Island,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+Wallis and Futuna,,,cf_median,Barley_irr_roff_rt_2030y_SOC
+West Bank,West Bank,24.814638137817383,cf_median,Barley_irr_roff_rt_2030y_SOC
+West Bank,West Bank,26.205827713012695,cf_median,Barley_irr_roff_rt_2030y_SOC
+Western Sahara,Western Sahara,6.328510761260986,cf_median,Barley_irr_roff_rt_2030y_SOC
+Yemen,Yemen,9.2000150680542,cf_median,Barley_irr_roff_rt_2030y_SOC
+Zambia,Zambia,18.71809196472168,cf_median,Barley_irr_roff_rt_2030y_SOC
+Zimbabwe,Zimbabwe,11.963604927062988,cf_median,Barley_irr_roff_rt_2030y_SOC
+Abyei,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Afghanistan,Afghanistan,10.527457914166416,cf_std,Barley_irr_roff_rt_2030y_SOC
+Aksai Chin,Aksai Chin,6.135787703004354,cf_std,Barley_irr_roff_rt_2030y_SOC
+Albania,Albania,8.52094880504288,cf_std,Barley_irr_roff_rt_2030y_SOC
+Algeria,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+American Samoa,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Andorra,Andorra,11.035227081297428,cf_std,Barley_irr_roff_rt_2030y_SOC
+Angola,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Anguilla,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Antarctica,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Antigua and Barbuda,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Argentina,Argentina,10.034467492264433,cf_std,Barley_irr_roff_rt_2030y_SOC
+Armenia,Armenia,7.416831036854277,cf_std,Barley_irr_roff_rt_2030y_SOC
+Aruba,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Arunachal Pradesh,Arunachal Pradesh,11.755070446161762,cf_std,Barley_irr_roff_rt_2030y_SOC
+Ashmore and Cartier Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Australia,Australia,14.930828652767152,cf_std,Barley_irr_roff_rt_2030y_SOC
+Austria,Austria,10.091288717077413,cf_std,Barley_irr_roff_rt_2030y_SOC
+Azerbaijan,Azerbaijan,9.076114221130513,cf_std,Barley_irr_roff_rt_2030y_SOC
+Azores Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Bahamas,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Bahrain,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Baker Island,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Bangladesh,Bangladesh,5.538854318995313,cf_std,Barley_irr_roff_rt_2030y_SOC
+Barbados,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Bassas da India,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Belarus,Belarus,4.093488972678655,cf_std,Barley_irr_roff_rt_2030y_SOC
+Belgium,Belgium,8.960892018956812,cf_std,Barley_irr_roff_rt_2030y_SOC
+Belize,Belize,4.798434987326472,cf_std,Barley_irr_roff_rt_2030y_SOC
+Benin,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Bermuda,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Bhutan,Bhutan,9.26042396827535,cf_std,Barley_irr_roff_rt_2030y_SOC
+Bird Island,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Bolivia,Bolivia,10.01980177194401,cf_std,Barley_irr_roff_rt_2030y_SOC
+Bosnia and Herzegovina,Bosnia and Herzegovina,13.105612317388305,cf_std,Barley_irr_roff_rt_2030y_SOC
+Botswana,Botswana,1.9086734253360762,cf_std,Barley_irr_roff_rt_2030y_SOC
+Bouvet Island,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Brazil,Brazil,5.020201547304698,cf_std,Barley_irr_roff_rt_2030y_SOC
+British Indian Ocean Territory,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+British Virgin Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Brunei Darussalam,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Bulgaria,Bulgaria,5.446875785842743,cf_std,Barley_irr_roff_rt_2030y_SOC
+Burkina Faso,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Burundi,Burundi,7.684735059080544,cf_std,Barley_irr_roff_rt_2030y_SOC
+Cambodia,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Cameroon,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Canada,Canada,10.162742944959977,cf_std,Barley_irr_roff_rt_2030y_SOC
+Cape Verde,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Cayman Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Central African Republic,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Chad,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Chile,Chile,27.9797898636489,cf_std,Barley_irr_roff_rt_2030y_SOC
+China,China,16.52327758015807,cf_std,Barley_irr_roff_rt_2030y_SOC
+China/India,China/India,17.00808415809674,cf_std,Barley_irr_roff_rt_2030y_SOC
+Christmas Island,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Clipperton Island,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Cocos (Keeling) Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Colombia,Colombia,14.132626759486916,cf_std,Barley_irr_roff_rt_2030y_SOC
+Comoros,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Congo,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Cook Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Costa Rica,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Croatia,Croatia,13.24669915098455,cf_std,Barley_irr_roff_rt_2030y_SOC
+Cuba,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Cyprus,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Czech Republic,Czech Republic,10.698282627501783,cf_std,Barley_irr_roff_rt_2030y_SOC
+Côte d'Ivoire,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Dem People's Rep of Korea,Dem People's Rep of Korea,7.97012369303612,cf_std,Barley_irr_roff_rt_2030y_SOC
+Democratic Republic of the Congo,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Denmark,Denmark,14.420360469382329,cf_std,Barley_irr_roff_rt_2030y_SOC
+Djibouti,Djibouti,3.2116597740269635,cf_std,Barley_irr_roff_rt_2030y_SOC
+Dominica,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Dominican Republic,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Ecuador,Ecuador,14.88554369999178,cf_std,Barley_irr_roff_rt_2030y_SOC
+Egypt,Egypt,3.0711189735849755,cf_std,Barley_irr_roff_rt_2030y_SOC
+El Salvador,El Salvador,12.591923366471205,cf_std,Barley_irr_roff_rt_2030y_SOC
+Equatorial Guinea,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Eritrea,Eritrea,5.736957886266386,cf_std,Barley_irr_roff_rt_2030y_SOC
+Estonia,Estonia,21.847566848988865,cf_std,Barley_irr_roff_rt_2030y_SOC
+Ethiopia,Ethiopia,12.43171283104651,cf_std,Barley_irr_roff_rt_2030y_SOC
+Europa Island,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Falkland Islands (Malvinas),,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Faroe Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Fiji,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Finland,Finland,6.078226523846169,cf_std,Barley_irr_roff_rt_2030y_SOC
+France,France,11.766433907486054,cf_std,Barley_irr_roff_rt_2030y_SOC
+French Guiana,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+French Polynesia,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+French Southern and Antarctic Territories,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Gabon,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Gambia,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Gaza Strip,Gaza Strip,4.637197469674061,cf_std,Barley_irr_roff_rt_2030y_SOC
+Georgia,Georgia,10.176363553055635,cf_std,Barley_irr_roff_rt_2030y_SOC
+Germany,Germany,10.112628831999753,cf_std,Barley_irr_roff_rt_2030y_SOC
+Ghana,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Gibraltar,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Glorioso Island,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Greece,Greece,10.156488987923154,cf_std,Barley_irr_roff_rt_2030y_SOC
+Greenland,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Grenada,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Guadeloupe,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Guam,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Guatemala,Guatemala,7.444467294937967,cf_std,Barley_irr_roff_rt_2030y_SOC
+Guernsey,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Guinea,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Guinea-Bissau,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Guyana,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Haiti,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Hala'ib triangle,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Heard Island and McDonald Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Holy See,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Honduras,Honduras,1.814636756192055,cf_std,Barley_irr_roff_rt_2030y_SOC
+Hong Kong,Hong Kong,0.7738095488364232,cf_std,Barley_irr_roff_rt_2030y_SOC
+Howland Island,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Hungary,Hungary,5.267937187085076,cf_std,Barley_irr_roff_rt_2030y_SOC
+Iceland,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Ilemi triangle,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+India,India,9.466102734761078,cf_std,Barley_irr_roff_rt_2030y_SOC
+Indonesia,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Iran  (Islamic Republic of),Iran  (Islamic Republic of),9.610049285011723,cf_std,Barley_irr_roff_rt_2030y_SOC
+Iraq,Iraq,7.371573655758937,cf_std,Barley_irr_roff_rt_2030y_SOC
+Ireland,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Isle of Man,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Israel,Israel,8.72352893147638,cf_std,Barley_irr_roff_rt_2030y_SOC
+Italy,Italy,11.792886890589017,cf_std,Barley_irr_roff_rt_2030y_SOC
+Jamaica,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Jammu and Kashmir,Jammu and Kashmir,9.657249366244987,cf_std,Barley_irr_roff_rt_2030y_SOC
+Japan,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Jarvis Island,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Jersey,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Johnston Atoll,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Jordan,Jordan,3.790565804888658,cf_std,Barley_irr_roff_rt_2030y_SOC
+Juan de Nova Island,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Kazakhstan,Kazakhstan,10.672362225294984,cf_std,Barley_irr_roff_rt_2030y_SOC
+Kenya,Kenya,8.95153302600036,cf_std,Barley_irr_roff_rt_2030y_SOC
+Kingman Reef,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Kiribati,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Kuril islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Kuwait,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Kyrgyzstan,Kyrgyzstan,8.50318547119857,cf_std,Barley_irr_roff_rt_2030y_SOC
+Lao People's Democratic Republic,Lao People's Democratic Republic,9.061422025958251,cf_std,Barley_irr_roff_rt_2030y_SOC
+Latvia,Latvia,3.7030697137417454,cf_std,Barley_irr_roff_rt_2030y_SOC
+Lebanon,Lebanon,4.306503433970181,cf_std,Barley_irr_roff_rt_2030y_SOC
+Lesotho,Lesotho,11.161227997488298,cf_std,Barley_irr_roff_rt_2030y_SOC
+Liberia,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Libya,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Liechtenstein,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Lithuania,Lithuania,4.838323187861134,cf_std,Barley_irr_roff_rt_2030y_SOC
+Luxembourg,Luxembourg,2.9664890940718482,cf_std,Barley_irr_roff_rt_2030y_SOC
+Ma'tan al-Sarra,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Macau,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Madagascar,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Madeira Islands,Madeira Islands,3.906913932073009,cf_std,Barley_irr_roff_rt_2030y_SOC
+Malawi,Malawi,6.730634376075082,cf_std,Barley_irr_roff_rt_2030y_SOC
+Malaysia,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Maldives,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Mali,Mali,0.5959836414260617,cf_std,Barley_irr_roff_rt_2030y_SOC
+Malta,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Marshall Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Martinique,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Mauritania,Mauritania,1.1367315849877593,cf_std,Barley_irr_roff_rt_2030y_SOC
+Mauritius,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Mayotte,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Mexico,Mexico,11.012660737309012,cf_std,Barley_irr_roff_rt_2030y_SOC
+Micronesia (Federated States of),,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Midway Island,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+"Moldova, Republic of","Moldova, Republic of",4.26193661860208,cf_std,Barley_irr_roff_rt_2030y_SOC
+Monaco,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Mongolia,Mongolia,18.3176256810848,cf_std,Barley_irr_roff_rt_2030y_SOC
+Montenegro,Montenegro,10.978419150984807,cf_std,Barley_irr_roff_rt_2030y_SOC
+Montserrat,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Morocco,Morocco,0.0,cf_std,Barley_irr_roff_rt_2030y_SOC
+Mozambique,Mozambique,4.669804239994757,cf_std,Barley_irr_roff_rt_2030y_SOC
+Myanmar,Myanmar,13.224505215427179,cf_std,Barley_irr_roff_rt_2030y_SOC
+Namibia,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Nauru,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Navassa Island,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Nepal,Nepal,13.342512935339771,cf_std,Barley_irr_roff_rt_2030y_SOC
+Netherlands,Netherlands,13.277727185292717,cf_std,Barley_irr_roff_rt_2030y_SOC
+Netherlands Antilles,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+New Caledonia,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+New Zealand,New Zealand,18.04248195001977,cf_std,Barley_irr_roff_rt_2030y_SOC
+Nicaragua,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Niger,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Nigeria,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Niue,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Norfolk Island,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Northern Mariana Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Norway,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Oman,Oman,3.7879696649285073,cf_std,Barley_irr_roff_rt_2030y_SOC
+Pakistan,Pakistan,12.506109408418435,cf_std,Barley_irr_roff_rt_2030y_SOC
+Palau,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Palmyra Atoll,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Panama,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Papua New Guinea,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Paracel Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Paraguay,Paraguay,5.671547306448314,cf_std,Barley_irr_roff_rt_2030y_SOC
+Peru,Peru,13.421683945821703,cf_std,Barley_irr_roff_rt_2030y_SOC
+Philippines,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Pitcairn,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Poland,Poland,6.121460373899684,cf_std,Barley_irr_roff_rt_2030y_SOC
+Portugal,Portugal,8.323364261675827,cf_std,Barley_irr_roff_rt_2030y_SOC
+Puerto Rico,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Qatar,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Republic of Korea,Republic of Korea,10.777654071507328,cf_std,Barley_irr_roff_rt_2030y_SOC
+Romania,Romania,6.248241168893731,cf_std,Barley_irr_roff_rt_2030y_SOC
+Russian Federation,Russian Federation,9.398312471268767,cf_std,Barley_irr_roff_rt_2030y_SOC
+Rwanda,Rwanda,8.654611357291449,cf_std,Barley_irr_roff_rt_2030y_SOC
+Réunion,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Saint Helena,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Saint Kitts and Nevis,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Saint Lucia,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Saint Pierre et Miquelon,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Saint Vincent and the Grenadines,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Samoa,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+San Marino,San Marino,0.0,cf_std,Barley_irr_roff_rt_2030y_SOC
+Sao Tome and Principe,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Saudi Arabia,Saudi Arabia,2.4445743894890604,cf_std,Barley_irr_roff_rt_2030y_SOC
+Scarborough Reef,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Senegal,Senegal,5.1351817446796355,cf_std,Barley_irr_roff_rt_2030y_SOC
+Senkaku Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Serbia,Serbia,6.638403719942629,cf_std,Barley_irr_roff_rt_2030y_SOC
+Seychelles,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Sierra Leone,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Singapore,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Slovakia,Slovakia,7.054459893885553,cf_std,Barley_irr_roff_rt_2030y_SOC
+Slovenia,Slovenia,14.138309876605241,cf_std,Barley_irr_roff_rt_2030y_SOC
+Solomon Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Somalia,Somalia,3.6390671198840865,cf_std,Barley_irr_roff_rt_2030y_SOC
+South Africa,South Africa,8.792041707215352,cf_std,Barley_irr_roff_rt_2030y_SOC
+South Georgia and the South Sandwich Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+South Sudan,South Sudan,6.341209832586589,cf_std,Barley_irr_roff_rt_2030y_SOC
+Spain,Spain,15.148587331915898,cf_std,Barley_irr_roff_rt_2030y_SOC
+Spratly Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Sri Lanka,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Sudan,Sudan,4.0651204604853435,cf_std,Barley_irr_roff_rt_2030y_SOC
+Suriname,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Svalbard and Jan Mayen Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Swaziland,Swaziland,5.181201742645669,cf_std,Barley_irr_roff_rt_2030y_SOC
+Sweden,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Switzerland,Switzerland,12.407425732875845,cf_std,Barley_irr_roff_rt_2030y_SOC
+Syrian Arab Republic,Syrian Arab Republic,6.537259464036564,cf_std,Barley_irr_roff_rt_2030y_SOC
+Taiwan,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Tajikistan,Tajikistan,10.346191911306564,cf_std,Barley_irr_roff_rt_2030y_SOC
+Thailand,Thailand,6.495162766910966,cf_std,Barley_irr_roff_rt_2030y_SOC
+The former Yugoslav Republic of Macedonia,The former Yugoslav Republic of Macedonia,9.24828152468274,cf_std,Barley_irr_roff_rt_2030y_SOC
+Timor-Leste,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Togo,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Tokelau,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Tonga,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Trinidad and Tobago,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Tromelin Island,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Tunisia,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Turkey,Turkey,8.825705273624921,cf_std,Barley_irr_roff_rt_2030y_SOC
+Turkmenistan,Turkmenistan,5.661013338712641,cf_std,Barley_irr_roff_rt_2030y_SOC
+Turks and Caicos islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Tuvalu,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+U.K. of Great Britain and Northern Ireland,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Uganda,Uganda,6.387463555900859,cf_std,Barley_irr_roff_rt_2030y_SOC
+Ukraine,Ukraine,6.671838625819154,cf_std,Barley_irr_roff_rt_2030y_SOC
+United Arab Emirates,United Arab Emirates,0.0,cf_std,Barley_irr_roff_rt_2030y_SOC
+United Republic of Tanzania,United Republic of Tanzania,6.856143244877386,cf_std,Barley_irr_roff_rt_2030y_SOC
+United States Virgin Islands,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+United States of America,United States of America,13.664329221458491,cf_std,Barley_irr_roff_rt_2030y_SOC
+Uruguay,Uruguay,6.307171282297687,cf_std,Barley_irr_roff_rt_2030y_SOC
+Uzbekistan,Uzbekistan,7.569952758654408,cf_std,Barley_irr_roff_rt_2030y_SOC
+Vanuatu,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Venezuela,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Viet Nam,Viet Nam,3.0785746225329795,cf_std,Barley_irr_roff_rt_2030y_SOC
+Wake Island,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+Wallis and Futuna,,,cf_std,Barley_irr_roff_rt_2030y_SOC
+West Bank,West Bank,0.1931619972035762,cf_std,Barley_irr_roff_rt_2030y_SOC
+West Bank,West Bank,7.255998751283585,cf_std,Barley_irr_roff_rt_2030y_SOC
+Western Sahara,Western Sahara,2.385821878912332,cf_std,Barley_irr_roff_rt_2030y_SOC
+Yemen,Yemen,4.285501057575733,cf_std,Barley_irr_roff_rt_2030y_SOC
+Zambia,Zambia,1.1162803192657316,cf_std,Barley_irr_roff_rt_2030y_SOC
+Zimbabwe,Zimbabwe,1.4359680811471214,cf_std,Barley_irr_roff_rt_2030y_SOC
+Abyei,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Afghanistan,Afghanistan,34.06144193861831,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Aksai Chin,Aksai Chin,41.57737852124752,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Albania,Albania,48.69158492425168,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Algeria,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+American Samoa,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Andorra,Andorra,54.36732480824939,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Angola,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Anguilla,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Antarctica,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Antigua and Barbuda,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Argentina,Argentina,29.37367674512981,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Armenia,Armenia,49.279250571412284,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Aruba,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Arunachal Pradesh,Arunachal Pradesh,46.89553066740148,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Ashmore and Cartier Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Australia,Australia,22.56778319180738,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Austria,Austria,53.974285486537326,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Azerbaijan,Azerbaijan,45.36349997374746,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Azores Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Bahamas,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Bahrain,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Baker Island,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Bangladesh,Bangladesh,23.107613023769833,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Barbados,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Bassas da India,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Belarus,Belarus,43.011850045482646,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Belgium,Belgium,61.62744014246687,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Belize,Belize,36.434171866668436,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Benin,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Bermuda,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Bhutan,Bhutan,50.10788682873009,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Bird Island,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Bolivia,Bolivia,28.542752075264527,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Bosnia and Herzegovina,Bosnia and Herzegovina,63.19547214285958,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Botswana,Botswana,13.6327072801176,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Bouvet Island,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Brazil,Brazil,27.14832702057419,cf_mean,Barley_irr_ron_rt_2030y_SOC
+British Indian Ocean Territory,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+British Virgin Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Brunei Darussalam,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Bulgaria,Bulgaria,41.55744349426224,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Burkina Faso,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Burundi,Burundi,28.688499696820283,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Cambodia,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Cameroon,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Canada,Canada,58.382616082186644,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Cape Verde,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Cayman Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Central African Republic,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Chad,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Chile,Chile,53.85415976901642,cf_mean,Barley_irr_ron_rt_2030y_SOC
+China,China,41.36355442615287,cf_mean,Barley_irr_ron_rt_2030y_SOC
+China/India,China/India,56.55687406593893,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Christmas Island,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Clipperton Island,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Cocos (Keeling) Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Colombia,Colombia,31.175258657549925,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Comoros,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Congo,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Cook Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Costa Rica,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Croatia,Croatia,54.565840161195574,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Cuba,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Cyprus,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Czech Republic,Czech Republic,51.46746635291617,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Côte d'Ivoire,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Dem People's Rep of Korea,Dem People's Rep of Korea,48.00763634909084,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Democratic Republic of the Congo,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Denmark,Denmark,91.54167832817222,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Djibouti,Djibouti,11.77238167508013,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Dominica,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Dominican Republic,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Ecuador,Ecuador,40.69566175538435,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Egypt,Egypt,11.000877459309997,cf_mean,Barley_irr_ron_rt_2030y_SOC
+El Salvador,El Salvador,57.91558428698308,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Equatorial Guinea,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Eritrea,Eritrea,15.597657859242776,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Estonia,Estonia,69.14562105840729,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Ethiopia,Ethiopia,26.947260782071815,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Europa Island,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Falkland Islands (Malvinas),,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Faroe Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Fiji,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Finland,Finland,71.38242831894416,cf_mean,Barley_irr_ron_rt_2030y_SOC
+France,France,55.19539781638866,cf_mean,Barley_irr_ron_rt_2030y_SOC
+French Guiana,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+French Polynesia,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+French Southern and Antarctic Territories,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Gabon,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Gambia,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Gaza Strip,Gaza Strip,13.575813837499982,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Georgia,Georgia,57.88005804474503,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Germany,Germany,57.24060777053566,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Ghana,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Gibraltar,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Glorioso Island,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Greece,Greece,42.02483510759616,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Greenland,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Grenada,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Guadeloupe,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Guam,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Guatemala,Guatemala,35.7197851028045,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Guernsey,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Guinea,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Guinea-Bissau,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Guyana,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Haiti,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Hala'ib triangle,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Heard Island and McDonald Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Holy See,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Honduras,Honduras,36.96575467386405,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Hong Kong,Hong Kong,31.88807339269364,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Howland Island,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Hungary,Hungary,43.39800573182289,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Iceland,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Ilemi triangle,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+India,India,20.56860987928407,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Indonesia,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Iran  (Islamic Republic of),Iran  (Islamic Republic of),26.154149362176092,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Iraq,Iraq,21.327085742769132,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Ireland,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Isle of Man,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Israel,Israel,25.1741885117308,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Italy,Italy,51.6666218682391,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Jamaica,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Jammu and Kashmir,Jammu and Kashmir,46.187617151841685,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Japan,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Jarvis Island,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Jersey,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Johnston Atoll,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Jordan,Jordan,19.102726349908178,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Juan de Nova Island,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Kazakhstan,Kazakhstan,34.21679899492606,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Kenya,Kenya,24.92988608051888,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Kingman Reef,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Kiribati,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Kuril islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Kuwait,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Kyrgyzstan,Kyrgyzstan,49.08942122607524,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Lao People's Democratic Republic,Lao People's Democratic Republic,33.13689817919352,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Latvia,Latvia,53.425588459237815,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Lebanon,Lebanon,27.91416409738769,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Lesotho,Lesotho,31.517166810363253,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Liberia,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Libya,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Liechtenstein,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Lithuania,Lithuania,46.08956988191133,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Luxembourg,Luxembourg,58.90010549485165,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Ma'tan al-Sarra,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Macau,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Madagascar,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Madeira Islands,Madeira Islands,116.10689280484922,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Malawi,Malawi,27.346189762869564,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Malaysia,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Maldives,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Mali,Mali,10.765398431249151,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Malta,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Marshall Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Martinique,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Mauritania,Mauritania,10.371297903917768,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Mauritius,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Mayotte,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Mexico,Mexico,28.782750916425037,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Micronesia (Federated States of),,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Midway Island,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+"Moldova, Republic of","Moldova, Republic of",50.48642466810942,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Monaco,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Mongolia,Mongolia,41.774738070506956,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Montenegro,Montenegro,62.0257071352225,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Montserrat,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Morocco,Morocco,41.3383903503418,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Mozambique,Mozambique,19.12629126893706,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Myanmar,Myanmar,40.866842133211726,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Namibia,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Nauru,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Navassa Island,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Nepal,Nepal,36.58266920045149,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Netherlands,Netherlands,76.68846763219233,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Netherlands Antilles,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+New Caledonia,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+New Zealand,New Zealand,98.99610795732262,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Nicaragua,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Niger,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Nigeria,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Niue,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Norfolk Island,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Northern Mariana Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Norway,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Oman,Oman,13.27709530414914,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Pakistan,Pakistan,17.530206872510043,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Palau,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Palmyra Atoll,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Panama,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Papua New Guinea,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Paracel Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Paraguay,Paraguay,24.533058277178377,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Peru,Peru,33.39793512242367,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Philippines,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Pitcairn,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Poland,Poland,39.397380603613655,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Portugal,Portugal,37.76724619231693,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Puerto Rico,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Qatar,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Republic of Korea,Republic of Korea,46.29466947929721,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Romania,Romania,42.00518659991438,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Russian Federation,Russian Federation,61.499986641611436,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Rwanda,Rwanda,33.93160723946769,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Réunion,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Saint Helena,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Saint Kitts and Nevis,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Saint Lucia,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Saint Pierre et Miquelon,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Saint Vincent and the Grenadines,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Samoa,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+San Marino,San Marino,37.951667785644524,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Sao Tome and Principe,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Saudi Arabia,Saudi Arabia,15.759437673746662,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Scarborough Reef,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Senegal,Senegal,16.15689288140244,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Senkaku Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Serbia,Serbia,43.24830307347177,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Seychelles,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Sierra Leone,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Singapore,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Slovakia,Slovakia,51.628907636237344,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Slovenia,Slovenia,58.616468485048465,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Solomon Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Somalia,Somalia,14.80829094841386,cf_mean,Barley_irr_ron_rt_2030y_SOC
+South Africa,South Africa,24.844873065450344,cf_mean,Barley_irr_ron_rt_2030y_SOC
+South Georgia and the South Sandwich Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+South Sudan,South Sudan,18.256832743943857,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Spain,Spain,38.272866036497106,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Spratly Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Sri Lanka,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Sudan,Sudan,16.50127037759565,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Suriname,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Svalbard and Jan Mayen Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Swaziland,Swaziland,31.86085926913483,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Sweden,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Switzerland,Switzerland,75.25720530947157,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Syrian Arab Republic,Syrian Arab Republic,19.86889761319869,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Taiwan,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Tajikistan,Tajikistan,42.73614487646571,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Thailand,Thailand,25.639457662773392,cf_mean,Barley_irr_ron_rt_2030y_SOC
+The former Yugoslav Republic of Macedonia,The former Yugoslav Republic of Macedonia,39.53096551735657,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Timor-Leste,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Togo,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Tokelau,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Tonga,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Trinidad and Tobago,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Tromelin Island,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Tunisia,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Turkey,Turkey,40.654524741167776,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Turkmenistan,Turkmenistan,24.70561181094682,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Turks and Caicos islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Tuvalu,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+U.K. of Great Britain and Northern Ireland,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Uganda,Uganda,36.60063774099939,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Ukraine,Ukraine,51.331979125781366,cf_mean,Barley_irr_ron_rt_2030y_SOC
+United Arab Emirates,United Arab Emirates,12.643795013427734,cf_mean,Barley_irr_ron_rt_2030y_SOC
+United Republic of Tanzania,United Republic of Tanzania,21.884026736618836,cf_mean,Barley_irr_ron_rt_2030y_SOC
+United States Virgin Islands,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+United States of America,United States of America,40.06618301119126,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Uruguay,Uruguay,34.308111948679105,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Uzbekistan,Uzbekistan,23.74735347704866,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Vanuatu,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Venezuela,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Viet Nam,Viet Nam,37.5969647062388,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Wake Island,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Wallis and Futuna,,,cf_mean,Barley_irr_ron_rt_2030y_SOC
+West Bank,West Bank,28.29052988688151,cf_mean,Barley_irr_ron_rt_2030y_SOC
+West Bank,West Bank,34.24276312558565,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Western Sahara,Western Sahara,10.474342874957292,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Yemen,Yemen,11.905209157489834,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Zambia,Zambia,22.49827444975738,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Zimbabwe,Zimbabwe,17.2351800729318,cf_mean,Barley_irr_ron_rt_2030y_SOC
+Abyei,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Afghanistan,Afghanistan,32.36644744873047,cf_median,Barley_irr_ron_rt_2030y_SOC
+Aksai Chin,Aksai Chin,44.32484436035156,cf_median,Barley_irr_ron_rt_2030y_SOC
+Albania,Albania,46.22333526611328,cf_median,Barley_irr_ron_rt_2030y_SOC
+Algeria,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+American Samoa,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Andorra,Andorra,60.705780029296875,cf_median,Barley_irr_ron_rt_2030y_SOC
+Angola,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Anguilla,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Antarctica,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Antigua and Barbuda,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Argentina,Argentina,28.03431510925293,cf_median,Barley_irr_ron_rt_2030y_SOC
+Armenia,Armenia,50.78053665161133,cf_median,Barley_irr_ron_rt_2030y_SOC
+Aruba,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Arunachal Pradesh,Arunachal Pradesh,43.017024993896484,cf_median,Barley_irr_ron_rt_2030y_SOC
+Ashmore and Cartier Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Australia,Australia,16.30569839477539,cf_median,Barley_irr_ron_rt_2030y_SOC
+Austria,Austria,51.47770309448242,cf_median,Barley_irr_ron_rt_2030y_SOC
+Azerbaijan,Azerbaijan,43.768638610839844,cf_median,Barley_irr_ron_rt_2030y_SOC
+Azores Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Bahamas,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Bahrain,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Baker Island,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Bangladesh,Bangladesh,22.34934425354004,cf_median,Barley_irr_ron_rt_2030y_SOC
+Barbados,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Bassas da India,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Belarus,Belarus,42.39326095581055,cf_median,Barley_irr_ron_rt_2030y_SOC
+Belgium,Belgium,52.92919158935547,cf_median,Barley_irr_ron_rt_2030y_SOC
+Belize,Belize,35.90085983276367,cf_median,Barley_irr_ron_rt_2030y_SOC
+Benin,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Bermuda,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Bhutan,Bhutan,49.53160095214844,cf_median,Barley_irr_ron_rt_2030y_SOC
+Bird Island,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Bolivia,Bolivia,25.28106117248535,cf_median,Barley_irr_ron_rt_2030y_SOC
+Bosnia and Herzegovina,Bosnia and Herzegovina,61.03984832763672,cf_median,Barley_irr_ron_rt_2030y_SOC
+Botswana,Botswana,14.17919635772705,cf_median,Barley_irr_ron_rt_2030y_SOC
+Bouvet Island,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Brazil,Brazil,28.10079002380371,cf_median,Barley_irr_ron_rt_2030y_SOC
+British Indian Ocean Territory,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+British Virgin Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Brunei Darussalam,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Bulgaria,Bulgaria,40.88181686401367,cf_median,Barley_irr_ron_rt_2030y_SOC
+Burkina Faso,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Burundi,Burundi,29.971391677856445,cf_median,Barley_irr_ron_rt_2030y_SOC
+Cambodia,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Cameroon,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Canada,Canada,57.089317321777344,cf_median,Barley_irr_ron_rt_2030y_SOC
+Cape Verde,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Cayman Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Central African Republic,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Chad,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Chile,Chile,39.466915130615234,cf_median,Barley_irr_ron_rt_2030y_SOC
+China,China,36.114192962646484,cf_median,Barley_irr_ron_rt_2030y_SOC
+China/India,China/India,59.944671630859375,cf_median,Barley_irr_ron_rt_2030y_SOC
+Christmas Island,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Clipperton Island,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Cocos (Keeling) Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Colombia,Colombia,28.636018753051758,cf_median,Barley_irr_ron_rt_2030y_SOC
+Comoros,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Congo,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Cook Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Costa Rica,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Croatia,Croatia,49.30188751220703,cf_median,Barley_irr_ron_rt_2030y_SOC
+Cuba,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Cyprus,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Czech Republic,Czech Republic,48.85902404785156,cf_median,Barley_irr_ron_rt_2030y_SOC
+Côte d'Ivoire,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Dem People's Rep of Korea,Dem People's Rep of Korea,47.5590934753418,cf_median,Barley_irr_ron_rt_2030y_SOC
+Democratic Republic of the Congo,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Denmark,Denmark,63.68144607543945,cf_median,Barley_irr_ron_rt_2030y_SOC
+Djibouti,Djibouti,10.791838645935059,cf_median,Barley_irr_ron_rt_2030y_SOC
+Dominica,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Dominican Republic,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Ecuador,Ecuador,36.440940856933594,cf_median,Barley_irr_ron_rt_2030y_SOC
+Egypt,Egypt,8.725887298583984,cf_median,Barley_irr_ron_rt_2030y_SOC
+El Salvador,El Salvador,73.6414794921875,cf_median,Barley_irr_ron_rt_2030y_SOC
+Equatorial Guinea,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Eritrea,Eritrea,12.5430269241333,cf_median,Barley_irr_ron_rt_2030y_SOC
+Estonia,Estonia,56.00809860229492,cf_median,Barley_irr_ron_rt_2030y_SOC
+Ethiopia,Ethiopia,24.554048538208008,cf_median,Barley_irr_ron_rt_2030y_SOC
+Europa Island,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Falkland Islands (Malvinas),,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Faroe Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Fiji,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Finland,Finland,74.59933471679688,cf_median,Barley_irr_ron_rt_2030y_SOC
+France,France,50.51557922363281,cf_median,Barley_irr_ron_rt_2030y_SOC
+French Guiana,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+French Polynesia,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+French Southern and Antarctic Territories,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Gabon,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Gambia,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Gaza Strip,Gaza Strip,10.369240760803223,cf_median,Barley_irr_ron_rt_2030y_SOC
+Georgia,Georgia,58.419403076171875,cf_median,Barley_irr_ron_rt_2030y_SOC
+Germany,Germany,54.26975631713867,cf_median,Barley_irr_ron_rt_2030y_SOC
+Ghana,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Gibraltar,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Glorioso Island,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Greece,Greece,36.16751480102539,cf_median,Barley_irr_ron_rt_2030y_SOC
+Greenland,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Grenada,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Guadeloupe,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Guam,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Guatemala,Guatemala,35.82375717163086,cf_median,Barley_irr_ron_rt_2030y_SOC
+Guernsey,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Guinea,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Guinea-Bissau,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Guyana,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Haiti,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Hala'ib triangle,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Heard Island and McDonald Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Holy See,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Honduras,Honduras,36.253562927246094,cf_median,Barley_irr_ron_rt_2030y_SOC
+Hong Kong,Hong Kong,32.129634857177734,cf_median,Barley_irr_ron_rt_2030y_SOC
+Howland Island,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Hungary,Hungary,43.88201141357422,cf_median,Barley_irr_ron_rt_2030y_SOC
+Iceland,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Ilemi triangle,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+India,India,18.20848274230957,cf_median,Barley_irr_ron_rt_2030y_SOC
+Indonesia,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Iran  (Islamic Republic of),Iran  (Islamic Republic of),26.967485427856445,cf_median,Barley_irr_ron_rt_2030y_SOC
+Iraq,Iraq,18.299589157104492,cf_median,Barley_irr_ron_rt_2030y_SOC
+Ireland,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Isle of Man,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Israel,Israel,22.29854393005371,cf_median,Barley_irr_ron_rt_2030y_SOC
+Italy,Italy,46.308555603027344,cf_median,Barley_irr_ron_rt_2030y_SOC
+Jamaica,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Jammu and Kashmir,Jammu and Kashmir,48.148868560791016,cf_median,Barley_irr_ron_rt_2030y_SOC
+Japan,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Jarvis Island,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Jersey,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Johnston Atoll,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Jordan,Jordan,18.61204719543457,cf_median,Barley_irr_ron_rt_2030y_SOC
+Juan de Nova Island,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Kazakhstan,Kazakhstan,34.98296356201172,cf_median,Barley_irr_ron_rt_2030y_SOC
+Kenya,Kenya,21.03667449951172,cf_median,Barley_irr_ron_rt_2030y_SOC
+Kingman Reef,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Kiribati,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Kuril islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Kuwait,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Kyrgyzstan,Kyrgyzstan,49.99446487426758,cf_median,Barley_irr_ron_rt_2030y_SOC
+Lao People's Democratic Republic,Lao People's Democratic Republic,38.58681106567383,cf_median,Barley_irr_ron_rt_2030y_SOC
+Latvia,Latvia,52.65385437011719,cf_median,Barley_irr_ron_rt_2030y_SOC
+Lebanon,Lebanon,28.373971939086914,cf_median,Barley_irr_ron_rt_2030y_SOC
+Lesotho,Lesotho,28.140710830688477,cf_median,Barley_irr_ron_rt_2030y_SOC
+Liberia,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Libya,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Liechtenstein,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Lithuania,Lithuania,45.680145263671875,cf_median,Barley_irr_ron_rt_2030y_SOC
+Luxembourg,Luxembourg,59.784847259521484,cf_median,Barley_irr_ron_rt_2030y_SOC
+Ma'tan al-Sarra,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Macau,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Madagascar,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Madeira Islands,Madeira Islands,115.21902465820312,cf_median,Barley_irr_ron_rt_2030y_SOC
+Malawi,Malawi,24.559595108032227,cf_median,Barley_irr_ron_rt_2030y_SOC
+Malaysia,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Maldives,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Mali,Mali,10.756135940551758,cf_median,Barley_irr_ron_rt_2030y_SOC
+Malta,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Marshall Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Martinique,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Mauritania,Mauritania,10.140705108642578,cf_median,Barley_irr_ron_rt_2030y_SOC
+Mauritius,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Mayotte,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Mexico,Mexico,27.269441604614258,cf_median,Barley_irr_ron_rt_2030y_SOC
+Micronesia (Federated States of),,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Midway Island,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+"Moldova, Republic of","Moldova, Republic of",50.920318603515625,cf_median,Barley_irr_ron_rt_2030y_SOC
+Monaco,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Mongolia,Mongolia,37.71228790283203,cf_median,Barley_irr_ron_rt_2030y_SOC
+Montenegro,Montenegro,61.86793518066406,cf_median,Barley_irr_ron_rt_2030y_SOC
+Montserrat,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Morocco,Morocco,41.3383903503418,cf_median,Barley_irr_ron_rt_2030y_SOC
+Mozambique,Mozambique,17.50839614868164,cf_median,Barley_irr_ron_rt_2030y_SOC
+Myanmar,Myanmar,40.99788284301758,cf_median,Barley_irr_ron_rt_2030y_SOC
+Namibia,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Nauru,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Navassa Island,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Nepal,Nepal,31.88926887512207,cf_median,Barley_irr_ron_rt_2030y_SOC
+Netherlands,Netherlands,63.02763748168945,cf_median,Barley_irr_ron_rt_2030y_SOC
+Netherlands Antilles,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+New Caledonia,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+New Zealand,New Zealand,89.47251892089844,cf_median,Barley_irr_ron_rt_2030y_SOC
+Nicaragua,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Niger,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Nigeria,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Niue,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Norfolk Island,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Northern Mariana Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Norway,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Oman,Oman,12.26047420501709,cf_median,Barley_irr_ron_rt_2030y_SOC
+Pakistan,Pakistan,13.634115219116211,cf_median,Barley_irr_ron_rt_2030y_SOC
+Palau,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Palmyra Atoll,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Panama,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Papua New Guinea,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Paracel Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Paraguay,Paraguay,24.31819725036621,cf_median,Barley_irr_ron_rt_2030y_SOC
+Peru,Peru,29.0422306060791,cf_median,Barley_irr_ron_rt_2030y_SOC
+Philippines,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Pitcairn,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Poland,Poland,38.03762435913086,cf_median,Barley_irr_ron_rt_2030y_SOC
+Portugal,Portugal,35.18244552612305,cf_median,Barley_irr_ron_rt_2030y_SOC
+Puerto Rico,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Qatar,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Republic of Korea,Republic of Korea,40.8583869934082,cf_median,Barley_irr_ron_rt_2030y_SOC
+Romania,Romania,40.8199577331543,cf_median,Barley_irr_ron_rt_2030y_SOC
+Russian Federation,Russian Federation,62.172508239746094,cf_median,Barley_irr_ron_rt_2030y_SOC
+Rwanda,Rwanda,38.03065490722656,cf_median,Barley_irr_ron_rt_2030y_SOC
+Réunion,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Saint Helena,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Saint Kitts and Nevis,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Saint Lucia,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Saint Pierre et Miquelon,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Saint Vincent and the Grenadines,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Samoa,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+San Marino,San Marino,37.951667785644524,cf_median,Barley_irr_ron_rt_2030y_SOC
+Sao Tome and Principe,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Saudi Arabia,Saudi Arabia,13.729174613952637,cf_median,Barley_irr_ron_rt_2030y_SOC
+Scarborough Reef,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Senegal,Senegal,10.977042198181152,cf_median,Barley_irr_ron_rt_2030y_SOC
+Senkaku Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Serbia,Serbia,40.984195709228516,cf_median,Barley_irr_ron_rt_2030y_SOC
+Seychelles,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Sierra Leone,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Singapore,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Slovakia,Slovakia,49.764244079589844,cf_median,Barley_irr_ron_rt_2030y_SOC
+Slovenia,Slovenia,54.97651672363281,cf_median,Barley_irr_ron_rt_2030y_SOC
+Solomon Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Somalia,Somalia,16.136138916015625,cf_median,Barley_irr_ron_rt_2030y_SOC
+South Africa,South Africa,23.0737247467041,cf_median,Barley_irr_ron_rt_2030y_SOC
+South Georgia and the South Sandwich Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+South Sudan,South Sudan,20.086915969848633,cf_median,Barley_irr_ron_rt_2030y_SOC
+Spain,Spain,31.25791358947754,cf_median,Barley_irr_ron_rt_2030y_SOC
+Spratly Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Sri Lanka,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Sudan,Sudan,17.20671844482422,cf_median,Barley_irr_ron_rt_2030y_SOC
+Suriname,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Svalbard and Jan Mayen Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Swaziland,Swaziland,32.86177062988281,cf_median,Barley_irr_ron_rt_2030y_SOC
+Sweden,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Switzerland,Switzerland,73.93870544433594,cf_median,Barley_irr_ron_rt_2030y_SOC
+Syrian Arab Republic,Syrian Arab Republic,18.246349334716797,cf_median,Barley_irr_ron_rt_2030y_SOC
+Taiwan,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Tajikistan,Tajikistan,43.9630241394043,cf_median,Barley_irr_ron_rt_2030y_SOC
+Thailand,Thailand,27.733814239501953,cf_median,Barley_irr_ron_rt_2030y_SOC
+The former Yugoslav Republic of Macedonia,The former Yugoslav Republic of Macedonia,36.76434326171875,cf_median,Barley_irr_ron_rt_2030y_SOC
+Timor-Leste,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Togo,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Tokelau,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Tonga,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Trinidad and Tobago,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Tromelin Island,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Tunisia,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Turkey,Turkey,38.336605072021484,cf_median,Barley_irr_ron_rt_2030y_SOC
+Turkmenistan,Turkmenistan,25.565969467163086,cf_median,Barley_irr_ron_rt_2030y_SOC
+Turks and Caicos islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Tuvalu,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+U.K. of Great Britain and Northern Ireland,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Uganda,Uganda,33.43783950805664,cf_median,Barley_irr_ron_rt_2030y_SOC
+Ukraine,Ukraine,50.096458435058594,cf_median,Barley_irr_ron_rt_2030y_SOC
+United Arab Emirates,United Arab Emirates,12.643795013427734,cf_median,Barley_irr_ron_rt_2030y_SOC
+United Republic of Tanzania,United Republic of Tanzania,19.828311920166016,cf_median,Barley_irr_ron_rt_2030y_SOC
+United States Virgin Islands,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+United States of America,United States of America,37.509639739990234,cf_median,Barley_irr_ron_rt_2030y_SOC
+Uruguay,Uruguay,35.61294174194336,cf_median,Barley_irr_ron_rt_2030y_SOC
+Uzbekistan,Uzbekistan,21.73089027404785,cf_median,Barley_irr_ron_rt_2030y_SOC
+Vanuatu,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Venezuela,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Viet Nam,Viet Nam,37.466697692871094,cf_median,Barley_irr_ron_rt_2030y_SOC
+Wake Island,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+Wallis and Futuna,,,cf_median,Barley_irr_ron_rt_2030y_SOC
+West Bank,West Bank,28.107688903808594,cf_median,Barley_irr_ron_rt_2030y_SOC
+West Bank,West Bank,30.188579559326172,cf_median,Barley_irr_ron_rt_2030y_SOC
+Western Sahara,Western Sahara,9.541013717651367,cf_median,Barley_irr_ron_rt_2030y_SOC
+Yemen,Yemen,10.556731224060059,cf_median,Barley_irr_ron_rt_2030y_SOC
+Zambia,Zambia,21.412683486938477,cf_median,Barley_irr_ron_rt_2030y_SOC
+Zimbabwe,Zimbabwe,16.95893669128418,cf_median,Barley_irr_ron_rt_2030y_SOC
+Abyei,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Afghanistan,Afghanistan,11.21706554872708,cf_std,Barley_irr_ron_rt_2030y_SOC
+Aksai Chin,Aksai Chin,7.057471595998154,cf_std,Barley_irr_ron_rt_2030y_SOC
+Albania,Albania,9.235313759143628,cf_std,Barley_irr_ron_rt_2030y_SOC
+Algeria,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+American Samoa,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Andorra,Andorra,11.942417745783361,cf_std,Barley_irr_ron_rt_2030y_SOC
+Angola,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Anguilla,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Antarctica,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Antigua and Barbuda,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Argentina,Argentina,10.712176260521364,cf_std,Barley_irr_ron_rt_2030y_SOC
+Armenia,Armenia,6.998026697442311,cf_std,Barley_irr_ron_rt_2030y_SOC
+Aruba,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Arunachal Pradesh,Arunachal Pradesh,13.959472650694863,cf_std,Barley_irr_ron_rt_2030y_SOC
+Ashmore and Cartier Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Australia,Australia,16.580435460743953,cf_std,Barley_irr_ron_rt_2030y_SOC
+Austria,Austria,11.180499092454214,cf_std,Barley_irr_ron_rt_2030y_SOC
+Azerbaijan,Azerbaijan,11.717458328878582,cf_std,Barley_irr_ron_rt_2030y_SOC
+Azores Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Bahamas,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Bahrain,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Baker Island,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Bangladesh,Bangladesh,6.035847219804489,cf_std,Barley_irr_ron_rt_2030y_SOC
+Barbados,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Bassas da India,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Belarus,Belarus,4.414956893162686,cf_std,Barley_irr_ron_rt_2030y_SOC
+Belgium,Belgium,24.702524810825455,cf_std,Barley_irr_ron_rt_2030y_SOC
+Belize,Belize,4.5388645593551145,cf_std,Barley_irr_ron_rt_2030y_SOC
+Benin,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Bermuda,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Bhutan,Bhutan,10.304497224008365,cf_std,Barley_irr_ron_rt_2030y_SOC
+Bird Island,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Bolivia,Bolivia,10.313424271355254,cf_std,Barley_irr_ron_rt_2030y_SOC
+Bosnia and Herzegovina,Bosnia and Herzegovina,16.51381226879144,cf_std,Barley_irr_ron_rt_2030y_SOC
+Botswana,Botswana,2.1500862085217745,cf_std,Barley_irr_ron_rt_2030y_SOC
+Bouvet Island,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Brazil,Brazil,5.508805662382462,cf_std,Barley_irr_ron_rt_2030y_SOC
+British Indian Ocean Territory,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+British Virgin Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Brunei Darussalam,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Bulgaria,Bulgaria,6.365860210268869,cf_std,Barley_irr_ron_rt_2030y_SOC
+Burkina Faso,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Burundi,Burundi,7.798787936167382,cf_std,Barley_irr_ron_rt_2030y_SOC
+Cambodia,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Cameroon,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Canada,Canada,11.890442561297991,cf_std,Barley_irr_ron_rt_2030y_SOC
+Cape Verde,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Cayman Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Central African Republic,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Chad,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Chile,Chile,33.47971851367271,cf_std,Barley_irr_ron_rt_2030y_SOC
+China,China,18.534910400652034,cf_std,Barley_irr_ron_rt_2030y_SOC
+China/India,China/India,18.04939233624247,cf_std,Barley_irr_ron_rt_2030y_SOC
+Christmas Island,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Clipperton Island,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Cocos (Keeling) Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Colombia,Colombia,14.413223649649803,cf_std,Barley_irr_ron_rt_2030y_SOC
+Comoros,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Congo,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Cook Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Costa Rica,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Croatia,Croatia,17.06058996664056,cf_std,Barley_irr_ron_rt_2030y_SOC
+Cuba,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Cyprus,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Czech Republic,Czech Republic,12.919411849417893,cf_std,Barley_irr_ron_rt_2030y_SOC
+Côte d'Ivoire,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Dem People's Rep of Korea,Dem People's Rep of Korea,9.914512908990083,cf_std,Barley_irr_ron_rt_2030y_SOC
+Democratic Republic of the Congo,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Denmark,Denmark,36.61510533843653,cf_std,Barley_irr_ron_rt_2030y_SOC
+Djibouti,Djibouti,4.595428419622206,cf_std,Barley_irr_ron_rt_2030y_SOC
+Dominica,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Dominican Republic,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Ecuador,Ecuador,15.685546507448366,cf_std,Barley_irr_ron_rt_2030y_SOC
+Egypt,Egypt,3.5970751938140135,cf_std,Barley_irr_ron_rt_2030y_SOC
+El Salvador,El Salvador,20.846665990223716,cf_std,Barley_irr_ron_rt_2030y_SOC
+Equatorial Guinea,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Eritrea,Eritrea,9.687018527551798,cf_std,Barley_irr_ron_rt_2030y_SOC
+Estonia,Estonia,30.716689662712017,cf_std,Barley_irr_ron_rt_2030y_SOC
+Ethiopia,Ethiopia,12.890801196930052,cf_std,Barley_irr_ron_rt_2030y_SOC
+Europa Island,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Falkland Islands (Malvinas),,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Faroe Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Fiji,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Finland,Finland,6.966247648627921,cf_std,Barley_irr_ron_rt_2030y_SOC
+France,France,17.97212214422189,cf_std,Barley_irr_ron_rt_2030y_SOC
+French Guiana,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+French Polynesia,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+French Southern and Antarctic Territories,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Gabon,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Gambia,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Gaza Strip,Gaza Strip,5.275826945907551,cf_std,Barley_irr_ron_rt_2030y_SOC
+Georgia,Georgia,10.271051162349735,cf_std,Barley_irr_ron_rt_2030y_SOC
+Germany,Germany,12.72292145569214,cf_std,Barley_irr_ron_rt_2030y_SOC
+Ghana,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Gibraltar,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Glorioso Island,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Greece,Greece,17.328746651987114,cf_std,Barley_irr_ron_rt_2030y_SOC
+Greenland,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Grenada,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Guadeloupe,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Guam,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Guatemala,Guatemala,9.278692022271855,cf_std,Barley_irr_ron_rt_2030y_SOC
+Guernsey,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Guinea,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Guinea-Bissau,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Guyana,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Haiti,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Hala'ib triangle,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Heard Island and McDonald Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Holy See,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Honduras,Honduras,1.7813523603128627,cf_std,Barley_irr_ron_rt_2030y_SOC
+Hong Kong,Hong Kong,0.7704491025379866,cf_std,Barley_irr_ron_rt_2030y_SOC
+Howland Island,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Hungary,Hungary,5.764714015066458,cf_std,Barley_irr_ron_rt_2030y_SOC
+Iceland,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Ilemi triangle,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+India,India,11.2097447958281,cf_std,Barley_irr_ron_rt_2030y_SOC
+Indonesia,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Iran  (Islamic Republic of),Iran  (Islamic Republic of),9.88752086647428,cf_std,Barley_irr_ron_rt_2030y_SOC
+Iraq,Iraq,7.62313153163353,cf_std,Barley_irr_ron_rt_2030y_SOC
+Ireland,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Isle of Man,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Israel,Israel,11.83093156354719,cf_std,Barley_irr_ron_rt_2030y_SOC
+Italy,Italy,17.619366194604098,cf_std,Barley_irr_ron_rt_2030y_SOC
+Jamaica,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Jammu and Kashmir,Jammu and Kashmir,11.318395066965577,cf_std,Barley_irr_ron_rt_2030y_SOC
+Japan,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Jarvis Island,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Jersey,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Johnston Atoll,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Jordan,Jordan,4.154163774019257,cf_std,Barley_irr_ron_rt_2030y_SOC
+Juan de Nova Island,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Kazakhstan,Kazakhstan,11.177776369083372,cf_std,Barley_irr_ron_rt_2030y_SOC
+Kenya,Kenya,11.464256099732463,cf_std,Barley_irr_ron_rt_2030y_SOC
+Kingman Reef,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Kiribati,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Kuril islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Kuwait,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Kyrgyzstan,Kyrgyzstan,9.65077683751159,cf_std,Barley_irr_ron_rt_2030y_SOC
+Lao People's Democratic Republic,Lao People's Democratic Republic,10.442416040305545,cf_std,Barley_irr_ron_rt_2030y_SOC
+Latvia,Latvia,3.4105722051357557,cf_std,Barley_irr_ron_rt_2030y_SOC
+Lebanon,Lebanon,4.808017946897649,cf_std,Barley_irr_ron_rt_2030y_SOC
+Lesotho,Lesotho,8.99279951775966,cf_std,Barley_irr_ron_rt_2030y_SOC
+Liberia,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Libya,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Liechtenstein,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Lithuania,Lithuania,4.942682812655955,cf_std,Barley_irr_ron_rt_2030y_SOC
+Luxembourg,Luxembourg,3.449431130013671,cf_std,Barley_irr_ron_rt_2030y_SOC
+Ma'tan al-Sarra,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Macau,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Madagascar,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Madeira Islands,Madeira Islands,3.9069151977474488,cf_std,Barley_irr_ron_rt_2030y_SOC
+Malawi,Malawi,6.821649318362738,cf_std,Barley_irr_ron_rt_2030y_SOC
+Malaysia,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Maldives,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Mali,Mali,0.6560401953678099,cf_std,Barley_irr_ron_rt_2030y_SOC
+Malta,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Marshall Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Martinique,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Mauritania,Mauritania,1.8106577809124793,cf_std,Barley_irr_ron_rt_2030y_SOC
+Mauritius,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Mayotte,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Mexico,Mexico,13.351529678510419,cf_std,Barley_irr_ron_rt_2030y_SOC
+Micronesia (Federated States of),,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Midway Island,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+"Moldova, Republic of","Moldova, Republic of",4.339819790526505,cf_std,Barley_irr_ron_rt_2030y_SOC
+Monaco,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Mongolia,Mongolia,18.81819146767446,cf_std,Barley_irr_ron_rt_2030y_SOC
+Montenegro,Montenegro,11.486281159643287,cf_std,Barley_irr_ron_rt_2030y_SOC
+Montserrat,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Morocco,Morocco,0.0,cf_std,Barley_irr_ron_rt_2030y_SOC
+Mozambique,Mozambique,5.6153290460543515,cf_std,Barley_irr_ron_rt_2030y_SOC
+Myanmar,Myanmar,15.086630852144458,cf_std,Barley_irr_ron_rt_2030y_SOC
+Namibia,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Nauru,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Navassa Island,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Nepal,Nepal,14.495888569231356,cf_std,Barley_irr_ron_rt_2030y_SOC
+Netherlands,Netherlands,29.669076465400277,cf_std,Barley_irr_ron_rt_2030y_SOC
+Netherlands Antilles,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+New Caledonia,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+New Zealand,New Zealand,30.85294330040807,cf_std,Barley_irr_ron_rt_2030y_SOC
+Nicaragua,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Niger,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Nigeria,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Niue,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Norfolk Island,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Northern Mariana Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Norway,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Oman,Oman,4.651878974870929,cf_std,Barley_irr_ron_rt_2030y_SOC
+Pakistan,Pakistan,12.494775433470794,cf_std,Barley_irr_ron_rt_2030y_SOC
+Palau,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Palmyra Atoll,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Panama,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Papua New Guinea,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Paracel Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Paraguay,Paraguay,6.278181487868334,cf_std,Barley_irr_ron_rt_2030y_SOC
+Peru,Peru,14.049623741530409,cf_std,Barley_irr_ron_rt_2030y_SOC
+Philippines,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Pitcairn,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Poland,Poland,7.334797756994472,cf_std,Barley_irr_ron_rt_2030y_SOC
+Portugal,Portugal,10.251309268546251,cf_std,Barley_irr_ron_rt_2030y_SOC
+Puerto Rico,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Qatar,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Republic of Korea,Republic of Korea,17.076971634860303,cf_std,Barley_irr_ron_rt_2030y_SOC
+Romania,Romania,6.9079295545654285,cf_std,Barley_irr_ron_rt_2030y_SOC
+Russian Federation,Russian Federation,10.16340472782362,cf_std,Barley_irr_ron_rt_2030y_SOC
+Rwanda,Rwanda,9.18453942755714,cf_std,Barley_irr_ron_rt_2030y_SOC
+Réunion,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Saint Helena,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Saint Kitts and Nevis,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Saint Lucia,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Saint Pierre et Miquelon,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Saint Vincent and the Grenadines,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Samoa,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+San Marino,San Marino,0.0,cf_std,Barley_irr_ron_rt_2030y_SOC
+Sao Tome and Principe,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Saudi Arabia,Saudi Arabia,8.417534839548876,cf_std,Barley_irr_ron_rt_2030y_SOC
+Scarborough Reef,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Senegal,Senegal,12.998595833252566,cf_std,Barley_irr_ron_rt_2030y_SOC
+Senkaku Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Serbia,Serbia,6.999566738796753,cf_std,Barley_irr_ron_rt_2030y_SOC
+Seychelles,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Sierra Leone,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Singapore,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Slovakia,Slovakia,7.25334695107075,cf_std,Barley_irr_ron_rt_2030y_SOC
+Slovenia,Slovenia,13.85528015816903,cf_std,Barley_irr_ron_rt_2030y_SOC
+Solomon Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Somalia,Somalia,4.300615713829064,cf_std,Barley_irr_ron_rt_2030y_SOC
+South Africa,South Africa,10.194918857722678,cf_std,Barley_irr_ron_rt_2030y_SOC
+South Georgia and the South Sandwich Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+South Sudan,South Sudan,6.882314582790309,cf_std,Barley_irr_ron_rt_2030y_SOC
+Spain,Spain,18.89034309113183,cf_std,Barley_irr_ron_rt_2030y_SOC
+Spratly Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Sri Lanka,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Sudan,Sudan,4.477396782024553,cf_std,Barley_irr_ron_rt_2030y_SOC
+Suriname,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Svalbard and Jan Mayen Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Swaziland,Swaziland,5.366944184185011,cf_std,Barley_irr_ron_rt_2030y_SOC
+Sweden,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Switzerland,Switzerland,13.3620542594798,cf_std,Barley_irr_ron_rt_2030y_SOC
+Syrian Arab Republic,Syrian Arab Republic,7.194028955005362,cf_std,Barley_irr_ron_rt_2030y_SOC
+Taiwan,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Tajikistan,Tajikistan,11.447353145024948,cf_std,Barley_irr_ron_rt_2030y_SOC
+Thailand,Thailand,6.93930381612411,cf_std,Barley_irr_ron_rt_2030y_SOC
+The former Yugoslav Republic of Macedonia,The former Yugoslav Republic of Macedonia,10.192838758021507,cf_std,Barley_irr_ron_rt_2030y_SOC
+Timor-Leste,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Togo,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Tokelau,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Tonga,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Trinidad and Tobago,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Tromelin Island,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Tunisia,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Turkey,Turkey,11.222640333749728,cf_std,Barley_irr_ron_rt_2030y_SOC
+Turkmenistan,Turkmenistan,5.795127770857372,cf_std,Barley_irr_ron_rt_2030y_SOC
+Turks and Caicos islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Tuvalu,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+U.K. of Great Britain and Northern Ireland,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Uganda,Uganda,6.433346416297095,cf_std,Barley_irr_ron_rt_2030y_SOC
+Ukraine,Ukraine,7.888914314685114,cf_std,Barley_irr_ron_rt_2030y_SOC
+United Arab Emirates,United Arab Emirates,0.0,cf_std,Barley_irr_ron_rt_2030y_SOC
+United Republic of Tanzania,United Republic of Tanzania,7.507945361612914,cf_std,Barley_irr_ron_rt_2030y_SOC
+United States Virgin Islands,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+United States of America,United States of America,15.726483205467293,cf_std,Barley_irr_ron_rt_2030y_SOC
+Uruguay,Uruguay,6.944443159131031,cf_std,Barley_irr_ron_rt_2030y_SOC
+Uzbekistan,Uzbekistan,7.678244350292482,cf_std,Barley_irr_ron_rt_2030y_SOC
+Vanuatu,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Venezuela,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Viet Nam,Viet Nam,3.2006348922614767,cf_std,Barley_irr_ron_rt_2030y_SOC
+Wake Island,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+Wallis and Futuna,,,cf_std,Barley_irr_ron_rt_2030y_SOC
+West Bank,West Bank,0.19876910455553878,cf_std,Barley_irr_ron_rt_2030y_SOC
+West Bank,West Bank,12.919194451226293,cf_std,Barley_irr_ron_rt_2030y_SOC
+Western Sahara,Western Sahara,2.474730225195838,cf_std,Barley_irr_ron_rt_2030y_SOC
+Yemen,Yemen,5.423397597914903,cf_std,Barley_irr_ron_rt_2030y_SOC
+Zambia,Zambia,2.4502807051374456,cf_std,Barley_irr_ron_rt_2030y_SOC
+Zimbabwe,Zimbabwe,1.452420830300848,cf_std,Barley_irr_ron_rt_2030y_SOC
+Abyei,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Afghanistan,Afghanistan,30.84808019094774,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Aksai Chin,Aksai Chin,32.28968402759321,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Albania,Albania,43.13488094020572,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Algeria,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+American Samoa,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Andorra,Andorra,49.94616134610769,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Angola,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Anguilla,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Antarctica,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Antigua and Barbuda,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Argentina,Argentina,26.1142466908735,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Armenia,Armenia,42.784970086166304,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Aruba,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Arunachal Pradesh,Arunachal Pradesh,42.19160420066457,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Ashmore and Cartier Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Australia,Australia,22.202851310709082,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Austria,Austria,42.349302716606616,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Azerbaijan,Azerbaijan,38.84640545960346,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Azores Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Bahamas,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Bahrain,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Baker Island,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Bangladesh,Bangladesh,20.12327794550366,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Barbados,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Bassas da India,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Belarus,Belarus,36.18133923041655,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Belgium,Belgium,40.51479226507606,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Belize,Belize,33.21874122560092,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Benin,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Bermuda,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Bhutan,Bhutan,46.420294681802076,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Bird Island,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Bolivia,Bolivia,28.14939237316876,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Bosnia and Herzegovina,Bosnia and Herzegovina,53.79089278113354,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Botswana,Botswana,14.490314466483584,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Bouvet Island,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Brazil,Brazil,24.6190626801083,cf_mean,Barley_rf_roff_rt_2030y_SOC
+British Indian Ocean Territory,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+British Virgin Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Brunei Darussalam,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Bulgaria,Bulgaria,32.69613635718628,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Burkina Faso,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Burundi,Burundi,28.251018535679982,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Cambodia,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Cameroon,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Canada,Canada,48.62618950526277,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Cape Verde,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Cayman Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Central African Republic,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Chad,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Chile,Chile,42.51796201247387,cf_mean,Barley_rf_roff_rt_2030y_SOC
+China,China,33.17511261783673,cf_mean,Barley_rf_roff_rt_2030y_SOC
+China/India,China/India,45.64481647444417,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Christmas Island,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Clipperton Island,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Cocos (Keeling) Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Colombia,Colombia,28.479118671843434,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Comoros,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Congo,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Cook Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Costa Rica,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Croatia,Croatia,44.401463362812706,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Cuba,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Cyprus,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Czech Republic,Czech Republic,41.72483427842134,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Côte d'Ivoire,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Dem People's Rep of Korea,Dem People's Rep of Korea,43.95820626893061,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Democratic Republic of the Congo,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Denmark,Denmark,58.848978963357666,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Djibouti,Djibouti,12.417303921673021,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Dominica,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Dominican Republic,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Ecuador,Ecuador,39.932490343575196,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Egypt,Egypt,12.482285144509307,cf_mean,Barley_rf_roff_rt_2030y_SOC
+El Salvador,El Salvador,45.64902932789861,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Equatorial Guinea,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Eritrea,Eritrea,16.77596854697375,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Estonia,Estonia,57.37827264412171,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Ethiopia,Ethiopia,26.95385354649312,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Europa Island,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Falkland Islands (Malvinas),,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Faroe Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Fiji,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Finland,Finland,65.44464348429014,cf_mean,Barley_rf_roff_rt_2030y_SOC
+France,France,41.818177642383155,cf_mean,Barley_rf_roff_rt_2030y_SOC
+French Guiana,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+French Polynesia,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+French Southern and Antarctic Territories,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Gabon,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Gambia,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Gaza Strip,Gaza Strip,14.571027607743815,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Georgia,Georgia,52.819791127151085,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Germany,Germany,43.53824180653958,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Ghana,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Gibraltar,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Glorioso Island,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Greece,Greece,33.2788643144882,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Greenland,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Grenada,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Guadeloupe,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Guam,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Guatemala,Guatemala,32.596731245537725,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Guernsey,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Guinea,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Guinea-Bissau,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Guyana,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Haiti,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Hala'ib triangle,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Heard Island and McDonald Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Holy See,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Honduras,Honduras,33.887019798863165,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Hong Kong,Hong Kong,27.023943745684427,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Howland Island,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Hungary,Hungary,33.70318570876726,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Iceland,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Ilemi triangle,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+India,India,17.722331264905364,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Indonesia,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Iran  (Islamic Republic of),Iran  (Islamic Republic of),24.438952912798356,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Iraq,Iraq,20.228676656021594,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Ireland,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Isle of Man,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Israel,Israel,22.72362590683855,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Italy,Italy,40.6818630973426,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Jamaica,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Jammu and Kashmir,Jammu and Kashmir,39.06419839708784,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Japan,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Jarvis Island,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Jersey,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Johnston Atoll,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Jordan,Jordan,19.00849286357182,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Juan de Nova Island,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Kazakhstan,Kazakhstan,30.80052688220419,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Kenya,Kenya,26.54808903431411,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Kingman Reef,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Kiribati,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Kuril islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Kuwait,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Kyrgyzstan,Kyrgyzstan,43.1716622188388,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Lao People's Democratic Republic,Lao People's Democratic Republic,28.906372878118322,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Latvia,Latvia,46.89960847455448,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Lebanon,Lebanon,25.305324288436214,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Lesotho,Lesotho,36.05454372555148,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Liberia,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Libya,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Liechtenstein,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Lithuania,Lithuania,39.58798606196828,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Luxembourg,Luxembourg,46.73052011883637,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Ma'tan al-Sarra,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Macau,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Madagascar,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Madeira Islands,Madeira Islands,84.03059123014219,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Malawi,Malawi,34.91752932325786,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Malaysia,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Maldives,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Mali,Mali,10.191990973391917,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Malta,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Marshall Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Martinique,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Mauritania,Mauritania,11.092222101297942,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Mauritius,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Mayotte,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Mexico,Mexico,24.533154531797955,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Micronesia (Federated States of),,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Midway Island,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+"Moldova, Republic of","Moldova, Republic of",43.85379792092888,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Monaco,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Mongolia,Mongolia,34.248991601487994,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Montenegro,Montenegro,55.89195695214103,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Montserrat,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Morocco,Morocco,39.17837142944335,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Mozambique,Mozambique,22.398354596610204,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Myanmar,Myanmar,35.9643713821008,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Namibia,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Nauru,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Navassa Island,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Nepal,Nepal,33.65051488013823,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Netherlands,Netherlands,53.47989571117095,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Netherlands Antilles,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+New Caledonia,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+New Zealand,New Zealand,79.17140452665792,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Nicaragua,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Niger,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Nigeria,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Niue,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Norfolk Island,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Northern Mariana Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Norway,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Oman,Oman,14.270959482506553,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Pakistan,Pakistan,17.301108705882047,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Palau,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Palmyra Atoll,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Panama,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Papua New Guinea,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Paracel Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Paraguay,Paraguay,23.124061106814672,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Peru,Peru,31.75824063586154,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Philippines,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Pitcairn,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Poland,Poland,31.72851202955719,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Portugal,Portugal,33.05090489638698,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Puerto Rico,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Qatar,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Republic of Korea,Republic of Korea,38.159247510127955,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Romania,Romania,33.93904806892395,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Russian Federation,Russian Federation,54.83213924324151,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Rwanda,Rwanda,33.538283269111716,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Réunion,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Saint Helena,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Saint Kitts and Nevis,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Saint Lucia,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Saint Pierre et Miquelon,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Saint Vincent and the Grenadines,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Samoa,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+San Marino,San Marino,31.1453914642334,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Sao Tome and Principe,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Saudi Arabia,Saudi Arabia,12.312452260732385,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Scarborough Reef,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Senegal,Senegal,10.960878162252012,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Senkaku Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Serbia,Serbia,34.829489970233865,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Seychelles,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Sierra Leone,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Singapore,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Slovakia,Slovakia,42.049684080499404,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Slovenia,Slovenia,49.47565137614009,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Solomon Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Somalia,Somalia,15.396527075827754,cf_mean,Barley_rf_roff_rt_2030y_SOC
+South Africa,South Africa,22.468473665549283,cf_mean,Barley_rf_roff_rt_2030y_SOC
+South Georgia and the South Sandwich Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+South Sudan,South Sudan,16.232361330402938,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Spain,Spain,31.70968168598712,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Spratly Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Sri Lanka,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Sudan,Sudan,15.825992315371495,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Suriname,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Svalbard and Jan Mayen Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Swaziland,Swaziland,28.218874349645322,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Sweden,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Switzerland,Switzerland,62.307029454787134,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Syrian Arab Republic,Syrian Arab Republic,17.811152573688844,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Taiwan,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Tajikistan,Tajikistan,37.87352002850712,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Thailand,Thailand,22.847813667594973,cf_mean,Barley_rf_roff_rt_2030y_SOC
+The former Yugoslav Republic of Macedonia,The former Yugoslav Republic of Macedonia,33.3780213000533,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Timor-Leste,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Togo,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Tokelau,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Tonga,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Trinidad and Tobago,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Tromelin Island,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Tunisia,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Turkey,Turkey,35.46469659031835,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Turkmenistan,Turkmenistan,22.606412594338803,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Turks and Caicos islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Tuvalu,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+U.K. of Great Britain and Northern Ireland,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Uganda,Uganda,35.63360157992508,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Ukraine,Ukraine,43.929770950904384,cf_mean,Barley_rf_roff_rt_2030y_SOC
+United Arab Emirates,United Arab Emirates,11.929556846618652,cf_mean,Barley_rf_roff_rt_2030y_SOC
+United Republic of Tanzania,United Republic of Tanzania,26.147563342919238,cf_mean,Barley_rf_roff_rt_2030y_SOC
+United States Virgin Islands,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+United States of America,United States of America,32.66009441440241,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Uruguay,Uruguay,29.64849326945592,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Uzbekistan,Uzbekistan,20.967997027181838,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Vanuatu,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Venezuela,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Viet Nam,Viet Nam,32.14137348447001,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Wake Island,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Wallis and Futuna,,,cf_mean,Barley_rf_roff_rt_2030y_SOC
+West Bank,West Bank,27.429141680399578,cf_mean,Barley_rf_roff_rt_2030y_SOC
+West Bank,West Bank,29.37829722897319,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Western Sahara,Western Sahara,12.101407803134938,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Yemen,Yemen,15.640141186686893,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Zambia,Zambia,28.22056058194966,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Zimbabwe,Zimbabwe,18.344229278222816,cf_mean,Barley_rf_roff_rt_2030y_SOC
+Abyei,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Afghanistan,Afghanistan,29.36956787109375,cf_median,Barley_rf_roff_rt_2030y_SOC
+Aksai Chin,Aksai Chin,33.64248275756836,cf_median,Barley_rf_roff_rt_2030y_SOC
+Albania,Albania,40.93724822998047,cf_median,Barley_rf_roff_rt_2030y_SOC
+Algeria,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+American Samoa,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Andorra,Andorra,58.29985046386719,cf_median,Barley_rf_roff_rt_2030y_SOC
+Angola,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Anguilla,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Antarctica,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Antigua and Barbuda,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Argentina,Argentina,25.047836303710938,cf_median,Barley_rf_roff_rt_2030y_SOC
+Armenia,Armenia,44.84245300292969,cf_median,Barley_rf_roff_rt_2030y_SOC
+Aruba,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Arunachal Pradesh,Arunachal Pradesh,39.431339263916016,cf_median,Barley_rf_roff_rt_2030y_SOC
+Ashmore and Cartier Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Australia,Australia,18.533226013183594,cf_median,Barley_rf_roff_rt_2030y_SOC
+Austria,Austria,39.961082458496094,cf_median,Barley_rf_roff_rt_2030y_SOC
+Azerbaijan,Azerbaijan,38.27094650268555,cf_median,Barley_rf_roff_rt_2030y_SOC
+Azores Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Bahamas,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Bahrain,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Baker Island,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Bangladesh,Bangladesh,18.972171783447266,cf_median,Barley_rf_roff_rt_2030y_SOC
+Barbados,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Bassas da India,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Belarus,Belarus,35.58418655395508,cf_median,Barley_rf_roff_rt_2030y_SOC
+Belgium,Belgium,39.07514572143555,cf_median,Barley_rf_roff_rt_2030y_SOC
+Belize,Belize,32.96934509277344,cf_median,Barley_rf_roff_rt_2030y_SOC
+Benin,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Bermuda,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Bhutan,Bhutan,45.96433639526367,cf_median,Barley_rf_roff_rt_2030y_SOC
+Bird Island,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Bolivia,Bolivia,25.223217010498047,cf_median,Barley_rf_roff_rt_2030y_SOC
+Bosnia and Herzegovina,Bosnia and Herzegovina,53.10982131958008,cf_median,Barley_rf_roff_rt_2030y_SOC
+Botswana,Botswana,15.58709716796875,cf_median,Barley_rf_roff_rt_2030y_SOC
+Bouvet Island,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Brazil,Brazil,24.55310821533203,cf_median,Barley_rf_roff_rt_2030y_SOC
+British Indian Ocean Territory,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+British Virgin Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Brunei Darussalam,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Bulgaria,Bulgaria,32.08220291137695,cf_median,Barley_rf_roff_rt_2030y_SOC
+Burkina Faso,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Burundi,Burundi,29.82933807373047,cf_median,Barley_rf_roff_rt_2030y_SOC
+Cambodia,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Cameroon,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Canada,Canada,48.036346435546875,cf_median,Barley_rf_roff_rt_2030y_SOC
+Cape Verde,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Cayman Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Central African Republic,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Chad,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Chile,Chile,27.663911819458008,cf_median,Barley_rf_roff_rt_2030y_SOC
+China,China,29.195545196533203,cf_median,Barley_rf_roff_rt_2030y_SOC
+China/India,China/India,48.71414566040039,cf_median,Barley_rf_roff_rt_2030y_SOC
+Christmas Island,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Clipperton Island,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Cocos (Keeling) Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Colombia,Colombia,25.937366485595703,cf_median,Barley_rf_roff_rt_2030y_SOC
+Comoros,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Congo,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Cook Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Costa Rica,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Croatia,Croatia,40.324798583984375,cf_median,Barley_rf_roff_rt_2030y_SOC
+Cuba,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Cyprus,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Czech Republic,Czech Republic,40.13166046142578,cf_median,Barley_rf_roff_rt_2030y_SOC
+Côte d'Ivoire,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Dem People's Rep of Korea,Dem People's Rep of Korea,43.7304801940918,cf_median,Barley_rf_roff_rt_2030y_SOC
+Democratic Republic of the Congo,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Denmark,Denmark,51.70711135864258,cf_median,Barley_rf_roff_rt_2030y_SOC
+Djibouti,Djibouti,10.095703125,cf_median,Barley_rf_roff_rt_2030y_SOC
+Dominica,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Dominican Republic,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Ecuador,Ecuador,37.66762924194336,cf_median,Barley_rf_roff_rt_2030y_SOC
+Egypt,Egypt,10.935993194580078,cf_median,Barley_rf_roff_rt_2030y_SOC
+El Salvador,El Salvador,53.58259201049805,cf_median,Barley_rf_roff_rt_2030y_SOC
+Equatorial Guinea,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Eritrea,Eritrea,15.867295265197754,cf_median,Barley_rf_roff_rt_2030y_SOC
+Estonia,Estonia,48.02470397949219,cf_median,Barley_rf_roff_rt_2030y_SOC
+Ethiopia,Ethiopia,26.80564308166504,cf_median,Barley_rf_roff_rt_2030y_SOC
+Europa Island,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Falkland Islands (Malvinas),,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Faroe Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Fiji,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Finland,Finland,67.93292999267578,cf_median,Barley_rf_roff_rt_2030y_SOC
+France,France,39.380470275878906,cf_median,Barley_rf_roff_rt_2030y_SOC
+French Guiana,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+French Polynesia,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+French Southern and Antarctic Territories,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Gabon,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Gambia,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Gaza Strip,Gaza Strip,12.143790245056152,cf_median,Barley_rf_roff_rt_2030y_SOC
+Georgia,Georgia,53.224761962890625,cf_median,Barley_rf_roff_rt_2030y_SOC
+Germany,Germany,41.31911087036133,cf_median,Barley_rf_roff_rt_2030y_SOC
+Ghana,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Gibraltar,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Glorioso Island,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Greece,Greece,31.241498947143555,cf_median,Barley_rf_roff_rt_2030y_SOC
+Greenland,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Grenada,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Guadeloupe,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Guam,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Guatemala,Guatemala,32.9442024230957,cf_median,Barley_rf_roff_rt_2030y_SOC
+Guernsey,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Guinea,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Guinea-Bissau,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Guyana,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Haiti,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Hala'ib triangle,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Heard Island and McDonald Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Holy See,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Honduras,Honduras,33.258758544921875,cf_median,Barley_rf_roff_rt_2030y_SOC
+Hong Kong,Hong Kong,27.266559600830078,cf_median,Barley_rf_roff_rt_2030y_SOC
+Howland Island,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Hungary,Hungary,33.985111236572266,cf_median,Barley_rf_roff_rt_2030y_SOC
+Iceland,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Ilemi triangle,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+India,India,15.848123550415039,cf_median,Barley_rf_roff_rt_2030y_SOC
+Indonesia,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Iran  (Islamic Republic of),Iran  (Islamic Republic of),24.203052520751953,cf_median,Barley_rf_roff_rt_2030y_SOC
+Iraq,Iraq,17.559362411499023,cf_median,Barley_rf_roff_rt_2030y_SOC
+Ireland,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Isle of Man,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Israel,Israel,21.536291122436523,cf_median,Barley_rf_roff_rt_2030y_SOC
+Italy,Italy,38.62645721435547,cf_median,Barley_rf_roff_rt_2030y_SOC
+Jamaica,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Jammu and Kashmir,Jammu and Kashmir,40.119049072265625,cf_median,Barley_rf_roff_rt_2030y_SOC
+Japan,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Jarvis Island,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Jersey,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Johnston Atoll,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Jordan,Jordan,18.95319366455078,cf_median,Barley_rf_roff_rt_2030y_SOC
+Juan de Nova Island,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Kazakhstan,Kazakhstan,31.58230972290039,cf_median,Barley_rf_roff_rt_2030y_SOC
+Kenya,Kenya,25.332439422607422,cf_median,Barley_rf_roff_rt_2030y_SOC
+Kingman Reef,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Kiribati,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Kuril islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Kuwait,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Kyrgyzstan,Kyrgyzstan,44.27709197998047,cf_median,Barley_rf_roff_rt_2030y_SOC
+Lao People's Democratic Republic,Lao People's Democratic Republic,33.30752182006836,cf_median,Barley_rf_roff_rt_2030y_SOC
+Latvia,Latvia,46.97678756713867,cf_median,Barley_rf_roff_rt_2030y_SOC
+Lebanon,Lebanon,24.437192916870117,cf_median,Barley_rf_roff_rt_2030y_SOC
+Lesotho,Lesotho,34.60929489135742,cf_median,Barley_rf_roff_rt_2030y_SOC
+Liberia,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Libya,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Liechtenstein,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Lithuania,Lithuania,39.115909576416016,cf_median,Barley_rf_roff_rt_2030y_SOC
+Luxembourg,Luxembourg,47.398311614990234,cf_median,Barley_rf_roff_rt_2030y_SOC
+Ma'tan al-Sarra,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Macau,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Madagascar,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Madeira Islands,Madeira Islands,83.14271545410156,cf_median,Barley_rf_roff_rt_2030y_SOC
+Malawi,Malawi,32.002254486083984,cf_median,Barley_rf_roff_rt_2030y_SOC
+Malaysia,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Maldives,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Mali,Mali,8.909133911132812,cf_median,Barley_rf_roff_rt_2030y_SOC
+Malta,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Marshall Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Martinique,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Mauritania,Mauritania,11.083640098571777,cf_median,Barley_rf_roff_rt_2030y_SOC
+Mauritius,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Mayotte,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Mexico,Mexico,23.428115844726562,cf_median,Barley_rf_roff_rt_2030y_SOC
+Micronesia (Federated States of),,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Midway Island,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+"Moldova, Republic of","Moldova, Republic of",44.01897430419922,cf_median,Barley_rf_roff_rt_2030y_SOC
+Monaco,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Mongolia,Mongolia,29.23243522644043,cf_median,Barley_rf_roff_rt_2030y_SOC
+Montenegro,Montenegro,56.459041595458984,cf_median,Barley_rf_roff_rt_2030y_SOC
+Montserrat,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Morocco,Morocco,39.17837142944335,cf_median,Barley_rf_roff_rt_2030y_SOC
+Mozambique,Mozambique,21.04706382751465,cf_median,Barley_rf_roff_rt_2030y_SOC
+Myanmar,Myanmar,35.781829833984375,cf_median,Barley_rf_roff_rt_2030y_SOC
+Namibia,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Nauru,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Navassa Island,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Nepal,Nepal,29.495866775512695,cf_median,Barley_rf_roff_rt_2030y_SOC
+Netherlands,Netherlands,50.203819274902344,cf_median,Barley_rf_roff_rt_2030y_SOC
+Netherlands Antilles,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+New Caledonia,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+New Zealand,New Zealand,76.09059143066406,cf_median,Barley_rf_roff_rt_2030y_SOC
+Nicaragua,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Niger,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Nigeria,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Niue,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Norfolk Island,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Northern Mariana Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Norway,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Oman,Oman,12.925004005432129,cf_median,Barley_rf_roff_rt_2030y_SOC
+Pakistan,Pakistan,12.90608024597168,cf_median,Barley_rf_roff_rt_2030y_SOC
+Palau,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Palmyra Atoll,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Panama,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Papua New Guinea,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Paracel Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Paraguay,Paraguay,23.439332962036133,cf_median,Barley_rf_roff_rt_2030y_SOC
+Peru,Peru,27.076419830322266,cf_median,Barley_rf_roff_rt_2030y_SOC
+Philippines,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Pitcairn,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Poland,Poland,30.649852752685547,cf_median,Barley_rf_roff_rt_2030y_SOC
+Portugal,Portugal,31.14012908935547,cf_median,Barley_rf_roff_rt_2030y_SOC
+Puerto Rico,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Qatar,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Republic of Korea,Republic of Korea,35.49481964111328,cf_median,Barley_rf_roff_rt_2030y_SOC
+Romania,Romania,32.80377197265625,cf_median,Barley_rf_roff_rt_2030y_SOC
+Russian Federation,Russian Federation,55.291107177734375,cf_median,Barley_rf_roff_rt_2030y_SOC
+Rwanda,Rwanda,37.71067810058594,cf_median,Barley_rf_roff_rt_2030y_SOC
+Réunion,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Saint Helena,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Saint Kitts and Nevis,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Saint Lucia,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Saint Pierre et Miquelon,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Saint Vincent and the Grenadines,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Samoa,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+San Marino,San Marino,31.1453914642334,cf_median,Barley_rf_roff_rt_2030y_SOC
+Sao Tome and Principe,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Saudi Arabia,Saudi Arabia,12.09985065460205,cf_median,Barley_rf_roff_rt_2030y_SOC
+Scarborough Reef,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Senegal,Senegal,9.169197082519531,cf_median,Barley_rf_roff_rt_2030y_SOC
+Senkaku Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Serbia,Serbia,32.649681091308594,cf_median,Barley_rf_roff_rt_2030y_SOC
+Seychelles,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Sierra Leone,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Singapore,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Slovakia,Slovakia,40.31277084350586,cf_median,Barley_rf_roff_rt_2030y_SOC
+Slovenia,Slovenia,44.19468307495117,cf_median,Barley_rf_roff_rt_2030y_SOC
+Solomon Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Somalia,Somalia,15.079623222351074,cf_median,Barley_rf_roff_rt_2030y_SOC
+South Africa,South Africa,21.98790168762207,cf_median,Barley_rf_roff_rt_2030y_SOC
+South Georgia and the South Sandwich Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+South Sudan,South Sudan,17.51335906982422,cf_median,Barley_rf_roff_rt_2030y_SOC
+Spain,Spain,26.201871871948242,cf_median,Barley_rf_roff_rt_2030y_SOC
+Spratly Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Sri Lanka,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Sudan,Sudan,15.442994117736816,cf_median,Barley_rf_roff_rt_2030y_SOC
+Suriname,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Svalbard and Jan Mayen Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Swaziland,Swaziland,28.94007682800293,cf_median,Barley_rf_roff_rt_2030y_SOC
+Sweden,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Switzerland,Switzerland,62.27040100097656,cf_median,Barley_rf_roff_rt_2030y_SOC
+Syrian Arab Republic,Syrian Arab Republic,16.18482208251953,cf_median,Barley_rf_roff_rt_2030y_SOC
+Taiwan,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Tajikistan,Tajikistan,39.347103118896484,cf_median,Barley_rf_roff_rt_2030y_SOC
+Thailand,Thailand,24.75963592529297,cf_median,Barley_rf_roff_rt_2030y_SOC
+The former Yugoslav Republic of Macedonia,The former Yugoslav Republic of Macedonia,30.875139236450195,cf_median,Barley_rf_roff_rt_2030y_SOC
+Timor-Leste,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Togo,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Tokelau,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Tonga,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Trinidad and Tobago,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Tromelin Island,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Tunisia,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Turkey,Turkey,33.93561935424805,cf_median,Barley_rf_roff_rt_2030y_SOC
+Turkmenistan,Turkmenistan,23.189088821411133,cf_median,Barley_rf_roff_rt_2030y_SOC
+Turks and Caicos islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Tuvalu,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+U.K. of Great Britain and Northern Ireland,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Uganda,Uganda,32.40481948852539,cf_median,Barley_rf_roff_rt_2030y_SOC
+Ukraine,Ukraine,43.11354446411133,cf_median,Barley_rf_roff_rt_2030y_SOC
+United Arab Emirates,United Arab Emirates,11.929556846618652,cf_median,Barley_rf_roff_rt_2030y_SOC
+United Republic of Tanzania,United Republic of Tanzania,24.242755889892578,cf_median,Barley_rf_roff_rt_2030y_SOC
+United States Virgin Islands,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+United States of America,United States of America,30.37680435180664,cf_median,Barley_rf_roff_rt_2030y_SOC
+Uruguay,Uruguay,30.9178524017334,cf_median,Barley_rf_roff_rt_2030y_SOC
+Uzbekistan,Uzbekistan,19.19442367553711,cf_median,Barley_rf_roff_rt_2030y_SOC
+Vanuatu,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Venezuela,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Viet Nam,Viet Nam,31.952510833740234,cf_median,Barley_rf_roff_rt_2030y_SOC
+Wake Island,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+Wallis and Futuna,,,cf_median,Barley_rf_roff_rt_2030y_SOC
+West Bank,West Bank,27.2866153717041,cf_median,Barley_rf_roff_rt_2030y_SOC
+West Bank,West Bank,28.625062942504883,cf_median,Barley_rf_roff_rt_2030y_SOC
+Western Sahara,Western Sahara,10.78054428100586,cf_median,Barley_rf_roff_rt_2030y_SOC
+Yemen,Yemen,14.845678329467773,cf_median,Barley_rf_roff_rt_2030y_SOC
+Zambia,Zambia,27.66131019592285,cf_median,Barley_rf_roff_rt_2030y_SOC
+Zimbabwe,Zimbabwe,17.36827278137207,cf_median,Barley_rf_roff_rt_2030y_SOC
+Abyei,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Afghanistan,Afghanistan,10.481435507700327,cf_std,Barley_rf_roff_rt_2030y_SOC
+Aksai Chin,Aksai Chin,6.135787703004354,cf_std,Barley_rf_roff_rt_2030y_SOC
+Albania,Albania,8.52094880504288,cf_std,Barley_rf_roff_rt_2030y_SOC
+Algeria,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+American Samoa,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Andorra,Andorra,11.035227081297428,cf_std,Barley_rf_roff_rt_2030y_SOC
+Angola,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Anguilla,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Antarctica,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Antigua and Barbuda,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Argentina,Argentina,10.041431961091087,cf_std,Barley_rf_roff_rt_2030y_SOC
+Armenia,Armenia,7.416831036854277,cf_std,Barley_rf_roff_rt_2030y_SOC
+Aruba,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Arunachal Pradesh,Arunachal Pradesh,11.755070446161762,cf_std,Barley_rf_roff_rt_2030y_SOC
+Ashmore and Cartier Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Australia,Australia,14.732626617747595,cf_std,Barley_rf_roff_rt_2030y_SOC
+Austria,Austria,10.091288717077413,cf_std,Barley_rf_roff_rt_2030y_SOC
+Azerbaijan,Azerbaijan,9.076114221130513,cf_std,Barley_rf_roff_rt_2030y_SOC
+Azores Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Bahamas,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Bahrain,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Baker Island,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Bangladesh,Bangladesh,5.538854318995313,cf_std,Barley_rf_roff_rt_2030y_SOC
+Barbados,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Bassas da India,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Belarus,Belarus,4.093488972678655,cf_std,Barley_rf_roff_rt_2030y_SOC
+Belgium,Belgium,8.960892018956812,cf_std,Barley_rf_roff_rt_2030y_SOC
+Belize,Belize,4.775292104609128,cf_std,Barley_rf_roff_rt_2030y_SOC
+Benin,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Bermuda,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Bhutan,Bhutan,9.03438267899357,cf_std,Barley_rf_roff_rt_2030y_SOC
+Bird Island,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Bolivia,Bolivia,10.179302830083028,cf_std,Barley_rf_roff_rt_2030y_SOC
+Bosnia and Herzegovina,Bosnia and Herzegovina,13.105612317388305,cf_std,Barley_rf_roff_rt_2030y_SOC
+Botswana,Botswana,2.6539712938900664,cf_std,Barley_rf_roff_rt_2030y_SOC
+Bouvet Island,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Brazil,Brazil,5.471981140702139,cf_std,Barley_rf_roff_rt_2030y_SOC
+British Indian Ocean Territory,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+British Virgin Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Brunei Darussalam,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Bulgaria,Bulgaria,5.446875785842743,cf_std,Barley_rf_roff_rt_2030y_SOC
+Burkina Faso,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Burundi,Burundi,7.669374540061466,cf_std,Barley_rf_roff_rt_2030y_SOC
+Cambodia,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Cameroon,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Canada,Canada,10.162742944959977,cf_std,Barley_rf_roff_rt_2030y_SOC
+Cape Verde,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Cayman Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Central African Republic,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Chad,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Chile,Chile,26.99302873999611,cf_std,Barley_rf_roff_rt_2030y_SOC
+China,China,16.518808880427557,cf_std,Barley_rf_roff_rt_2030y_SOC
+China/India,China/India,17.00808415809674,cf_std,Barley_rf_roff_rt_2030y_SOC
+Christmas Island,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Clipperton Island,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Cocos (Keeling) Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Colombia,Colombia,14.132626759486916,cf_std,Barley_rf_roff_rt_2030y_SOC
+Comoros,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Congo,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Cook Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Costa Rica,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Croatia,Croatia,13.24669915098455,cf_std,Barley_rf_roff_rt_2030y_SOC
+Cuba,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Cyprus,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Czech Republic,Czech Republic,10.698282627501783,cf_std,Barley_rf_roff_rt_2030y_SOC
+Côte d'Ivoire,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Dem People's Rep of Korea,Dem People's Rep of Korea,7.97012369303612,cf_std,Barley_rf_roff_rt_2030y_SOC
+Democratic Republic of the Congo,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Denmark,Denmark,14.420360469382329,cf_std,Barley_rf_roff_rt_2030y_SOC
+Djibouti,Djibouti,4.839797298313968,cf_std,Barley_rf_roff_rt_2030y_SOC
+Dominica,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Dominican Republic,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Ecuador,Ecuador,13.814665078210954,cf_std,Barley_rf_roff_rt_2030y_SOC
+Egypt,Egypt,2.4449021852954753,cf_std,Barley_rf_roff_rt_2030y_SOC
+El Salvador,El Salvador,12.591923366471205,cf_std,Barley_rf_roff_rt_2030y_SOC
+Equatorial Guinea,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Eritrea,Eritrea,4.661264043274429,cf_std,Barley_rf_roff_rt_2030y_SOC
+Estonia,Estonia,21.847566848988865,cf_std,Barley_rf_roff_rt_2030y_SOC
+Ethiopia,Ethiopia,11.068721349506555,cf_std,Barley_rf_roff_rt_2030y_SOC
+Europa Island,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Falkland Islands (Malvinas),,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Faroe Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Fiji,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Finland,Finland,6.078226523846169,cf_std,Barley_rf_roff_rt_2030y_SOC
+France,France,11.766433907486054,cf_std,Barley_rf_roff_rt_2030y_SOC
+French Guiana,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+French Polynesia,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+French Southern and Antarctic Territories,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Gabon,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Gambia,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Gaza Strip,Gaza Strip,3.9864889582575356,cf_std,Barley_rf_roff_rt_2030y_SOC
+Georgia,Georgia,10.176363553055635,cf_std,Barley_rf_roff_rt_2030y_SOC
+Germany,Germany,10.112628831999753,cf_std,Barley_rf_roff_rt_2030y_SOC
+Ghana,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Gibraltar,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Glorioso Island,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Greece,Greece,10.156488987923154,cf_std,Barley_rf_roff_rt_2030y_SOC
+Greenland,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Grenada,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Guadeloupe,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Guam,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Guatemala,Guatemala,7.444155083794207,cf_std,Barley_rf_roff_rt_2030y_SOC
+Guernsey,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Guinea,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Guinea-Bissau,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Guyana,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Haiti,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Hala'ib triangle,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Heard Island and McDonald Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Holy See,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Honduras,Honduras,1.814636756192055,cf_std,Barley_rf_roff_rt_2030y_SOC
+Hong Kong,Hong Kong,0.7738095488364232,cf_std,Barley_rf_roff_rt_2030y_SOC
+Howland Island,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Hungary,Hungary,5.267937187085076,cf_std,Barley_rf_roff_rt_2030y_SOC
+Iceland,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Ilemi triangle,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+India,India,9.163253463571614,cf_std,Barley_rf_roff_rt_2030y_SOC
+Indonesia,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Iran  (Islamic Republic of),Iran  (Islamic Republic of),8.821312804188276,cf_std,Barley_rf_roff_rt_2030y_SOC
+Iraq,Iraq,6.373048854901857,cf_std,Barley_rf_roff_rt_2030y_SOC
+Ireland,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Isle of Man,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Israel,Israel,7.9258588817125615,cf_std,Barley_rf_roff_rt_2030y_SOC
+Italy,Italy,11.792886890589017,cf_std,Barley_rf_roff_rt_2030y_SOC
+Jamaica,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Jammu and Kashmir,Jammu and Kashmir,9.529324092287002,cf_std,Barley_rf_roff_rt_2030y_SOC
+Japan,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Jarvis Island,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Jersey,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Johnston Atoll,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Jordan,Jordan,3.722479918927607,cf_std,Barley_rf_roff_rt_2030y_SOC
+Juan de Nova Island,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Kazakhstan,Kazakhstan,10.672362225294984,cf_std,Barley_rf_roff_rt_2030y_SOC
+Kenya,Kenya,9.257907736642546,cf_std,Barley_rf_roff_rt_2030y_SOC
+Kingman Reef,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Kiribati,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Kuril islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Kuwait,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Kyrgyzstan,Kyrgyzstan,8.50318547119857,cf_std,Barley_rf_roff_rt_2030y_SOC
+Lao People's Democratic Republic,Lao People's Democratic Republic,9.061422025958251,cf_std,Barley_rf_roff_rt_2030y_SOC
+Latvia,Latvia,3.7030697137417454,cf_std,Barley_rf_roff_rt_2030y_SOC
+Lebanon,Lebanon,4.306503433970181,cf_std,Barley_rf_roff_rt_2030y_SOC
+Lesotho,Lesotho,11.180230618729599,cf_std,Barley_rf_roff_rt_2030y_SOC
+Liberia,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Libya,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Liechtenstein,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Lithuania,Lithuania,4.838323187861134,cf_std,Barley_rf_roff_rt_2030y_SOC
+Luxembourg,Luxembourg,2.9664890940718482,cf_std,Barley_rf_roff_rt_2030y_SOC
+Ma'tan al-Sarra,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Macau,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Madagascar,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Madeira Islands,Madeira Islands,3.906913932073009,cf_std,Barley_rf_roff_rt_2030y_SOC
+Malawi,Malawi,8.714807322441223,cf_std,Barley_rf_roff_rt_2030y_SOC
+Malaysia,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Maldives,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Mali,Mali,2.5312508146476547,cf_std,Barley_rf_roff_rt_2030y_SOC
+Malta,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Marshall Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Martinique,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Mauritania,Mauritania,2.1143791252328676,cf_std,Barley_rf_roff_rt_2030y_SOC
+Mauritius,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Mayotte,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Mexico,Mexico,10.60696088639221,cf_std,Barley_rf_roff_rt_2030y_SOC
+Micronesia (Federated States of),,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Midway Island,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+"Moldova, Republic of","Moldova, Republic of",4.26193661860208,cf_std,Barley_rf_roff_rt_2030y_SOC
+Monaco,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Mongolia,Mongolia,18.3176256810848,cf_std,Barley_rf_roff_rt_2030y_SOC
+Montenegro,Montenegro,10.978419150984807,cf_std,Barley_rf_roff_rt_2030y_SOC
+Montserrat,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Morocco,Morocco,0.0,cf_std,Barley_rf_roff_rt_2030y_SOC
+Mozambique,Mozambique,4.571890780542713,cf_std,Barley_rf_roff_rt_2030y_SOC
+Myanmar,Myanmar,13.224505215427179,cf_std,Barley_rf_roff_rt_2030y_SOC
+Namibia,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Nauru,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Navassa Island,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Nepal,Nepal,13.342512256343188,cf_std,Barley_rf_roff_rt_2030y_SOC
+Netherlands,Netherlands,13.277727185292717,cf_std,Barley_rf_roff_rt_2030y_SOC
+Netherlands Antilles,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+New Caledonia,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+New Zealand,New Zealand,18.037961213149043,cf_std,Barley_rf_roff_rt_2030y_SOC
+Nicaragua,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Niger,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Nigeria,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Niue,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Norfolk Island,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Northern Mariana Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Norway,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Oman,Oman,3.928953806243809,cf_std,Barley_rf_roff_rt_2030y_SOC
+Pakistan,Pakistan,11.793078252341516,cf_std,Barley_rf_roff_rt_2030y_SOC
+Palau,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Palmyra Atoll,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Panama,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Papua New Guinea,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Paracel Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Paraguay,Paraguay,4.478410015433257,cf_std,Barley_rf_roff_rt_2030y_SOC
+Peru,Peru,13.502498386484248,cf_std,Barley_rf_roff_rt_2030y_SOC
+Philippines,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Pitcairn,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Poland,Poland,6.121460373899684,cf_std,Barley_rf_roff_rt_2030y_SOC
+Portugal,Portugal,8.323364261675827,cf_std,Barley_rf_roff_rt_2030y_SOC
+Puerto Rico,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Qatar,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Republic of Korea,Republic of Korea,10.777654071507328,cf_std,Barley_rf_roff_rt_2030y_SOC
+Romania,Romania,6.248241168893731,cf_std,Barley_rf_roff_rt_2030y_SOC
+Russian Federation,Russian Federation,9.398312471268767,cf_std,Barley_rf_roff_rt_2030y_SOC
+Rwanda,Rwanda,8.719827527023561,cf_std,Barley_rf_roff_rt_2030y_SOC
+Réunion,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Saint Helena,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Saint Kitts and Nevis,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Saint Lucia,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Saint Pierre et Miquelon,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Saint Vincent and the Grenadines,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Samoa,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+San Marino,San Marino,0.0,cf_std,Barley_rf_roff_rt_2030y_SOC
+Sao Tome and Principe,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Saudi Arabia,Saudi Arabia,2.664896556994296,cf_std,Barley_rf_roff_rt_2030y_SOC
+Scarborough Reef,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Senegal,Senegal,4.703686830866562,cf_std,Barley_rf_roff_rt_2030y_SOC
+Senkaku Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Serbia,Serbia,6.638403719942629,cf_std,Barley_rf_roff_rt_2030y_SOC
+Seychelles,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Sierra Leone,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Singapore,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Slovakia,Slovakia,7.054459893885553,cf_std,Barley_rf_roff_rt_2030y_SOC
+Slovenia,Slovenia,14.138309876605241,cf_std,Barley_rf_roff_rt_2030y_SOC
+Solomon Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Somalia,Somalia,3.50306574640506,cf_std,Barley_rf_roff_rt_2030y_SOC
+South Africa,South Africa,7.748168750888396,cf_std,Barley_rf_roff_rt_2030y_SOC
+South Georgia and the South Sandwich Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+South Sudan,South Sudan,6.420331024667123,cf_std,Barley_rf_roff_rt_2030y_SOC
+Spain,Spain,15.148587331915898,cf_std,Barley_rf_roff_rt_2030y_SOC
+Spratly Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Sri Lanka,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Sudan,Sudan,2.9767600067220763,cf_std,Barley_rf_roff_rt_2030y_SOC
+Suriname,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Svalbard and Jan Mayen Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Swaziland,Swaziland,5.152852195079414,cf_std,Barley_rf_roff_rt_2030y_SOC
+Sweden,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Switzerland,Switzerland,12.407425732875845,cf_std,Barley_rf_roff_rt_2030y_SOC
+Syrian Arab Republic,Syrian Arab Republic,6.2958642078149545,cf_std,Barley_rf_roff_rt_2030y_SOC
+Taiwan,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Tajikistan,Tajikistan,10.363744572948155,cf_std,Barley_rf_roff_rt_2030y_SOC
+Thailand,Thailand,6.495162766910966,cf_std,Barley_rf_roff_rt_2030y_SOC
+The former Yugoslav Republic of Macedonia,The former Yugoslav Republic of Macedonia,9.24828152468274,cf_std,Barley_rf_roff_rt_2030y_SOC
+Timor-Leste,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Togo,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Tokelau,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Tonga,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Trinidad and Tobago,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Tromelin Island,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Tunisia,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Turkey,Turkey,8.825705273624921,cf_std,Barley_rf_roff_rt_2030y_SOC
+Turkmenistan,Turkmenistan,5.0714062843932455,cf_std,Barley_rf_roff_rt_2030y_SOC
+Turks and Caicos islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Tuvalu,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+U.K. of Great Britain and Northern Ireland,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Uganda,Uganda,6.631382828985673,cf_std,Barley_rf_roff_rt_2030y_SOC
+Ukraine,Ukraine,6.671838625819154,cf_std,Barley_rf_roff_rt_2030y_SOC
+United Arab Emirates,United Arab Emirates,0.0,cf_std,Barley_rf_roff_rt_2030y_SOC
+United Republic of Tanzania,United Republic of Tanzania,8.001279444040206,cf_std,Barley_rf_roff_rt_2030y_SOC
+United States Virgin Islands,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+United States of America,United States of America,13.524072717702422,cf_std,Barley_rf_roff_rt_2030y_SOC
+Uruguay,Uruguay,6.307171282297687,cf_std,Barley_rf_roff_rt_2030y_SOC
+Uzbekistan,Uzbekistan,7.519884330002186,cf_std,Barley_rf_roff_rt_2030y_SOC
+Vanuatu,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Venezuela,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Viet Nam,Viet Nam,3.0785746225329795,cf_std,Barley_rf_roff_rt_2030y_SOC
+Wake Island,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+Wallis and Futuna,,,cf_std,Barley_rf_roff_rt_2030y_SOC
+West Bank,West Bank,0.15494243292111393,cf_std,Barley_rf_roff_rt_2030y_SOC
+West Bank,West Bank,6.52801718100103,cf_std,Barley_rf_roff_rt_2030y_SOC
+Western Sahara,Western Sahara,3.6830441562945424,cf_std,Barley_rf_roff_rt_2030y_SOC
+Yemen,Yemen,4.266535258293042,cf_std,Barley_rf_roff_rt_2030y_SOC
+Zambia,Zambia,1.6644922031094525,cf_std,Barley_rf_roff_rt_2030y_SOC
+Zimbabwe,Zimbabwe,2.245766236490091,cf_std,Barley_rf_roff_rt_2030y_SOC
