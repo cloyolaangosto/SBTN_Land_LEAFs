@@ -823,7 +823,7 @@ def build_cfs_gpkg_from_rasters(
     input_raster_key_startswith: Optional[str] = None, # optional filename prefix filter; if set, only files starting with it are processed
     input_raster_key_endswith: Optional[str] = None,
     calc_kwargs: Optional[dict] = None,
-    file_filter: Iterable[str] = (".tif", ".tiff"),
+    file_filter: str = ".tif",
     reset_gpkg: bool = True,         # remove existing gpkg before first write
     promote_to_multi: bool = True,   # avoid Polygon/MultiPolygon mismatches
     add_source_file_name: bool = True,     # add _source_file column
@@ -872,7 +872,7 @@ def build_cfs_gpkg_from_rasters(
     file_list = [
         file
         for file in all_files
-        if file.lower().endswith(tuple(file_filter))
+        if file.lower().endswith(file_filter.lower())
         and (not input_raster_key_startswith or file.startswith(input_raster_key_startswith))
     ]
 
