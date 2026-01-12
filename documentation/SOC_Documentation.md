@@ -1,9 +1,9 @@
 # SOC Documentation
-SOC LEAF are generated following the methods described in [Morais, Teixeria & Domingos (2019)](https://doi.org/10.1371/journal.pone.0222604) and [Teixeira, Morais & Domingos (2021)](https://doi.org/10.1038/s41597-021-01018-2), and are delivered in ton of carbon per hectare (t C/ha). These referencfes in turn use the Rothmadel C (RothC) model to simulate SOC changes through time. RothC simulates "the turnover of organic carbon in non-waterlogged top-soils that allows for the effects of soil type, temperature, moisture content and plant cover on the turnover process" ([Coleman, Prout & Milne (2024)](https://www.rothamsted.ac.uk/sites/default/files/Documents/RothC_description.pdf)).
+SOC LEAF are generated following the methods described in [Morais, Teixeria & Domingos (2019)](https://doi.org/10.1371/journal.pone.0222604) and [Teixeira, Morais & Domingos (2021)](https://doi.org/10.1038/s41597-021-01018-2), and are delivered in ton of carbon per hectare (t C/ha). These references in turn use the Rothmadel C (RothC) model to simulate SOC changes through time. RothC simulates "the turnover of organic carbon in non-waterlogged top-soils that allows for the effects of soil type, temperature, moisture content and plant cover on the turnover process" ([Coleman, Prout & Milne (2024)](https://www.rothamsted.ac.uk/sites/default/files/Documents/RothC_description.pdf)).
 
-The model has been adaptaed into GIS format, using as a base the one found on XXX.
+The model has been adapted into GIS format, using as a base the one found on XXX.
 
-The purpose of this documentation is not to explain the models used to generate LEAF, which are already availalbe at the aforementioned references, but to explain what data is needed and how to prepare it to generate new LEAFs. 
+The purpose of this documentation is not to explain the models used to generate LEAF, which are already available at the aforementioned references, but to explain what data is needed and how to prepare it to generate new LEAFs. 
 
 ## Step 1 - Data Gathering and Processing
 RothC needs several inputs, despite being the most simple, that ara availalbe globally. All data is location specific.
