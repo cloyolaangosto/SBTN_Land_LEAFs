@@ -6,15 +6,15 @@ The model has been adapted into GIS format, using as a base the one found on XXX
 The purpose of this documentation is not to explain the models used to generate LEAF, which are already available at the aforementioned references, but to explain what data is needed and how to prepare it to generate new LEAFs. 
 
 ## Step 1 - Data Gathering and Processing
-RothC needs several inputs, despite being the most simple, that ara availalbe globally. All data is location specific.
+RothC needs several inputs, despite being the most simple, that ara available globally. All data is location specific.
 
 ### Soil and Weather Data
-Weather related data has been obtained from NASA projects, while soil related data has been sourced from SoilGrids. A data download support script is availalbe in XXX.
+Weather related data has been obtained from NASA projects, while soil related data has been sourced from SoilGrids.
 
 #### 1) Monthly Precipitation (mm/month)
-For the newly generated practice change LEAFs, [NASA's GPM_3IMERGM](https://disc.gsfc.nasa.gov/datasets/GPM_3IMERGM_07/summary?keywords=3IMERG) data, between 2013 and 2023 and given at 0.1°, has been used.
+[NASA's GPM_3IMERGM](https://disc.gsfc.nasa.gov/datasets/GPM_3IMERGM_07/summary?keywords=3IMERG) data, averaged between 2013 and 2023 and given at 0.1°, has been used.
 
-#### 2) Temperature (mm)
+#### 2) Temperature (°C)
 For the newly generated practice change LEAFs, [GLDAS Catchment Land Surface Model L4](https://disc.gsfc.nasa.gov/datasets/GLDAS_CLSM10_M_2.1/summary), monthly 1.0 x 1.0 degree V2.1 (GLDAS_CLSM10_M), at a 1° resolution has been used.
 
 #### 3) Soil Organic Carbon (t C/ha)
