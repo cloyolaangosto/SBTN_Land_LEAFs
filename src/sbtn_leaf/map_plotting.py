@@ -271,7 +271,8 @@ def _create_plt_choropleth(
     quantiles: Optional[int] = None,
     cmap: str = "viridis",
     n_categories: int = 20,
-    figsize=(14, 8),
+    x_size = 14,
+    y_size = 8,
     base_shp=None,
     vmin: Optional[float] = None,
     vmax: Optional[float] = None,
@@ -373,7 +374,7 @@ def _create_plt_choropleth(
                 norm = Normalize(vmin=0, vmax=vmax)
 
     # 4) Start figure/axes
-    fig, ax = plt.subplots(figsize=figsize)
+    fig, ax = plt.subplots(figsize=(x_size,y_size))
     extent = [bounds.left, bounds.right, bounds.bottom, bounds.top]
 
     img = ax.imshow(
