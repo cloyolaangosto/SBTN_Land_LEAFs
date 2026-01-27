@@ -16,7 +16,7 @@ import rasterio
 from rasterio.enums import Resampling
 from rasterio.coords import BoundingBox
 from pathlib import Path
-from typing import Dict, Optional, Tuple, Union, Any
+from typing import Dict, Optional, Tuple, Union, Any, Sequence
 
 # World shapefile (loaded lazily)
 from sbtn_leaf.paths import data_path
@@ -268,7 +268,7 @@ def _create_plt_choropleth(
     title: str,
     region: str = '',
     label_title: str = 'Raster Values',
-    quantiles: Optional[int] = None,
+    quantiles: Optional[Union[int, Sequence[float]]] = None,
     cmap: str = "viridis",
     n_categories: int = 20,
     x_size = 14,
@@ -287,6 +287,7 @@ def _create_plt_choropleth(
     - base_shp (world boundaries) is reprojected to the raster CRS before overlay.
     - Axes are labeled as projected coordinates, not "Longitude/Latitude".
     - When ``truncate_one_sided`` is ``True``, one-sided data (all positive or all negative) uses the corresponding half of the colormap. When ``False`` (default), the full colormap is used while keeping the same normalization.
+    - ``quantiles`` can be an int (number of bins) or an explicit sequence of bin edges. If all provided edges fall between 0 and 100, they are interpreted as percentiles of the data.
     """
 
     # 1) Optionally filter base_shp by region (still in its own CRS at this point)
@@ -319,6 +320,14 @@ def _create_plt_choropleth(
 
     # 3) Build color normalization
     divergence_midpoint = 0.0 if divergence_center is None else float(divergence_center)
+    quantile_edges = None
+    if quantiles is not None and not isinstance(quantiles, (int, np.integer)):
+        edges = np.asarray(quantiles, dtype=float)
+        if edges.ndim != 1 or edges.size < 2:
+            raise ValueError("quantiles must be a 1D sequence with at least two entries.")
+        if np.all((edges >= 0) & (edges <= 100)):
+            edges = np.percentile(values, edges)
+        quantile_edges = edges
 
     if is_categorical:
         # Discrete categories
@@ -346,38 +355,46 @@ def _create_plt_choropleth(
         pos = values[values > 0]
 
         if quantiles is not None:
-            print("Using quantiles")
-            if (len(neg) > 0) and (len(pos) > 0):
-                print("2-sided route (quantiles)")
-                edges = np.linspace(vmin, vmax, quantiles + 1)
+            if quantile_edges is not None:
+                print("Using quantile edges")
+                edges = quantile_edges
                 n_int = len(edges) - 1
                 colors = plt.get_cmap(cmap)(np.linspace(0, 1, n_int))
                 cmap_obj = ListedColormap(colors)
                 norm = BoundaryNorm(edges, ncolors=n_int)
-
-            elif len(pos) == 0:
-                print("All negatives route (quantiles)")
-                if truncate_one_sided:
-                    cmap_obj = _truncate_colormap(cmap, 0.0, 0.5, n=quantiles)
-                else:
-                    cmap_obj = _truncate_colormap(cmap, 0.0, 1.0, n=quantiles)
-                norm_vmin = vmin if (vmin is not None) else 0.0
-                norm_vmax = vmax if provided_bounds else 0.0
-                if provided_bounds and vmax is None:
-                    norm_vmax = 0.0
-                norm = Normalize(vmin=norm_vmin, vmax=norm_vmax)
-
             else:
-                print("All positives route (quantiles)")
-                if truncate_one_sided:
-                    cmap_obj = _truncate_colormap(cmap, 0.5, 1.0, n=quantiles)
+                print("Using quantiles")
+                if (len(neg) > 0) and (len(pos) > 0):
+                    print("2-sided route (quantiles)")
+                    edges = np.linspace(vmin, vmax, quantiles + 1)
+                    n_int = len(edges) - 1
+                    colors = plt.get_cmap(cmap)(np.linspace(0, 1, n_int))
+                    cmap_obj = ListedColormap(colors)
+                    norm = BoundaryNorm(edges, ncolors=n_int)
+
+                elif len(pos) == 0:
+                    print("All negatives route (quantiles)")
+                    if truncate_one_sided:
+                        cmap_obj = _truncate_colormap(cmap, 0.0, 0.5, n=quantiles)
+                    else:
+                        cmap_obj = _truncate_colormap(cmap, 0.0, 1.0, n=quantiles)
+                    norm_vmin = vmin if (vmin is not None) else 0.0
+                    norm_vmax = vmax if provided_bounds else 0.0
+                    if provided_bounds and vmax is None:
+                        norm_vmax = 0.0
+                    norm = Normalize(vmin=norm_vmin, vmax=norm_vmax)
+
                 else:
-                    cmap_obj = _truncate_colormap(cmap, 0.0, 1.0, n=quantiles)
-                norm_vmin = vmin if provided_bounds else 0.0
-                if provided_bounds and vmin is None:
-                    norm_vmin = 0.0
-                norm_vmax = vmax if (vmax is not None) else 0.0
-                norm = Normalize(vmin=norm_vmin, vmax=norm_vmax)
+                    print("All positives route (quantiles)")
+                    if truncate_one_sided:
+                        cmap_obj = _truncate_colormap(cmap, 0.5, 1.0, n=quantiles)
+                    else:
+                        cmap_obj = _truncate_colormap(cmap, 0.0, 1.0, n=quantiles)
+                    norm_vmin = vmin if provided_bounds else 0.0
+                    if provided_bounds and vmin is None:
+                        norm_vmin = 0.0
+                    norm_vmax = vmax if (vmax is not None) else 0.0
+                    norm = Normalize(vmin=norm_vmin, vmax=norm_vmax)
         else:
             print("Not using quantiles")
             if (len(pos) > 0) and (len(neg) > 0):
@@ -473,7 +490,7 @@ def plot_raster_on_world_extremes_cutoff(
     perc_cutoff: Optional[float] = 1,
     p_min: Optional[float] = None,
     p_max: Optional[float] = None,
-    quantiles: Optional[int] = None,
+    quantiles: Optional[Union[int, Sequence[float]]] = None,
     region: Optional[str] = None,
     cmap: str = 'viridis',
     divergence_center: Optional[float] = None,
@@ -495,6 +512,9 @@ def plot_raster_on_world_extremes_cutoff(
       colormap is used while honoring divergence-centered normalization bounds.
     - Explicit ``min_val``/``max_val`` bounds take precedence over divergence
       centering when provided.
+    - ``quantiles`` can be an int (number of bins) or an explicit sequence of
+      bin edges. If all provided edges fall between 0 and 100, they are
+      interpreted as percentiles of the data.
     """
 
     if base_shp is None:
