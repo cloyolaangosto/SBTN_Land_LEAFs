@@ -493,6 +493,8 @@ def plot_raster_on_world_extremes_cutoff(
     - When ``truncate_one_sided`` is ``True``, one-sided data uses the
       corresponding half of the colormap. When ``False`` (default), the full
       colormap is used while honoring divergence-centered normalization bounds.
+    - Explicit ``min_val``/``max_val`` bounds take precedence over divergence
+      centering when provided.
     """
 
     if base_shp is None:
@@ -519,8 +521,9 @@ def plot_raster_on_world_extremes_cutoff(
         elif divergence_center is None:
             resolved_divergence = None
 
-    vmin = vmax = None
-    if resolved_divergence is not None:
+    vmin = min_val
+    vmax = max_val
+    if (vmin is None) and (vmax is None) and (resolved_divergence is not None):
         valid = raster_data[np.isfinite(raster_data)]
         if valid.size:
             max_dev = np.max(np.abs(valid - resolved_divergence))
@@ -541,7 +544,7 @@ def plot_raster_on_world_extremes_cutoff(
         base_shp=base_shp,
         vmin=vmin,
         vmax=vmax,
-        divergence_center=divergence_center,
+        divergence_center=resolved_divergence,
         truncate_one_sided=truncate_one_sided,
         raster_crs=raster_crs,
         plt_show=plt_show
