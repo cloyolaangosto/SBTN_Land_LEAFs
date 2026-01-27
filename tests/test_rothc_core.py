@@ -2,7 +2,7 @@ import warnings
 
 import numpy as np
 
-from sbtn_leaf.RothC_Core import RMF_Tmp, _partition_to_bio_hum
+from sbtn_leaf.RothC_Core import RMF_Tmp, RMF_TRM, _partition_to_bio_hum
 
 
 def test_rmf_tmp_avoids_warnings_near_lower_bound():
@@ -70,3 +70,20 @@ def test_partition_to_bio_hum_scalar_and_array_consistency():
 
     np.testing.assert_allclose(array_scalar_bio[0], bio_scalar)
     np.testing.assert_allclose(array_scalar_hum[0], hum_scalar)
+
+
+def test_rmf_trm_selects_all_nodes():
+    sand = np.array([40.0, 40.0, 36.0, 30.0])
+    soc = np.array([80.0, 70.0, 50.0, 50.0])
+
+    trm_dpm, trm_rpm, trm_bio, trm_hum = RMF_TRM(sand, soc)
+
+    expected_dpm = np.array([1.54, 1.71, 1.54, 0.72])
+    expected_rpm = np.array([0.35, 0.35, 2.15, 0.97])
+    expected_bio = np.array([1.42, 0.38, 2.38, 0.99])
+    expected_hum = np.array([0.42, 0.87, 2.93, 0.94])
+
+    np.testing.assert_allclose(trm_dpm, expected_dpm)
+    np.testing.assert_allclose(trm_rpm, expected_rpm)
+    np.testing.assert_allclose(trm_bio, expected_bio)
+    np.testing.assert_allclose(trm_hum, expected_hum)
