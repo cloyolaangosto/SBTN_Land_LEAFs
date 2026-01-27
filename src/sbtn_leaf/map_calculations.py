@@ -1151,8 +1151,19 @@ def _apply_outlier_filter(values, weights, method=None, q_low=0.01, q_high=0.99,
     wghts = weights
 
     if method == "quantile":
-        lower_bound = np.quantile(val, q_low)
-        upper_bound = np.quantile(val, q_high)
+        if val.size == 0:
+            return val, wghts
+        sorted_indices = np.argsort(val)
+        sorted_values = val[sorted_indices]
+        sorted_weights = wghts[sorted_indices]
+        cumulative_weights = np.cumsum(sorted_weights)
+        total_weight = cumulative_weights[-1]
+        lower_cut = q_low * total_weight
+        upper_cut = q_high * total_weight
+        lower_index = np.searchsorted(cumulative_weights, lower_cut, side="left")
+        upper_index = np.searchsorted(cumulative_weights, upper_cut, side="left")
+        lower_bound = sorted_values[min(lower_index, sorted_values.size - 1)]
+        upper_bound = sorted_values[min(upper_index, sorted_values.size - 1)]
         keep = (val >= lower_bound) & (val <= upper_bound)
 
     elif method == "std":
