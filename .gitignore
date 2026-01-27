@@ -3,6 +3,7 @@
 data/*
 outputs/
 archives/
+paper/
 
 # Geospatial rasters
 *.tif
