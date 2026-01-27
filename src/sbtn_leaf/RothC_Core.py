@@ -140,14 +140,14 @@ def RMF_TRM(sand, SOC):
     sand = np.asarray(sand, dtype=float)
     SOC = np.asarray(SOC, dtype=float)
 
-    # Classify each cell into one of the four decision-tree "nodes".  This
-    # retains the original step-by-step logic even though it results in only
-    # nodes 3 and 4 being reachable; the goal of the refactor is parity.
+    # Classify each cell into one of the four decision-tree nodes while
+    # preserving the high-SOC/high-sand branch split.
     SN1 = sand > 37.6
-    high_soc = (SOC > 75.7) & SN1
-    nodes = np.where(high_soc, 1, 2)
-    high_sand = (sand > 35.0) & (~SN1)
-    nodes = np.where(high_sand, 3, 4)
+    nodes = np.where(
+        SN1,
+        np.where(SOC > 75.7, 1, 2),
+        np.where(sand > 35.0, 3, 4),
+    )
     nodes_idx = nodes.astype(int) - 1
 
     # Look up the TRM coefficients for every pool simultaneously.
