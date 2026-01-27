@@ -276,13 +276,17 @@ def _create_plt_choropleth(
     vmin: Optional[float] = None,
     vmax: Optional[float] = None,
     raster_crs=None,
-    plt_show: bool = True
+    plt_show: bool = True,
+    truncate_one_sided: bool = False,
 ):
     """
     Plot the raster in its native CRS.
     - NaNs are fully transparent.
     - base_shp (world boundaries) is reprojected to the raster CRS before overlay.
     - Axes are labeled as projected coordinates, not "Longitude/Latitude".
+    - When ``truncate_one_sided`` is ``True``, one-sided data (all positive or
+      all negative) uses the corresponding half of the colormap. When ``False``
+      (default), the full colormap is used while keeping the same normalization.
     """
 
     # 1) Optionally filter base_shp by region (still in its own CRS at this point)
@@ -331,6 +335,7 @@ def _create_plt_choropleth(
 
     else:
         # Continuous
+        provided_bounds = (vmin is not None) or (vmax is not None)
         if (vmin is None) and (vmax is None):
             vmin = float(np.nanmin(values))
             vmax = float(np.nanmax(values))
@@ -350,13 +355,27 @@ def _create_plt_choropleth(
 
             elif len(pos) == 0:
                 print("All negatives route (quantiles)")
-                cmap_obj = _truncate_colormap(cmap, 0.0, 0.5, n=quantiles)
-                norm = Normalize(vmin=vmin, vmax=0)
+                if truncate_one_sided:
+                    cmap_obj = _truncate_colormap(cmap, 0.0, 0.5, n=quantiles)
+                else:
+                    cmap_obj = _truncate_colormap(cmap, 0.0, 1.0, n=quantiles)
+                norm_vmin = vmin if (vmin is not None) else 0.0
+                norm_vmax = vmax if provided_bounds else 0.0
+                if provided_bounds and vmax is None:
+                    norm_vmax = 0.0
+                norm = Normalize(vmin=norm_vmin, vmax=norm_vmax)
 
             else:
                 print("All positives route (quantiles)")
-                cmap_obj = _truncate_colormap(cmap, 0.5, 1.0, n=quantiles)
-                norm = Normalize(vmin=0, vmax=vmax)
+                if truncate_one_sided:
+                    cmap_obj = _truncate_colormap(cmap, 0.5, 1.0, n=quantiles)
+                else:
+                    cmap_obj = _truncate_colormap(cmap, 0.0, 1.0, n=quantiles)
+                norm_vmin = vmin if provided_bounds else 0.0
+                if provided_bounds and vmin is None:
+                    norm_vmin = 0.0
+                norm_vmax = vmax if (vmax is not None) else 0.0
+                norm = Normalize(vmin=norm_vmin, vmax=norm_vmax)
         else:
             print("Not using quantiles")
             if (len(pos) > 0) and (len(neg) > 0):
@@ -365,12 +384,26 @@ def _create_plt_choropleth(
                 norm = TwoSlopeNorm(vmin=vmin, vcenter=0, vmax=vmax)
             elif len(pos) == 0:
                 print("All negatives route (continuous)")
-                cmap_obj = _truncate_colormap(cmap, 0.0, 0.5)
-                norm = Normalize(vmin=vmin, vmax=0)
+                if truncate_one_sided:
+                    cmap_obj = _truncate_colormap(cmap, 0.0, 0.5)
+                else:
+                    cmap_obj = plt.get_cmap(cmap)
+                norm_vmin = vmin if (vmin is not None) else 0.0
+                norm_vmax = vmax if provided_bounds else 0.0
+                if provided_bounds and vmax is None:
+                    norm_vmax = 0.0
+                norm = Normalize(vmin=norm_vmin, vmax=norm_vmax)
             else:
                 print("All positives route (continuous)")
-                cmap_obj = _truncate_colormap(cmap, 0.5, 1.0)
-                norm = Normalize(vmin=0, vmax=vmax)
+                if truncate_one_sided:
+                    cmap_obj = _truncate_colormap(cmap, 0.5, 1.0)
+                else:
+                    cmap_obj = plt.get_cmap(cmap)
+                norm_vmin = vmin if provided_bounds else 0.0
+                if provided_bounds and vmin is None:
+                    norm_vmin = 0.0
+                norm_vmax = vmax if (vmax is not None) else 0.0
+                norm = Normalize(vmin=norm_vmin, vmax=norm_vmax)
 
     # 4) Start figure/axes
     fig, ax = plt.subplots(figsize=figsize)
@@ -449,11 +482,15 @@ def plot_raster_on_world_extremes_cutoff(
     max_val: Optional[float] = None,
     eliminate_zeros: bool = False,
     diverg0: Optional[bool] = None,
+    truncate_one_sided: bool = False,
 ):
     """
     Load raster, clip extremes, and plot in its native projection.
     - Correctly handles nodata (e.g. -32000) by masking to NaN.
     - Reprojects base_shp (assumed EPSG:4326 or anything else) to raster CRS automatically.
+    - When ``truncate_one_sided`` is ``True``, one-sided data uses the
+      corresponding half of the colormap. When ``False`` (default), the full
+      colormap is used while honoring divergence-centered normalization bounds.
     """
 
     if base_shp is None:
@@ -503,7 +540,8 @@ def plot_raster_on_world_extremes_cutoff(
         vmin=vmin,
         vmax=vmax,
         raster_crs=raster_crs,
-        plt_show=plt_show
+        plt_show=plt_show,
+        truncate_one_sided=truncate_one_sided,
     )
 
     if not plt_show:
