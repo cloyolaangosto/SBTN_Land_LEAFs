@@ -275,6 +275,7 @@ def _create_plt_choropleth(
     base_shp=None,
     vmin: Optional[float] = None,
     vmax: Optional[float] = None,
+    divergence_center: Optional[float] = None,
     raster_crs=None,
     plt_show: bool = True
 ):
@@ -314,6 +315,8 @@ def _create_plt_choropleth(
     )
 
     # 3) Build color normalization
+    divergence_midpoint = 0.0 if divergence_center is None else float(divergence_center)
+
     if is_categorical:
         # Discrete categories
         if len(unique_vals) > 1:
@@ -350,27 +353,51 @@ def _create_plt_choropleth(
 
             elif len(pos) == 0:
                 print("All negatives route (quantiles)")
-                cmap_obj = _truncate_colormap(cmap, 0.0, 0.5, n=quantiles)
-                norm = Normalize(vmin=vmin, vmax=0)
+                center_frac = (
+                    0.5
+                    if vmin == vmax
+                    else (divergence_midpoint - vmin) / (vmax - vmin)
+                )
+                center_frac = float(np.clip(center_frac, 0.0, 1.0))
+                cmap_obj = _truncate_colormap(cmap, 0.0, center_frac, n=quantiles)
+                norm = Normalize(vmin=vmin, vmax=divergence_midpoint)
 
             else:
                 print("All positives route (quantiles)")
-                cmap_obj = _truncate_colormap(cmap, 0.5, 1.0, n=quantiles)
-                norm = Normalize(vmin=0, vmax=vmax)
+                center_frac = (
+                    0.5
+                    if vmin == vmax
+                    else (divergence_midpoint - vmin) / (vmax - vmin)
+                )
+                center_frac = float(np.clip(center_frac, 0.0, 1.0))
+                cmap_obj = _truncate_colormap(cmap, center_frac, 1.0, n=quantiles)
+                norm = Normalize(vmin=divergence_midpoint, vmax=vmax)
         else:
             print("Not using quantiles")
             if (len(pos) > 0) and (len(neg) > 0):
                 print("2-sided route (continuous)")
                 cmap_obj = _truncate_colormap(cmap, 0.0, 1.0)
-                norm = TwoSlopeNorm(vmin=vmin, vcenter=0, vmax=vmax)
+                norm = TwoSlopeNorm(vmin=vmin, vcenter=divergence_midpoint, vmax=vmax)
             elif len(pos) == 0:
                 print("All negatives route (continuous)")
-                cmap_obj = _truncate_colormap(cmap, 0.0, 0.5)
-                norm = Normalize(vmin=vmin, vmax=0)
+                center_frac = (
+                    0.5
+                    if vmin == vmax
+                    else (divergence_midpoint - vmin) / (vmax - vmin)
+                )
+                center_frac = float(np.clip(center_frac, 0.0, 1.0))
+                cmap_obj = _truncate_colormap(cmap, 0.0, center_frac)
+                norm = Normalize(vmin=vmin, vmax=divergence_midpoint)
             else:
                 print("All positives route (continuous)")
-                cmap_obj = _truncate_colormap(cmap, 0.5, 1.0)
-                norm = Normalize(vmin=0, vmax=vmax)
+                center_frac = (
+                    0.5
+                    if vmin == vmax
+                    else (divergence_midpoint - vmin) / (vmax - vmin)
+                )
+                center_frac = float(np.clip(center_frac, 0.0, 1.0))
+                cmap_obj = _truncate_colormap(cmap, center_frac, 1.0)
+                norm = Normalize(vmin=divergence_midpoint, vmax=vmax)
 
     # 4) Start figure/axes
     fig, ax = plt.subplots(figsize=figsize)
@@ -454,6 +481,7 @@ def plot_raster_on_world_extremes_cutoff(
     Load raster, clip extremes, and plot in its native projection.
     - Correctly handles nodata (e.g. -32000) by masking to NaN.
     - Reprojects base_shp (assumed EPSG:4326 or anything else) to raster CRS automatically.
+    - ``divergence_center`` sets the color midpoint even when values are all positive or all negative.
     """
 
     if base_shp is None:
@@ -502,6 +530,7 @@ def plot_raster_on_world_extremes_cutoff(
         base_shp=base_shp,
         vmin=vmin,
         vmax=vmax,
+        divergence_center=resolved_divergence,
         raster_crs=raster_crs,
         plt_show=plt_show
     )
