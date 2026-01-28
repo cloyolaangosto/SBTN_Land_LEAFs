@@ -201,12 +201,12 @@ from .map_calculations import (
     subtract_rasters_union,
 )
 from .map_plotting import (
-    calculate_map_center,
-    determine_range_color,
+    _calculate_map_center,
+    _determine_range_color,
     downsample_raster,
     extract_raster_values_from_tif,
-    filter_by_country,
-    format_hover_data,
+    _filter_by_country,
+    _format_hover_data,
     get_raster_band_count,
     inspect_raster,
     plot_all_raster_bands,
@@ -224,7 +224,7 @@ from .map_plotting import (
     plot_static_shapefile_on_world,
     plotly_shapefile_categorical,
     plotly_shapefile_continuous,
-    preprocess_gdf,
+    _preprocess_gdf,
 )
 
 

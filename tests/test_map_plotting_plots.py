@@ -122,7 +122,7 @@ def test_plot_da_wrapper_respects_diverg0(tmp_path):
     fig, ax = plot_da_on_world_extremes_cutoff(
         da,
         "Test",
-        alpha=0,
+        perc_cutoff=0,
         quantiles=5,
         diverg0=True,
         base_shp=gpd.GeoDataFrame(),

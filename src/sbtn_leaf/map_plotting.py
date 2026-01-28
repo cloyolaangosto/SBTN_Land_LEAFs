@@ -579,7 +579,7 @@ def plot_da_on_world_extremes_cutoff(
     title: str,
     label_title: str = 'Raster Values',
     band: Optional[int] = None,
-    alpha: float = 1.0,
+    perc_cutoff: float = 1.0,
     p_min: Optional[float] = None,
     p_max: Optional[float] = None,
     quantiles: Optional[int] = None,
@@ -599,7 +599,7 @@ def plot_da_on_world_extremes_cutoff(
         title,
         label_title=label_title,
         band=band,
-        perc_cutoff=alpha,
+        perc_cutoff=perc_cutoff,
         p_min=p_min,
         p_max=p_max,
         quantiles=quantiles,
@@ -810,253 +810,6 @@ def plot_static_shapefile_on_world(shapefile, color_variable_name: str,title="Sh
     ax.grid(True, linestyle="--", alpha=0.5)
 
     plt.show()
-
-
-def plotly_shapefile_continuous(shapefile, category_column, title=None, subtitle=None, legend_title=None, country_zoom=None, log_scale=False, n_quantile=None, color_palette='Viridis', min_color_value=None, max_color_value=None):
-    """
-    Plots a shapefile using Plotly, showing only data for a specific country based on spatial location.
-    
-    Parameters:
-        shapefile (GeoDataFrame): The shapefile or GeoJSON to be plotted.
-        category_column (str): Column with continuous values for coloring.
-        title (str, optional): Title of the plot.
-        subtitle (str, optional): Subtitle of the plot.
-        legend_title (str, optional): Title of the legend (colorbar).
-        country_zoom (str, optional): Name of the country to zoom into.
-        log_scale (bool, optional): If True, apply a log10 transformation to the data.
-        n_quantile (int, optional): Number of quantiles to bin the data into (for discrete coloring).
-        color_palette (str, optional): Color scale to use (default is 'Viridis').
-        min_color_value (float, optional): Manual minimum value for the color scale.
-        max_color_value (float, optional): Manual maximum value for the color scale.
-    
-    Returns:
-        None: Displays the interactive map.
-    """
-    # Loading shapefile
-    gdf = shapefile
-
-    # Ensure geometries are valid
-    gdf = gdf[gdf.geometry.notnull()]
-
-    # Check if category_column is in the shapefile
-    if category_column not in gdf.columns:
-        print('Variable to plot is not in shapefile.')
-        return
-
-    # Load country boundaries (default to Natural Earth dataset if not provided)
-    # if country_boundaries is not None:
-    #     world = gpd.read_file(country_boundaries)
-
-    # Ensure CRS compatibility
-    print('Ensuring same projection is used')
-    gdf = gdf.to_crs("EPSG:4326")
-    world = _get_world_map().to_crs("EPSG:4326")
-
-    # Ensure only one transformation is applied.
-    if log_scale and n_quantile is not None:
-        raise ValueError("Please choose either log_scale or n_quantiles, not both.")
-
-
-    # Apply log-scale transformation if requested
-    if log_scale:
-        print('Transforming into log10')
-        # Calculate a small offset to avoid issues with zeros/negatives
-        gdf_min = abs(np.min(gdf[category_column]))
-        gdf[category_column] = np.log10(gdf[category_column] + gdf_min / 100)
-
-
-    # Apply quantile binning if requested (only if not using log_scale)
-    if n_quantile is not None and not log_scale:
-        print(f'Using {n_quantile} quantiles')
-        gdf['quantile_bins'], q_bins = pd.qcut(gdf[category_column], q=n_quantile, labels=False, retbins=True)
-
-
-    # Filter for a specific country if country_zoom is provided
-    if country_zoom:
-        print("Filtering geometries by country")
-        country_gdf = world[world["NAME_EN"] == country_zoom]
-        if country_gdf.empty:
-            raise ValueError(f"Country '{country_zoom}' not found in the boundaries dataset.")
-        # Spatial join to filter geometries within the specified country
-        filtered_gdf = gpd.sjoin(gdf, country_gdf, how="inner", predicate="intersects")
-        if filtered_gdf.empty:
-            raise ValueError(f"No geometries found in the shapefile within country '{country_zoom}'.")
-    else:
-        filtered_gdf = gdf
-
-    # Convert the filtered GeoDataFrame to GeoJSON format
-    print('Converting to geojson')
-    geojson_data = filtered_gdf.__geo_interface__
-
-    # Format values in scientific notation for hover data
-    print('Formatting values')
-    if category_column in filtered_gdf.columns:
-        formated_value_name = 'formated_' + category_column
-        if np.nanmedian(filtered_gdf[category_column]) < 1e-2:
-            filtered_gdf[formated_value_name] = filtered_gdf[category_column].apply(lambda x: f"{x:.2e}")
-        else:
-            filtered_gdf[formated_value_name] = filtered_gdf[category_column].apply(lambda x: f"{x:.2f}")
-        hover_data = {formated_value_name: True}
-    else:
-        hover_data = {}
-
-    # Adding ecoregions to the hover data if present
-    if 'ECO_NAME' in filtered_gdf.columns:
-        hover_data['ECO_NAME'] = True
-
-    # Set default title if not provided
-    if not title and country_zoom:
-        title = f"{category_column}"
-        if country_zoom:
-            title = f"{category_column} data for {country_zoom}"
-
-    # Determine the range_color parameter for continuous data (only if n_quantile is not used)
-    if n_quantile is None:
-        if log_scale:
-            if min_color_value is not None and max_color_value is not None:
-                # Transform the provided min and max values to log-scale using the same offset
-                range_color = [np.log10(min_color_value + gdf_min / 100), 
-                               np.log10(max_color_value + gdf_min / 100)]
-            else:
-                range_color = None
-        else:
-            range_color = [min_color_value, max_color_value] if (min_color_value is not None and max_color_value is not None) else None
-    else:
-        range_color = None    
-
-    print('Plotting the choropleth map')
-    if n_quantile is None:
-        fig = px.choropleth_map(
-            filtered_gdf,
-            geojson=geojson_data,
-            locations=filtered_gdf.index,  # Plotly requires an identifier for geometries
-            color=category_column,
-            hover_data=hover_data,
-            opacity=0.6,
-            color_continuous_scale=color_palette,
-            range_color=range_color,  # Set the color range if provided
-            map_style="carto-positron",
-            title=title,
-            center={
-                "lat": 0,  # You can modify these values to recenter the map if needed
-                "lon": 0,
-            },
-            zoom=1,
-        )
-    else:
-        fig = px.choropleth_map(
-            filtered_gdf,
-            geojson=geojson_data,
-            locations=filtered_gdf.index,
-            color='quantile_bins',
-            hover_data=hover_data,
-            opacity=0.6,
-            color_continuous_scale=color_palette,
-            map_style="carto-positron",
-            title=title,
-            center={
-                "lat": 0,
-                "lon": 0,
-            },
-            zoom=1,
-        )
-        # If quantile binning is used, update the colorbar to show quantile break values.
-        if q_bins.shape[0] > 0:
-            # For each bin, show the midpoint as the tick label.
-            tickvals = list(range(n_quantile))
-            ticktext = [f"{(q_bins[i] + q_bins[i+1]) / 2:.2f}" for i in range(len(q_bins) - 1)]
-            fig.update_coloraxes(colorbar=dict(tickvals=tickvals, ticktext=ticktext))
-
-    # Add a subtitle as an annotation if provided
-    if n_quantile:
-        subtitle = f"Quantiles: {n_quantile}"
-
-    if subtitle:
-        fig.update_layout(
-            title=dict(
-                text=title,
-                subtitle=dict(
-                    text=subtitle,
-                    font=dict(
-                        color="gray",
-                        style = "italic",
-                        size = 16),
-                ),
-            )
-        )
-
-    # Update layout margins
-    fig.update_layout(margin={"r": 0, "t": 50, "l": 0, "b": 0})
-
-    # Update legend (colorbar) title if provided
-    if legend_title:
-        fig.update_coloraxes(colorbar_title=legend_title)
-
-    # Further number formatting in the colorbar ticks
-    if np.median(filtered_gdf[category_column]) < 1e-2 and n_quantile is None:
-        fig.update_coloraxes(colorbar_tickformat=".2e")  # Scientific notation
-    else:
-        fig.update_coloraxes(colorbar_tickformat=".2f")  # Two decimal places
-
-    fig.show()
-
-
-def plotly_shapefile_categorical(shapefile: gpd.GeoDataFrame, categorical_variable: str, title: str, calculate_center = False, in_notebook = False):
-    """
-    Create a categorical choropleth map using Plotly.
-
-    Parameters:
-    - shapefile (GeoDataFrame): GeoDataFrame containing polygons and categorical values.
-    - categorical_variable (str): Name of the column containing the categorical values.
-    - title (str): Title of the plot.
-    """
-
-    # Load the shapefile
-    if not shapefile.empty:
-        gdf = shapefile
-    else:
-        print('No shapefile entered')
-        return
-
-    # Ensure geometries are valid
-    gdf = gdf[gdf.geometry.notnull()]
-
-    # Check if category_column is in the shapefile
-    if categorical_variable not in gdf.columns:
-        print('Variable to plot is not in shapefile.')
-        return
-
-    # Ensure CRS compatibility
-    print('Ensuring same projection is used')
-    gdf = gdf.to_crs("EPSG:4326")
-    world = _get_world_map().to_crs("EPSG:4326")
-
-    print('Converting to geojson')
-    fig = px.choropleth_map(
-        gdf,
-        geojson=gdf.geometry.__geo_interface__,  # GeoJSON representation
-        locations=gdf.index,  # Unique identifier for each geometry
-        color=categorical_variable,  # Categorical column in your data
-        hover_name=categorical_variable,  # Display category in hover
-        center = calculate_map_center(gdf) if calculate_center else {"lat":0, "lon": 0},  # Center maps on the middle of all polygons
-        zoom = 0,  # Set the zoom level
-        # color_discrete_map='Set1',  # Assign specific colors to categories
-        title=title,  # Title of the plot
-        opacity=0.6,
-        map_style="carto-positron"  # Choose map style
-    )
-
-    # Update layout to remove the margin and adjust the map zoom
-    fig.update_layout(
-        margin={"r":0,"t":50,"l":0,"b":0}, 
-        geo=dict(showcoastlines=True, 
-                 coastlinecolor="Black")
-                 )
-    
-    if in_notebook:
-        return fig
-    else:
-        fig.show()
 
 
 def plot_raster_over_gdf(raster_path: str,
@@ -1309,7 +1062,7 @@ def plot_raster_over_gdf_showpolygonvalues(
 ### SHAPE PLOTLY FORMATTING ###
 ###############################
 # Helper function to compute map center
-def calculate_map_center(shapefile: gpd.GeoDataFrame):
+def _calculate_map_center(shapefile: gpd.GeoDataFrame):
     """
     Calculate the geometric center of a group of polygons in a GeoDataFrame.
 
@@ -1334,7 +1087,7 @@ def calculate_map_center(shapefile: gpd.GeoDataFrame):
     return center
 
 # Preprocess the GeoDataFrame: reproject, optionally apply log-scale transformation or quantile binning.
-def preprocess_gdf(gdf, category_column, log_scale=False, n_quantile=None):
+def _preprocess_gdf(gdf, category_column, log_scale=False, n_quantile=None):
     gdf = gdf.copy().to_crs("EPSG:4326")
     if log_scale:
         # Calculate an offset to avoid log issues with zeros/negatives
@@ -1352,7 +1105,7 @@ def preprocess_gdf(gdf, category_column, log_scale=False, n_quantile=None):
     return gdf
 
 # Filter the GeoDataFrame to a specific country (using a global boundaries dataset)
-def filter_by_country(gdf, world, country_zoom):
+def _filter_by_country(gdf, world, country_zoom):
     if country_zoom:
         country_gdf = world[world["NAME_EN"] == country_zoom]
         if country_gdf.empty:
@@ -1364,7 +1117,7 @@ def filter_by_country(gdf, world, country_zoom):
     return gdf
 
 # Format hover data to display the continuous variable in a friendly format.
-def format_hover_data(gdf, category_column):
+def _format_hover_data(gdf, category_column):
     hover_data = {}
     formatted_name = f'formatted_{category_column}'
     if np.nanmedian(gdf[category_column]) < 1e-2:
@@ -1377,7 +1130,7 @@ def format_hover_data(gdf, category_column):
     return hover_data
 
 # Determine the color range for continuous mapping
-def determine_range_color(gdf, category_column, log_scale, min_color_value, max_color_value):
+def _determine_range_color(gdf, category_column, log_scale, min_color_value, max_color_value):
     if log_scale:
         offset = abs(np.min(gdf[category_column])) / 100
         if min_color_value is not None and max_color_value is not None:
