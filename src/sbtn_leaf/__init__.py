@@ -222,8 +222,6 @@ from .map_plotting import (
     plot_raster_over_gdf_showpolygonvalues,
     plot_soc_distribution,
     plot_static_shapefile_on_world,
-    plotly_shapefile_categorical,
-    plotly_shapefile_continuous,
     _preprocess_gdf,
 )
 
