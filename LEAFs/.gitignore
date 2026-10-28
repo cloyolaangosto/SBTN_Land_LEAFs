@@ -14,3 +14,6 @@
 
 # ---- Specific files to ignore even if their type is allowed ----
 soil_erosion/soil_erosion_subcountry.csv
+# Archive folders (overrides the !*.csv / !*/ re-includes above)
+soil_erosion/archive/
+SOC/archive/

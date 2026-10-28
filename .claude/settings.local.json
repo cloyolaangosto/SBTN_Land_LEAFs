@@ -13,7 +13,9 @@
       "Bash(echo \"EXIT=$?\")",
       "Bash(cd \"c:/Users/loyola/OneDrive *)",
       "Bash(ls \"C:\\\\Users\\\\loyola\\\\.claude\\\\projects\\\\c--Users-loyola-OneDrive---World-Wildlife-Fund--Inc-Documents-203--Python-projects-SBTN-Test\\\\memory\")",
-      "Bash(cat \"C:\\\\Users\\\\loyola\\\\.claude\\\\projects\\\\c--Users-loyola-OneDrive---World-Wildlife-Fund--Inc-Documents-203--Python-projects-SBTN-Test\\\\memory\\\\MEMORY.md\")"
+      "Bash(cat \"C:\\\\Users\\\\loyola\\\\.claude\\\\projects\\\\c--Users-loyola-OneDrive---World-Wildlife-Fund--Inc-Documents-203--Python-projects-SBTN-Test\\\\memory\\\\MEMORY.md\")",
+      "Bash(git check-ignore *)",
+      "Bash(printf '\\\\n# Archive folders \\(overrides the !*.csv / !*/ re-includes above\\)\\\\nsoil_erosion/archive/\\\\nSOC/archive/\\\\n')"
     ]
   }
 }
