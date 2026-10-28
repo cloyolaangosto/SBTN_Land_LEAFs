@@ -26,6 +26,13 @@ There are different methods described in the papers. These are...
 
 Depending on data availability, the selected is...
 
+## Selected method
+### R layer
+
+### K Layer
+
+### L Layer
+
 # Incorporating precipitation changes into R layer
 
 # Incorporating Risk Hazards
