@@ -15,7 +15,12 @@
       "Bash(ls \"C:\\\\Users\\\\loyola\\\\.claude\\\\projects\\\\c--Users-loyola-OneDrive---World-Wildlife-Fund--Inc-Documents-203--Python-projects-SBTN-Test\\\\memory\")",
       "Bash(cat \"C:\\\\Users\\\\loyola\\\\.claude\\\\projects\\\\c--Users-loyola-OneDrive---World-Wildlife-Fund--Inc-Documents-203--Python-projects-SBTN-Test\\\\memory\\\\MEMORY.md\")",
       "Bash(git check-ignore *)",
-      "Bash(printf '\\\\n# Archive folders \\(overrides the !*.csv / !*/ re-includes above\\)\\\\nsoil_erosion/archive/\\\\nSOC/archive/\\\\n')"
+      "Bash(printf '\\\\n# Archive folders \\(overrides the !*.csv / !*/ re-includes above\\)\\\\nsoil_erosion/archive/\\\\nSOC/archive/\\\\n')",
+      "PowerShell($nb = Get-Content \"documentation\\\\SoilErosion_Baseline_LEAFs.ipynb\" -Raw | ConvertFrom-Json; $i=0; foreach \\($c in $nb.cells\\) { $src = \\($c.source -join ''\\); if \\($src.Length -gt 0\\) { \"---- [$i] $\\($c.cell_type\\)\"; $src.Substring\\(0, [Math]::Min\\(900, $src.Length\\)\\) }; $i++ })",
+      "PowerShell(Get-ChildItem data -Directory | Select-Object Name; \"-----\"; Get-ChildItem data -Recurse -File | Where-Object { $_.FullName -match '\\(?i\\)glosem|rusle|eros|rlsk|_R_|K_|LS|rain|precip|chelsa|worldclim|soilgrid|dem|srtm|merit|gloreda|hwsd|slope|clim' } | Select-Object @{n='Path';e={$_.FullName.Replace\\(\\(Get-Location\\).Path + '\\\\',''\\)}}, @{n='MB';e={[math]::Round\\($_.Length/1MB,1\\)}} | Format-Table -AutoSize | Out-String -Width 300)",
+      "PowerShell(Get-ChildItem data\\\\soil_erosion, data\\\\soil_weather -Recurse | Select-Object @{n='Path';e={$_.FullName.Replace\\(\\(Get-Location\\).Path + '\\\\',''\\)}}, @{n='MB';e={[math]::Round\\($_.Length/1MB,1\\)}} | Format-Table -AutoSize | Out-String -Width 300)",
+      "PowerShell($nb = Get-Content \"documentation\\\\SoilErosion_LEAFs_ReducedTillage.ipynb\" -Raw | ConvertFrom-Json; $i=0; foreach \\($c in $nb.cells\\) { $src = \\($c.source -join ''\\); if \\($c.cell_type -eq 'markdown' -and $src.Length -gt 0\\) { \"---- [$i]\"; $src.Substring\\(0, [Math]::Min\\(700, $src.Length\\)\\) }; $i++ })",
+      "WebSearch"
     ]
   }
 }
