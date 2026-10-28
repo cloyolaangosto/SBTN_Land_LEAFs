@@ -3,6 +3,11 @@
 data/*
 outputs/
 archives/
+
+#Archive files
+LEAFs/soil_erosion/archive/*
+LEAFs/SOC/archive/
+
 # Ignore the paper working folder, but keep the curated Claude analysis
 # (notebooks, scripts and lightweight CSV/PNG outputs) under version control.
 # The outputs/ re-include is needed because the global `outputs/` rule above
