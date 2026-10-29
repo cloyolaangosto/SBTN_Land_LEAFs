@@ -20,7 +20,9 @@
       "PowerShell(Get-ChildItem data -Directory | Select-Object Name; \"-----\"; Get-ChildItem data -Recurse -File | Where-Object { $_.FullName -match '\\(?i\\)glosem|rusle|eros|rlsk|_R_|K_|LS|rain|precip|chelsa|worldclim|soilgrid|dem|srtm|merit|gloreda|hwsd|slope|clim' } | Select-Object @{n='Path';e={$_.FullName.Replace\\(\\(Get-Location\\).Path + '\\\\',''\\)}}, @{n='MB';e={[math]::Round\\($_.Length/1MB,1\\)}} | Format-Table -AutoSize | Out-String -Width 300)",
       "PowerShell(Get-ChildItem data\\\\soil_erosion, data\\\\soil_weather -Recurse | Select-Object @{n='Path';e={$_.FullName.Replace\\(\\(Get-Location\\).Path + '\\\\',''\\)}}, @{n='MB';e={[math]::Round\\($_.Length/1MB,1\\)}} | Format-Table -AutoSize | Out-String -Width 300)",
       "PowerShell($nb = Get-Content \"documentation\\\\SoilErosion_LEAFs_ReducedTillage.ipynb\" -Raw | ConvertFrom-Json; $i=0; foreach \\($c in $nb.cells\\) { $src = \\($c.source -join ''\\); if \\($c.cell_type -eq 'markdown' -and $src.Length -gt 0\\) { \"---- [$i]\"; $src.Substring\\(0, [Math]::Min\\(700, $src.Length\\)\\) }; $i++ })",
-      "WebSearch"
+      "WebSearch",
+      "PowerShell($nb = Get-Content \"RUSLE\\\\notebooks\\\\R_Creation.ipynb\" -Raw | ConvertFrom-Json; $c = $nb.cells | Where-Object { $_.id -eq '932c306a' }; $c.execution_count; $c.outputs | ConvertTo-Json -Depth 5; Test-Path \"RUSLE\\\\notebooks\\\\Rfactor_Annual.tif\"; Get-ChildItem \"data\\\\soil_erosion\\\\GloREDa\" | Select-Object Name, Length; \\(Get-CimInstance Win32_ComputerSystem\\).TotalPhysicalMemory/1GB)",
+      "Bash(MPLBACKEND=Agg python -)"
     ]
   }
 }
