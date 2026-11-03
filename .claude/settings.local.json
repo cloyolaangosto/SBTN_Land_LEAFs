@@ -22,7 +22,19 @@
       "PowerShell($nb = Get-Content \"documentation\\\\SoilErosion_LEAFs_ReducedTillage.ipynb\" -Raw | ConvertFrom-Json; $i=0; foreach \\($c in $nb.cells\\) { $src = \\($c.source -join ''\\); if \\($c.cell_type -eq 'markdown' -and $src.Length -gt 0\\) { \"---- [$i]\"; $src.Substring\\(0, [Math]::Min\\(700, $src.Length\\)\\) }; $i++ })",
       "WebSearch",
       "PowerShell($nb = Get-Content \"RUSLE\\\\notebooks\\\\R_Creation.ipynb\" -Raw | ConvertFrom-Json; $c = $nb.cells | Where-Object { $_.id -eq '932c306a' }; $c.execution_count; $c.outputs | ConvertTo-Json -Depth 5; Test-Path \"RUSLE\\\\notebooks\\\\Rfactor_Annual.tif\"; Get-ChildItem \"data\\\\soil_erosion\\\\GloREDa\" | Select-Object Name, Length; \\(Get-CimInstance Win32_ComputerSystem\\).TotalPhysicalMemory/1GB)",
-      "Bash(MPLBACKEND=Agg python -)"
+      "Bash(MPLBACKEND=Agg python -)",
+      "WebFetch(domain:environmentalsystemsresearch.springeropen.com)",
+      "WebFetch(domain:esdac.jrc.ec.europa.eu)",
+      "WebFetch(domain:link.springer.com)",
+      "WebFetch(domain:edoc.unibas.ch)",
+      "WebFetch(domain:www.sciencedirect.com)",
+      "WebFetch(domain:onlinelibrary.wiley.com)",
+      "WebFetch(domain:www.researchgate.net)",
+      "Bash(time .venv/Scripts/python.exe -c ' *)",
+      "PowerShell(.venv\\\\Scripts\\\\python.exe -c \"import pypdf; r=pypdf.PdfReader\\(r'RUSLE\\\\papers\\\\USDA_RUSLE.pdf'\\); print\\(len\\(r.pages\\)\\); print\\(r.pages[0].extract_text\\(\\)[:1500]\\)\")",
+      "PowerShell(.venv\\\\Scripts\\\\python.exe -c \"import importlib.util as u; print\\([m for m in ['fitz','pdfplumber','pdfminer','PyPDF2'] if u.find_spec\\(m\\)]\\)\")",
+      "PowerShell(Get-Command pdftotext -ErrorAction SilentlyContinue)",
+      "Bash(.venv/Scripts/python.exe -c ' *)"
     ]
   }
 }

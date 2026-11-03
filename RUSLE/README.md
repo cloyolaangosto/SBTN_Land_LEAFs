@@ -71,6 +71,7 @@ These layers are constant. They can be calculated once and stored as GeoTIFFs, b
 |---|---|---|---|---|---|
 | K1 | **Wischmeier & Smith (1978) nomograph** + stone correction | Borrelli et al. 2022 (GloSEM; also current v1.1 layer) | $K=\frac{2.1\cdot10^{-4}M^{1.14}(12-OM)+3.25(s-2)+2.5(p-3)}{100}\cdot0.1317$, with $M=(\%silt+\%vfs)(100-\%clay)$; $K_{st}=K\cdot e^{-0.04(R_c-10)}$ for $R_c>10\%$ | Sand, silt, clay, OM, coarse fragments (SoilGrids); structure class $s$ and permeability class $p$ from texture-class lookups; very fine sand ($vfs$) estimated (not in SoilGrids) | Medium (lookups and a vfs assumption) |
 | K2 | **Williams / EPIC** (Sharpley & Williams 1990) | Pyne et al. 2026 | $K=[0.2+0.3e^{-0.0256Sd(1-St/100)}]\,[\frac{St}{Cy+St}]^{0.3}\,[1-\frac{0.25OC}{OC+e^{3.72-2.95OC}}]\,[1-\frac{0.7SN}{SN+e^{-5.51+22.9SN}}]\times0.1317$ | Sand, silt, clay, OC (SoilGrids) | **Low**, pure raster algebra |
+| K1b | **RUSLE2-K** (Renard & Dabney 2013) + optional global correction | Yang et al. 2024 | Nomograph with $M_{vfs}=(0.74-0.62\,sand/100)\,sand$ and a flattened texture term above 68% silt + vfs; corrected $K=2.1311K_{RUSLE2}-0.0359$ (144 measured sites, R² 0.64) | Same as K1; Yang take $s$ from a WRB soil-type map (lookup not published) | Low once K1 inputs exist (implemented: `rusle.k_factor_rusle2`, `rusle.build_k_rusle2`) |
 | K3 | **Renard et al. (1997) geometric mean diameter** | Fadl et al. 2025 | $K=0.0034+0.0405\exp[-0.5(\frac{\log D_g+1.659}{0.7101})^2]$ | Sand, silt, clay | Very low, but ignores OM and stones |
 
 ### Methods — LS (slope length and steepness)
@@ -107,11 +108,11 @@ Output files:
 2. Convert units:
    - OM % = 1.724 × SOC %, with SOC % = soc / 100.
    - Coarse fragments $R_c$ % = cfvo / 10.
-3. Classify the USDA texture class per pixel, then:
-   - **permeability $p$**: sand = 1; loamy sand, sandy loam = 2; loam, silt loam, silt = 3; sandy clay loam, clay loam = 4; silty clay loam, sandy clay = 5; silty clay, clay = 6 (Panagos et al. 2014 / USDA).
-   - **structure $s$**: lookup by texture and OM class, following Borrelli et al. 2017 SI / Panagos et al. 2014.
-   - **very fine sand**: estimated as a fixed fraction of sand. This assumption must be documented and tested for sensitivity. Note that the nomograph is valid for silt + vfs ≤ 70%.
-4. Compute $K$ (nomograph) and $K_{st}=K\cdot e^{-0.04(R_c-10)}$ (for $R_c>10\%$) at native resolution. Compute $K_{EPIC}$ in parallel.
+3. Classify the USDA texture class per pixel, then (see [papers_summary.md §4–5](papers/papers_summary.md); implemented in `rusle.build_structure_permeability_vfs`):
+   - **permeability $p$**: sand = 1; loamy sand, sandy loam = 2; loam, silt loam, silt = 3; sandy clay loam, clay loam = 4; silty clay loam, sandy clay = 5; silty clay, clay = 6 (Panagos et al. 2014, Table 2). Then **calibrate with coarse fragments** as Panagos did: $K_b = K_f(1-R_w)$ (Brakensiek et al. 1986), with $K_f$ the Rawls et al. (1982) conductivity of the texture class, and reclassify $p$ from $K_b$. This only makes $p$ slower. In the EU, it raised the dominant $p$ from 3 to 4 and K by ~15%.
+   - **structure $s$**: Panagos et al. took it from the ESDB, which is EU-only. GloSEM derives it from texture (Borrelli et al. 2017), but the table is not published. Default: a texture lookup (our assumption: sand, loamy sand 1; sandy loam, loam, silt loam, silt 2; sandy clay loam, clay loam, silty clay loam 3; sandy clay, silty clay, clay 4). Alternative: constant $s$ = 2 (AH 537 "fine granular topsoil"; the Panagos dominant value). Sensitivity is ~2.5% of K.
+   - **very fine sand**: 20% of total sand (Panagos et al. 2014; 33.3% gives +11% K).
+4. Compute $K$ (nomograph) with the Panagos caps: **silt ≤ 70%** (the nomograph is valid for silt + vfs ≤ 70%; Panagos capped silt at 70% and dropped > 80%), and **OM ≤ 4%**. Then compute $K_{st}=K\cdot e^{-0.04(R_c-10)}$ (for $R_c>10\%$) at native resolution. Panagos's $R_c$ is *surface* stone cover; SoilGrids `cfvo` is *subsurface* volume, so using it for $St$ is a proxy. Compute $K_{EPIC}$ in parallel.
 5. Aggregate both to 5′ by mean.
 
 Output files:
@@ -208,6 +209,8 @@ $$A_{p,y,s} = \underbrace{R_{base,p}\,\Delta_{p,s}}_{\text{scenario mean}}\cdot\
 | Stochastic R | ERA5-Land monthly and daily total precipitation (1950–present) | 0.1° | Copernicus CDS | To download |
 | Future hazards | CMIP6 ETCCDI indices (Rx5day, R95p) and/or daily precipitation; SPEI | 0.25°–1° | Copernicus CDS (CMIP6 climate extreme indices), CIL GDPCIR, SPEIbase | To download |
 | K | SoilGrids 2.0 `sand`, `silt`, `clay`, `soc`, `cfvo` at 0–5 / 5–15 / 15–30 cm | 250 m (or 1 km aggregated) | files.isric.org | To download (sand and clay 15–30 cm already on disk at 5′) |
+| K structure $s$ (Yang et al. 2024 route; optional) | SoilGrids 2.0 WRB most probable reference soil group (`wrb/MostProbable.vrt`), plus a WRB → $s$ lookup. Yang's lookup is not published: ask the authors, or build one from the ESDB pedotransfer rules (Van Ranst et al. 1995) via Panagos Table 1 | 250 m (aggregate by mode to the 1 km grid) | files.isric.org/soilgrids/latest/data/wrb/; ESDAC | Optional, replaces the texture lookup |
+| K validation | Yang et al. (2024) Table A.1, 144 measured-K sites (in the PDF appendix) | Points | `RUSLE/papers/` | To extract |
 | LS | MERIT DEM and MERIT Hydro (`upa`) | 3″ (~90 m) | U. Tokyo (free registration), or Google Earth Engine catalog | To download |
 | LS crop weights | ESA WorldCover 2021, or GloSEM 1.3 `ESA100_Cropland_fraction.tif` | 10–100 m | ESA / ESDAC | To download |
 | Drought C calibration | MODIS NDVI (MOD13A3 monthly) | 1 km | NASA LP DAAC / GEE | Optional |
@@ -226,13 +229,14 @@ $$A_{p,y,s} = \underbrace{R_{base,p}\,\Delta_{p,s}}_{\text{scenario mean}}\cdot\
 
 # Open questions / risks
 - **GloREDa licence:** "cannot be passed to third parties". Check whether derived 5′ R layers and LEAFs may be published.
-- **Very fine sand and structure lookups for K1:** if the Borrelli et al. (2017) SI approach cannot be reproduced, use K2 (EPIC) as primary.
+- **Structure lookup for K1:** vfs (20% of sand) and $p$ are now sourced from Panagos et al. (2014). $s$ is still our own texture lookup, because the Borrelli et al. (2017) table is not available. Choose between it and the constant $s$ = 2 by comparison with GloSEM v1.1 K. If K1 still disagrees strongly with GloSEM, use K2 (EPIC) as primary.
 - **LS slope-length cap:** LS is sensitive to $\lambda_{max}$. Choose the value by comparison with GloSEM v1.1 LS (and EU RUSLE2015 LS for Europe).
 - **The MFI ratio** captures monthly totals, not event intensity. The $h^R$ (Rx5day) term and its γ are the main stochastic assumptions and need sensitivity tests.
 - **Drought–cover coupling** ($h^C$) is a new extension of RUSLE practice. Report results with and without it.
 
 # References
 - Arnoldus, H.M.J. (1980). An approximation of the rainfall factor in the USLE. In *Assessment of Erosion*, Wiley.
+- Brakensiek, D.L., Rawls, W.J. & Stephenson, G.R. (1986). Determining the saturated hydraulic conductivity of a soil containing rock fragments. *Soil Sci. Soc. Am. J.* 50, 834–835.
 - Borrelli, P. et al. (2017). An assessment of the global impact of 21st century land use change on soil erosion. *Nat. Commun.* 8, 2013.
 - Borrelli, P. et al. (2022). GloSEM: High-resolution global estimates of present and future soil displacement in croplands by water erosion. *Sci. Data* 9, 406.
 - Desmet, P. & Govers, G. (1996). A GIS procedure for automatically calculating the USLE LS factor on topographically complex landscape units. *J. Soil Water Conserv.* 51, 427–433.
@@ -247,7 +251,10 @@ $$A_{p,y,s} = \underbrace{R_{base,p}\,\Delta_{p,s}}_{\text{scenario mean}}\cdot\
 - Panagos, P. et al. (2022). Global rainfall erosivity projections for 2050 and 2070. *J. Hydrol.* 610, 127865.
 - Panagos, P. et al. (2023). Global rainfall erosivity database (GloREDa) and monthly R-factor data at 1 km spatial resolution. *Data in Brief* 50, 109482.
 - Pyne, B. et al. (2026). Analyzing soil erosion trends and future predictions using the RUSLE model: Dwarakeswar River Basin, West Bengal. *ISWCR* 14, 100568.
+- Rawls, W.J., Brakensiek, D.L. & Saxton, K.E. (1982). Estimation of soil water properties. *Trans. ASAE* 25(5), 1316–1320.
 - Sharpley, A.N. & Williams, J.R. (1990). EPIC — Erosion/Productivity Impact Calculator. USDA Tech. Bull. 1768.
 - Van der Knijff, J.M., Jones, R.J.A. & Montanarella, L. (2000). *Soil erosion risk assessment in Europe.* EUR 19044 EN.
+- Renard, K.G. & Dabney, S.M. (2013). RUSLE2 soil erodibility (K) computation, as cited in Yang et al. (2024).
+- Yang, M., Yang, Q., Zhang, K., Pang, G. & Huang, C. (2024). Global soil erodibility factor (K) mapping and algorithm applicability analysis. *Catena* 239, 107943.
 - Wischmeier, W.H. & Smith, D.D. (1978). *Predicting rainfall erosion losses.* USDA Agriculture Handbook 537.
 - Zhang, H. et al. (2025). Assessing the impact of extreme climate events on European gross primary production. *Agric. For. Meteorol.* 362, 110374.
