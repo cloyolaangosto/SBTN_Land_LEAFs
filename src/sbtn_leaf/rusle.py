@@ -76,18 +76,22 @@ So for now, we're starting with K-EPIC, and then checking if we can estimate the
 """
 
 def calculate_K_Epic(output_fp_k_epic: str, output_fp_k_epic_corr, output_nd = np.nan, clay_fp_list = CLAY_LIST, silt_fp_list = SILT_LIST, sand_fp_list = SAND_LIST, soc_fp_list = SOC_LIST, raster_band = 1):
+    print('Running K EPIC calculations...')
+    
     # First, get all data opened and calculated weights
-    clay_w_data = _calculate_weighted_soil_layers(clay_fp_list)
-    silt_w_data = _calculate_weighted_soil_layers(silt_fp_list)
-    sand_w_data = _calculate_weighted_soil_layers(sand_fp_list)
-    soc_w_data = _calculate_weighted_soil_layers(soc_fp_list)
+    print('     Loading data')
+    clay_w_data = _calculate_weighted_soil_layers(clay_fp_list, nodata=output_nd)
+    silt_w_data = _calculate_weighted_soil_layers(silt_fp_list, nodata=output_nd)
+    sand_w_data = _calculate_weighted_soil_layers(sand_fp_list, nodata=output_nd)
+    soc_w_data = _calculate_weighted_soil_layers(soc_fp_list, nodata=output_nd)
 
     # Transforming units into %
-    clay = clay_w_data.soil_data * 10  # Transformation obtained from soilgrids FAQ page (https://docs.isric.org/globaldata/soilgrids/SoilGrids_faqs_01.html)
-    silt = silt_w_data.soil_data * 10
-    sand = sand_w_data.soil_data * 10
-    soc = soc_w_data.soil_data * 10 * 10
+    clay = clay_w_data.soil_data / 10  # Transformation obtained from soilgrids FAQ page (https://docs.isric.org/globaldata/soilgrids/SoilGrids_faqs_01.html)
+    silt = silt_w_data.soil_data / 10
+    sand = sand_w_data.soil_data / 10
+    soc = soc_w_data.soil_data / (10 * 10)
 
+    print('     Calculating K Epic')
     # Nodata value
     nd = clay_w_data.soil_nodata
 
@@ -115,44 +119,50 @@ def calculate_K_Epic(output_fp_k_epic: str, output_fp_k_epic_corr, output_nd = n
     # Finally multiplying everything for K Epic
     k_epic[valid] = alpha[valid] * beta[valid] * gamma[valid] * epsilon[valid]
 
-    # Transforming units
+    # Transforming units (Yang et al. 2024, eq. 11 includes the 0.1317 factor)
     k_epic[valid] = k_epic[valid] * 0.1317
 
-    # Applying Want et al 2024 correction
-    k_epic_corrected  = (1.8722 * k_epic[valid]) - 0.05
+    # Applying Yang et al 2024 correction (eq. 27, on K in SI units)
+    k_epic_corrected[valid] = (1.8722 * k_epic[valid]) - 0.05
 
     # Writing both files
+    print('     Writing...')
     output_meta = clay_w_data.soil_meta.copy()
     output_meta.update(dtype="float32", count=1, nodata=clay_w_data.soil_nodata, compress="lzw")
     
     with rasterio.open(output_fp_k_epic, "w", **output_meta) as dst:
         dst.write(k_epic.astype("float32"), 1)
+    print(f'     K EPIC saved into {output_fp_k_epic}')
 
     with rasterio.open(output_fp_k_epic_corr, "w", **output_meta) as dst:
         dst.write(k_epic_corrected.astype("float32"), 1)
+    print(f'     K EPIC corrected saved into {output_fp_k_epic_corr}')
 
-def _calculate_weighted_soil_layers(soil_data_fp_list, raster_band = 1) -> SoilGridsData:
+    print('All done!')
+
+
+def _calculate_weighted_soil_layers(soil_data_fp_list, raster_band = 1, nodata=np.nan) -> SoilGridsData:
     with (
         rasterio.open(soil_data_fp_list[0]) as src_data5,
         rasterio.open(soil_data_fp_list[1]) as src_data15,
         rasterio.open(soil_data_fp_list[2]) as src_data30,
     ):
-        data_5 = src_data5.read(raster_band)
-        meta_5 = src_data5.copy()         # Copy metadata for potential output.
+        data_5 = src_data5.read(raster_band, out_dtype="float32")
+        meta_5 = src_data5.meta.copy()         # Copy metadata for potential output.
         crs_5 = src_data5.crs             # Get the coordinate reference system of the first raster.
         transform_5 = src_data5.transform
         width_5 = src_data5.width
         height_5 = src_data5.height
         nodata_5 = src_data5.nodata
 
-        data_15 = src_data15.read(raster_band)
+        data_15 = src_data15.read(raster_band, out_dtype="float32")
         crs_15 = src_data15.crs             # Get the coordinate reference system of the first raster.
         transform_15 = src_data15.transform
         width_15 = src_data15.width
         height_15 = src_data15.height
         nodata_15 = src_data15.nodata
 
-        data_30 = src_data30.read(raster_band)
+        data_30 = src_data30.read(raster_band, out_dtype="float32")
         crs_30 = src_data30.crs             # Get the coordinate reference system of the first raster.
         transform_30 = src_data30.transform
         width_30 = src_data30.width
@@ -173,7 +183,7 @@ def _calculate_weighted_soil_layers(soil_data_fp_list, raster_band = 1) -> SoilG
             raise ValueError("One of the data sources has different crs")
 
         # initialize the output raster
-        output = np.zeros_like(data_5)
+        output = np.full(data_5.shape, nodata, dtype=np.float32)
 
         # get where data is valid
         valid_5 = (data_5 != nodata_5) & ~np.isnan(data_5)
@@ -182,7 +192,8 @@ def _calculate_weighted_soil_layers(soil_data_fp_list, raster_band = 1) -> SoilG
         valid = (valid_5 & valid_15 & valid_30)
 
         # Fill output
-        output = np.where(valid, (5*data_5 + 10*data_15 + 15*data_15)/30, nodata_5)
+        output[valid] = (5*data_5[valid] + 10*data_15[valid] + 15*data_30[valid]) / 30
+
 
         return SoilGridsData(
             soil_data=output, 
@@ -191,5 +202,5 @@ def _calculate_weighted_soil_layers(soil_data_fp_list, raster_band = 1) -> SoilG
             soil_transform=transform_5, 
             soil_width=width_5, 
             soil_height=height_5, 
-            soil_nodata=nodata_5
+            soil_nodata=nodata
         )
