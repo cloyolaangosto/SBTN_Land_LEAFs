@@ -11,7 +11,7 @@ Here, R, K, and L parameters are implemented.
 # SETUP
 ## Module imports
 from pathlib import Path
-from typing import Dict, Optional, Sequence, Union
+from typing import Any, Dict, Optional, Sequence, Union
 from dataclasses import dataclass
 
 import numpy as np
@@ -59,7 +59,7 @@ class SoilGridsData:
     Soil Grids data layers outputs
     """
     soil_data: np.ndarray
-    soil_meta: Dict[str, object]
+    soil_meta: Dict[str, Any]
     soil_crs: CRS 
     soil_transform: Affine
     soil_width: int
