@@ -408,7 +408,7 @@ def _determine_usda_class_number_permeability(sand: np.ndarray, silt: np.ndarray
 
     # Categorizing every pixel according to USDA texture triangle
     # Order matters: np.select takes the first matching condition
-    conditions = [
+    conditions_permeability = [
         (sand >= 85) & ((silt + 1.5*clay)<15),                                                          # Sand
         ((silt + 1.5*clay)>=15) & ((silt + 2*clay)<30),                                                 # Loamy sand
         ((clay >= 7) & (clay < 20) & (sand > 52) & ((silt + 2*clay) >= 30)) | ((clay < 7) & (silt < 50) & ((silt + 2*clay) >= 30)),     # Sandy loam
@@ -423,7 +423,7 @@ def _determine_usda_class_number_permeability(sand: np.ndarray, silt: np.ndarray
         (clay >=40) & (silt < 40) & (sand <=45),                                                        # Clay 
     ]
 
-    texture = np.select(conditions, list(USDA_TEXTURE_CLASSES), default=0).astype(np.uint8)
+    texture = np.select(conditions_permeability, list(USDA_TEXTURE_CLASSES), default=0).astype(np.uint8)
     texture[~valid] = 0
 
     # Lookups by texture code (index 0 maps to 0, so nodata stays 0)
