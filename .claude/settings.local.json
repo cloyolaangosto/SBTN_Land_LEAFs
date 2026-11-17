@@ -34,7 +34,8 @@
       "PowerShell(.venv\\\\Scripts\\\\python.exe -c \"import pypdf; r=pypdf.PdfReader\\(r'RUSLE\\\\papers\\\\USDA_RUSLE.pdf'\\); print\\(len\\(r.pages\\)\\); print\\(r.pages[0].extract_text\\(\\)[:1500]\\)\")",
       "PowerShell(.venv\\\\Scripts\\\\python.exe -c \"import importlib.util as u; print\\([m for m in ['fitz','pdfplumber','pdfminer','PyPDF2'] if u.find_spec\\(m\\)]\\)\")",
       "PowerShell(Get-Command pdftotext -ErrorAction SilentlyContinue)",
-      "Bash(.venv/Scripts/python.exe -c ' *)"
+      "Bash(.venv/Scripts/python.exe -c ' *)",
+      "PowerShell(python \"C:\\\\Users\\\\loyola\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\406adf2b9db4e96a\\\\152d872a-eda1-4470-b037-674c27233dd8\\\\scratchpad\\\\add_k_cmp.py\" K_LS_Creation.ipynb)"
     ]
   }
 }
