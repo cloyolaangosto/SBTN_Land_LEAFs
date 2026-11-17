@@ -35,7 +35,11 @@
       "PowerShell(.venv\\\\Scripts\\\\python.exe -c \"import importlib.util as u; print\\([m for m in ['fitz','pdfplumber','pdfminer','PyPDF2'] if u.find_spec\\(m\\)]\\)\")",
       "PowerShell(Get-Command pdftotext -ErrorAction SilentlyContinue)",
       "Bash(.venv/Scripts/python.exe -c ' *)",
-      "PowerShell(python \"C:\\\\Users\\\\loyola\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\406adf2b9db4e96a\\\\152d872a-eda1-4470-b037-674c27233dd8\\\\scratchpad\\\\add_k_cmp.py\" K_LS_Creation.ipynb)"
+      "PowerShell(python \"C:\\\\Users\\\\loyola\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\406adf2b9db4e96a\\\\152d872a-eda1-4470-b037-674c27233dd8\\\\scratchpad\\\\add_k_cmp.py\" K_LS_Creation.ipynb)",
+      "Bash(cd \"/c/Users/loyola/OneDrive - World Wildlife Fund, Inc/Documents/203. Python projects/SBTN_Test\" && cp src/sbtn_leaf/rusle.py src/sbtn_leaf/rusle_hwsd2.py && grep -n -E \"HWSD|hwsd|ESDB|FAO90|sqlite3|pd\\\\.|import pandas|Resampling|reproject|project_path|RUSLE_OUTPUT_DIR|PERMEABILITY_VERY_SLOW|_read_on_grid|structure_method|^def |^####|^\\\\\"\\\\\"\\\\\"\" src/sbtn_leaf/rusle.py | cut -c1-150)",
+      "Bash(echo \"remaining hits: $?\")",
+      "Bash(python -m pyflakes src/sbtn_leaf/rusle.py)",
+      "Bash(python -m pytest tests/test_rusle_fao_texture.py tests/test_rusle_hwsd2.py tests/test_import.py -q -p no:cacheprovider)"
     ]
   }
 }
