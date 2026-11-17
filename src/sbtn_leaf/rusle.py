@@ -113,6 +113,27 @@ NUMBER_BY_TEXTURE = np.array(
     [0] + [_NUMBER_BY_NAME[USDA_TEXTURE_CLASSES[i]] for i in range(1, 13)], dtype=np.uint8
 )
 
+# FAO texture classes used in the European Soil Database (Jones, Spoor & Thomasson 2003, Table 1). 0 = nodata
+FAO_TEXTURE_CLASSES: Dict[int, str] = {
+    1: "coarse",        # clay < 18% and sand > 65%
+    2: "medium",        # clay < 35% and sand > 15%; clay >= 18% if sand > 65%
+    3: "medium fine",   # clay < 35% and sand < 15%
+    4: "fine",          # clay 35-60%
+    5: "very fine",     # clay > 60%
+}
+# Nomograph structure class s by FAO texture class. ASSUMPTION: Jones et al. (2003) give no s values. The mapping
+# follows their text: coarse soils have single grain or granular structure, texture classes 1-3 have weak structure,
+# and fine and very fine soils have strong, coarse angular blocky and prismatic structure (pp. 136-137).
+# s: 1 very fine granular, 2 fine granular, 3 medium or coarse granular, 4 blocky, platy or massive
+STRUCTURE_BY_FAO_TEXTURE: Dict[int, int] = {
+    1: 1,   # coarse -> very fine granular
+    2: 2,   # medium -> fine granular
+    3: 2,   # medium fine -> fine granular
+    4: 4,   # fine -> blocky
+    5: 4,   # very fine -> blocky
+}
+STRUCTURE_BY_FAO_TEXTURE_LUT = np.array([0] + [STRUCTURE_BY_FAO_TEXTURE[i] for i in range(1, 6)], dtype=np.uint8)
+
 ## HWSD v2.0 data, used for the soil structure class (s) and the profile permeability class (p)
 # Harmonized World Soil Database v2.0 (FAO & IIASA 2023, https://doi.org/10.4060/cc3823en). Licence: CC BY-NC-SA 3.0 IGO
 HWSD2_RASTER_FP = data_path("soil_weather", "HWSD_2", "HWSD2.tif")      # 30 arc-second grid of soil mapping unit (SMU) ids
@@ -120,6 +141,7 @@ HWSD2_DB_FP = data_path("soil_weather", "HWSD_2", "HWSD2.sqlite")       # soils 
 HWSD2_NODATA = 65535
 RUSLE_OUTPUT_DIR = project_path("RUSLE", "outputs")
 HWSD2_SMU_GRID_FP = RUSLE_OUTPUT_DIR / "hwsd2_smu_1km.tif"              # SMU ids on the SoilGrids 1 km grid
+HWSD2_S_CULTIVATED_FP = RUSLE_OUTPUT_DIR / "hwsd2_s_cultivated.tif"     # s from calculate_s_HWSD2, cultivated land
 
 # FAO-90 major soil groups (first two letters of the HWSD v2 FAO90 code). Any other code is not a soil
 # (water, glaciers, rock outcrops, dunes, salt flats, urban land, no data) and gets no s or p
@@ -274,8 +296,17 @@ def calculate_K_Epic(output_fp_k_epic: str, output_fp_k_epic_corr, output_nd = n
 
     print('All done!')
 
-def calculate_K_RUSLE_2(output_fp_k: str, output_nd = np.nan, clay_fp_list = CLAY_LIST, silt_fp_list = SILT_LIST, sand_fp_list = SAND_LIST, soc_fp_list = SOC_LIST, raster_band = 1):
-    print("Calculating global K RUSLE2")
+def calculate_K_RUSLE_2(output_fp_k: str, output_nd = np.nan, clay_fp_list = CLAY_LIST, silt_fp_list = SILT_LIST, sand_fp_list = SAND_LIST, soc_fp_list = SOC_LIST, raster_band = 1, structure_method: str = "texture", s_hwsd_fp: PathLike = HWSD2_S_CULTIVATED_FP):
+    """RUSLE2 K factor (Yang et al. 2024, Eqs. 3-10) on the SoilGrids 1 km grid, in t ha h ha-1 MJ-1 mm-1.
+
+    structure_method chooses the source of the structure class s:
+        "texture": FAO texture class of the SoilGrids texture (Jones et al. 2003, Table 1; STRUCTURE_BY_FAO_TEXTURE)
+        "hwsd": HWSD v2 soil names with the ESDB topsoil structure rule (raster from calculate_s_HWSD2, read from
+                s_hwsd_fp). Pixels where HWSD v2 has no soil (rock, dunes, urban, water) fall back to the texture s
+    """
+    if structure_method not in ("texture", "hwsd"):
+        raise ValueError(f"structure_method must be 'texture' or 'hwsd', got '{structure_method}'")
+    print(f"Calculating global K RUSLE2 (structure class from {structure_method})")
     
     # Loading rasters
     clay, silt, sand, soc, soil_nd, soil_meta = _load_soil_data_as_percentage(clay_fp_list, silt_fp_list, sand_fp_list, soc_fp_list , raster_band, output_nd)
@@ -290,10 +321,14 @@ def calculate_K_RUSLE_2(output_fp_k: str, output_nd = np.nan, clay_fp_list = CLA
     sand, silt, clay, valid_norm = _normalize_sand_silt_clay(sand, silt, clay)
     valid &= valid_norm
 
-    # Texture number (used as structure proxy) and permeability class.
+    # Structure class s (from the FAO texture class, Jones et al. 2003 Table 1) and permeability class.
     # Cast from uint8 to float before subtracting, otherwise negative results wrap around.
     (texture, s, p) = _determine_usda_class_number_permeability(sand, silt, clay)
     valid &= texture > 0  # pixels that fall in no USDA texture class
+    if structure_method == "hwsd":
+        s_hwsd = _read_on_grid(s_hwsd_fp, soil_meta)
+        print(f"     HWSD v2 s used on {((s_hwsd > 0) & valid).sum() / max(valid.sum(), 1):.1%} of pixels, texture s on the rest")
+        s = np.where(s_hwsd > 0, s_hwsd, s)
     s = s.astype(np.float32)
     p = p.astype(np.float32)
 
@@ -333,6 +368,16 @@ def calculate_K_RUSLE_2(output_fp_k: str, output_nd = np.nan, clay_fp_list = CLA
     with rasterio.open(output_fp_k, "w", **output_meta) as dst:
         dst.write(K.astype("float32"), 1)
     print(f'     K RUSLE2 saved into {output_fp_k}')
+
+def _read_on_grid(fp: PathLike, grid_meta: Dict[str, Any], band: int = 1) -> np.ndarray:
+    """Reads a raster that must be on the same grid (CRS, transform, size) as grid_meta."""
+    with rasterio.open(fp) as src:
+        same_grid = (src.crs == grid_meta["crs"] and src.transform == grid_meta["transform"]
+                     and src.width == grid_meta["width"] and src.height == grid_meta["height"])
+        if not same_grid:
+            raise ValueError(f"{fp} is not on the SoilGrids grid. Recreate it with calculate_s_HWSD2")
+        return src.read(band)
+
 
 def _load_soil_data_as_percentage(clay_fp_list = CLAY_LIST, silt_fp_list = SILT_LIST, sand_fp_list = SAND_LIST, soc_fp_list = SOC_LIST, raster_band = 1, output_nd = np.nan):
     print('     Loading data')
@@ -442,7 +487,8 @@ def _transform_soil_units(clay: np.ndarray, silt: np.ndarray, sand: np.ndarray, 
 
 def _determine_usda_class_number_permeability(sand: np.ndarray, silt: np.ndarray, clay: np.ndarray):
     """Implementing USDA triangle from here: https://harvestmath.com/calculators/soil-type-calculator/.
-    Classifies soil as one of the USDA texture classes, and assigns number and permeability class
+    Classifies soil as one of the USDA texture classes and assigns the permeability class. The structure class s
+    comes from the FAO texture class of Jones, Spoor & Thomasson (2003, Table 1), see STRUCTURE_BY_FAO_TEXTURE.
 
     Args:
         sand (np.ndarray): Percentage of sand in the soil
@@ -452,7 +498,7 @@ def _determine_usda_class_number_permeability(sand: np.ndarray, silt: np.ndarray
     Returns:
         tuple of 3 uint8 arrays (0 = nodata):
             texture: USDA texture code (keys of USDA_TEXTURE_CLASSES)
-            texture_number: texture number (keys of NUMBER_TEXTURE_CLASSES)
+            structure_class: nomograph structure class s 1-4 (values of STRUCTURE_BY_FAO_TEXTURE)
             permeability_class: permeability class 1-6 (values of PERMEABILITY_CLASSES)
     """
     # Normalizing first the content of soils
@@ -479,10 +525,50 @@ def _determine_usda_class_number_permeability(sand: np.ndarray, silt: np.ndarray
     texture[~valid] = 0
 
     # Lookups by texture code (index 0 maps to 0, so nodata stays 0)
-    texture_number = NUMBER_BY_TEXTURE[texture]
     permeability_class = PERMEABILITY_BY_TEXTURE[texture]
 
-    return (texture, texture_number, permeability_class)
+    # Structure class from the FAO texture class
+    fao_texture = _determine_fao_texture_class(sand, clay, valid)
+    structure_class = STRUCTURE_BY_FAO_TEXTURE_LUT[fao_texture]
+    structure_class[texture == 0] = 0
+
+    return (texture, structure_class, permeability_class)
+
+
+def _determine_fao_texture_class(sand: np.ndarray, clay: np.ndarray, valid: Optional[np.ndarray] = None) -> np.ndarray:
+    """FAO texture class of the European Soil Database (Jones, Spoor & Thomasson 2003, Table 1).
+
+    1 coarse: clay < 18% and sand > 65%
+    2 medium: clay < 35% and sand > 15%, or clay >= 18% if sand > 65%
+    3 medium fine: clay < 35% and sand < 15%
+    4 fine: clay 35-60%
+    5 very fine: clay > 60%
+
+    Args:
+        sand (np.ndarray): Percentage of sand, normalized so sand + silt + clay = 100
+        clay (np.ndarray): Percentage of clay, normalized so sand + silt + clay = 100
+        valid (np.ndarray, optional): Pixels with data. Others get 0
+
+    Returns:
+        np.ndarray: uint8 FAO texture code (keys of FAO_TEXTURE_CLASSES), 0 = nodata
+    """
+    sand = np.asarray(sand, dtype=np.float32)
+    clay = np.asarray(clay, dtype=np.float32)
+
+    # Order matters: np.select takes the first matching condition
+    conditions = [
+        clay > 60,                      # Very fine
+        clay >= 35,                     # Fine
+        (clay < 18) & (sand > 65),      # Coarse
+        sand < 15,                      # Medium fine (clay < 35 from here on)
+        np.isfinite(sand),              # Medium: everything else with clay < 35
+    ]
+    fao_texture = np.select(conditions, [5, 4, 1, 3, 2], default=0).astype(np.uint8)
+
+    if valid is not None:
+        fao_texture[~valid] = 0
+    fao_texture[~(np.isfinite(sand) & np.isfinite(clay))] = 0
+    return fao_texture
 
 
 def _normalize_sand_silt_clay(sand: np.ndarray, silt: np.ndarray, clay: np.ndarray):
