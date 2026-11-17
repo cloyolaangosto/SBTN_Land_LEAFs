@@ -118,16 +118,13 @@ FAO_TEXTURE_CLASSES: Dict[int, str] = {
     4: "fine",          # clay 35-60%
     5: "very fine",     # clay > 60%
 }
-# Nomograph structure class s by FAO texture class. ASSUMPTION: Jones et al. (2003) give no s values. The mapping
-# follows their text: coarse soils have single grain or granular structure, texture classes 1-3 have weak structure,
-# and fine and very fine soils have strong, coarse angular blocky and prismatic structure (pp. 136-137).
-# s: 1 very fine granular, 2 fine granular, 3 medium or coarse granular, 4 blocky, platy or massive
+# Structure class proposed by Panagos 2014
 STRUCTURE_BY_FAO_TEXTURE: Dict[int, int] = {
-    1: 1,   # coarse -> very fine granular
-    2: 2,   # medium -> fine granular
-    3: 2,   # medium fine -> fine granular
-    4: 4,   # fine -> blocky
-    5: 4,   # very fine -> blocky
+    1: 3,   # coarse -> very fine granular
+    2: 3,   # medium -> fine granular
+    3: 3,   # medium fine -> fine granular
+    4: 2,   # fine -> blocky
+    5: 1,   # very fine -> blocky
 }
 STRUCTURE_BY_FAO_TEXTURE_LUT = np.array([0] + [STRUCTURE_BY_FAO_TEXTURE[i] for i in range(1, 6)], dtype=np.uint8)
 
@@ -146,9 +143,9 @@ class SoilGridsData:
     soil_nodata: float
 
 
-##################################
+####################################
 ######### MY K CODE ################
-##################################
+####################################
 """
 So I've found 4 methods to estimate K. Currently, the best method, as defined by Yang et al. (2024) require data that I do not have, which is the permeability class and the soil structure class.
 So for now, we're starting with K-EPIC, and then checking if we can estimate the other values, which seems to be the most cryptic in all publications so far.
@@ -464,11 +461,11 @@ def _determine_fao_texture_class(sand: np.ndarray, clay: np.ndarray, valid: Opti
     conditions = [
         clay > 60,                      # Very fine
         clay >= 35,                     # Fine
-        (clay < 18) & (sand > 65),      # Coarse
-        sand < 15,                      # Medium fine (clay < 35 from here on)
-        np.isfinite(sand),              # Medium: everything else with clay < 35
+        (clay < 35) & (sand < 15),      # Medium fine
+        ((clay < 35) & (sand >= 15)) | ((clay > 18) & (sand >= 65) ),    # Medium
+        (clay <= 18) & (sand >= 65)     # Coarse
     ]
-    fao_texture = np.select(conditions, [5, 4, 1, 3, 2], default=0).astype(np.uint8)
+    fao_texture = np.select(conditions, [5, 4, 3, 2, 1], default=0).astype(np.uint8)
 
     if valid is not None:
         fao_texture[~valid] = 0
