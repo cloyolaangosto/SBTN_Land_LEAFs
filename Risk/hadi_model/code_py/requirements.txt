@@ -1,0 +1,10 @@
+# Python port of Risk/hadi_model/code/02_models (tested with Python 3.13)
+numpy
+pandas
+scipy
+pyarrow          # parquet I/O
+rasterio         # CATE rasterization
+pyreadr          # read the R .rds analysis-ready dataset
+pyfixest>=0.70   # feols (OLS, iid / HC1 vcov)
+scikit-learn     # BallTree for Conley neighbours
+econml>=0.15     # econml.grf CausalForest / RegressionForest
