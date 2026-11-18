@@ -98,3 +98,6 @@ Thumbs.db
 data/crops/spam2020V2r0_global_Y_TA.csv
 data/crops/SPAM/spam2020V2r0_global_Y_TA.csv
 data/crops/FAO_GAEZ/FAO_GAEZ_croplist.csv
+
+# Hadi et al. replication data (large, downloaded separately)
+Risk/hadi_model/data/
