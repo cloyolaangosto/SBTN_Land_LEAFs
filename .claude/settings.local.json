@@ -39,7 +39,10 @@
       "Bash(cd \"/c/Users/loyola/OneDrive - World Wildlife Fund, Inc/Documents/203. Python projects/SBTN_Test\" && cp src/sbtn_leaf/rusle.py src/sbtn_leaf/rusle_hwsd2.py && grep -n -E \"HWSD|hwsd|ESDB|FAO90|sqlite3|pd\\\\.|import pandas|Resampling|reproject|project_path|RUSLE_OUTPUT_DIR|PERMEABILITY_VERY_SLOW|_read_on_grid|structure_method|^def |^####|^\\\\\"\\\\\"\\\\\"\" src/sbtn_leaf/rusle.py | cut -c1-150)",
       "Bash(echo \"remaining hits: $?\")",
       "Bash(python -m pyflakes src/sbtn_leaf/rusle.py)",
-      "Bash(python -m pytest tests/test_rusle_fao_texture.py tests/test_rusle_hwsd2.py tests/test_import.py -q -p no:cacheprovider)"
+      "Bash(python -m pytest tests/test_rusle_fao_texture.py tests/test_rusle_hwsd2.py tests/test_import.py -q -p no:cacheprovider)",
+      "Bash(.venv/Scripts/python.exe -c \"import pyfixest, econml, sklearn, statsmodels; print\\(pyfixest.__version__, econml.__version__, sklearn.__version__, statsmodels.__version__\\)\")",
+      "Bash(time .venv/Scripts/python.exe \"C:/Users/loyola/AppData/Local/Temp/claude/406adf2b9db4e96a/d7b6d87e-7a21-425c-9801-dfd513a67078/scratchpad/examples.py\")",
+      "Bash(.venv/Scripts/python.exe -c \"import inspect; from econml.dml import CausalForestDML as C; print\\(inspect.signature\\(C.fit\\)\\)\")"
     ]
   }
 }
