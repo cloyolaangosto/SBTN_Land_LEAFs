@@ -10,6 +10,10 @@ LS (slope length and steepness) for the new RUSLE layers, method LS1 of RUSLE/RE
   longest USLE plots) and slope clamped at 26.6 deg (50%, after Panagos et al. 2015).
 - Known differences from GloSEM v1.1: MERIT D8 `upa` and MERIT DEM instead of SAGA D-infinity/multiple-flow on SRTM,
   and no rescaling "to the values of a 25 m DEM" (GloSEM's linear coefficients are not published).
+- Units follow Desmet & Govers (1996) Eq. 9: A in m^2 (contributing area at the cell inlet), D in m. SAGA's LS tools,
+  which GloSEM used, take the specific catchment area (m) as their area input. Fed into Eq. 9, that gives a much lower
+  L, which likely explains most of the ~2x gap to GloSEM v1.1 (RUSLE/papers/papers_summary.md, sections 7-8).
+  area_term="sca" reproduces that behaviour, for comparison with GloSEM only.
 
 MERIT is distributed as 30x30 degree tar archives of 36 tiles of 5x5 degrees (6000 x 6000 px). The work unit
 here is one archive pair (DEM tar + upa tar of the same box), downloaded and deleted by hand. The tiles are read
@@ -64,6 +68,7 @@ MAX_SUM_BYTES = 4 * 2**30               # memory guard for the in-memory sums ar
 
 DEFAULT_LAMBDA_MAX_M = 122.0            # slope-length cap, m: GloSEM v1.1, longest USLE plots (sensitivity 100-500 m)
 DEFAULT_MAX_SLOPE_DEG = 26.6            # slope clamp, degrees (50%): GloSEM v1.1, after Panagos et al. 2015
+AREA_TERMS = ("area", "sca")            # A in L: area in m2 (Desmet & Govers) or GloSEM/SAGA-compatible SCA in m
 MERIT_LAT_BANDS = (60, 30, 0, -30, -60) # south edge of each 30-deg archive row (MERIT covers 60S-90N)
 _EPS = 1e-6                             # tolerance, in grid cells, when snapping degrees to the grid
 
@@ -106,6 +111,7 @@ def ls_factor_desmet_govers(
     lambda_max: Optional[float] = DEFAULT_LAMBDA_MAX_M,
     channel_upa_km2: Optional[float] = None,
     max_slope_deg: Optional[float] = DEFAULT_MAX_SLOPE_DEG,
+    area_term: str = "area",
 ) -> np.ndarray:
     """RUSLE LS for a block of a geographic (lat/lon) grid.
 
@@ -126,11 +132,20 @@ def ls_factor_desmet_govers(
     lambda_max: cap on the slope length A/D, m. None disables the cap.
     channel_upa_km2: cells with upa above this are treated as channels and set to NaN. None keeps all cells.
     max_slope_deg: slope clamp, degrees. None disables the clamp.
+    area_term: what goes in the A slot of L.
+        "area" (default): the contributing area at the inlet in m^2, as Desmet & Govers (1996) Eq. 9 requires.
+        "sca": GloSEM/SAGA-compatible. The specific catchment area A / (D * x), in m (D&G Eq. 4), is used in
+            place of the area. This mixes a length with the area D^2. It reproduces what SAGA's LS tools do with
+            their default specific-catchment-area input, and so, probably, GloSEM v1.1. A then becomes tiny next
+            to D^2, so L ~ (D / (22.13 x))^m: every cell is scored like a hilltop cell, whatever drains into it.
+            Use it only for comparison with GloSEM; it is not a correct D&G L.
 
     Returns
     -------
     (n, m) LS, NaN where elevation or upa is missing (or channel cells, if masked).
     """
+    if area_term not in AREA_TERMS:
+        raise ValueError(f"area_term must be one of {AREA_TERMS}, not {area_term!r}")
     res_rad = math.radians(res_deg)
     dy = EARTH_RADIUS_M * res_rad
     dx = EARTH_RADIUS_M * res_rad * np.cos(np.radians(lat_deg))
@@ -147,8 +162,10 @@ def ls_factor_desmet_govers(
     A = np.maximum(upa_km2 * 1e6 - D * D, 0.0)
     if lambda_max is not None:
         A = np.minimum(A, lambda_max * D)
+    if area_term == "sca":
+        A = A / (D * x)                                            # m, used where Eq. 9 expects m^2 (GloSEM/SAGA)
 
-    beta = (sin_t / 0.0896) / (3.0 * sin_t ** 0.8 + 0.56)
+    beta =(sin_t / 0.0896) / (3.0 * sin_t ** 0.8 + 0.56)
     m = beta / (1.0 + beta)
     L = ((A + D * D) ** (m + 1) - A ** (m + 1)) / (D ** (m + 2) * x ** m * UNIT_PLOT_LENGTH_M ** m)
     S = np.where(grad < 0.09, 10.8 * sin_t + 0.03, 16.8 * sin_t - 0.50)
@@ -319,6 +336,7 @@ def process_archive(
     lambda_max: Optional[float] = DEFAULT_LAMBDA_MAX_M,
     channel_upa_km2: Optional[float] = None,
     max_slope_deg: Optional[float] = DEFAULT_MAX_SLOPE_DEG,
+    area_term: str = "area",
     block_rows: int = 1200,
     use_neighbours: bool = True,
     only_tiles: Optional[Sequence[str]] = None,
@@ -336,7 +354,7 @@ def process_archive(
     out_res_deg: output cell size in degrees; a whole multiple of the 3" pixel (5' default, 1/120 for 30", 1/1200
         for 3").
     bbox: (west, south, east, north) in degrees; snapped outward to the output grid. None covers the whole archive.
-    lambda_max, channel_upa_km2, max_slope_deg: see ls_factor_desmet_govers.
+    lambda_max, channel_upa_km2, max_slope_deg, area_term: see ls_factor_desmet_govers.
     block_rows: rows read at a time; must be a multiple of the aggregation factor.
     use_neighbours: stitch tile borders from neighbouring tiles. False gives one-sided differences at every
         tile edge (used to measure the archive-edge effect).
@@ -403,7 +421,8 @@ def process_archive(
                 z_pad = _read_padded(dem, key, r0, r1, wc0, wc1, use_neighbours)
                 upa_blk = _read_float(upa_ds, Window(wc0, r0, wc1 - wc0, r1 - r0))
                 lat = tile_north - (np.arange(r0, r1) + 0.5) * res
-                ls = ls_factor_desmet_govers(z_pad, upa_blk, lat, res, lambda_max, channel_upa_km2, max_slope_deg)
+                ls = ls_factor_desmet_govers(z_pad, upa_blk, lat, res, lambda_max, channel_upa_km2, max_slope_deg,
+                                             area_term)
                 w = weight[r0 - wr0: r1 - wr0] if weight is not None else None
                 blk = aggregate_block(ls, w, factor)
                 orow = (ty0 + r0 - gy0) // factor
@@ -449,6 +468,9 @@ def _run_params(bbox: Optional[BBox], process_kwargs: Dict) -> Dict:
     max_slope = process_kwargs.get("max_slope_deg", DEFAULT_MAX_SLOPE_DEG)
     if max_slope is not None:
         params["max_slope_deg"] = max_slope
+    area_term = process_kwargs.get("area_term", "area")              # recorded only when not the default, likewise
+    if area_term != "area":
+        params["area_term"] = area_term
     return json.loads(json.dumps(params))
 
 

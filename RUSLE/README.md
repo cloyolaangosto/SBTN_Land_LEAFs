@@ -142,7 +142,26 @@ Output files:
    - **Flow routing and DEM.** GloSEM ran SAGA with D-infinity / multiple-flow routing (the SM names both) on hole-filled SRTM, with ASTER GDEM v2 in the far north. We use MERIT Hydro `upa` (D8) and the MERIT DEM.
    - **25 m rescaling.** GloSEM rescaled its 90 m LS "to the values of a 25 m DEM through a linear relationship (R² = 0.998)". The coefficients are not published, so this step is not reproduced.
    - **Resampling.** GloSEM resampled LS to 250 m by nearest neighbour, which explains the speckle in the 25 km v1.1 file. Our 5′ value is the mean of all 3″ pixels. The speckle does not bias levels: the 25 km file reproduces GloSEM's published continental means (SM Fig. 14c) within about 10% (e.g. Europe 1.31 vs 1.25, Africa 0.98 vs 1.0), so it is a fair reference.
-   - **Remaining offset.** Even with GloSEM's settings, our LS stays well above the v1.1 25 km layer (see the box check in `K_LS_Creation.ipynb`). The spatial pattern agrees well. The undisclosed rescaling is the main suspect.
+   - **Remaining offset, probably units on GloSEM's side.** With GloSEM's settings our LS is still 2.6× the v1.1 25 km layer on box `n30e000` (ratio of means; 3.4× at 300 m without the clamp). Rank correlation is 0.76, so the pattern agrees and the gap is one of level.
+     - Our units follow Desmet & Govers (1996) Eq. 9: A in m², D in m, checked against the MERIT data. It is not a projection error: the ratio follows terrain, not 1/cos(latitude).
+     - SAGA's LS tools, which GloSEM used, take the *specific* catchment area (m) as their area input. SAGA's Desmet & Govers code adds the cell area (m²) to it.
+     - Emulating that brings the box ratio to 1.3, with the same rank correlation.
+     - This is not proven: GloSEM does not state the tool or options. Details are in [papers_summary.md](papers/papers_summary.md), sections 7–8.
+7. **GloSEM-compatible switch (`area_term`).** `ls_factor_desmet_govers`, `process_archive` and `run_local` take `area_term="area"` (default) or `"sca"`. The notebook sets it with `AREA_TERM`, and `"sca"` runs go to their own parts folder (`ls_parts_glosem_sca`).
+   - **`"area"` (correct).** The A in Desmet & Govers Eq. 9 is the contributing area at the cell inlet, in m². With the 122 m cap, a cell on an open hillside has A = 122 m × D ≈ 9,500 m² (D ≈ 78 m at 45°N). L then reflects up to 122 m of slope draining onto the cell.
+   - **`"sca"` (GloSEM/SAGA-compatible).** A is replaced by the specific catchment area A / (D·x), a length (here 122 m), and the formula still adds D² ≈ 6,100 m² to it. The number 122 is read as 122 m², i.e. about 1.6 m of slope above the cell. Every cell is then scored like a hilltop cell, and L ≈ (D / (22.13·x))^m whatever drains into it.
+   - **How large the difference is.** Cells with nothing upslope get the same L in both modes. For a cell at the 122 m cap the ratio grows with slope, because the exponent m does:
+
+     | Slope | m | L, `"area"` | L, `"sca"` | Ratio |
+     |---|---|---|---|---|
+     | 1% | 0.15 | 1.54 | 1.22 | 1.26 |
+     | 3% | 0.31 | 2.42 | 1.51 | 1.61 |
+     | 9% | 0.50 | 4.05 | 1.93 | 2.10 |
+     | 20% | 0.61 | 5.45 | 2.23 | 2.44 |
+     | ≥ 50% (clamp) | 0.70 | 6.81 | 2.49 | 2.73 |
+
+     At 9%, a cell with one cell (78 m) upslope gets a ratio of 1.8. Averaged over real terrain, `"sca"` is about half of `"area"`, the size of the gap to GloSEM v1.1.
+   - **What `"sca"` loses.** It ignores flow convergence, the very effect Desmet & Govers built the method for: hollows and long slopes get the same L as ridges. It also makes the slope-length cap almost irrelevant, and L depends on the grid size (∝ D^m). Use it only for continuity with GloSEM v1.1 or as a sensitivity layer, never as the main LS.
    - **Reference means.** GloSEM v1.1 mean LS by continent (250 m, SM Fig. 14c, read off the chart): Africa ≈ 1.0, Asia ≈ 2.5, Europe ≈ 1.25, North America ≈ 1.75, Oceania ≈ 0.8, South America ≈ 1.65.
 
 Output files:

@@ -85,6 +85,31 @@ def test_slope_clamp():
     np.testing.assert_allclose(out, _reference_ls(sin_cap, 122 * D, D, x=math.sqrt(2)), rtol=1e-9)
 
 
+def test_area_term_sca_is_glosem_compatible():
+    dy = ls.EARTH_RADIUS_M * math.radians(RES)
+    D = dy                                                      # equator: dx == dy
+    tan_t = 0.2
+    rows = np.arange(5)
+    z = np.repeat((-rows * dy * tan_t)[:, None], 4, axis=1)    # south-facing ramp, x = 1
+    upa = np.full((5, 4), 1.0)                                  # km2: above the 122 m cap
+    sin_t = tan_t / math.sqrt(1 + tan_t ** 2)
+
+    sca = ls.ls_factor_desmet_govers(_pad(z), upa, np.zeros(5), RES, lambda_max=122, area_term="sca")
+    np.testing.assert_allclose(sca, _reference_ls(sin_t, 122.0, D), rtol=1e-9)   # A/(D x) = 122 "m2"
+    area = ls.ls_factor_desmet_govers(_pad(z), upa, np.zeros(5), RES, lambda_max=122)
+    np.testing.assert_allclose(area, _reference_ls(sin_t, 122 * D, D), rtol=1e-9)
+    assert np.all(area / sca > 1.5)                             # the SAGA-style L is far lower
+
+    # a hilltop cell (nothing drains into it) is the same in both modes
+    top = np.full((5, 4), (D * D) / 1e6)
+    np.testing.assert_allclose(
+        ls.ls_factor_desmet_govers(_pad(z), top, np.zeros(5), RES, area_term="sca"),
+        ls.ls_factor_desmet_govers(_pad(z), top, np.zeros(5), RES), rtol=1e-9)
+
+    with pytest.raises(ValueError, match="area_term"):
+        ls.ls_factor_desmet_govers(_pad(z), upa, np.zeros(5), RES, area_term="m2")
+
+
 def test_missing_neighbours_fall_back_to_one_sided():
     z = np.array([[0.0, 1.0, 4.0, 9.0]])                        # quadratic along x
     p = _pad(z)
@@ -268,6 +293,7 @@ def test_run_local_processes_present_boxes_and_keeps_tars(tmp_path, monkeypatch)
     params = json.loads((parts / "manifest.json").read_text())["_params"]
     assert params["crop"] is False
     assert params["lambda_max"] == 122.0 and params["max_slope_deg"] == 26.6   # GloSEM v1.1 defaults
+    assert "area_term" not in params                                          # default "area" is not recorded
 
     def _fail(*a, **k):
         raise AssertionError("done boxes must be skipped")
@@ -275,6 +301,8 @@ def test_run_local_processes_present_boxes_and_keeps_tars(tmp_path, monkeypatch)
     ls.run_local(archive_dir, parts, boxes=["test"], **kw)
     with pytest.raises(ValueError, match="parts_dir"):
         ls.run_local(archive_dir, parts, boxes=["test"], lambda_max=100, **kw)
+    with pytest.raises(ValueError, match="parts_dir"):                         # sca parts need their own folder
+        ls.run_local(archive_dir, parts, boxes=["test"], area_term="sca", **kw)
 
 
 def test_mosaic_places_parts_and_divides(tmp_path):

@@ -1,6 +1,6 @@
 # RUSLE method papers — summary
 
-Three papers are candidate sources of methods for the new R, K and LS layers. For each one: what it does, how it computes R, K and LS, what data it needs, and caveats for a global, 5′ application. Two reference documents ([sections 4–5](#4-panagos-et-al-2014--soil-erodibility-in-europe-lucas)) define the K1 nomograph inputs (structure $s$, permeability $p$, very fine sand) that our K layer uses.
+Three papers are candidate sources of methods for the new R, K and LS layers. For each one: what it does, how it computes R, K and LS, what data it needs, and caveats for a global, 5′ application. Two reference documents ([sections 4–5](#4-panagos-et-al-2014--soil-erodibility-in-europe-lucas)) define the K1 nomograph inputs (structure $s$, permeability $p$, very fine sand) that our K layer uses. Sections 7–8 document the LS method: the GloSEM v1.1 settings and the original Desmet & Govers algorithm, with the units of each term.
 
 | File | Reference | Scale | Main use for us |
 |---|---|---|---|
@@ -10,6 +10,8 @@ Three papers are candidate sources of methods for the new R, K and LS layers. Fo
 | [Panagos 2014 - soil erodability in europe.pdf](Panagos%202014%20-%20soil%20erodability%20in%20europe.pdf) | Panagos, Meusburger, Ballabio, Borrelli & Alewell (2014). *Soil erodibility in Europe: A high-resolution dataset based on LUCAS.* Sci. Total Environ. 479–480:189–200. [doi:10.1016/j.scitotenv.2014.02.010](https://doi.org/10.1016/j.scitotenv.2014.02.010) | EU-25, 500 m | How to derive $s$, $p$ and vfs for the nomograph; coarse-fragment and stone corrections; sensitivities |
 | [Yang 2024 - Global soil erodability.pdf](Yang%202024%20-%20Global%20soil%20erodability.pdf) | Yang, Yang, Zhang, Pang & Huang (2024). *Global soil erodibility factor (K) mapping and algorithm applicability analysis.* Catena 239:107943. [doi:10.1016/j.catena.2024.107943](https://doi.org/10.1016/j.catena.2024.107943) | Global, SoilGrids 250 m | Compares USLE-K, RUSLE2-K, EPIC-K and Dg-K against 144 measured-K sites; RUSLE2-K fits best; gives correction equations |
 | [USDA_RUSLE.pdf](USDA_RUSLE.pdf) | Wischmeier & Smith (1978). *Predicting rainfall erosion losses — a guide to conservation planning.* USDA Agriculture Handbook 537 (AH 537) | Method reference | Original nomograph equation, class definitions and validity limits |
+| [GLOSEM_1.pdf](GLOSEM_1.pdf), [GLOSEM_1_SM.pdf](GLOSEM_1_SM.pdf) | Borrelli et al. (2017). *An assessment of the global impact of 21st century land use change on soil erosion.* Nat. Commun. 8:2013, with Supplementary Information. [doi:10.1038/s41467-017-02142-7](https://doi.org/10.1038/s41467-017-02142-7) | Global, 250 m (factor layers at 25 km) | GloSEM v1.1, the source of the current LEAF factors; the only place GloSEM's LS settings are given |
+| [Desmet & Govers.pdf](Desmet%20%26%20Govers.pdf) | Desmet & Govers (1996). *A GIS procedure for automatically calculating the USLE LS factor on topographically complex landscape units.* J. Soil Water Conserv. 51(5):427–433 | Catchment (2.1 km²), 5 m DEM | The 2-D L equation our LS layer implements, and the units of each term |
 
 ---
 
@@ -34,7 +36,7 @@ $$K = \frac{2.1\times10^{-4} M^{1.14}(12-OM) + 3.25(s-2) + 2.5(p-3)}{100}\cdot 0
 - Inputs from SoilGrids at 1 km: texture, organic matter, coarse fragments
 - The PDF prints the constant as 0.137; the standard SI conversion is 0.1317.
 
-**LS factor.** Two-dimensional unit-contributing-area method of Desmet & Govers (1996) on hole-filled SRTM + ASTER GDEM v2 at 3″ (~90 m). It was run in SAGA GIS from R over 870 tiles of about 500 × 500 km.
+**LS factor.** Two-dimensional unit-contributing-area method of Desmet & Govers (1996) on hole-filled SRTM + ASTER GDEM v2 at 3″ (~90 m). It was run in SAGA GIS from R over 870 tiles of about 500 × 500 km. The run's settings (122 m slope length, 26.6° slope limit, linear rescale to 25 m DEM values) are given only in the v1.1 Supplementary Methods ([Section 7](#7-borrelli-et-al-2017--glosem-v11)).
 
 **C and P.**
 
@@ -256,6 +258,66 @@ Only the corrected USLE-K and RUSLE2-K meet their acceptance criteria (R² > 0.5
 
 ---
 
+## 7. Borrelli et al. (2017) — GloSEM v1.1
+
+**What it is.** The first GloSEM: global RUSLE soil erosion at ~250 m for 2001 and 2012, with land-use change and a conservation-agriculture scenario (Nat. Commun. 8:2013). Its 25 km factor layers (R, K, LS) are those of the current LEAFs. The Supplementary Methods (SM) are the only place where the settings of GloSEM's LS run are given; the 1.3 paper ([Section 1](#1-borrelli-et-al-2022--glosem-13)) describes the same run without them.
+
+**LS (SM Eq. 8–10, p. 24–25).**
+- Desmet & Govers (1996) Eq. 9 ([Section 8](#8-desmet--govers-1996--two-dimensional-ls-factor)), computed in SAGA through RSAGA on hole-filled SRTM 3″ (ASTER GDEM v2 in the far north), over 870 tiles.
+- Slope length capped at **122 m**, the longest USLE plots. Slope limited to **26.6° (50%)**, citing Panagos et al. (2015).
+- Flow accumulation is described as "deterministic infinity" and, later in the same paragraph, as "multiple flow".
+- The LS grid was "rescaled to the values of a 25 m DEM through a linear relationship (R² = 0.998)". The coefficients are not given. It was then resampled to 250 m by nearest neighbour.
+- The SM prints the aspect term as $x = \sin a + \cos a$; Desmet & Govers's form, with absolute values, is meant.
+- Continental mean LS (SM Fig. 14c, read off the chart): Africa ≈ 1.0, Asia ≈ 2.5, Europe ≈ 1.25, North America ≈ 1.75, Oceania ≈ 0.8, South America ≈ 1.65. The 25 km v1.1 file reproduces these within about 10%.
+
+**K (SM Eq. 11).** Nomograph × **0.137** (the standard factor is 0.1317), no stone correction, SoilGrids1km (Hengl et al. 2014).
+
+**⚠️ Probable unit mismatch in the SAGA run.**
+- SAGA's LS tools take the *specific* catchment area (m) as their area input. Tool 22 (LS Factor) is documented as "based on slope and specific catchment area (SCA, as substitute for slope length)", with the default "areas already given as specific catchment area".
+- In the only SAGA Desmet & Govers code we could read (2.3.1, tool 25 "LS-Factor, Field Based"), Eq. 9 adds the cell area (m²) to that value: `pow(Area + Get_Cellarea(), m + 1.0)`, with `Area` the specific catchment area by default. A "total catchment area" option (m²) is in the 2.3.1 code but not in the 2.2.0 documentation.
+- GloSEM does not say which tool or options it used, and tool 22's source could not be retrieved, so this is not proven.
+- Our test supports it. Feeding our code the specific catchment area in place of the area removes most of the gap, and the rank correlation does not change. The ratio does not follow 1/cos(latitude), so it is not a projection error.
+
+| Our MERIT LS vs the v1.1 25 km layer, box `n30e000` (10,520 cells) | Ratio of means |
+|---|---|
+| 300 m slope length, no slope clamp | 3.4 |
+| GloSEM settings (122 m, 26.6°), correct units | 2.6 |
+| GloSEM settings, specific catchment area (m) used as the area | 1.3 |
+
+On three 5° tiles the same emulation gives 2.40 → 1.17 (Alps), 2.67 → 1.37 (central Italy) and 2.06 → 1.19 (Germany). The remaining ~30% may come from the DEM (MERIT vs SRTM), the 25 m rescaling, and GloSEM leaving out bare rock and ice in the mountains. Our code reproduces the SAGA behaviour with `area_term="sca"` (`src/sbtn_leaf/rusle_ls.py`), for comparison only; see `RUSLE/README.md`, LS Layer, step 7.
+
+---
+
+## 8. Desmet & Govers (1996) — Two-dimensional LS factor
+
+**What it is.** The original GIS algorithm for the (R)USLE LS factor on two-dimensional terrain. It replaces the slope length in Foster & Wischmeier's (1974) segment equation with the unit contributing area, so flow convergence and divergence are taken into account. It was tested on the Ganspoel catchment (2.1 km², Belgian loam belt) with a 5 m DEM.
+
+**Equations and units.**
+- Foster & Wischmeier segment LS (Eq. 1): $LS_j = S_j\,(\lambda_j^{m+1}-\lambda_{j-1}^{m+1}) / [(\lambda_j-\lambda_{j-1})\,22.13^m]$, λ in m.
+- Routing (Eq. 2): multiple flow (Quinn et al. 1991). There is no slope-length cap.
+- Effective contour length (Eq. 3): $D_{i,j} = D\,(\sin\alpha_{i,j}+\cos\alpha_{i,j}) = D\,x_{i,j}$, with D the cell size (m) and α the aspect.
+- Unit contributing area at the inlet (Eq. 4): $A_{s,in} = A_{in}/D_{i,j}$ (m²/m), where $A_{in}$ is the contributing area at the inlet, in **m²**. At the outlet, $A_{out} = A_{in} + D^2$ (Eq. 5).
+- **L (Eq. 9):** $L_{i,j} = \dfrac{(A_{in}+D^2)^{m+1} - A_{in}^{m+1}}{D^{m+2}\,x_{i,j}^m\,22.13^m}$. It is dimensionless only with $A_{in}$ in m² and D in m ($\mathrm{m}^{2m+2}/\mathrm{m}^{2m+2}$).
+- Gradient (Eq. 10): Zevenbergen & Thorne (1987), $G=\sqrt{G_x^2+G_y^2}$ (m/m). S and m follow RUSLE (McCool et al. 1987, 1989).
+
+**Results.** The automated LS averaged 6.99, against 2.20 for the manual point method. Manual slope lengths miss flow convergence, so they underestimate LS in hollows (Fig. 3). Both methods agree in pattern with the soil-truncation classes of the soil map (Table 2).
+
+**Our implementation against the paper** (`src/sbtn_leaf/rusle_ls.py`, `ls_factor_desmet_govers`):
+
+| Term | Paper | Ours | Check |
+|---|---|---|---|
+| $A_{in}$ | contributing area at the inlet, m² | MERIT `upa` (km², includes the cell) × 10⁶ − D² | the smallest `upa` in each row equals our pixel area within 0.1% |
+| D | cell size, m (square cells) | √(dx·dy) on the sphere, dx = dy·cos(lat) | geographic cells are not square; √(dx·dy) keeps the cell area |
+| x | sin α + cos α | \|sin α\| + \|cos α\| | the same for aspects of 0–90°; stays ≥ 1 for the others |
+| G, θ | Zevenbergen & Thorne, m/m | central differences over metric dx, dy; DEM in m | DEM maximum 4,786 m in the Mont Blanc tile (Mont Blanc 4,808 m) |
+| m, S | McCool et al. 1989, 1987 | same | unit tests against a hand-written reference |
+| Routing | multiple flow (Quinn et al. 1991) | D8 (MERIT Hydro) | a method difference, not a unit one |
+| Limits | none | slope length ≤ 122 m, slope ≤ 26.6° | GloSEM v1.1 settings ([Section 7](#7-borrelli-et-al-2017--glosem-v11)) |
+
+**Unit trap.** Eq. 9 needs the contributing *area* (m²). Feeding it the *specific* catchment area (m) adds a length to an area. Then $A \ll D^2$ and $L \approx (D/22.13)^m / x^m$, whatever the contributing area. At m ≈ 0.5 that is about half the correct L. Section 7 discusses whether this happened in GloSEM.
+
+---
+
 ## Cross-paper comparison of R, K, LS methods
 
 | Factor | Borrelli et al. 2022 (GloSEM 1.3) | Fadl et al. 2025 | Pyne et al. 2026 |
@@ -263,7 +325,7 @@ Only the corrected USLE-K and RUSLE2-K meet their acceptance criteria (R² > 0.5
 | **R** | GPR of GloREDa station R (3,625 stations) on WorldClim covariates; future via 14 GCMs × 3 RCPs (CMIP5) | Linear regression on annual P (CHIRPS) | Modified Fournier Index on monthly P (IMD; CHELSA CMIP6 MIROC6 for future) |
 | R data needs | Pluviograph station data (not public); outputs public at 1 km | Annual P | Monthly P |
 | R scenario-ready? | Yes (published maps, CMIP5) | Weakly (annual total only) | **Yes**, any monthly P scenario |
-| **K** | Wischmeier nomograph (texture, very fine sand, OM, structure, permeability) + stones; SoilGrids 1 km | Renard $D_g$ (texture only) | Williams/EPIC (sand, silt, clay, OC); SoilGrids 250 m |
+| **K** | Wischmeier nomograph (texture, very fine sand, OM, structure, permeability); coarse fragments listed as an input, but no stone correction given; SoilGrids 1 km | Renard $D_g$ (texture only) | Williams/EPIC (sand, silt, clay, OC); SoilGrids 250 m |
 | **LS** | Desmet & Govers 2-D, SRTM/ASTER 90 m, SAGA | Shinde formula, SRTM 30 m | McCool S + Liu steep; $L=(\lambda/22.13)^m$; SRTM 30 m |
 | Implementation effort (global) | High (GPR, global 90 m flow routing) | Low | Low–medium |
 | Global defensibility | High | Low | Medium |
