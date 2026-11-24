@@ -61,6 +61,30 @@ def test_lambda_cap_and_channel_mask():
     assert np.isnan(masked[:, 2]).all() and np.isfinite(masked[:, :2]).all()
 
 
+def test_slope_clamp():
+    dy = ls.EARTH_RADIUS_M * math.radians(RES)
+    D = dy                                                      # equator: dx == dy
+    rows = np.arange(5)
+    upa = np.full((5, 4), 1.0)                                  # km2, capped by lambda_max
+
+    def ramp(tan_t, **kw):
+        z = np.repeat((-rows * dy * tan_t)[:, None], 4, axis=1)   # descends to the south, x = 1
+        return ls.ls_factor_desmet_govers(_pad(z), upa, np.zeros(5), RES, lambda_max=122, **kw)
+
+    sin_cap = math.sin(math.radians(26.6))
+    np.testing.assert_allclose(ramp(1.0), _reference_ls(sin_cap, 122 * D, D), rtol=1e-9)        # 45 deg -> 26.6
+    np.testing.assert_allclose(ramp(1.0, max_slope_deg=None),
+                               _reference_ls(math.sin(math.pi / 4), 122 * D, D), rtol=1e-9)    # no clamp
+    np.testing.assert_allclose(ramp(0.3), ramp(0.3, max_slope_deg=None), rtol=1e-12)        # below the clamp
+
+    # the clamp changes the slope, not the aspect term: a diagonal 45-deg slope keeps x = sqrt(2)
+    cols = np.arange(4)
+    step = dy / math.sqrt(2)
+    z = -(rows[:, None] + cols[None, :]) * step                 # tan = 1, aspect SE
+    out = ls.ls_factor_desmet_govers(_pad(z), upa, np.zeros(5), RES, lambda_max=122)
+    np.testing.assert_allclose(out, _reference_ls(sin_cap, 122 * D, D, x=math.sqrt(2)), rtol=1e-9)
+
+
 def test_missing_neighbours_fall_back_to_one_sided():
     z = np.array([[0.0, 1.0, 4.0, 9.0]])                        # quadratic along x
     p = _pad(z)
@@ -241,7 +265,9 @@ def test_run_local_processes_present_boxes_and_keeps_tars(tmp_path, monkeypatch)
     assert manifest["test"] == "done" and not_found == ["n00e000"] and "n00e000" not in manifest
     assert (parts / "ls_sums_test.tif").exists()
     assert tars["dem"].exists() and tars["upa"].exists()        # nothing deleted
-    assert json.loads((parts / "manifest.json").read_text())["_params"]["crop"] is False
+    params = json.loads((parts / "manifest.json").read_text())["_params"]
+    assert params["crop"] is False
+    assert params["lambda_max"] == 122.0 and params["max_slope_deg"] == 26.6   # GloSEM v1.1 defaults
 
     def _fail(*a, **k):
         raise AssertionError("done boxes must be skipped")

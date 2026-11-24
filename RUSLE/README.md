@@ -69,7 +69,7 @@ These layers are constant. They can be calculated once and stored as GeoTIFFs, b
 ### Methods — K (soil erodibility)
 | # | Method | Paper | Formula | Inputs | Effort |
 |---|---|---|---|---|---|
-| K1 | **Wischmeier & Smith (1978) nomograph** + stone correction | Borrelli et al. 2022 (GloSEM; also current v1.1 layer) | $K=\frac{2.1\cdot10^{-4}M^{1.14}(12-OM)+3.25(s-2)+2.5(p-3)}{100}\cdot0.1317$, with $M=(\%silt+\%vfs)(100-\%clay)$; $K_{st}=K\cdot e^{-0.04(R_c-10)}$ for $R_c>10\%$ | Sand, silt, clay, OM, coarse fragments (SoilGrids); structure class $s$ and permeability class $p$ from texture-class lookups; very fine sand ($vfs$) estimated (not in SoilGrids) | Medium (lookups and a vfs assumption) |
+| K1 | **Wischmeier & Smith (1978) nomograph** + stone correction | Borrelli et al. 2017, 2022 (GloSEM 1.1 and 1.3: nomograph only, printed with 0.137, no stone correction); stone correction from Panagos et al. 2014 | $K=\frac{2.1\cdot10^{-4}M^{1.14}(12-OM)+3.25(s-2)+2.5(p-3)}{100}\cdot0.1317$, with $M=(\%silt+\%vfs)(100-\%clay)$; $K_{st}=K\cdot e^{-0.04(R_c-10)}$ for $R_c>10\%$ | Sand, silt, clay, OM, coarse fragments (SoilGrids); structure class $s$ and permeability class $p$ from texture-class lookups; very fine sand ($vfs$) estimated (not in SoilGrids) | Medium (lookups and a vfs assumption) |
 | K2 | **Williams / EPIC** (Sharpley & Williams 1990) | Pyne et al. 2026 | $K=[0.2+0.3e^{-0.0256Sd(1-St/100)}]\,[\frac{St}{Cy+St}]^{0.3}\,[1-\frac{0.25OC}{OC+e^{3.72-2.95OC}}]\,[1-\frac{0.7SN}{SN+e^{-5.51+22.9SN}}]\times0.1317$ | Sand, silt, clay, OC (SoilGrids) | **Low**, pure raster algebra |
 | K1b | **RUSLE2-K** (Renard & Dabney 2013) + optional global correction | Yang et al. 2024 | Nomograph with $M_{vfs}=(0.74-0.62\,sand/100)\,sand$ and a flattened texture term above 68% silt + vfs; corrected $K=2.1311K_{RUSLE2}-0.0359$ (144 measured sites, R² 0.64) | Same as K1; Yang take $s$ from a WRB soil-type map (lookup not published) | Low once K1 inputs exist (implemented: `rusle.k_factor_rusle2`, `rusle.build_k_rusle2`) |
 | K3 | **Renard et al. (1997) geometric mean diameter** | Fadl et al. 2025 | $K=0.0034+0.0405\exp[-0.5(\frac{\log D_g+1.659}{0.7101})^2]$ | Sand, silt, clay | Very low, but ignores OM and stones |
@@ -77,13 +77,16 @@ These layers are constant. They can be calculated once and stored as GeoTIFFs, b
 ### Methods — LS (slope length and steepness)
 | # | Method | Paper | Formula / approach | Inputs | Effort |
 |---|---|---|---|---|---|
-| LS1 | **Desmet & Govers (1996)** 2-D unit contributing area | Borrelli et al. 2022 | $L_{i,j}=\frac{(A_{i,j}+D^2)^{m+1}-A_{i,j}^{m+1}}{D^{m+2}\,x_{i,j}^m\,22.13^m}$ with $m=\beta/(1+\beta)$, $\beta=\frac{\sin\theta/0.0896}{3\sin^{0.8}\theta+0.56}$; S from McCool (1987) | 90 m DEM and upslope contributing area (SRTM/ASTER in GloSEM; SAGA, 870 tiles) | High if flow routing is done in-house. **Medium if precomputed flow accumulation is used** (MERIT Hydro) |
+| LS1 | **Desmet & Govers (1996)** 2-D unit contributing area | Borrelli et al. 2022 | $L_{i,j}=\frac{(A_{i,j}+D^2)^{m+1}-A_{i,j}^{m+1}}{D^{m+2}\,x_{i,j}^m\,22.13^m}$ with $m=\beta/(1+\beta)$, $\beta=\frac{\sin\theta/0.0896}{3\sin^{0.8}\theta+0.56}$; S from McCool (1987) | 90 m DEM and upslope contributing area (SRTM/ASTER in GloSEM; SAGA, 870 tiles; slope length ≤ 122 m, slope ≤ 26.6°) | High if flow routing is done in-house. **Medium if precomputed flow accumulation is used** (MERIT Hydro) |
 | LS2 | **Slope-class exponent + McCool S** (Liu steep-slope variant) | Pyne et al. 2026 | $L=(\lambda/22.13)^m$, $m$ = 0.2/0.3/0.4/0.5 by slope class; S = 10.8 sinθ + 0.03 (< 9%), 16.8 sinθ − 0.5 (9–18%), 21.9 sinθ − 0.96 (≥ 18%) | DEM, flow length | Medium |
 | LS3 | **Shinde et al. (2011)** | Fadl et al. 2025 | $LS=(L/22.1)^m(65.4\sin^2\theta+4.56\sin\theta+0.0065)$ | DEM, slope length | Low, but uncapped lengths give unrealistic LS (up to 4,110 in the paper) |
 
 ### Selected K and LS methods
 - **K → K1 (GloSEM nomograph + stone correction), with K2 (EPIC) computed alongside as a check.**
-  - K1 is what GloSEM 1.1/1.3 and the current $K_{st}$ layer use, so the new layer stays comparable with the existing LEAFs.
+  - K1 is the nomograph GloSEM 1.1 and 1.3 use, so the new layer stays comparable with the existing LEAFs.
+  - Both GloSEM papers (Borrelli et al. 2017 SM Eq. 11; 2022 Eq. 4) print the conversion factor as 0.137. The standard US→SI factor, used by Panagos et al. (2014) and here, is 0.1317, about 4% lower.
+  - Neither GloSEM paper gives a stone correction. $K_{st}$ comes from Panagos et al. (2014, Europe, surface stone cover) and is our addition. GloSEM 1.3 lists coarse fragments among its SoilGrids inputs without saying how they enter.
+  - GloSEM v1.1 took its soil properties from SoilGrids1km (Hengl et al. 2014), not SoilGrids 2.0. Part of the low agreement with the v1.1 K layer (r ≈ 0.4) may come from that difference in data version.
   - K2 is almost free once the SoilGrids layers are downloaded. Where the two disagree strongly, the nomograph assumptions (vfs, $s$, $p$) can be flagged.
   - If the vfs and structure lookups cannot be reproduced defensibly, **fall back to K2**. It is the easiest method fully supported by open data.
 - **LS → LS1 (Desmet & Govers, as GloSEM), using precomputed MERIT Hydro flow accumulation and MERIT DEM slope at 3″ (~90 m), aggregated to 5′.**
@@ -122,9 +125,11 @@ Output files:
 ### LS Layer
 1. **Inputs:** MERIT DEM (slope θ) and MERIT Hydro `upa` (upstream drainage area), both at 3″. Coverage runs from 60°S to 90°N, which spans the UHTH crop extent.
 2. **Contributing area per cell:** $A = upa\cdot10^6 - D^2$ (m²).
-   - **Cap A** to a maximum hillslope length (default $\lambda_{max}$ = 300 m, i.e. $A\le\lambda_{max}\cdot D$). Run a sensitivity test at 100–500 m.
+   - **Cap A** to a maximum hillslope length (default $\lambda_{max}$ = 122 m, i.e. $A\le\lambda_{max}\cdot D$). 122 m is the longest USLE plot length and the GloSEM v1.1 setting (Borrelli et al. 2017 SM). Run a sensitivity test at 100–500 m.
    - Mask channel cells (upa above a threshold). This avoids the unrealistic LS seen in Fadl et al. (2025), and represents field-scale slope lengths.
 3. **L:** Desmet & Govers with McCool β and $x = |\sin\alpha|+|\cos\alpha|$ (aspect α). **S:** McCool (1987), $S=10.8\sin\theta+0.03$ for tan θ < 0.09 and $S=16.8\sin\theta-0.50$ otherwise (Nearing 1997 as an option for very steep slopes).
+   - θ is **clamped at 26.6° (50%)** before m and S, as GloSEM v1.1 (after Panagos et al. 2015). Steeper cells take the clamp value; they are not masked. The SM wording ("estimations of LS were to a maximum slope angle of 26.6°") would also allow masking. The clamp is the usual reading.
+   - Aspect term: the GloSEM SM prints $x=\sin\alpha+\cos\alpha$. The absolute values are Desmet & Govers's original form.
 4. **Aggregate twice** (both layers are kept, to be tested against each other). LS per pixel is terrain only; the weighting acts only in the aggregation.
    - **`LS_all`**: mean over all valid land pixels.
    - **`LS_crop`**: cropland-weighted mean. Weights come from `ESA100_Cropland_fraction.tif` (GloSEM 1.3, one global 100 m file). ESA WorldCover at 10 m was rejected: it is about 1 TB on 3° tiles that do not line up with MERIT's 5° tiles. Crops tend to sit on flatter ground than the cell average, and GloSEM computes erosion on cropland pixels only.
@@ -133,6 +138,12 @@ Output files:
    - **Steps per box:** download both tars by hand; `run_local` reads the 36 tiles (5° each) in place through GDAL `/vsitar/` (nothing is extracted) and writes a file of sums and counts (`LS_sum`, `n`, `LSw_sum`, `w_sum`; 360×360 at 5′); check it, then delete the tars by hand. The code never downloads or deletes files. Peak disk use is one pair, a few GB. A manifest makes the run resumable and lists the boxes still to download; one parts folder holds one set of run settings (resolution, bbox, λ_max, crop or not).
    - **Tile edges:** `upa` is already global, so no flow routing crosses tiles. Slope uses central differences, which need only the 4 direct neighbours, so tile borders inside an archive are stitched exactly. At the outer 30° edges and at coasts the difference falls back to one-sided; the notebook's edge check measures the effect. 5° = 60 × 5′, so no 5′ cell straddles two tiles.
    - Never hold a global 90 m LS raster in memory; only the sums on the output grid are kept, and they are mosaicked exactly at the end.
+6. **Known differences from GloSEM.** The LS settings come from the v1.1 Supplementary Methods (Borrelli et al. 2017). The GloSEM 1.3 paper (Borrelli et al. 2022) describes the same run (SRTM/ASTER at 3″, SAGA, 870 tiles) and does not restate the parameters.
+   - **Flow routing and DEM.** GloSEM ran SAGA with D-infinity / multiple-flow routing (the SM names both) on hole-filled SRTM, with ASTER GDEM v2 in the far north. We use MERIT Hydro `upa` (D8) and the MERIT DEM.
+   - **25 m rescaling.** GloSEM rescaled its 90 m LS "to the values of a 25 m DEM through a linear relationship (R² = 0.998)". The coefficients are not published, so this step is not reproduced.
+   - **Resampling.** GloSEM resampled LS to 250 m by nearest neighbour, which explains the speckle in the 25 km v1.1 file. Our 5′ value is the mean of all 3″ pixels. The speckle does not bias levels: the 25 km file reproduces GloSEM's published continental means (SM Fig. 14c) within about 10% (e.g. Europe 1.31 vs 1.25, Africa 0.98 vs 1.0), so it is a fair reference.
+   - **Remaining offset.** Even with GloSEM's settings, our LS stays well above the v1.1 25 km layer (see the box check in `K_LS_Creation.ipynb`). The spatial pattern agrees well. The undisclosed rescaling is the main suspect.
+   - **Reference means.** GloSEM v1.1 mean LS by continent (250 m, SM Fig. 14c, read off the chart): Africa ≈ 1.0, Asia ≈ 2.5, Europe ≈ 1.25, North America ≈ 1.75, Oceania ≈ 0.8, South America ≈ 1.65.
 
 Output files:
 - `rusle_LS_all_5m.tif`

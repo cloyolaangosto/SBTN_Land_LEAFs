@@ -6,6 +6,10 @@ LS (slope length and steepness) for the new RUSLE layers, method LS1 of RUSLE/RE
   rill/interrill exponent (as GloSEM, Borrelli et al. 2022).
 - S: McCool et al. (1987).
 - Inputs: MERIT DEM (elevation) and MERIT Hydro `upa` (upstream drainage area), both 3 arc-second.
+- Defaults follow GloSEM v1.1 (Borrelli et al. 2017, Supplementary Methods): slope length capped at 122 m (the
+  longest USLE plots) and slope clamped at 26.6 deg (50%, after Panagos et al. 2015).
+- Known differences from GloSEM v1.1: MERIT D8 `upa` and MERIT DEM instead of SAGA D-infinity/multiple-flow on SRTM,
+  and no rescaling "to the values of a 25 m DEM" (GloSEM's linear coefficients are not published).
 
 MERIT is distributed as 30x30 degree tar archives of 36 tiles of 5x5 degrees (6000 x 6000 px). The work unit
 here is one archive pair (DEM tar + upa tar of the same box), downloaded and deleted by hand. The tiles are read
@@ -58,7 +62,8 @@ FIVE_MIN_DEG = 1.0 / 12.0               # 5 arc-minutes
 LS_BANDS = ("LS_sum", "n", "LSw_sum", "w_sum")
 MAX_SUM_BYTES = 4 * 2**30               # memory guard for the in-memory sums array
 
-DEFAULT_LAMBDA_MAX_M = 300.0            # slope-length cap (README: sensitivity 100-500 m)
+DEFAULT_LAMBDA_MAX_M = 122.0            # slope-length cap, m: GloSEM v1.1, longest USLE plots (sensitivity 100-500 m)
+DEFAULT_MAX_SLOPE_DEG = 26.6            # slope clamp, degrees (50%): GloSEM v1.1, after Panagos et al. 2015
 MERIT_LAT_BANDS = (60, 30, 0, -30, -60) # south edge of each 30-deg archive row (MERIT covers 60S-90N)
 _EPS = 1e-6                             # tolerance, in grid cells, when snapping degrees to the grid
 
@@ -100,6 +105,7 @@ def ls_factor_desmet_govers(
     res_deg: float,
     lambda_max: Optional[float] = DEFAULT_LAMBDA_MAX_M,
     channel_upa_km2: Optional[float] = None,
+    max_slope_deg: Optional[float] = DEFAULT_MAX_SLOPE_DEG,
 ) -> np.ndarray:
     """RUSLE LS for a block of a geographic (lat/lon) grid.
 
@@ -107,8 +113,9 @@ def ls_factor_desmet_govers(
         L = ((A + D^2)^(m+1) - A^(m+1)) / (D^(m+2) * x^m * 22.13^m)
         A = upslope contributing area at the cell inlet (m^2) = upa * 1e6 - D^2, capped at lambda_max * D
         m = beta / (1 + beta), beta = (sin(theta) / 0.0896) / (3 sin(theta)^0.8 + 0.56)   (McCool et al. 1989)
-        x = |sin(aspect)| + |cos(aspect)|
+        x = |sin(aspect)| + |cos(aspect)|   (the GloSEM v1.1 SM prints sin + cos; the absolute values are D&G's)
     S (McCool et al. 1987): 10.8 sin(theta) + 0.03 if tan(theta) < 0.09, else 16.8 sin(theta) - 0.50
+    theta is clamped at max_slope_deg before m and S (steeper cells take the clamp value; they are not masked).
 
     Parameters
     ----------
@@ -118,6 +125,7 @@ def ls_factor_desmet_govers(
     res_deg: pixel size in degrees (1/1200 for MERIT 3").
     lambda_max: cap on the slope length A/D, m. None disables the cap.
     channel_upa_km2: cells with upa above this are treated as channels and set to NaN. None keeps all cells.
+    max_slope_deg: slope clamp, degrees. None disables the clamp.
 
     Returns
     -------
@@ -130,9 +138,11 @@ def ls_factor_desmet_govers(
 
     dzdx, dzdy = slope_components(z_pad, dy, dx)
     grad = np.hypot(dzdx, dzdy)                                    # tan(theta)
-    sin_t = grad / np.sqrt(1.0 + grad * grad)
     with np.errstate(invalid="ignore", divide="ignore"):
-        x = np.where(grad > 0, (np.abs(dzdx) + np.abs(dzdy)) / grad, 1.0)
+        x = np.where(grad > 0, (np.abs(dzdx) + np.abs(dzdy)) / grad, 1.0)   # aspect term, from the true slope
+    if max_slope_deg is not None:
+        grad = np.minimum(grad, math.tan(math.radians(max_slope_deg)))     # NaN stays NaN
+    sin_t = grad / np.sqrt(1.0 + grad * grad)
 
     A = np.maximum(upa_km2 * 1e6 - D * D, 0.0)
     if lambda_max is not None:
@@ -308,6 +318,7 @@ def process_archive(
     bbox: Optional[BBox] = None,
     lambda_max: Optional[float] = DEFAULT_LAMBDA_MAX_M,
     channel_upa_km2: Optional[float] = None,
+    max_slope_deg: Optional[float] = DEFAULT_MAX_SLOPE_DEG,
     block_rows: int = 1200,
     use_neighbours: bool = True,
     only_tiles: Optional[Sequence[str]] = None,
@@ -325,7 +336,7 @@ def process_archive(
     out_res_deg: output cell size in degrees; a whole multiple of the 3" pixel (5' default, 1/120 for 30", 1/1200
         for 3").
     bbox: (west, south, east, north) in degrees; snapped outward to the output grid. None covers the whole archive.
-    lambda_max, channel_upa_km2: see ls_factor_desmet_govers.
+    lambda_max, channel_upa_km2, max_slope_deg: see ls_factor_desmet_govers.
     block_rows: rows read at a time; must be a multiple of the aggregation factor.
     use_neighbours: stitch tile borders from neighbouring tiles. False gives one-sided differences at every
         tile edge (used to measure the archive-edge effect).
@@ -392,7 +403,7 @@ def process_archive(
                 z_pad = _read_padded(dem, key, r0, r1, wc0, wc1, use_neighbours)
                 upa_blk = _read_float(upa_ds, Window(wc0, r0, wc1 - wc0, r1 - r0))
                 lat = tile_north - (np.arange(r0, r1) + 0.5) * res
-                ls = ls_factor_desmet_govers(z_pad, upa_blk, lat, res, lambda_max, channel_upa_km2)
+                ls = ls_factor_desmet_govers(z_pad, upa_blk, lat, res, lambda_max, channel_upa_km2, max_slope_deg)
                 w = weight[r0 - wr0: r1 - wr0] if weight is not None else None
                 blk = aggregate_block(ls, w, factor)
                 orow = (ty0 + r0 - gy0) // factor
@@ -434,6 +445,10 @@ def _run_params(bbox: Optional[BBox], process_kwargs: Dict) -> Dict:
         channel_upa_km2=process_kwargs.get("channel_upa_km2"),
         crop=process_kwargs.get("crop_fp") is not None,
     )
+    # recorded only when set, so folders made before the clamp existed still match a max_slope_deg=None run
+    max_slope = process_kwargs.get("max_slope_deg", DEFAULT_MAX_SLOPE_DEG)
+    if max_slope is not None:
+        params["max_slope_deg"] = max_slope
     return json.loads(json.dumps(params))
 
 
