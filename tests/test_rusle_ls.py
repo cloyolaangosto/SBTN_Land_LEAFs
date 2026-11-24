@@ -1,5 +1,6 @@
 """Tests for the MERIT-based LS factor in sbtn_leaf.rusle_ls (synthetic tiles and archives)."""
 
+import json
 import math
 import tarfile
 
@@ -67,14 +68,39 @@ def test_missing_neighbours_fall_back_to_one_sided():
     np.testing.assert_allclose(dzdx[0], [1.0, 2.0, 4.0, 5.0])  # edges one-sided, interior central
 
 
-def test_aggregate_to_5min_sums_and_counts():
+def test_aggregate_block_sums_and_weights():
     a = np.arange(16, dtype=float).reshape(4, 4)
     a[0, 0] = np.nan
-    s, n = ls.aggregate_to_5min(a, factor=2)
+    w = np.full((4, 4), 0.5)
+    w[1, 1] = np.nan                                            # NaN weight where LS is valid: excluded from w
+    s, n, sw, ws = ls.aggregate_block(a, w, factor=2)
     assert n[0, 0] == 3 and s[0, 0] == 1 + 4 + 5
-    assert n[1, 1] == 4 and s[1, 1] == 10 + 11 + 14 + 15
+    np.testing.assert_allclose(sw[0, 0], 0.5 * (1 + 4))
+    np.testing.assert_allclose(ws[0, 0], 1.0)
+    np.testing.assert_allclose(sw[1, 1], 0.5 * (10 + 11 + 14 + 15))
+
+    s1, n1, sw1, ws1 = ls.aggregate_block(a, None, factor=1)    # factor 1 keeps the pixels
+    np.testing.assert_array_equal(s1, np.nan_to_num(a))
+    assert not sw1.any() and not ws1.any()
     with pytest.raises(ValueError):
-        ls.aggregate_to_5min(a[:3], factor=2)
+        ls.aggregate_block(a[:3], factor=2)
+
+
+def test_grid_helpers():
+    west, south, east, north = ls._snap_bbox((20.01, 9.99, 20.02, 10.01), ls.FIVE_MIN_DEG)
+    assert (west, east) == pytest.approx((20.0, 20 + 1 / 12))
+    assert (south, north) == pytest.approx((10 - 1 / 12, 10 + 1 / 12))
+    assert ls._snap_bbox((20.0, 10.0, 21.0, 11.0), ls.FIVE_MIN_DEG) == pytest.approx((20.0, 10.0, 21.0, 11.0))
+
+    assert ls.merit_boxes_for_bbox((25, 40, 35, 45)) == ["n30e000", "n30e030"]
+    assert ls.merit_boxes_for_bbox((-5, -35, 5, -25)) == ["s30w030", "s30e000", "s60w030", "s60e000"]
+    assert ls.merit_boxes_for_bbox((0, 0, 30, 30)) == ["n00e000"]           # edges do not pull in neighbours
+    assert ls.merit_boxes_for_bbox((0, -80, 1, -70)) == []                  # south of MERIT
+
+
+def test_merit_box_names():
+    names = ls.merit_box_names(lat_bands=(30, -30), lon_start=-30, lon_end=30)
+    assert names == ["n30w030", "n30e000", "s30w030", "s30e000"]
 
 
 # --- synthetic archives ------------------------------------------------------------------------------
@@ -128,21 +154,27 @@ def _full_mosaic_ls(size):
     return ls.ls_factor_desmet_govers(_pad(z), upa, rows, RES)
 
 
-def test_process_archive_stitches_tiles_exactly(tmp_path):
-    tars, size = _make_archives(tmp_path)                      # 200 px tiles = 2 x 2 cells of 5' (100 px)
+@pytest.mark.parametrize("factor", [100, 10, 1])
+def test_process_archive_stitches_tiles_exactly(tmp_path, factor):
+    tars, size = _make_archives(tmp_path)
     out_fp = tmp_path / "parts" / "ls_sums_test.tif"
-    sums, transform = ls.process_archive(tars["dem"], tars["upa"], out_fp, block_rows=100, show_progress=False)
+    sums, transform = ls.process_archive(tars["dem"], tars["upa"], out_fp, out_res_deg=factor * RES,
+                                         block_rows=100, show_progress=False)
 
-    ref = _full_mosaic_ls(size)
-    ref_sums = ls.aggregate_to_5min(ref, 100)
-    assert sums.shape[0] == len(ls.LS_BANDS) == 2
-    np.testing.assert_allclose(sums[0], ref_sums[0], rtol=1e-10)
-    np.testing.assert_array_equal(sums[1], ref_sums[1])
+    ref = ls.aggregate_block(_full_mosaic_ls(size), None, factor)
+    assert sums.shape == (4, 2 * TILE // factor, 2 * TILE // factor)
+    np.testing.assert_allclose(sums[0], ref[0], rtol=1e-10)
+    np.testing.assert_array_equal(sums[1], ref[1])
+    assert not sums[2].any() and not sums[3].any()              # no crop file -> crop bands 0
     assert transform.c == pytest.approx(20.0) and transform.f == pytest.approx(10 + 2 * size)
+    assert transform.a == pytest.approx(factor * RES)
     with rasterio.open(out_fp) as src:
-        assert src.count == 2 and src.descriptions == ls.LS_BANDS
+        assert src.count == 4 and src.descriptions == ls.LS_BANDS
 
-    # without neighbours only the cells touching internal tile edges change
+
+def test_one_sided_edges_only_change_cells_on_tile_lines(tmp_path):
+    tars, _ = _make_archives(tmp_path)                          # 200 px tiles = 2 x 2 cells of 5' (100 px)
+    sums, _ = ls.process_archive(tars["dem"], tars["upa"], None, block_rows=100, show_progress=False)
     one_sided, _ = ls.process_archive(tars["dem"], tars["upa"], None, block_rows=100,
                                       use_neighbours=False, show_progress=False)
     changed = ~np.isclose(one_sided[0], sums[0], rtol=1e-12)
@@ -153,29 +185,119 @@ def test_process_archive_stitches_tiles_exactly(tmp_path):
     assert not changed[~touches_inner_edge].any()
 
 
+def test_bbox_gives_the_matching_slice(tmp_path):
+    tars, size = _make_archives(tmp_path)
+    res = 10 * RES                                              # 30"
+    full, tr_full = ls.process_archive(tars["dem"], tars["upa"], None, out_res_deg=res,
+                                       block_rows=100, show_progress=False)
+    bbox = (20 + size - 0.03, 10 + size - 0.04, 20 + size + 0.05, 10 + size + 0.02)   # crosses both tile lines
+    part, tr = ls.process_archive(tars["dem"], tars["upa"], None, out_res_deg=res, bbox=bbox,
+                                  block_rows=100, show_progress=False)
+
+    for v in ((tr.c + 180) / res, (90 - tr.f) / res):           # origin on the global grid
+        assert v == pytest.approx(round(v), abs=1e-6)
+    assert tr.c <= bbox[0] and tr.f >= bbox[3]
+    assert tr.c + part.shape[2] * res >= bbox[2] and tr.f - part.shape[1] * res <= bbox[1]
+    c, r = round((tr.c - tr_full.c) / res), round((tr_full.f - tr.f) / res)
+    np.testing.assert_allclose(part, full[:, r: r + part.shape[1], c: c + part.shape[2]], rtol=1e-12)
+
+    empty, _ = ls.process_archive(tars["dem"], tars["upa"], None, bbox=(0, 0, 1, 1), show_progress=False)
+    assert empty.size == 0
+
+
+def test_crop_weights(tmp_path):
+    tars, size = _make_archives(tmp_path)
+    crop_fp = tmp_path / "crop.tif"
+    n = 2 * TILE // 2                                           # crop raster at 6", covering the archive
+    crop = np.zeros((n, n), dtype=np.float32)
+    crop[:, : n // 2] = 100.0                                   # percent: west half all cropland
+    with rasterio.open(crop_fp, "w", driver="GTiff", height=n, width=n, count=1, dtype="float32",
+                       crs="EPSG:4326", transform=from_origin(20.0, 10 + 2 * size, 2 * RES, 2 * RES)) as dst:
+        dst.write(crop, 1)
+
+    sums, _ = ls.process_archive(tars["dem"], tars["upa"], None, crop_fp=crop_fp, crop_scale=0.01,
+                                 block_rows=100, show_progress=False)
+    np.testing.assert_allclose(sums[3][:, :2], sums[1][:, :2])  # west cells: w_sum == n
+    np.testing.assert_allclose(sums[2][:, :2], sums[0][:, :2])
+    assert not sums[3][:, 2:].any() and not sums[2][:, 2:].any()
+
+
+def test_bad_resolution_and_memory_guard(tmp_path, monkeypatch):
+    tars, _ = _make_archives(tmp_path)
+    with pytest.raises(ValueError, match="multiple"):
+        ls.process_archive(tars["dem"], tars["upa"], None, out_res_deg=1.5 * RES, show_progress=False)
+    monkeypatch.setattr(ls, "MAX_SUM_BYTES", 1000)
+    with pytest.raises(ValueError, match="bbox"):
+        ls.process_archive(tars["dem"], tars["upa"], None, out_res_deg=RES, block_rows=100, show_progress=False)
+
+
+# --- batch run and mosaic -----------------------------------------------------------------------------
+def test_run_local_processes_present_boxes_and_keeps_tars(tmp_path, monkeypatch):
+    tars, _ = _make_archives(tmp_path)
+    archive_dir, parts = tars["dem"].parent, tmp_path / "parts"
+    kw = dict(dem_name="dem_{box}.tar", upa_name="upa_{box}.tar", block_rows=100, show_progress=False)
+
+    manifest, not_found = ls.run_local(archive_dir, parts, boxes=["test", "n00e000"], **kw)
+    assert manifest["test"] == "done" and not_found == ["n00e000"] and "n00e000" not in manifest
+    assert (parts / "ls_sums_test.tif").exists()
+    assert tars["dem"].exists() and tars["upa"].exists()        # nothing deleted
+    assert json.loads((parts / "manifest.json").read_text())["_params"]["crop"] is False
+
+    def _fail(*a, **k):
+        raise AssertionError("done boxes must be skipped")
+    monkeypatch.setattr(ls, "process_archive", _fail)
+    ls.run_local(archive_dir, parts, boxes=["test"], **kw)
+    with pytest.raises(ValueError, match="parts_dir"):
+        ls.run_local(archive_dir, parts, boxes=["test"], lambda_max=100, **kw)
+
+
 def test_mosaic_places_parts_and_divides(tmp_path):
     parts = tmp_path / "parts"
-    sums = np.zeros((2, 2, 3))
-    sums[0], sums[1] = 6.0, 2.0
+    sums = np.zeros((4, 2, 3))
+    sums[0], sums[1], sums[2], sums[3] = 6.0, 2.0, 3.0, 1.0
     ls.write_sums(parts / "ls_sums_a.tif", sums, from_origin(0.0, 0.0, ls.FIVE_MIN_DEG, ls.FIVE_MIN_DEG))
-    out = ls.mosaic_ls(parts, tmp_path / "ls.tif")
+    ls_all, ls_crop = ls.mosaic_ls(parts, tmp_path / "all.tif", tmp_path / "crop.tif")
+    assert ls_all.shape == (2160, 4320)
     r0, c0 = round(90 / ls.FIVE_MIN_DEG), round(180 / ls.FIVE_MIN_DEG)
-    np.testing.assert_allclose(out[r0:r0 + 2, c0:c0 + 3], 3.0)
-    assert np.isnan(out[0, 0]) and np.isfinite(out).sum() == 6
-    with rasterio.open(tmp_path / "ls.tif") as src:
-        np.testing.assert_array_equal(src.read(1), out)
+    np.testing.assert_allclose(ls_all[r0:r0 + 2, c0:c0 + 3], 3.0)
+    np.testing.assert_allclose(ls_crop[r0:r0 + 2, c0:c0 + 3], 3.0)
+    assert np.isnan(ls_all[0, 0]) and np.isfinite(ls_all).sum() == 6
+    _, none = ls.mosaic_ls(parts, tmp_path / "all.tif")
+    assert none is None
 
 
-def test_mosaic_rejects_old_four_band_parts(tmp_path):
+def test_mosaic_on_a_bbox_grid(tmp_path):
+    res = 10 * RES
+    parts = tmp_path / "parts"
+    sums = np.zeros((4, 2, 3))
+    sums[0], sums[1] = 6.0, 2.0
+    ls.write_sums(parts / "ls_sums_a.tif", sums, from_origin(10.0, 5.0, res, res))
+    out, _ = ls.mosaic_ls(parts, tmp_path / "all.tif", res_deg=res, bbox=(10.0, 4.9, 10.1, 5.0))
+    assert out.shape == (12, 12)
+    np.testing.assert_allclose(out[:2, :3], 3.0)
+    assert np.isfinite(out).sum() == 6
+    with rasterio.open(tmp_path / "all.tif") as src:
+        assert src.transform.c == pytest.approx(10.0) and src.transform.f == pytest.approx(5.0)
+
+
+def test_mosaic_rejects_bad_parts(tmp_path):
     parts = tmp_path / "parts"
     parts.mkdir()
-    with rasterio.open(parts / "ls_sums_old.tif", "w", driver="GTiff", height=1, width=1, count=4,
-                       dtype="float64", crs="EPSG:4326", transform=from_origin(10, 10, 1, 1)) as dst:
-        dst.write(np.ones((4, 1, 1)))
+    old = parts / "ls_sums_old.tif"
+    with rasterio.open(old, "w", driver="GTiff", height=1, width=1, count=2, dtype="float64",
+                       crs="EPSG:4326", transform=from_origin(10, 10, ls.FIVE_MIN_DEG, ls.FIVE_MIN_DEG)) as dst:
+        dst.write(np.ones((2, 1, 1)))
     with pytest.raises(ValueError, match="bands"):
         ls.mosaic_ls(parts, tmp_path / "ls.tif")
+    old.unlink()
 
+    ls.write_sums(parts / "ls_sums_b.tif", np.ones((4, 1, 1)), from_origin(10, 10, RES * 10, RES * 10))
+    with pytest.raises(ValueError, match="resolution"):
+        ls.mosaic_ls(parts, tmp_path / "ls.tif")
+    (parts / "ls_sums_b.tif").unlink()
 
-def test_merit_box_names():
-    names = ls.merit_box_names(lat_bands=(30, -30), lon_start=-30, lon_end=30)
-    assert names == ["n30w030", "n30e000", "s30w030", "s30e000"]
+    no_crop = np.ones((4, 1, 1))
+    no_crop[2:] = 0.0
+    ls.write_sums(parts / "ls_sums_c.tif", no_crop, from_origin(10, 10, ls.FIVE_MIN_DEG, ls.FIVE_MIN_DEG))
+    with pytest.raises(ValueError, match="crop"):
+        ls.mosaic_ls(parts, tmp_path / "ls.tif", tmp_path / "crop.tif")

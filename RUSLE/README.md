@@ -125,14 +125,18 @@ Output files:
    - **Cap A** to a maximum hillslope length (default $\lambda_{max}$ = 300 m, i.e. $A\le\lambda_{max}\cdot D$). Run a sensitivity test at 100–500 m.
    - Mask channel cells (upa above a threshold). This avoids the unrealistic LS seen in Fadl et al. (2025), and represents field-scale slope lengths.
 3. **L:** Desmet & Govers with McCool β and $x = |\sin\alpha|+|\cos\alpha|$ (aspect α). **S:** McCool (1987), $S=10.8\sin\theta+0.03$ for tan θ < 0.09 and $S=16.8\sin\theta-0.50$ otherwise (Nearing 1997 as an option for very steep slopes).
-4. **Aggregate to 5′ once, independent of land use:** mean LS over all valid land pixels. LS describes terrain only, so the same layer is used for every LEAF flow (crops, grassland, forest, urban); land-use differences enter through C. No cropland weighting is applied.
-5. **Process one 30°×30° archive pair at a time** (DEM tar + `upa` tar of the same box). Implemented in `src/sbtn_leaf/rusle_ls.py` and run from `RUSLE/notebooks/K_LS_Creation.ipynb`.
-   - **Steps per box:** download both tars, read the 36 tiles (5° each) in place through GDAL `/vsitar/` (nothing is extracted), write a 360×360 5′ file of sums and counts (`LS_sum`, `n`), then delete the tars. Peak disk use is one pair, a few GB. A manifest makes the run resumable.
+4. **Aggregate twice** (both layers are kept, to be tested against each other). LS per pixel is terrain only; the weighting acts only in the aggregation.
+   - **`LS_all`**: mean over all valid land pixels.
+   - **`LS_crop`**: cropland-weighted mean. Weights come from `ESA100_Cropland_fraction.tif` (GloSEM 1.3, one global 100 m file). ESA WorldCover at 10 m was rejected: it is about 1 TB on 3° tiles that do not line up with MERIT's 5° tiles. Crops tend to sit on flatter ground than the cell average, and GloSEM computes erosion on cropland pixels only.
+   - **Resolution:** any whole multiple of 3″ on a lat/lon grid anchored at (−180°, 90°): 5′ by default, 30″ (≈ 1 km) or 3″ (≈ 90 m, no aggregation) for regional runs. A bounding box limits processing and output to a region; fine resolutions need one. Metric grids (true 1,000 m or 100 m) are a later step, reprojecting the finished rasters.
+5. **Process one 30°×30° archive pair at a time** (DEM tar + `upa` tar of the same box). Implemented in `src/sbtn_leaf/rusle_ls.py` (`run_local`) and run from `RUSLE/notebooks/K_LS_Creation.ipynb`.
+   - **Steps per box:** download both tars by hand; `run_local` reads the 36 tiles (5° each) in place through GDAL `/vsitar/` (nothing is extracted) and writes a file of sums and counts (`LS_sum`, `n`, `LSw_sum`, `w_sum`; 360×360 at 5′); check it, then delete the tars by hand. The code never downloads or deletes files. Peak disk use is one pair, a few GB. A manifest makes the run resumable and lists the boxes still to download; one parts folder holds one set of run settings (resolution, bbox, λ_max, crop or not).
    - **Tile edges:** `upa` is already global, so no flow routing crosses tiles. Slope uses central differences, which need only the 4 direct neighbours, so tile borders inside an archive are stitched exactly. At the outer 30° edges and at coasts the difference falls back to one-sided; the notebook's edge check measures the effect. 5° = 60 × 5′, so no 5′ cell straddles two tiles.
-   - Never hold a global 90 m LS raster in memory; only the 5′ sums are kept, and they are mosaicked exactly at the end.
+   - Never hold a global 90 m LS raster in memory; only the sums on the output grid are kept, and they are mosaicked exactly at the end.
 
 Output files:
-- `rusle_LS_5m.tif`
+- `rusle_LS_all_5m.tif`
+- `rusle_LS_crop_5m.tif`
 
 ### Validation of the new layers
 - Aggregate the new R, $K_{st}$ and LS to the GloSEM v1.1 0.2083° grid. Compare with `RUSLE_{R,K,LS}Factor_v1.1_25km.tif`: correlation, bias map, and ratio by continent and biome.
@@ -211,14 +215,15 @@ $$A_{p,y,s} = \underbrace{R_{base,p}\,\Delta_{p,s}}_{\text{scenario mean}}\cdot\
 | K | SoilGrids 2.0 `sand`, `silt`, `clay`, `soc`, `cfvo` at 0–5 / 5–15 / 15–30 cm | 250 m (or 1 km aggregated) | files.isric.org | To download (sand and clay 15–30 cm already on disk at 5′) |
 | K structure $s$ (Yang et al. 2024 route; optional) | SoilGrids 2.0 WRB most probable reference soil group (`wrb/MostProbable.vrt`), plus a WRB → $s$ lookup. Yang's lookup is not published: ask the authors, or build one from the ESDB pedotransfer rules (Van Ranst et al. 1995) via Panagos Table 1 | 250 m (aggregate by mode to the 1 km grid) | files.isric.org/soilgrids/latest/data/wrb/; ESDAC | Optional, replaces the texture lookup |
 | K validation | Yang et al. (2024) Table A.1, 144 measured-K sites (in the PDF appendix) | Points | `RUSLE/papers/` | To extract |
-| LS | MERIT DEM and MERIT Hydro (`upa`), 30°×30° tar archives | 3″ (~90 m) | U. Tokyo (free registration); downloaded box by box by `rusle_ls.run_all` | To download (streamed, not stored) |
+| LS | MERIT DEM and MERIT Hydro (`upa`), 30°×30° tar archives | 3″ (~90 m) | U. Tokyo (free registration); downloaded manually box by box; processed by `rusle_ls.run_local` | To download (one box at a time, deleted after processing) |
+| LS crop weights | GloSEM 1.3 `ESA100_Cropland_fraction.tif` | 100 m | ESDAC | To download |
 | Drought C calibration | MODIS NDVI (MOD13A3 monthly) | 1 km | NASA LP DAAC / GEE | Optional |
 
 # Implementation plan
 1. **New module `src/sbtn_leaf/rusle.py`** (keeping the style of `map_calculations.py`) with:
    - `r_factor_change_mfi(prec_hist, prec_scen)`
    - `k_factor_nomograph(...)`, `k_factor_epic(...)`, `stone_correction(...)`
-   - LS is in its own module, `src/sbtn_leaf/rusle_ls.py`: `ls_factor_desmet_govers`, `process_archive`, `run_all`, `mosaic_ls`
+   - LS is in its own module, `src/sbtn_leaf/rusle_ls.py`: `ls_factor_desmet_govers`, `process_archive`, `run_local`, `mosaic_ls`
    - `aggregate_to_grid(src, template, weights=None)`: windowed mean or weighted mean onto the UHTH grid
    - `simulate_erosion(...)`: weighted year library, Monte Carlo, exceedance statistics
 2. **Notebook `RUSLE/RUSLE_layers_5arcmin.ipynb`:** download and process R, K and LS; validate against GloSEM v1.1; write `rusle_*_5m.tif` and the new `rlsk_5m_<scenario>.tif`.
