@@ -88,7 +88,7 @@ These layers are constant. They can be calculated once and stored as GeoTIFFs, b
   - If the vfs and structure lookups cannot be reproduced defensibly, **fall back to K2**. It is the easiest method fully supported by open data.
 - **LS → LS1 (Desmet & Govers, as GloSEM), using precomputed MERIT Hydro flow accumulation and MERIT DEM slope at 3″ (~90 m), aggregated to 5′.**
   - This reproduces the GloSEM method without running global flow routing.
-  - It can run in Google Earth Engine, which hosts MERIT DEM and MERIT Hydro, or locally tile by tile.
+  - It runs locally, one 30° MERIT archive at a time (see [LS Layer](#ls-layer)). Google Earth Engine also hosts both datasets, but it was dropped: it needs a registered Cloud project, and free use is limited by compute quotas.
 
 ## Selected method
 
@@ -125,14 +125,14 @@ Output files:
    - **Cap A** to a maximum hillslope length (default $\lambda_{max}$ = 300 m, i.e. $A\le\lambda_{max}\cdot D$). Run a sensitivity test at 100–500 m.
    - Mask channel cells (upa above a threshold). This avoids the unrealistic LS seen in Fadl et al. (2025), and represents field-scale slope lengths.
 3. **L:** Desmet & Govers with McCool β and $x = |\sin\alpha|+|\cos\alpha|$ (aspect α). **S:** McCool (1987), $S=10.8\sin\theta+0.03$ for tan θ < 0.09 and $S=16.8\sin\theta-0.50$ otherwise (Nearing 1997 as an option for very steep slopes).
-4. **Aggregate to 5′ twice:**
-   - **`LS_all`**: mean over all land. Used for forest, grassland and urban LEAFs.
-   - **`LS_crop`**: cropland-weighted mean. Weights come from ESA WorldCover cropland fraction, or `ESA100_Cropland_fraction.tif` from GloSEM 1.3. Crops sit on flatter ground than the cell average, so crop LEAFs should use `LS_crop`.
-5. **Process 5° tiles** (or run in Earth Engine) and write only the 5′ aggregates. Never hold a global 90 m LS raster in memory.
+4. **Aggregate to 5′ once, independent of land use:** mean LS over all valid land pixels. LS describes terrain only, so the same layer is used for every LEAF flow (crops, grassland, forest, urban); land-use differences enter through C. No cropland weighting is applied.
+5. **Process one 30°×30° archive pair at a time** (DEM tar + `upa` tar of the same box). Implemented in `src/sbtn_leaf/rusle_ls.py` and run from `RUSLE/notebooks/K_LS_Creation.ipynb`.
+   - **Steps per box:** download both tars, read the 36 tiles (5° each) in place through GDAL `/vsitar/` (nothing is extracted), write a 360×360 5′ file of sums and counts (`LS_sum`, `n`), then delete the tars. Peak disk use is one pair, a few GB. A manifest makes the run resumable.
+   - **Tile edges:** `upa` is already global, so no flow routing crosses tiles. Slope uses central differences, which need only the 4 direct neighbours, so tile borders inside an archive are stitched exactly. At the outer 30° edges and at coasts the difference falls back to one-sided; the notebook's edge check measures the effect. 5° = 60 × 5′, so no 5′ cell straddles two tiles.
+   - Never hold a global 90 m LS raster in memory; only the 5′ sums are kept, and they are mosaicked exactly at the end.
 
 Output files:
-- `rusle_LS_all_5m.tif`
-- `rusle_LS_crop_5m.tif`
+- `rusle_LS_5m.tif`
 
 ### Validation of the new layers
 - Aggregate the new R, $K_{st}$ and LS to the GloSEM v1.1 0.2083° grid. Compare with `RUSLE_{R,K,LS}Factor_v1.1_25km.tif`: correlation, bias map, and ratio by continent and biome.
@@ -211,15 +211,14 @@ $$A_{p,y,s} = \underbrace{R_{base,p}\,\Delta_{p,s}}_{\text{scenario mean}}\cdot\
 | K | SoilGrids 2.0 `sand`, `silt`, `clay`, `soc`, `cfvo` at 0–5 / 5–15 / 15–30 cm | 250 m (or 1 km aggregated) | files.isric.org | To download (sand and clay 15–30 cm already on disk at 5′) |
 | K structure $s$ (Yang et al. 2024 route; optional) | SoilGrids 2.0 WRB most probable reference soil group (`wrb/MostProbable.vrt`), plus a WRB → $s$ lookup. Yang's lookup is not published: ask the authors, or build one from the ESDB pedotransfer rules (Van Ranst et al. 1995) via Panagos Table 1 | 250 m (aggregate by mode to the 1 km grid) | files.isric.org/soilgrids/latest/data/wrb/; ESDAC | Optional, replaces the texture lookup |
 | K validation | Yang et al. (2024) Table A.1, 144 measured-K sites (in the PDF appendix) | Points | `RUSLE/papers/` | To extract |
-| LS | MERIT DEM and MERIT Hydro (`upa`) | 3″ (~90 m) | U. Tokyo (free registration), or Google Earth Engine catalog | To download |
-| LS crop weights | ESA WorldCover 2021, or GloSEM 1.3 `ESA100_Cropland_fraction.tif` | 10–100 m | ESA / ESDAC | To download |
+| LS | MERIT DEM and MERIT Hydro (`upa`), 30°×30° tar archives | 3″ (~90 m) | U. Tokyo (free registration); downloaded box by box by `rusle_ls.run_all` | To download (streamed, not stored) |
 | Drought C calibration | MODIS NDVI (MOD13A3 monthly) | 1 km | NASA LP DAAC / GEE | Optional |
 
 # Implementation plan
 1. **New module `src/sbtn_leaf/rusle.py`** (keeping the style of `map_calculations.py`) with:
    - `r_factor_change_mfi(prec_hist, prec_scen)`
    - `k_factor_nomograph(...)`, `k_factor_epic(...)`, `stone_correction(...)`
-   - `ls_factor_desmet_govers(slope, upa, aspect, lambda_max)`
+   - LS is in its own module, `src/sbtn_leaf/rusle_ls.py`: `ls_factor_desmet_govers`, `process_archive`, `run_all`, `mosaic_ls`
    - `aggregate_to_grid(src, template, weights=None)`: windowed mean or weighted mean onto the UHTH grid
    - `simulate_erosion(...)`: weighted year library, Monte Carlo, exceedance statistics
 2. **Notebook `RUSLE/RUSLE_layers_5arcmin.ipynb`:** download and process R, K and LS; validate against GloSEM v1.1; write `rusle_*_5m.tif` and the new `rlsk_5m_<scenario>.tif`.
