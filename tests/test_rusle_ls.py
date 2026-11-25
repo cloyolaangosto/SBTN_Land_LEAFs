@@ -110,6 +110,28 @@ def test_area_term_sca_is_glosem_compatible():
         ls.ls_factor_desmet_govers(_pad(z), upa, np.zeros(5), RES, area_term="m2")
 
 
+@pytest.mark.parametrize("tan_t, m, s_coef", [
+    (0.005, 0.2, (10.8, 0.03)), (0.02, 0.3, (10.8, 0.03)), (0.05, 0.4, (10.8, 0.03)),
+    (0.12, 0.5, (16.8, -0.50)), (0.3, 0.5, (21.9, -0.96)), (1.0, 0.5, (21.9, -0.96)),
+])
+def test_ls2_slope_classes_and_liu_s(tan_t, m, s_coef):
+    dy = ls.EARTH_RADIUS_M * math.radians(RES)
+    D = dy                                                      # equator: dx == dy
+    rows = np.arange(5)
+    z = np.repeat((-rows * dy * tan_t)[:, None], 4, axis=1)
+    upa = np.full((5, 4), 1.0)                                  # km2: lambda capped at 122 m
+    out = ls.ls_factor_desmet_govers(_pad(z), upa, np.zeros(5), RES, lambda_max=122, area_term="ls2")
+    t = min(tan_t, math.tan(math.radians(26.6)))                # 45 deg is clamped like the other variants
+    sin_t = t / math.sqrt(1 + t * t)
+    np.testing.assert_allclose(out, (122 / 22.13) ** m * (s_coef[0] * sin_t + s_coef[1]), rtol=1e-9)
+
+    # a hilltop cell: lambda = D (the cell itself); no cap: lambda = upa / D
+    top = ls.ls_factor_desmet_govers(_pad(z), np.full((5, 4), D * D / 1e6), np.zeros(5), RES, area_term="ls2")
+    np.testing.assert_allclose(top, (D / 22.13) ** m * (s_coef[0] * sin_t + s_coef[1]), rtol=1e-9)
+    free = ls.ls_factor_desmet_govers(_pad(z), upa, np.zeros(5), RES, lambda_max=None, area_term="ls2")
+    np.testing.assert_allclose(free, (1e6 / D / 22.13) ** m * (s_coef[0] * sin_t + s_coef[1]), rtol=1e-9)
+
+
 def test_missing_neighbours_fall_back_to_one_sided():
     z = np.array([[0.0, 1.0, 4.0, 9.0]])                        # quadratic along x
     p = _pad(z)
@@ -363,8 +385,8 @@ def test_tuple_area_term_matches_single_terms(tmp_path):
     z = _surface(lon, lat) * 20                                  # steep enough for both S branches and the clamp
     upa = np.random.default_rng(0).uniform(0.005, 2.0, z.shape)
     lat_rows = lat[:, 0]
-    both = ls.ls_factor_desmet_govers(_pad(z), upa, lat_rows, RES, area_term=("area", "sca"))
-    for term in ("area", "sca"):
+    both = ls.ls_factor_desmet_govers(_pad(z), upa, lat_rows, RES, area_term=("area", "sca", "ls2"))
+    for term in ("area", "sca", "ls2"):
         np.testing.assert_array_equal(both[term], ls.ls_factor_desmet_govers(_pad(z), upa, lat_rows, RES,
                                                                              area_term=term))
     with pytest.raises(ValueError, match="area_term"):
@@ -388,8 +410,8 @@ def test_run_local_tuple_area_term_writes_both_folders(tmp_path):
     tars, _ = _make_archives(tmp_path)
     archive_dir = tars["dem"].parent
     kw = dict(dem_name="dem_{box}.tar", upa_name="upa_{box}.tar", block_rows=100, show_progress=False)
-    dirs = {"area": tmp_path / "parts_area", "sca": tmp_path / "parts_sca"}
-    manifests, not_found = ls.run_local(archive_dir, dirs, boxes=["test", "n00e000"], area_term=("area", "sca"), **kw)
+    dirs = {"area": tmp_path / "parts_area", "sca": tmp_path / "parts_sca", "ls2": tmp_path / "parts_ls2"}
+    manifests, not_found = ls.run_local(archive_dir, dirs, boxes=["test", "n00e000"], area_term=tuple(dirs), **kw)
     assert not_found == ["n00e000"] and all(m["test"] == "done" for m in manifests.values())
 
     for term, d in dirs.items():                                  # same parts and manifest as a single-term run

@@ -78,7 +78,7 @@ These layers are constant. They can be calculated once and stored as GeoTIFFs, b
 | # | Method | Paper | Formula / approach | Inputs | Effort |
 |---|---|---|---|---|---|
 | LS1 | **Desmet & Govers (1996)** 2-D unit contributing area | Borrelli et al. 2022 | $L_{i,j}=\frac{(A_{i,j}+D^2)^{m+1}-A_{i,j}^{m+1}}{D^{m+2}\,x_{i,j}^m\,22.13^m}$ with $m=\beta/(1+\beta)$, $\beta=\frac{\sin\theta/0.0896}{3\sin^{0.8}\theta+0.56}$; S from McCool (1987) | 90 m DEM and upslope contributing area (SRTM/ASTER in GloSEM; SAGA, 870 tiles; slope length ≤ 122 m, slope ≤ 26.6°) | High if flow routing is done in-house. **Medium if precomputed flow accumulation is used** (MERIT Hydro) |
-| LS2 | **Slope-class exponent + McCool S** (Liu steep-slope variant) | Pyne et al. 2026 | $L=(\lambda/22.13)^m$, $m$ = 0.2/0.3/0.4/0.5 by slope class; S = 10.8 sinθ + 0.03 (< 9%), 16.8 sinθ − 0.5 (9–18%), 21.9 sinθ − 0.96 (≥ 18%) | DEM, flow length | Medium |
+| LS2 | **Slope-class exponent + McCool S** (Liu steep-slope variant) | Pyne et al. 2026 | $L=(\lambda/22.13)^m$, $m$ = 0.2/0.3/0.4/0.5 by slope class; S = 10.8 sinθ + 0.03 (< 9%), 16.8 sinθ − 0.5 (9–18%), 21.9 sinθ − 0.96 (≥ 18%) | DEM, flow length | Medium. **Implemented** from the same MERIT inputs (λ = `upa`/D ≤ 122 m): `area_term="ls2"`, see [LS Layer](#ls-layer) item 9 |
 | LS3 | **Shinde et al. (2011)** | Fadl et al. 2025 | $LS=(L/22.1)^m(65.4\sin^2\theta+4.56\sin\theta+0.0065)$ | DEM, slope length | Low, but uncapped lengths give unrealistic LS (up to 4,110 in the paper) |
 
 ### Selected K and LS methods
@@ -183,10 +183,19 @@ Output files:
    - **The gap is nearly constant across continents:** 2.2–2.5× for the default and 1.2–1.35× for the GloSEM-compatible layer. A gap that steady points to how the method was applied (item 6), not to terrain or latitude.
    - **About 27% remains with `"sca"`.** It plausibly comes from the unpublished 25 m rescale, SRTM versus MERIT, and D-infinity versus D8 routing. This is not tested.
    - **The spatial pattern agrees:** Spearman correlation is 0.62–0.81, and Pearson r is about 0.75 for both layers. The continents rank in the same order in all layers.
+   - The notebook's section "Global comparison of all LS layers with GloSEM v1.1" reproduces this table, with maps and scatter plots, for every mosaicked layer.
+9. **LS2 (Pyne et al. 2026), alternative method, implemented with no extra data.** `area_term="ls2"` in `ls_factor_desmet_govers`, `process_archive` and `run_local`. The global script computes it in the same pass as the other two layers: parts go to `ls_parts_ls2`, and the mosaic is `rusle_LS_all_5m_ls2.tif`.
+   - $L=(\lambda/22.13)^m$, with $m$ = 0.2, 0.3, 0.4, 0.5 for slopes < 1%, 1–3%, 3–9%, ≥ 9%.
+   - $S$ is McCool (1987) with the Liu steep-slope branch: 10.8 sin θ + 0.03 (< 9%), 16.8 sin θ − 0.50 (9–18%), 21.9 sin θ − 0.96 (≥ 18%).
+   - **Slope length.** λ = `upa` / D, the upslope area including the cell divided by the cell width: the slope length to the cell outlet. It is capped at the same 122 m, and the slope clamp at 26.6° also applies. There is no aspect term.
+   - **What the cap does.** On a 90 m grid with a 122 m cap, λ only ranges from D (≈ 80 m, a hilltop cell) to 122 m. L is then close to a function of the slope class, and most of LS2's level comes from S.
+   - **Test box `n30e000`:** 1.75× GloSEM v1.1, between LS1 (2.58×) and the GloSEM-compatible layer (1.33×), with the same Spearman (0.76). Its global numbers need the global run: `python RUSLE/scripts/run_ls_global.py --variants ls2` (or the notebook's run cell).
+   - **Rerunning the global layers.** `--variants` picks the layers, and only boxes not yet done for them are downloaded. `--fresh` redoes everything, after renaming the old parts folders to `*_old_<time>`.
 
 Output files:
 - `rusle_LS_all_5m.tif` (default, `"area"`)
 - `rusle_LS_all_5m_glosem_compat.tif` (GloSEM-compatible, `"sca"`)
+- `rusle_LS_all_5m_ls2.tif` (LS2, `"ls2"`; so far only box `n30e000`)
 - `rusle_LS_crop_5m.tif` (only when crop weights are available)
 
 ### Validation of the new layers

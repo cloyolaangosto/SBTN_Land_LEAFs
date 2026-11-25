@@ -14,6 +14,9 @@ LS (slope length and steepness) for the new RUSLE layers, method LS1 of RUSLE/RE
   which GloSEM used, take the specific catchment area (m) as their area input. Fed into Eq. 9, that gives a much lower
   L, which likely explains most of the ~2x gap to GloSEM v1.1 (RUSLE/papers/papers_summary.md, sections 7-8).
   area_term="sca" reproduces that behaviour, for comparison with GloSEM only.
+- Method LS2 (area_term="ls2", Pyne et al. 2026): L = (lambda / 22.13)^m with m = 0.2/0.3/0.4/0.5 by slope class and
+  McCool S with the Liu steep-slope branch. It needs no extra data: the slope length lambda comes from the same `upa`
+  (upslope area / cell width), capped at lambda_max.
 
 MERIT is distributed as 30x30 degree tar archives of 36 tiles of 5x5 degrees (6000 x 6000 px). The work unit
 here is one archive pair (DEM tar + upa tar of the same box), downloaded and deleted by hand. The tiles are read
@@ -68,7 +71,8 @@ MAX_SUM_BYTES = 4 * 2**30               # memory guard for the in-memory sums ar
 
 DEFAULT_LAMBDA_MAX_M = 122.0            # slope-length cap, m: GloSEM v1.1, longest USLE plots (sensitivity 100-500 m)
 DEFAULT_MAX_SLOPE_DEG = 26.6            # slope clamp, degrees (50%): GloSEM v1.1, after Panagos et al. 2015
-AREA_TERMS = ("area", "sca")            # A in L: area in m2 (Desmet & Govers) or GloSEM/SAGA-compatible SCA in m
+AREA_TERMS = ("area", "sca", "ls2")     # LS variants: D&G with A in m2 (LS1), GloSEM/SAGA-compatible SCA, LS2
+LS2_M_CLASSES = ((0.01, 0.2), (0.03, 0.3), (0.09, 0.4))   # (upper tan(theta), m) for LS2; m = 0.5 at >= 9%
 MERIT_LAT_BANDS = (60, 30, 0, -30, -60) # south edge of each 30-deg archive row (MERIT covers 60S-90N)
 _EPS = 1e-6                             # tolerance, in grid cells, when snapping degrees to the grid
 
@@ -139,8 +143,13 @@ def ls_factor_desmet_govers(
             their default specific-catchment-area input, and so, probably, GloSEM v1.1. A then becomes tiny next
             to D^2, so L ~ (D / (22.13 x))^m: every cell is scored like a hilltop cell, whatever drains into it.
             Use it only for comparison with GloSEM; it is not a correct D&G L.
-        A tuple of terms, e.g. ("area", "sca"), computes all of them in one pass (slope, m, S and the aspect
-        term are shared) and returns a dict.
+        "ls2": method LS2 (Pyne et al. 2026), not Desmet & Govers:
+            L = (lambda / 22.13)^m, lambda = upa * 1e6 / D (slope length to the cell outlet, m), capped at
+            lambda_max; m = 0.2 (< 1%), 0.3 (1-3%), 0.4 (3-9%), 0.5 (>= 9%);
+            S = 10.8 sin + 0.03 (< 9%), 16.8 sin - 0.50 (9-18%), 21.9 sin - 0.96 (>= 18%, Liu et al.).
+            No aspect term. The slope clamp applies as for the other variants.
+        A tuple of terms, e.g. ("area", "sca", "ls2"), computes all of them in one pass (slope and the capped
+        area are shared) and returns a dict.
 
     Returns
     -------
@@ -160,25 +169,45 @@ def ls_factor_desmet_govers(
         grad = np.minimum(grad, math.tan(math.radians(max_slope_deg)))     # NaN stays NaN
     sin_t = grad / np.sqrt(1.0 + grad * grad)
 
-    A = np.maximum(upa_km2 * 1e6 - D * D, 0.0)
-    if lambda_max is not None:
-        A = np.minimum(A, lambda_max * D)
-
-    beta = (sin_t / 0.0896) / (3.0 * sin_t ** 0.8 + 0.56)
-    m = beta / (1.0 + beta)
-    denom = D ** (m + 2) * x ** m * UNIT_PLOT_LENGTH_M ** m
-    S = np.where(grad < 0.09, 10.8 * sin_t + 0.03, 16.8 * sin_t - 0.50)
     invalid = ~np.isfinite(z_pad[1:-1, 1:-1]) | ~np.isfinite(upa_km2)
     if channel_upa_km2 is not None:
         invalid |= upa_km2 > channel_upa_km2
 
     out = {}
-    for term in terms:
+    if "ls2" in terms:
+        out["ls2"] = _ls2(grad, sin_t, upa_km2, D, lambda_max)
+        out["ls2"][invalid] = np.nan
+    dg_terms = [t for t in terms if t != "ls2"]
+    if dg_terms:
+        A = np.maximum(upa_km2 * 1e6 - D * D, 0.0)
+        if lambda_max is not None:
+            A = np.minimum(A, lambda_max * D)
+        beta = (sin_t / 0.0896) / (3.0 * sin_t ** 0.8 + 0.56)
+        m = beta / (1.0 + beta)
+        denom = D ** (m + 2) * x ** m * UNIT_PLOT_LENGTH_M ** m
+        S = np.where(grad < 0.09, 10.8 * sin_t + 0.03, 16.8 * sin_t - 0.50)
+    for term in dg_terms:
         A_t = A / (D * x) if term == "sca" else A                  # "sca": m, where Eq. 9 expects m^2 (GloSEM/SAGA)
         ls = ((A_t + D * D) ** (m + 1) - A_t ** (m + 1)) / denom * S
         ls[invalid] = np.nan
         out[term] = ls
     return out[area_term] if isinstance(area_term, str) else out
+
+
+def _ls2(grad: np.ndarray, sin_t: np.ndarray, upa_km2: np.ndarray, D: np.ndarray,
+         lambda_max: Optional[float]) -> np.ndarray:
+    """Method LS2 (Pyne et al. 2026): slope-class m, McCool S with the Liu steep-slope branch (see the caller)."""
+    lam = upa_km2 * 1e6 / D                                        # slope length to the cell outlet, m (>= D)
+    if lambda_max is not None:
+        lam = np.minimum(lam, lambda_max)
+    m = np.full(grad.shape, 0.5)
+    for upper, m_class in reversed(LS2_M_CLASSES):                 # smallest class last, so it wins
+        m = np.where(grad < upper, m_class, m)
+    with np.errstate(invalid="ignore"):
+        L = (lam / UNIT_PLOT_LENGTH_M) ** m
+    S = np.where(grad < 0.09, 10.8 * sin_t + 0.03,
+                 np.where(grad < 0.18, 16.8 * sin_t - 0.50, 21.9 * sin_t - 0.96))
+    return L * S
 
 
 def _area_terms(area_term: Union[str, Sequence[str]]) -> Tuple[str, ...]:
