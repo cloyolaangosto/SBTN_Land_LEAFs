@@ -319,6 +319,25 @@ On three 5° tiles the same emulation gives 2.40 → 1.17 (Alps), 2.67 → 1.37 
 
 ---
 
+## 9. LS data sources: GloSEM 1.3, Yang 2024 and other global products (checked 2026-11-25)
+**GloSEM 1.3 used no new LS data.**
+- The paper (p. 6) describes the same LS run as v1.1: Desmet & Govers on hole-filled SRTM + ASTER GDEM v2 at 3″, in SAGA, over 870 tiles. It states the LS "was computed at 90 m native resolution (SRTM 3 arc-seconds data)".
+- The only change in 1.3 is the cropland mask (ESA/CGLS 100 m).
+- No LS layer is released. The only downloads are soil displacement and `ESA100_Cropland_fraction.tif`.
+- Compared with ours, the method is the same but the DEM (raw SRTM + ASTER vs MERIT) and the routing (multiple flow vs D8) differ.
+
+**Yang et al. 2024 has no gridded LS.** LS (CSLE, Eqs. 14–16) is computed only for the 144 runoff plots, from the slope and slope length reported in the literature, to back-calculate measured K.
+
+**Other global LS products:**
+
+| Product | DEM, res | Method | Access | Verdict |
+|---|---|---|---|---|
+| **GEDTM30 LS factor** v1.2.0 (OpenLandMap; Zenodo 18702591, Feb 2026) | GEDTM30 ensemble DTM, 30 m; 57°S–84°N | Whitebox `sediment_transport_index` (Moore & Burch 1986; SCA exponent 0.4, slope exponent 1.3) on D8 *specific* catchment area, **with no slope-length cap**. The 60–960 m layers recompute LS on a DEM averaged to that resolution, so they are not field-scale LS. The 30 m COG overviews do average the 30 m LS. | CC-BY-4.0, public COG on s3.opengeohub.org; "use for testing purposes only" | **Not usable.** In a 0.5° Alpine window (7–7.5°E, 46–46.5°N) its mean LS is **0.033** (after the ×1000 scale), against 8.5 (GloSEM v1.1), 10.9 (our GloSEM-compatible LS) and 24.3 (LS1). It is ~300× too low, probably a scaling or units fault in the release. |
+| **DS-LS-GS1** (Scientific Data 2024, doi 10.1038/s41597-024-02917-w) | SRTM 1″ (≈30 m), global | LS-WPC in the LS-TOOL software (LS computed without projection conversion). Equations and caps not yet read; the full text is blocked to automated fetching | TPDC, doi 10.11888/Terre.tpdc.300613, 1,060 tiles; registration needed | The only published global 30 m LS. **Worth a test on box `n30e000`** once downloaded by hand. |
+| **EU LS factor** (JRC/ESDAC; Panagos et al. 2015) | EU-DEM 25 m | Desmet & Govers in SAGA (the GloSEM lineage) | ESDAC request form | The regional reference GloSEM validated against. **Worth a test over Europe** to see whether it sits nearer GloSEM or nearer LS1. |
+
+---
+
 ## Cross-paper comparison of R, K, LS methods
 
 | Factor | Borrelli et al. 2022 (GloSEM 1.3) | Fadl et al. 2025 | Pyne et al. 2026 |
