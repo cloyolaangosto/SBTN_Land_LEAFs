@@ -79,7 +79,8 @@ These layers are constant. They can be calculated once and stored as GeoTIFFs, b
 |---|---|---|---|---|---|
 | LS1 | **Desmet & Govers (1996)** 2-D unit contributing area | Borrelli et al. 2022 | $L_{i,j}=\frac{(A_{i,j}+D^2)^{m+1}-A_{i,j}^{m+1}}{D^{m+2}\,x_{i,j}^m\,22.13^m}$ with $m=\beta/(1+\beta)$, $\beta=\frac{\sin\theta/0.0896}{3\sin^{0.8}\theta+0.56}$; S from McCool (1987) | 90 m DEM and upslope contributing area (SRTM/ASTER in GloSEM; SAGA, 870 tiles; slope length ≤ 122 m, slope ≤ 26.6°) | High if flow routing is done in-house. **Medium if precomputed flow accumulation is used** (MERIT Hydro) |
 | LS2 | **Slope-class exponent + McCool S** (Liu steep-slope variant) | Pyne et al. 2026 | $L=(\lambda/22.13)^m$, $m$ = 0.2/0.3/0.4/0.5 by slope class; S = 10.8 sinθ + 0.03 (< 9%), 16.8 sinθ − 0.5 (9–18%), 21.9 sinθ − 0.96 (≥ 18%) | DEM, flow length | Medium. **Implemented** from the same MERIT inputs (λ = `upa`/D ≤ 122 m): `area_term="ls2"`, see [LS Layer](#ls-layer) item 9 |
-| LS3 | **Shinde et al. (2011)** | Fadl et al. 2025 | $LS=(L/22.1)^m(65.4\sin^2\theta+4.56\sin\theta+0.0065)$ | DEM, slope length | Low, but uncapped lengths give unrealistic LS (up to 4,110 in the paper) |
+| LS3 | **Cumulative slope length + CSLE** (LS-WPC; the method of the DS-LS-GS1 global 30 m LS) | Sun et al. 2024 ([LS_2026.pdf](papers/LS_2026.pdf)) | D8 on a sink-filled DEM, cell sizes from latitude (no projection); slope length accumulated along the flow path until a slope cut-off (slope drop > 70% below 5% slope, > 50% above) or a channel (area > 0.8 km²); $L=\frac{\lambda_{out}^{m+1}-\lambda_{in}^{m+1}}{(\lambda_{out}-\lambda_{in})22.13^m}$, $m$ = 0.2/0.3/0.4/0.5 by slope; S = 10.8 sinθ + 0.03 (< 5°), 16.8 sinθ − 0.50 (5–10°), 21.91 sinθ − 0.96 (≥ 10°). No length cap, no slope clamp | DEM only (flow routed in-house) | Medium. **Implemented**: `sbtn_leaf.rusle_ls3` (numba), see [LS Layer](#ls-layer) item 10 |
+| LS4 | **Shinde et al. (2011)** (listed as LS3 before 2026-11-25) | Fadl et al. 2025 | $LS=(L/22.1)^m(65.4\sin^2\theta+4.56\sin\theta+0.0065)$ | DEM, slope length | Low, but uncapped lengths give unrealistic LS (up to 4,110 in the paper) |
 
 ### Selected K and LS methods
 - **K → K1 (GloSEM nomograph + stone correction), with K2 (EPIC) computed alongside as a check.**
@@ -192,11 +193,34 @@ Output files:
    - **What the cap does.** On a 90 m grid with a 122 m cap, λ only ranges from D (≈ 80 m, a hilltop cell) to 122 m. L is then close to a function of the slope class, and most of LS2's level comes from S.
    - **Test box `n30e000`:** 1.75× GloSEM v1.1, between LS1 (2.58×) and the GloSEM-compatible layer (1.33×), with the same Spearman (0.76). Its global numbers need the global run: `python RUSLE/scripts/run_ls_global.py --variants ls2` (or the notebook's run cell).
    - **Rerunning the global layers.** `--variants` picks the layers, and only boxes not yet done for them are downloaded. `--fresh` redoes everything, after renaming the old parts folders to `*_old_<time>`.
+10. **LS3 (Sun et al. 2024), the DS-LS-GS1 method, implemented on MERIT.** Module `src/sbtn_leaf/rusle_ls3.py`, using numba (`pip install .[rusle]`); notebook section "LS3" in `K_LS_Creation.ipynb`.
+    - **Method:** a sink-filled MERIT DEM (priority-flood) and D8 steepest descent, with cell sizes from latitude: no projection, the "LS-WPC" idea.
+      - Slope length accumulates along the flow path ("Max" mode). It ends at a slope cut-off (slope drops by > 70% where the slope is < 5%, by > 50% above that) or at a channel (D8 area > 0.8 km²). These are the LS-TOOL defaults.
+      - L is the segment formula with m = 0.2/0.3/0.4/0.5 by slope class. S is the CSLE: 10.8 sinθ + 0.03 below 5°, 16.8 sinθ − 0.50 at 5–10°, 21.91 sinθ − 0.96 from 10°. The paper prints −0.05 in the middle branch, a typo; −0.50 keeps S continuous at 5°.
+      - There is no slope-length cap and no slope clamp.
+    - **Only the DEM is needed:** flow is routed in-house, so each box needs just its MERIT DEM tar. Tiles are 5°, with a 0.1° buffer from the neighbouring tiles; a 240 px buffer changes the 5′ means by < 0.01%. It takes about 30 s per tile, 10–13 min per 30° box.
+    - **Synthetic check:** on the paper's Himmelblau–Orlandini surface, LS3 reproduces its Table 1. Slope mean is 51.0° vs 50.9° (max 84.97° in both), slope length mean 67.8 vs 65.0 m, LS mean 37.7 vs 36.9 (`tests/test_rusle_ls3.py`).
+    - **Boxes `n30e000` + `n00e000`** (0–60°N, 0–30°E; 208 k 5′ cells; 2026-11-25):
+
+      | Layer | LS3 ÷ layer (same cells) | Spearman with LS3 | Layer ÷ GloSEM v1.1 (25 km) | Median ratio to DS-LS-GS1 (39 countries) |
+      |---|---|---|---|---|
+      | **LS3** | 1 | 1 | **3.02** | **1.05** |
+      | LS1 | 1.22 | 0.98 | 2.38 | 0.87 |
+      | LS GloSEM-compatible | 2.18 | 0.98 | 1.30 | 0.51 |
+      | LS2 (`n30e000` only) | 1.86 | 0.99 | 1.75 | 0.58 |
+
+      Country means, DS-LS-GS1 / LS3 / LS1: Switzerland 25.1 / 26.2 / 16.7, Italy 13.5 / 13.9 / 10.1, Germany 3.0 / 3.2 / 2.6, Poland 1.12 / 1.27 / 1.10, Netherlands 0.13 / 0.19 / 0.17.
+    - **What it shows:**
+      - Run on our 3″ MERIT DEM, LS3 lands within 5% of the published 1″ SRTM DS-LS-GS1 country means, with Spearman 1.00 across 39 countries. The implementation reproduces that dataset, and DEM resolution matters less here than its Suppl. Table 1 suggested.
+      - LS3 is 1.2× LS1 and 3× GloSEM v1.1. Two independent full-flow-path methods put LS well above GloSEM.
+      - The output is `rusle_LS_all_5m_ls3_partial.tif` (the two boxes only). A global LS3 needs the MERIT DEM tars of the other 55 boxes, not the `upa` tars.
+    - **Pixel-level check:** the DS-LS-GS1 tiles `N44E6` and `N48E6` are being downloaded (`RUSLE/scripts/download_ds_ls_gs1.py`). The notebook's last LS3 cell compares them cell by cell once they are on disk.
 
 Output files:
 - `rusle_LS_all_5m.tif` (default, `"area"`)
 - `rusle_LS_all_5m_glosem_compat.tif` (GloSEM-compatible, `"sca"`)
 - `rusle_LS_all_5m_ls2.tif` (LS2, `"ls2"`; so far only box `n30e000`)
+- `rusle_LS_all_5m_ls3_partial.tif` (LS3, Sun et al. 2024; boxes `n30e000` and `n00e000`)
 - `rusle_LS_crop_5m.tif` (only when crop weights are available)
 
 ### Validation of the new layers

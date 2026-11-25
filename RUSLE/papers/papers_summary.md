@@ -359,6 +359,28 @@ Examples (DS-LS-GS1 / LS1 / GloSEM v1.1): Switzerland 25.1 / 16.7 / 7.0, Italy 1
 
 ---
 
+## 10. Sun et al. (2024) — DS-LS-GS1 / LS-WPC method ([LS_2026.pdf](LS_2026.pdf))
+**What it is.** Sun, Zhang, Yang et al. (2024), *Sci. Data* 11:101, doi 10.1038/s41597-024-02917-w. The file name says 2026, but the paper is from 2024.
+- It describes DS-LS-GS1, a global 1″ LS on denoised SRTM, with MERIT used north of 60°N.
+- It also describes the LS-TOOL software (CSLE model).
+- It is validated on a synthetic surface, on 20 regions of 5 landform types (R² 0.82–0.84), and against the Australian and EU LS datasets (similar coefficients of variation).
+
+**Method (Eqs. 1–10, Fig. 13).**
+- **Grid:** cell sizes come from latitude on the geographic grid: N–S `Cx = 30.887 m` per arc-second, E–W `Cy = Cx cos(lat)`. There is no projection step ("LS-WPC").
+- **Routing:** D8 steepest descent on a sink-filled DEM. The slope θ is the maximum D8 drop, with a 0.1° floor.
+- **Slope length:** cumulative along the flow path ("Max" mode), ending at:
+  - a slope cut-off, where the slope drops by > 0.7 (slope < 5%) or > 0.5 (≥ 5%);
+  - or a channel, where the D8 area exceeds 800,000 m² (the LS-TOOL default).
+- **Factors:** L is the Foster & Wischmeier segment formula with λ_in and λ_out, and m = 0.2/0.3/0.4/0.5 at 0.5°/1.5°/3°. S is the CSLE: 10.8 sinθ + 0.03 (< 5°), 16.8 sinθ − 0.50 (5–10°; printed −0.05, a typo), 21.91 sinθ − 0.96 (≥ 10°, with a known step at 10°).
+- **Limits:** there is no slope-length cap (lengths up to ~1 km occur) and no slope clamp.
+- **Production:** tiles of 14° with a 1° buffer.
+
+**Our implementation (LS3, `sbtn_leaf.rusle_ls3`) and results.** See README, LS Layer item 10.
+- On MERIT 3″ over 0–60°N, 0–30°E, LS3 matches the DS-LS-GS1 country means: median ratio 1.05, Spearman 1.00, 39 countries.
+- LS3 is 1.22× our LS1 and 3.0× GloSEM v1.1.
+
+---
+
 ## Cross-paper comparison of R, K, LS methods
 
 | Factor | Borrelli et al. 2022 (GloSEM 1.3) | Fadl et al. 2025 | Pyne et al. 2026 |

@@ -37,6 +37,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# LS3 flow routing (sbtn_leaf.rusle_ls3)
+rusle = [
+  "numba",
+]
 dev = [
   "pytest",
   "black",
