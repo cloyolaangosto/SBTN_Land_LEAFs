@@ -255,6 +255,7 @@ Only the corrected USLE-K and RUSLE2-K meet their acceptance criteria (R² > 0.5
 - **The correction is a steep linear rescale** (slope 2.13) fitted on 144 sites that cluster in four regions, with many K values back-calculated from assumed R, LS, C and P. It goes **negative for K < 0.0168**, so it must be floored. In our 0–5 cm dry run, 2.1% of pixels hit the floor, and the spread widens (p99 0.048 → 0.066). Use it as a sensitivity or alternative layer, not as a silent default.
 - **Uncorrected RUSLE2-K stays comparable with GloSEM / Panagos K** (same nomograph family; our dry-run mean is 0.033 vs EU 0.032).
 - The EPIC-K correction is poor (R² 0.41), which weakens EPIC as our QA layer. It is still useful as a texture-only cross-check.
+- **The EPIC-K correction is not used (dropped 2026-11-25).** It goes negative for K < 0.0267. Our EPIC-K (mean and median 0.030) runs lower than Yang's (mean 0.040), so the correction was negative in 26% of pixels, and in Africa even the continental mean RLSK came out negative. K EPIC is kept uncorrected. All K layers are floored at 0.004 (see README, K Layer).
 
 ---
 

@@ -55,6 +55,10 @@ SOILGRIDS_DEPTHS: Dict[str, float] = {"0-5cm": 5.0, "5-15cm": 10.0, "15-30cm": 1
 SOILGRIDS_NODATA = -32768
 
 OM_MAX = 4.0                    # Nomograph OM upper limit, % (Wischmeier et al. 1971; Panagos et al. 2014; Yang et al. 2024)
+# Lower bound for K, t ha h ha-1 MJ-1 mm-1. K = 0 would mean no erosion at all. 0.004 is the lowest value of the EU K map
+# (Panagos et al. 2014, range 0.004-0.076) and the lowest measured benchmark soil (Wischmeier & Smith 1978: 0.03 US units
+# x 0.1317), close to the floor of the Renard Dg equation (0.0034 SI; Yang et al. 2024 Eq. 13) and the GloSEM v1.1 25 km minimum (0.0047)
+K_MIN = 0.004
 
 # USDA texture classes. 0 is reserved for nodata
 USDA_TEXTURE_CLASSES: Dict[int, str] = {
@@ -231,7 +235,12 @@ So I've found 4 methods to estimate K. Currently, the best method, as defined by
 So for now, we're starting with K-EPIC, and then checking if we can estimate the other values, which seems to be the most cryptic in all publications so far.
 """
 
-def calculate_K_Epic(output_fp_k_epic: str, output_fp_k_epic_corr, output_nd = np.nan, clay_fp_list = CLAY_LIST, silt_fp_list = SILT_LIST, sand_fp_list = SAND_LIST, soc_fp_list = SOC_LIST, raster_band = 1):
+def calculate_K_Epic(output_fp_k_epic: str, output_nd = np.nan, clay_fp_list = CLAY_LIST, silt_fp_list = SILT_LIST, sand_fp_list = SAND_LIST, soc_fp_list = SOC_LIST, raster_band = 1):
+    """EPIC K factor (Sharpley & Williams 1990; Yang et al. 2024 Eq. 11) on the SoilGrids 1 km grid, in t ha h ha-1 MJ-1 mm-1.
+
+    Yang et al. (2024) Eq. 27 correction (1.8722 K - 0.05) is not applied: it is negative for K < 0.0267
+    (26% of our pixels) and fails Yang's own acceptance criteria (R2 0.41). K EPIC is kept uncorrected as a QA layer.
+    """
     print('Running K EPIC calculations...')
     
     # First, get all data opened and calculated weights
@@ -258,8 +267,8 @@ def calculate_K_Epic(output_fp_k_epic: str, output_fp_k_epic_corr, output_nd = n
     valid &= (clay + silt) > 0
 
     # initializing components of K_EPIC calculations
-    alpha, beta, gamma, epsilon, k_epic, k_epic_corrected = (
-        np.full(clay.shape, nd, dtype=np.float32) for _ in range(6)
+    alpha, beta, gamma, epsilon, k_epic = (
+        np.full(clay.shape, nd, dtype=np.float32) for _ in range(5)
     )
 
     # Working on valid pixels only:
@@ -275,24 +284,17 @@ def calculate_K_Epic(output_fp_k_epic: str, output_fp_k_epic_corr, output_nd = n
     # Finally multiplying everything for K Epic
     k_epic[valid] = alpha[valid] * beta[valid] * gamma[valid] * epsilon[valid]
 
-    # Transforming units (Yang et al. 2024, eq. 11 includes the 0.1317 factor)
-    k_epic[valid] = k_epic[valid] * 0.1317
+    # Transforming units (Yang et al. 2024, eq. 11 includes the 0.1317 factor); floored at K_MIN
+    k_epic[valid] = np.maximum(k_epic[valid] * 0.1317, K_MIN)
 
-    # Applying Yang et al 2024 correction (eq. 27, on K in SI units)
-    k_epic_corrected[valid] = (1.8722 * k_epic[valid]) - 0.05
-
-    # Writing both files
+    # Writing
     print('     Writing...')
     output_meta = clay_w_data.soil_meta.copy()
     output_meta.update(dtype="float32", count=1, nodata=clay_w_data.soil_nodata, compress="lzw")
-    
+
     with rasterio.open(output_fp_k_epic, "w", **output_meta) as dst:
         dst.write(k_epic.astype("float32"), 1)
     print(f'     K EPIC saved into {output_fp_k_epic}')
-
-    with rasterio.open(output_fp_k_epic_corr, "w", **output_meta) as dst:
-        dst.write(k_epic_corrected.astype("float32"), 1)
-    print(f'     K EPIC corrected saved into {output_fp_k_epic_corr}')
 
     print('All done!')
 
@@ -358,7 +360,8 @@ def calculate_K_RUSLE_2(output_fp_k: str, output_nd = np.nan, clay_fp_list = CLA
 
     # Finally calculating K (nomograph value / 100, converted to SI with 0.1317)
     K = np.full(sand.shape, output_nd, dtype=np.float32)
-    K[valid] = 0.1317 * (K_t * K_o + K_s + K_p) / 100
+    # Negative structure/permeability terms can push the nomograph to or below 0; floored at K_MIN (see constant)
+    K[valid] = np.maximum(0.1317 * (K_t * K_o + K_s + K_p) / 100, K_MIN)
 
     # Writing the output
     print('     Writing...')
