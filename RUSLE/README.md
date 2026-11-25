@@ -138,6 +138,11 @@ Output files:
    - **Steps per box:** download both tars by hand; `run_local` reads the 36 tiles (5° each) in place through GDAL `/vsitar/` (nothing is extracted) and writes a file of sums and counts (`LS_sum`, `n`, `LSw_sum`, `w_sum`; 360×360 at 5′); check it, then delete the tars by hand. The code never downloads or deletes files. Peak disk use is one pair, a few GB. A manifest makes the run resumable and lists the boxes still to download; one parts folder holds one set of run settings (resolution, bbox, λ_max, crop or not).
    - **Tile edges:** `upa` is already global, so no flow routing crosses tiles. Slope uses central differences, which need only the 4 direct neighbours, so tile borders inside an archive are stitched exactly. At the outer 30° edges and at coasts the difference falls back to one-sided; the notebook's edge check measures the effect. 5° = 60 × 5′, so no 5′ cell straddles two tiles.
    - Never hold a global 90 m LS raster in memory; only the sums on the output grid are kept, and they are mosaicked exactly at the end.
+   - **Unattended global run:** `python RUSLE/scripts/run_ls_global.py`.
+     - It logs in to the two MERIT Dropbox links. Passwords go in a git-ignored `.env` at the repo root, as `MERIT_HYDRO_PASSWORD` and `MERIT_DEM_PASSWORD`.
+     - Then, box by box, it downloads the DEM and `upa` tars, computes both LS versions in one pass (`area_term=("area", "sca")`) and deletes the tars.
+     - Finally it mosaics both versions: `rusle_LS_all_5m.tif` (default) and `rusle_LS_all_5m_glosem_compat.tif`.
+     - It is resumable through the manifests. `--dry-run` lists what would run, and `--boxes` limits the run to some boxes. The log is written to `RUSLE/outputs/ls_global_run.log`.
 6. **Known differences from GloSEM.** The LS settings come from the v1.1 Supplementary Methods (Borrelli et al. 2017). The GloSEM 1.3 paper (Borrelli et al. 2022) describes the same run (SRTM/ASTER at 3″, SAGA, 870 tiles) and does not restate the parameters.
    - **Flow routing and DEM.** GloSEM ran SAGA with D-infinity / multiple-flow routing (the SM names both) on hole-filled SRTM, with ASTER GDEM v2 in the far north. We use MERIT Hydro `upa` (D8) and the MERIT DEM.
    - **25 m rescaling.** GloSEM rescaled its 90 m LS "to the values of a 25 m DEM through a linear relationship (R² = 0.998)". The coefficients are not published, so this step is not reproduced.
@@ -163,10 +168,26 @@ Output files:
      At 9%, a cell with one cell (78 m) upslope gets a ratio of 1.8. Averaged over real terrain, `"sca"` is about half of `"area"`, the size of the gap to GloSEM v1.1.
    - **What `"sca"` loses.** It ignores flow convergence, the very effect Desmet & Govers built the method for: hollows and long slopes get the same L as ridges. It also makes the slope-length cap almost irrelevant, and L depends on the grid size (∝ D^m). Use it only for continuity with GloSEM v1.1 or as a sensitivity layer, never as the main LS.
    - **Reference means.** GloSEM v1.1 mean LS by continent (250 m, SM Fig. 14c, read off the chart): Africa ≈ 1.0, Asia ≈ 2.5, Europe ≈ 1.25, North America ≈ 1.75, Oceania ≈ 0.8, South America ≈ 1.65.
+8. **Global comparison with GloSEM v1.1 (full run, 2026-11-24).** All 57 MERIT boxes were processed, with no failures. Both global layers were averaged onto the GloSEM v1.1 25 km grid, and every value below is an area-weighted mean. Continents come from Natural Earth, with Russia east of 60°E counted as Asia. Coverage is 100% of GloSEM's land cells. Table: `RUSLE/outputs/ls_global_vs_glosem_by_continent.csv`.
+
+   | Continent | GloSEM, SM Fig. 14c (250 m) | GloSEM 25 km | Default (`"area"`) | Default / GloSEM | GloSEM-compatible (`"sca"`) | GloSEM-compatible / GloSEM | Spearman |
+   |---|---|---|---|---|---|---|---|
+   | Africa | 1.00 | 0.98 | 2.24 | 2.29 | 1.32 | 1.35 | 0.71 |
+   | Asia | 2.50 | 2.72 | 6.53 | 2.40 | 3.33 | 1.22 | 0.81 |
+   | Europe | 1.25 | 1.31 | 3.28 | 2.50 | 1.70 | 1.29 | 0.68 |
+   | North America | 1.75 | 1.72 | 4.27 | 2.48 | 2.19 | 1.27 | 0.74 |
+   | Oceania | 0.80 | 0.90 | 1.95 | 2.17 | 1.11 | 1.24 | 0.62 |
+   | South America | 1.65 | 1.62 | 3.89 | 2.40 | 2.17 | 1.33 | 0.75 |
+   | **World** | – | 1.79 | **4.30** | **2.40** | **2.27** | **1.27** | 0.76 |
+
+   - **The gap is nearly constant across continents:** 2.2–2.5× for the default and 1.2–1.35× for the GloSEM-compatible layer. A gap that steady points to how the method was applied (item 6), not to terrain or latitude.
+   - **About 27% remains with `"sca"`.** It plausibly comes from the unpublished 25 m rescale, SRTM versus MERIT, and D-infinity versus D8 routing. This is not tested.
+   - **The spatial pattern agrees:** Spearman correlation is 0.62–0.81, and Pearson r is about 0.75 for both layers. The continents rank in the same order in all layers.
 
 Output files:
-- `rusle_LS_all_5m.tif`
-- `rusle_LS_crop_5m.tif`
+- `rusle_LS_all_5m.tif` (default, `"area"`)
+- `rusle_LS_all_5m_glosem_compat.tif` (GloSEM-compatible, `"sca"`)
+- `rusle_LS_crop_5m.tif` (only when crop weights are available)
 
 ### Validation of the new layers
 - Aggregate the new R, $K_{st}$ and LS to the GloSEM v1.1 0.2083° grid. Compare with `RUSLE_{R,K,LS}Factor_v1.1_25km.tif`: correlation, bias map, and ratio by continent and biome.

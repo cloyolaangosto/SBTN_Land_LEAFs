@@ -105,3 +105,8 @@ Thumbs.db
 data/crops/spam2020V2r0_global_Y_TA.csv
 data/crops/SPAM/spam2020V2r0_global_Y_TA.csv
 data/crops/FAO_GAEZ/FAO_GAEZ_croplist.csv
+
+# MERIT download script: passwords and partial downloads (never commit)
+.env
+*.tar
+*.part

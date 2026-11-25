@@ -46,7 +46,7 @@ import json
 import math
 import tarfile
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Sequence, Tuple, Union
+from typing import Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
 
 import numpy as np
 import rasterio
@@ -111,8 +111,8 @@ def ls_factor_desmet_govers(
     lambda_max: Optional[float] = DEFAULT_LAMBDA_MAX_M,
     channel_upa_km2: Optional[float] = None,
     max_slope_deg: Optional[float] = DEFAULT_MAX_SLOPE_DEG,
-    area_term: str = "area",
-) -> np.ndarray:
+    area_term: Union[str, Sequence[str]] = "area",
+) -> Union[np.ndarray, Dict[str, np.ndarray]]:
     """RUSLE LS for a block of a geographic (lat/lon) grid.
 
     L (Desmet & Govers 1996):
@@ -139,13 +139,14 @@ def ls_factor_desmet_govers(
             their default specific-catchment-area input, and so, probably, GloSEM v1.1. A then becomes tiny next
             to D^2, so L ~ (D / (22.13 x))^m: every cell is scored like a hilltop cell, whatever drains into it.
             Use it only for comparison with GloSEM; it is not a correct D&G L.
+        A tuple of terms, e.g. ("area", "sca"), computes all of them in one pass (slope, m, S and the aspect
+        term are shared) and returns a dict.
 
     Returns
     -------
-    (n, m) LS, NaN where elevation or upa is missing (or channel cells, if masked).
+    (n, m) LS, NaN where elevation or upa is missing (or channel cells, if masked); {term: LS} for a tuple.
     """
-    if area_term not in AREA_TERMS:
-        raise ValueError(f"area_term must be one of {AREA_TERMS}, not {area_term!r}")
+    terms = _area_terms(area_term)
     res_rad = math.radians(res_deg)
     dy = EARTH_RADIUS_M * res_rad
     dx = EARTH_RADIUS_M * res_rad * np.cos(np.radians(lat_deg))
@@ -162,20 +163,31 @@ def ls_factor_desmet_govers(
     A = np.maximum(upa_km2 * 1e6 - D * D, 0.0)
     if lambda_max is not None:
         A = np.minimum(A, lambda_max * D)
-    if area_term == "sca":
-        A = A / (D * x)                                            # m, used where Eq. 9 expects m^2 (GloSEM/SAGA)
 
-    beta =(sin_t / 0.0896) / (3.0 * sin_t ** 0.8 + 0.56)
+    beta = (sin_t / 0.0896) / (3.0 * sin_t ** 0.8 + 0.56)
     m = beta / (1.0 + beta)
-    L = ((A + D * D) ** (m + 1) - A ** (m + 1)) / (D ** (m + 2) * x ** m * UNIT_PLOT_LENGTH_M ** m)
+    denom = D ** (m + 2) * x ** m * UNIT_PLOT_LENGTH_M ** m
     S = np.where(grad < 0.09, 10.8 * sin_t + 0.03, 16.8 * sin_t - 0.50)
-
-    ls = L * S
     invalid = ~np.isfinite(z_pad[1:-1, 1:-1]) | ~np.isfinite(upa_km2)
     if channel_upa_km2 is not None:
         invalid |= upa_km2 > channel_upa_km2
-    ls[invalid] = np.nan
-    return ls
+
+    out = {}
+    for term in terms:
+        A_t = A / (D * x) if term == "sca" else A                  # "sca": m, where Eq. 9 expects m^2 (GloSEM/SAGA)
+        ls = ((A_t + D * D) ** (m + 1) - A_t ** (m + 1)) / denom * S
+        ls[invalid] = np.nan
+        out[term] = ls
+    return out[area_term] if isinstance(area_term, str) else out
+
+
+def _area_terms(area_term: Union[str, Sequence[str]]) -> Tuple[str, ...]:
+    """Validated tuple of area terms from a single term or a sequence of terms."""
+    terms = (area_term,) if isinstance(area_term, str) else tuple(area_term)
+    bad = [t for t in terms if t not in AREA_TERMS]
+    if not terms or bad or len(set(terms)) != len(terms):
+        raise ValueError(f"area_term must be one of {AREA_TERMS} or a tuple of distinct ones, not {area_term!r}")
+    return terms
 
 
 def aggregate_block(ls: np.ndarray, weight: Optional[np.ndarray] = None, factor: int = 100):
@@ -348,13 +360,14 @@ def process_archive(
     ----------
     dem_tar, upa_tar: MERIT DEM and MERIT Hydro upa tar archives of the same box (not extracted, never deleted).
     out_fp: 4-band GeoTIFF to write (bands LS_sum, n, LSw_sum, w_sum). None returns the arrays only. Nothing is
-        written when the bbox misses the archive.
+        written when the bbox misses the archive. With a tuple area_term, a {term: path} dict.
     crop_fp: cropland-fraction raster (e.g. GloSEM 1.3 ESA100_Cropland_fraction.tif). None leaves the crop bands 0.
     crop_scale: multiplier that turns crop_fp values into a 0-1 fraction (0.01 if the file is in percent).
     out_res_deg: output cell size in degrees; a whole multiple of the 3" pixel (5' default, 1/120 for 30", 1/1200
         for 3").
     bbox: (west, south, east, north) in degrees; snapped outward to the output grid. None covers the whole archive.
-    lambda_max, channel_upa_km2, max_slope_deg, area_term: see ls_factor_desmet_govers.
+    lambda_max, channel_upa_km2, max_slope_deg, area_term: see ls_factor_desmet_govers. A tuple area_term
+        computes several terms in one pass over the tiles.
     block_rows: rows read at a time; must be a multiple of the aggregation factor.
     use_neighbours: stitch tile borders from neighbouring tiles. False gives one-sided differences at every
         tile edge (used to measure the archive-edge effect).
@@ -363,8 +376,13 @@ def process_archive(
     Returns
     -------
     (sums, transform): sums is a (4, rows, cols) float64 array on the output grid (the archive's extent, or its
-    intersection with the bbox). With no overlap it has 0 rows and columns.
+    intersection with the bbox). With no overlap it has 0 rows and columns. With a tuple area_term, sums is a
+    {term: array} dict.
     """
+    terms = _area_terms(area_term)
+    multi = not isinstance(area_term, str)
+    if multi and out_fp is not None and (not isinstance(out_fp, Mapping) or set(out_fp) != set(terms)):
+        raise ValueError(f"with area_term {terms}, out_fp must be a dict with those keys")
     dem, upa = _TileSet(dem_tar), _TileSet(upa_tar)
     crop_src = rasterio.open(crop_fp) if crop_fp is not None else None
     try:
@@ -390,9 +408,9 @@ def process_archive(
         nbytes = len(LS_BANDS) * nrows * ncols * 8
         if nbytes > MAX_SUM_BYTES:
             raise ValueError(f"output grid {nrows}x{ncols} needs {nbytes / 2**30:.1f} GB; pass a smaller bbox")
-        sums = np.zeros((len(LS_BANDS), nrows, ncols))
+        sums = {t: np.zeros((len(LS_BANDS), nrows, ncols)) for t in terms}
         if nrows == 0 or ncols == 0:
-            return sums, transform
+            return (sums if multi else sums[area_term]), transform
 
         keys = list(dem.tiles)
         if only_tiles is not None:
@@ -421,21 +439,27 @@ def process_archive(
                 z_pad = _read_padded(dem, key, r0, r1, wc0, wc1, use_neighbours)
                 upa_blk = _read_float(upa_ds, Window(wc0, r0, wc1 - wc0, r1 - r0))
                 lat = tile_north - (np.arange(r0, r1) + 0.5) * res
-                ls = ls_factor_desmet_govers(z_pad, upa_blk, lat, res, lambda_max, channel_upa_km2, max_slope_deg,
-                                             area_term)
+                ls_by = ls_factor_desmet_govers(z_pad, upa_blk, lat, res, lambda_max, channel_upa_km2,
+                                                max_slope_deg, terms)
                 w = weight[r0 - wr0: r1 - wr0] if weight is not None else None
-                blk = aggregate_block(ls, w, factor)
                 orow = (ty0 + r0 - gy0) // factor
-                for b in range(len(LS_BANDS)):
-                    sums[b, orow: orow + blk[b].shape[0], oc: oc + blk[b].shape[1]] += blk[b]
+                for t, ls in ls_by.items():
+                    blk = aggregate_block(ls, w, factor)
+                    for b in range(len(LS_BANDS)):
+                        sums[t][b, orow: orow + blk[b].shape[0], oc: oc + blk[b].shape[1]] += blk[b]
     finally:
         dem.close()
         upa.close()
         if crop_src is not None:
             crop_src.close()
 
-    if out_fp is not None:
-        write_sums(out_fp, sums, transform)
+    if not multi:
+        sums = sums[area_term]
+        if out_fp is not None:
+            write_sums(out_fp, sums, transform)
+    elif out_fp is not None:
+        for t in terms:
+            write_sums(out_fp[t], sums[t], transform)
     return sums, transform
 
 
@@ -476,7 +500,7 @@ def _run_params(bbox: Optional[BBox], process_kwargs: Dict) -> Dict:
 
 def run_local(
     archive_dir: PathLike,
-    parts_dir: PathLike,
+    parts_dir: Union[PathLike, Mapping[str, PathLike]],
     boxes: Optional[Sequence[str]] = None,
     bbox: Optional[BBox] = None,
     dem_name: str = "dem_tif_{box}.tar",
@@ -485,53 +509,74 @@ def run_local(
 ) -> Tuple[Dict, List[str]]:
     """Process every box whose DEM and upa tars are in archive_dir; resumable through parts_dir/manifest.json.
 
-    The tars are downloaded and deleted by hand; this function never downloads or deletes anything.
+    This function never downloads or deletes anything (RUSLE/scripts/run_ls_global.py wraps it to do both).
 
     Parameters
     ----------
     archive_dir: folder holding the downloaded tar pairs.
     parts_dir: where ls_sums_{box}.tif and manifest.json go. One parts_dir holds one set of run settings
-        (resolution, bbox, lambda_max, channel threshold, crop or not); a different set raises.
+        (resolution, bbox, lambda_max, slope clamp, area term, channel threshold, crop or not); a different set
+        raises. With a tuple area_term (several terms in one pass), a {term: folder} dict: each folder gets the
+        same manifest a single-term run would write.
     boxes: box labels to look for (e.g. "n30e000"). None uses the boxes overlapping `bbox`, or all MERIT boxes.
     bbox: (west, south, east, north) passed to process_archive.
     dem_name, upa_name: tar file names, with {box} for the label.
-    process_kwargs: passed to process_archive (crop_fp, crop_scale, out_res_deg, lambda_max, ...).
+    process_kwargs: passed to process_archive (crop_fp, crop_scale, out_res_deg, lambda_max, area_term, ...).
 
     Returns
     -------
     (manifest, not_found): manifest maps box -> "done" or "error: ..." (errors are retried on the next call);
-    not_found lists boxes whose tars are not in archive_dir yet (not recorded, so they are picked up later).
+    with a tuple area_term it is a {term: manifest} dict. not_found lists boxes whose tars are not in archive_dir
+    yet (not recorded, so they are picked up later).
     """
-    archive_dir, parts_dir = Path(archive_dir), Path(parts_dir)
+    archive_dir = Path(archive_dir)
+    area_term = process_kwargs.pop("area_term", "area")
+    terms = _area_terms(area_term)
+    multi = not isinstance(area_term, str)
+    if multi:
+        if not isinstance(parts_dir, Mapping) or set(parts_dir) != set(terms):
+            raise ValueError(f"with area_term {terms}, parts_dir must be a dict with those keys")
+        dirs = {t: Path(parts_dir[t]) for t in terms}
+    else:
+        dirs = {area_term: Path(parts_dir)}
     if boxes is None:
         boxes = merit_boxes_for_bbox(bbox) if bbox is not None else merit_box_names()
-    parts_dir.mkdir(parents=True, exist_ok=True)
-    manifest_fp = parts_dir / "manifest.json"
-    manifest = _load_manifest(manifest_fp)
 
-    params = _run_params(bbox, process_kwargs)
-    if "_params" in manifest and manifest["_params"] != params:
-        raise ValueError(f"{manifest_fp} was made with {manifest['_params']}, not {params}; use a new parts_dir")
-    manifest["_params"] = params
+    manifests = {}
+    for t, d in dirs.items():
+        d.mkdir(parents=True, exist_ok=True)
+        manifest_fp = d / "manifest.json"
+        manifest = _load_manifest(manifest_fp)
+        params = _run_params(bbox, {**process_kwargs, "area_term": t})
+        if "_params" in manifest and manifest["_params"] != params:
+            raise ValueError(f"{manifest_fp} was made with {manifest['_params']}, not {params}; use a new parts_dir")
+        manifest["_params"] = params
+        manifests[t] = (manifest_fp, manifest)
 
     not_found = []
     for box in boxes:
-        if manifest.get(box) == "done":
+        if all(m.get(box) == "done" for _, m in manifests.values()):
             continue
         dem_tar, upa_tar = archive_dir / dem_name.format(box=box), archive_dir / upa_name.format(box=box)
         if not (dem_tar.exists() and upa_tar.exists()):
             not_found.append(box)
             continue
         try:
-            sums, transform = process_archive(dem_tar, upa_tar, None, bbox=bbox, **process_kwargs)
-            if sums.size:
-                write_sums(parts_dir / f"ls_sums_{box}.tif", sums, transform)
-            manifest[box] = "done"
+            sums, transform = process_archive(dem_tar, upa_tar, None, bbox=bbox, area_term=area_term,
+                                              **process_kwargs)
+            for t, s in (sums.items() if multi else [(area_term, sums)]):
+                if s.size:
+                    write_sums(dirs[t] / f"ls_sums_{box}.tif", s, transform)
+                manifests[t][1][box] = "done"
         except Exception as exc:                                   # keep going; the box is retried next call
-            manifest[box] = f"error: {exc}"
+            for _, m in manifests.values():
+                if m.get(box) != "done":
+                    m[box] = f"error: {exc}"
         finally:
-            manifest_fp.write_text(json.dumps(manifest, indent=1))
-    return manifest, not_found
+            for manifest_fp, m in manifests.values():
+                manifest_fp.write_text(json.dumps(m, indent=1))
+    result = {t: m for t, (_, m) in manifests.items()}
+    return (result if multi else result[area_term]), not_found
 
 
 # MOSAIC

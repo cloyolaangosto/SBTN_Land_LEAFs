@@ -355,3 +355,50 @@ def test_mosaic_rejects_bad_parts(tmp_path):
     ls.write_sums(parts / "ls_sums_c.tif", no_crop, from_origin(10, 10, ls.FIVE_MIN_DEG, ls.FIVE_MIN_DEG))
     with pytest.raises(ValueError, match="crop"):
         ls.mosaic_ls(parts, tmp_path / "ls.tif", tmp_path / "crop.tif")
+
+
+# --- several area terms in one pass ---------------------------------------------------------------------------
+def test_tuple_area_term_matches_single_terms(tmp_path):
+    lon, lat = np.meshgrid(20 + (np.arange(30) + 0.5) * RES, 10 - (np.arange(20) + 0.5) * RES)
+    z = _surface(lon, lat) * 20                                  # steep enough for both S branches and the clamp
+    upa = np.random.default_rng(0).uniform(0.005, 2.0, z.shape)
+    lat_rows = lat[:, 0]
+    both = ls.ls_factor_desmet_govers(_pad(z), upa, lat_rows, RES, area_term=("area", "sca"))
+    for term in ("area", "sca"):
+        np.testing.assert_array_equal(both[term], ls.ls_factor_desmet_govers(_pad(z), upa, lat_rows, RES,
+                                                                             area_term=term))
+    with pytest.raises(ValueError, match="area_term"):
+        ls.ls_factor_desmet_govers(_pad(z), upa, lat_rows, RES, area_term=("area", "area"))
+
+    tars, _ = _make_archives(tmp_path)
+    kw = dict(block_rows=100, show_progress=False)
+    out = {"area": tmp_path / "a" / "p.tif", "sca": tmp_path / "s" / "p.tif"}
+    sums, tr = ls.process_archive(tars["dem"], tars["upa"], out, area_term=("area", "sca"), **kw)
+    for term in ("area", "sca"):
+        single, tr1 = ls.process_archive(tars["dem"], tars["upa"], None, area_term=term, **kw)
+        np.testing.assert_array_equal(sums[term], single)
+        with rasterio.open(out[term]) as src:
+            np.testing.assert_array_equal(src.read(), single)
+    assert tr == tr1
+    with pytest.raises(ValueError, match="out_fp"):
+        ls.process_archive(tars["dem"], tars["upa"], tmp_path / "x.tif", area_term=("area", "sca"), **kw)
+
+
+def test_run_local_tuple_area_term_writes_both_folders(tmp_path):
+    tars, _ = _make_archives(tmp_path)
+    archive_dir = tars["dem"].parent
+    kw = dict(dem_name="dem_{box}.tar", upa_name="upa_{box}.tar", block_rows=100, show_progress=False)
+    dirs = {"area": tmp_path / "parts_area", "sca": tmp_path / "parts_sca"}
+    manifests, not_found = ls.run_local(archive_dir, dirs, boxes=["test", "n00e000"], area_term=("area", "sca"), **kw)
+    assert not_found == ["n00e000"] and all(m["test"] == "done" for m in manifests.values())
+
+    for term, d in dirs.items():                                  # same parts and manifest as a single-term run
+        single_dir = tmp_path / f"single_{term}"
+        single, _ = ls.run_local(archive_dir, single_dir, boxes=["test"], area_term=term, **kw)
+        assert json.loads((d / "manifest.json").read_text()) == json.loads((single_dir / "manifest.json").read_text())
+        with rasterio.open(d / "ls_sums_test.tif") as a, rasterio.open(single_dir / "ls_sums_test.tif") as b:
+            np.testing.assert_array_equal(a.read(), b.read())
+        ls.run_local(archive_dir, d, boxes=["test"], area_term=term, **kw)   # folders stay usable one term at a time
+
+    with pytest.raises(ValueError, match="parts_dir"):
+        ls.run_local(archive_dir, tmp_path / "one", boxes=["test"], area_term=("area", "sca"), **kw)
