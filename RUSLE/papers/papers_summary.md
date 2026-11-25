@@ -333,8 +333,29 @@ On three 5° tiles the same emulation gives 2.40 → 1.17 (Alps), 2.67 → 1.37 
 | Product | DEM, res | Method | Access | Verdict |
 |---|---|---|---|---|
 | **GEDTM30 LS factor** v1.2.0 (OpenLandMap; Zenodo 18702591, Feb 2026) | GEDTM30 ensemble DTM, 30 m; 57°S–84°N | Whitebox `sediment_transport_index` (Moore & Burch 1986; SCA exponent 0.4, slope exponent 1.3) on D8 *specific* catchment area, **with no slope-length cap**. The 60–960 m layers recompute LS on a DEM averaged to that resolution, so they are not field-scale LS. The 30 m COG overviews do average the 30 m LS. | CC-BY-4.0, public COG on s3.opengeohub.org; "use for testing purposes only" | **Not usable.** In a 0.5° Alpine window (7–7.5°E, 46–46.5°N) its mean LS is **0.033** (after the ×1000 scale), against 8.5 (GloSEM v1.1), 10.9 (our GloSEM-compatible LS) and 24.3 (LS1). It is ~300× too low, probably a scaling or units fault in the release. |
-| **DS-LS-GS1** (Scientific Data 2024, doi 10.1038/s41597-024-02917-w) | SRTM 1″ (≈30 m), global | LS-WPC in the LS-TOOL software (LS computed without projection conversion). Equations and caps not yet read; the full text is blocked to automated fetching | TPDC, doi 10.11888/Terre.tpdc.300613, 1,060 tiles; registration needed | The only published global 30 m LS. **Worth a test on box `n30e000`** once downloaded by hand. |
+| **DS-LS-GS1** (Scientific Data 2024, doi 10.1038/s41597-024-02917-w) | SRTM 1″ (≈30 m), global | LS-WPC in the LS-TOOL software (LS computed without projection conversion). Slope length is not capped at 122 m (Suppl. Table 4: up to 1,093 m) | TPDC anonymous FTP (credentials on the data page), 653 GB in 16 zips of ≤ 53 GB, 4° × 6° tiles named by their SW corner (e.g. `N44E6.tif`, ~1.2 GB). `RUSLE/scripts/download_ds_ls_gs1.py` lists, indexes and extracts single tiles | The only published global 30 m LS. **Its country means agree with our LS1** (below). |
 | **EU LS factor** (JRC/ESDAC; Panagos et al. 2015) | EU-DEM 25 m | Desmet & Govers in SAGA (the GloSEM lineage) | ESDAC request form | The regional reference GloSEM validated against. **Worth a test over Europe** to see whether it sits nearer GloSEM or nearer LS1. |
+
+**Country means: DS-LS-GS1 against our layers and GloSEM v1.1** (2026-11-25).
+- DS-LS-GS1 mean LS per country comes from its Supplementary Tables 7–12, matched to Natural Earth: 186 countries.
+- Our layers are area-weighted means of 5′ cells; GloSEM v1.1 uses its 25 km cells.
+
+| Layer | Median ratio to DS-LS-GS1 | Range by continent | Spearman across countries |
+|---|---|---|---|
+| **LS1** | **0.86** | 0.82–0.89 | 0.97 |
+| LS GloSEM-compatible | 0.49 | 0.42–0.54 | 0.96 |
+| LS2 (box `n30e000` only, 43 countries) | 0.58 | 0.48–0.71 | 0.95 |
+| GloSEM v1.1 (25 km) | 0.37 | 0.31–0.41 | 0.94 |
+
+Examples (DS-LS-GS1 / LS1 / GloSEM v1.1): Switzerland 25.1 / 16.7 / 7.0, Italy 13.5 / 10.1 / 4.0, Germany 3.0 / 2.6 / 1.2, USA 5.9 / 4.2 / 1.7, China 10.6 / 8.8 / 4.1.
+
+- An independent global 30 m LS, with a different method and software, lands slightly *above* LS1 and about 2.7× above GloSEM v1.1.
+- This points to GloSEM as the low outlier, consistent with the specific-catchment-area issue (Section 7).
+- **Caveats:**
+  - The methods differ: DS-LS-GS1 has no 122 m cap and uses a 30 m DEM.
+  - DS-LS-GS1's own Table 1 shows DEM resolution alone changes LS strongly. On the same tiles, SRTM 1″ gives a mean of 2.6–4.1 and MERIT 3″ gives 4.7–5.6.
+  - So this ranks the layers; it does not prove the exact level of LS1.
+- A pixel-level check on tiles `N44E6` (Alps) and `N48E6` (Rhine / northern France) is being downloaded.
 
 ---
 
