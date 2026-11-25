@@ -4,9 +4,11 @@ Writes up to three global LS layers in one pass per box (see RUSLE/README.md, LS
 - default, LS1 = correct Desmet & Govers (area_term "area"):  RUSLE/outputs/rusle_LS_all_5m.tif
 - GloSEM-compatible (area_term "sca"):                        RUSLE/outputs/rusle_LS_all_5m_glosem_compat.tif
 - LS2, slope-class exponent + Liu S (area_term "ls2"):        RUSLE/outputs/rusle_LS_all_5m_ls2.tif
-Parts and manifests go to RUSLE/outputs/ls_parts_glosem, ls_parts_glosem_sca and ls_parts_ls2 (the notebook's
-folders), so the run is resumable: rerun the same command and finished boxes are skipped. --variants limits the run
-to some layers (a box is downloaded only if one of them still needs it).
+- LS3, Sun et al. (2024) LS-WPC / CSLE (sbtn_leaf.rusle_ls3):  RUSLE/outputs/rusle_LS_all_5m_ls3.tif
+  (only with --variants ls3; it needs only the DEM tar of each box, so an LS3-only run skips the upa tars)
+Parts and manifests go to RUSLE/outputs/ls_parts_glosem, ls_parts_glosem_sca, ls_parts_ls2 and ls_parts_ls3 (the
+notebook's folders), so the run is resumable: rerun the same command and finished boxes are skipped. --variants limits
+the run to some layers (a box is downloaded only if one of them still needs it).
 
 Passwords: put them in a .env file at the repo root (git-ignored), never in this file:
     MERIT_HYDRO_PASSWORD=...
@@ -17,10 +19,12 @@ Usage (from the repo root, with the project venv):
     python RUSLE/scripts/run_ls_global.py --boxes s30e030    # one box
     python RUSLE/scripts/run_ls_global.py                    # everything, then mosaic
     python RUSLE/scripts/run_ls_global.py --variants ls2     # only the LS2 layer
+    python RUSLE/scripts/run_ls_global.py --variants ls3     # only LS3 (downloads DEM tars only)
     python RUSLE/scripts/run_ls_global.py --fresh            # from scratch: old parts folders moved aside first
     python RUSLE/scripts/run_ls_global.py --mosaic-only --mosaic-partial
 """
 import argparse
+import json
 import logging
 import re
 import shutil
@@ -29,6 +33,7 @@ import time
 from pathlib import Path
 
 import sbtn_leaf.rusle_ls as rls
+import sbtn_leaf.rusle_ls3 as rls3
 from sbtn_leaf.merit_download import DropboxError, DropboxSharedFolder, read_env_file, read_file_list
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -51,7 +56,11 @@ OUTPUTS = {   # area_term -> (parts folder, mosaic suffix)
     "area": (OUT_DIR / "ls_parts_glosem", ""),
     "sca": (OUT_DIR / "ls_parts_glosem_sca", "_glosem_compat"),
     "ls2": (OUT_DIR / "ls_parts_ls2", "_ls2"),
+    "ls3": (OUT_DIR / "ls_parts_ls3", "_ls3"),
 }
+DEFAULT_VARIANTS = ["area", "sca", "ls2"]   # LS3 runs only when asked for (--variants ls3)
+LS3_PARAMS = dict(method="ls3", out_res_deg=rls.FIVE_MIN_DEG, buffer_px=rls3.DEFAULT_BUFFER_PX,
+                  channel_area_m2=rls3.CHANNEL_AREA_M2, cutoff=list(rls3.CUTOFF_FACTORS))
 
 log = logging.getLogger("ls_global")
 
@@ -84,15 +93,15 @@ def remote_files(args):
     return files
 
 
-def box_index(files):
-    """{box: {"dem": (folder, RemoteFile), "upa": (...)}} for boxes with both archives."""
+def box_index(files, kinds=("dem", "upa")):
+    """{box: {"dem": (folder, RemoteFile), "upa": (...)}} for boxes that have all the archives in `kinds`."""
     out = {}
     for name, item in files.items():
         for kind, pattern in (("dem", DEM_NAME), ("upa", UPA_NAME)):
             m = re.fullmatch(pattern.format(box=BOX_RE), name)
             if m:
                 out.setdefault(m.group(1), {})[kind] = item
-    return {b: v for b, v in out.items() if len(v) == 2}
+    return {b: {k: v[k] for k in kinds} for b, v in out.items() if all(k in v for k in kinds)}
 
 
 def manifest_done(box, variants):
@@ -143,10 +152,15 @@ def process_box(box, pair, args, crop_kw, variants):
     t0 = time.time()
     # only the variants this box still needs (the others are done, maybe by an earlier run)
     todo = tuple(v for v in variants if rls._load_manifest(OUTPUTS[v][0] / "manifest.json").get(box) != "done")
-    manifests, _ = rls.run_local(merit_dir, {t: OUTPUTS[t][0] for t in todo}, boxes=[box],
-                                 dem_name=DEM_NAME, upa_name=UPA_NAME, area_term=todo,
-                                 show_progress=False, **SETTINGS, **crop_kw)
-    status = {t: m.get(box) for t, m in manifests.items()}
+    status = {}
+    rls_todo = tuple(v for v in todo if v != "ls3")
+    if rls_todo:
+        manifests, _ = rls.run_local(merit_dir, {t: OUTPUTS[t][0] for t in rls_todo}, boxes=[box],
+                                     dem_name=DEM_NAME, upa_name=UPA_NAME, area_term=rls_todo,
+                                     show_progress=False, **SETTINGS, **crop_kw)
+        status.update({t: m.get(box) for t, m in manifests.items()})
+    if "ls3" in todo:
+        status["ls3"] = run_ls3_box(box, targets["dem"])
     if all(s == "done" for s in status.values()):
         log.info(f"  processed in {(time.time() - t0) / 60:.1f} min")
         to_delete = list(targets.values()) if args.delete_existing else downloaded
@@ -159,6 +173,27 @@ def process_box(box, pair, args, crop_kw, variants):
     return False
 
 
+def run_ls3_box(box, dem_tar):
+    """LS3 for one box into ls_parts_ls3 (same parts and manifest layout as rusle_ls.run_local)."""
+    parts = OUTPUTS["ls3"][0]
+    parts.mkdir(parents=True, exist_ok=True)
+    manifest_fp = parts / "manifest.json"
+    manifest = rls._load_manifest(manifest_fp)
+    if "_params" in manifest and manifest["_params"] != LS3_PARAMS:
+        raise SystemExit(f"{manifest_fp} was made with {manifest['_params']}, not {LS3_PARAMS}")
+    manifest["_params"] = LS3_PARAMS
+    try:
+        sums, transform = rls3.process_archive_ls3(dem_tar, out_res_deg=LS3_PARAMS["out_res_deg"],
+                                                   buffer_px=LS3_PARAMS["buffer_px"], show_progress=False)
+        if sums.size:
+            rls.write_sums(parts / f"ls_sums_{box}.tif", sums, transform)
+        manifest[box] = "done"
+    except Exception as exc:                                   # keep going; retried on the next run
+        manifest[box] = f"error: {exc}"
+    manifest_fp.write_text(json.dumps(manifest, indent=1))
+    return manifest[box]
+
+
 def mosaic(crop_kw, partial, variants, expected=None):
     for term in variants:
         parts, suffix = OUTPUTS[term]
@@ -169,7 +204,7 @@ def mosaic(crop_kw, partial, variants, expected=None):
                      "skipped (use --mosaic-partial)")
             continue
         all_fp = OUT_DIR / f"rusle_LS_all_5m{suffix}.tif"
-        crop_fp = OUT_DIR / f"rusle_LS_crop_5m{suffix}.tif" if crop_kw else None
+        crop_fp = OUT_DIR / f"rusle_LS_crop_5m{suffix}.tif" if crop_kw and term != "ls3" else None   # LS3: no crop
         rls.mosaic_ls(parts, all_fp, crop_fp, res_deg=SETTINGS["out_res_deg"])
         log.info(f"mosaic {term}: {len(done)} boxes -> {all_fp.relative_to(ROOT)}"
                  + (f" and {crop_fp.name}" if crop_fp else ""))
@@ -181,8 +216,8 @@ def main():
     ap.add_argument("--dry-run", action="store_true", help="log in and list; download and process nothing")
     ap.add_argument("--mosaic-only", action="store_true", help="skip downloads and processing")
     ap.add_argument("--mosaic-partial", action="store_true", help="mosaic even if some boxes are not done")
-    ap.add_argument("--variants", nargs="+", choices=list(OUTPUTS), default=list(OUTPUTS),
-                    help="LS layers to compute and mosaic (default: all)")
+    ap.add_argument("--variants", nargs="+", choices=list(OUTPUTS), default=DEFAULT_VARIANTS,
+                    help=f"LS layers to compute and mosaic (default: {' '.join(DEFAULT_VARIANTS)}; add ls3 for LS3)")
     ap.add_argument("--fresh", action="store_true",
                     help="start from scratch: move the selected parts folders aside (renamed, not deleted)")
     ap.add_argument("--keep-tars", action="store_true", help="do not delete the tars after processing")
@@ -203,7 +238,8 @@ def main():
         mosaic(crop_kw, args.mosaic_partial, variants)
         return
 
-    boxes = box_index(remote_files(args))
+    kinds = ("dem",) if set(variants) == {"ls3"} else ("dem", "upa")       # LS3 alone needs no upa
+    boxes = box_index(remote_files(args), kinds)
     wanted = [b for b in rls.merit_box_names() if b in boxes and (not args.boxes or b in args.boxes)]
     unknown = sorted(set(args.boxes or []) - set(boxes))
     if unknown:
