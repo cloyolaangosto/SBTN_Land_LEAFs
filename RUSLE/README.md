@@ -213,14 +213,24 @@ Output files:
     - **What it shows:**
       - Run on our 3″ MERIT DEM, LS3 lands within 5% of the published 1″ SRTM DS-LS-GS1 country means, with Spearman 1.00 across 39 countries. The implementation reproduces that dataset, and DEM resolution matters less here than its Suppl. Table 1 suggested.
       - LS3 is 1.2× LS1 and 3× GloSEM v1.1. Two independent full-flow-path methods put LS well above GloSEM.
-      - The output is `rusle_LS_all_5m_ls3_partial.tif` (the two boxes only). A global LS3 needs the MERIT DEM tars of the other 55 boxes, not the `upa` tars.
-    - **Pixel-level check:** the DS-LS-GS1 tiles `N44E6` and `N48E6` are being downloaded (`RUSLE/scripts/download_ds_ls_gs1.py`). The notebook's last LS3 cell compares them cell by cell once they are on disk.
+    - **Global run** (2026-11-25, all 57 boxes; `python RUSLE/scripts/run_ls_global.py --variants ls3`, about 6 h including the DEM downloads):
+
+      | Layer | ÷ GloSEM v1.1 (25 km, world) | ÷ GloSEM by continent | ÷ DS-LS-GS1 (183 countries, area-weighted) | median country ratio to DS-LS-GS1 | Spearman with DS-LS-GS1 |
+      |---|---|---|---|---|---|
+      | **LS3** | **3.07** | 2.7–3.3 | **1.05** | **1.04** (1.03–1.05 by continent) | 0.99 |
+      | LS1 | 2.40 | 2.2–2.5 | 0.82 | 0.86 | 0.99 |
+      | LS GloSEM-compatible | 1.27 | 1.2–1.35 | 0.43 | 0.49 | 0.99 |
+      | GloSEM v1.1 | 1 | 1 | 0.37 | 0.37 (0.31–0.41) | 0.94 |
+
+      - The global run confirms the two test boxes: LS3 reproduces DS-LS-GS1 on every continent, and is 1.28× LS1 on the same 5′ cells (world mean 5.15 vs 4.02). GloSEM v1.1 is the low outlier.
+      - Tables: `RUSLE/outputs/ls_global_vs_glosem_by_continent.csv` and `ls_global_country_means_vs_ds_ls_gs1.csv`.
+    - **Pixel-level check:** the DS-LS-GS1 tiles `N44E6` and `N48E6` were not downloaded; the download was stopped on 2026-11-25 because the TPDC FTP gave about 1 MB/min. The notebook's last LS3 cell compares them cell by cell if they are ever put on disk.
 
 Output files:
 - `rusle_LS_all_5m.tif` (default, `"area"`)
 - `rusle_LS_all_5m_glosem_compat.tif` (GloSEM-compatible, `"sca"`)
 - `rusle_LS_all_5m_ls2.tif` (LS2, `"ls2"`; so far only box `n30e000`)
-- `rusle_LS_all_5m_ls3_partial.tif` (LS3, Sun et al. 2024; boxes `n30e000` and `n00e000`)
+- `rusle_LS_all_5m_ls3.tif` (LS3, Sun et al. 2024; global); `rusle_LS_all_5m_ls3_partial.tif` (boxes `n30e000` and `n00e000` only)
 - `rusle_LS_crop_5m.tif` (only when crop weights are available)
 
 ### Validation of the new layers
